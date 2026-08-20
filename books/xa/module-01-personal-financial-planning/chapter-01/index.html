@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 1 — Introduction to Personal Financial Planning | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Introduction to Personal Financial Planning — NISM Series-X-A, Module 1, Chapter 1." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* Scope diagram */
+  .scope-diagram-wrap { display:flex; justify-content:center; }
+  .scope-node { cursor: pointer; }
+  .scope-node circle.dot { transition: r var(--dur-fast) var(--ease-spring), fill var(--dur-fast); }
+  .scope-node:hover circle.dot { r: 30; }
+  .scope-node text { font-size: 10.5px; font-weight: 700; fill: var(--text-primary); }
+  .scope-node .sub-lbl { font-size: 8.5px; font-weight: 400; fill: var(--text-secondary); }
+  .scope-line {
+    stroke: var(--border-subtle);
+    stroke-width: 1.6;
+    stroke-dasharray: 260;
+    stroke-dashoffset: 260;
+    animation: draw-line 1s var(--ease-out) forwards;
+  }
+  @keyframes draw-line { to { stroke-dashoffset: 0; } }
+  .scope-center circle { fill: var(--navy-900); }
+  .scope-center text { fill: #fff; font-weight: 700; font-size: 11px; }
+
+  /* Net worth scale */
+  .scale-wrap { display:flex; flex-direction:column; align-items:center; gap: 22px; }
+  .scale-figures { display:flex; gap: 28px; flex-wrap: wrap; justify-content:center; }
+  .scale-figure { text-align:center; }
+  .scale-figure .amt { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; }
+  .scale-figure .lbl { font-size: 0.76rem; color: var(--text-secondary); text-transform:uppercase; letter-spacing: .05em; }
+  .scale-figure.assets .amt { color: var(--teal-500); }
+  .scale-figure.liabilities .amt { color: var(--red-500); }
+  .scale-figure.networth .amt { color: var(--gold-600); }
+  .beam { transform-origin: 190px 60px; transition: transform 900ms var(--ease-spring); }
+
+  /* Business model cards */
+  .model-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(230px,1fr)); gap: 16px; margin: 22px 0; }
+  .model-card { padding: 20px; }
+  .model-card .tag { margin-bottom: 10px; }
+  .model-card h4 { margin-bottom: 8px; }
+  .model-card p { font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 0; }
+
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 1 · Personal Financial Planning</span>
+      <span class="badge badge-gold">Chapter 1 of 4</span>
+    </div>
+    <h1>Introduction to Personal Financial Planning</h1>
+    <p class="lede">What financial planning actually means, why clients need it, everything it covers, how to read a household's net worth, the six-step advisory process, and how advisers are paid.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~18 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 30 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 6 sub-topics</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:620px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Concept of financial planning</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Need for financial planning</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Scope of financial planning</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Concept of asset, liabilities and net worth</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Financial Planning process</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Financial advisory and execution</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-1-1">1.1 Concept of Financial Planning</a></li>
+      <li><a href="#sec-1-2">1.2 Need for Financial Planning</a></li>
+      <li><a href="#sec-1-3">1.3 Scope of Financial Planning</a></li>
+      <li><a href="#sec-1-4">1.4 Asset, Liabilities &amp; Net Worth</a></li>
+      <li><a href="#sec-1-5">1.5 Financial Planning Process</a></li>
+      <li><a href="#sec-1-6">1.6 Advisory &amp; Execution</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main">
+
+    <!-- 1.1 -->
+    <section class="lesson-section" id="sec-1-1">
+      <span class="section-kicker">1.1</span>
+      <h2>Understand the concept of Financial Planning</h2>
+      <p>Financial planning aims at ensuring that a household or individual has adequate income or resources to meet current and future expenses and needs. Regular income — from a profession, salary, business or investments — funds routine activities, but income must also provide for periods with no income (like retirement), unexpected expenses (a large medical bill), and future high-cost needs (a child's education, a home).</p>
+      <p>A portion of current income is therefore saved and channelled into assets that will meet these requirements. In short: <strong>financial planning streamlines income, expenses, assets and liabilities to take care of both current and future needs for funds.</strong></p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — Vinod, 40</strong>
+          <p>Vinod earns Rs. 2 lakh a month and saves about Rs. 40,000 after routine expenses, loan payments, tax-saving investments, deposits, bonds and mutual funds, plus life insurance premiums for himself and his wife. He's the sole earner and believes he's managing well. Would financial planning still help him?</p>
+          <p>Yes — a formal process would surface questions he hasn't structured an answer to: Does he have an emergency fund? Adequate life and health cover? A sized corpus for each future goal? Is he saving enough to reach it? How much investment risk can and should he take — and is that risk being managed?</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Vinod already saves Rs. 40,000/month consistently. What is the ONE thing this fact alone tells a planner?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">That he has no further financial planning needs</button>
+          <button class="mini-opt" data-correct="true">Only that he has surplus income — not whether it is enough, correctly insured, or correctly invested for his goals</button>
+          <button class="mini-opt" data-correct="false">That his risk profile must be aggressive</button>
+        </div>
+        <div class="feedback" data-correct-msg="Right — a healthy savings habit says nothing about whether the corpus being built is actually sized, insured and invested correctly for Vinod's goals." data-wrong-msg="Not quite — saving consistently only confirms surplus income exists. It says nothing about adequacy of insurance, sizing of goals, or investment suitability."></div>
+      </div>
+    </section>
+
+    <!-- 1.2 -->
+    <section class="lesson-section" id="sec-1-2">
+      <span class="section-kicker">1.2</span>
+      <h2>Understand the need for financial planning</h2>
+      <p>Investors face a huge range of financial products and services, but not every product suits every client — and most clients can't independently judge how to choose between them. Financial planning bridges this gap: the Investment Adviser understands both the mechanics of the products and the specific needs of the client.</p>
+
+      <h3 id="sec-1-2-1" style="margin-top:28px">1.2.1 Role of the Financial Planner</h3>
+      <p>Click each card to see why this is a specialised skill, not something most individuals can do well on their own.</p>
+      <div class="flip-grid" id="role-flip-grid"></div>
+
+      <h3 id="sec-1-2-2" style="margin-top:34px">1.2.2 How is financial planning different from typical financial advisory services?</h3>
+      <div style="overflow-x:auto">
+        <table class="compare-table">
+          <thead><tr><th>Dimension</th><th>Financial planning</th><th>Typical financial advisory</th></tr></thead>
+          <tbody>
+            <tr><td>Focus</td><td>Centred on the client, their needs and goals</td><td>Centred on a specific product (e.g. a stock or a debt fund)</td></tr>
+            <tr><td>Coverage</td><td>Comprehensive — retirement, insurance, investment, estate and more</td><td>Usually a small part of the client's total requirements</td></tr>
+            <tr><td>Goal orientation</td><td>Goal setting is central; all effort is directed at meeting goals</td><td>Overall goals often get little weight</td></tr>
+            <tr><td>Coordination</td><td>Ensures activities work together and don't conflict (e.g. equity exposure checked across all products)</td><td>May recommend something that undermines another goal, unknowingly</td></tr>
+            <tr><td>Monitoring</td><td>Built into the process as a natural, ongoing step</td><td>Client often has to take the initiative themselves</td></tr>
+            <tr><td>Risk vs return</td><td>Balances both, matched to the individual</td><td>May chase return while ignoring risk</td></tr>
+            <tr><td>Continuity</td><td>An ongoing relationship</td><td>Can be a one-time or piecemeal exercise</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 1.3 -->
+    <section class="lesson-section" id="sec-1-3">
+      <span class="section-kicker">1.3</span>
+      <h2>Scope of financial planning</h2>
+      <p>Financial planning helps a household manage its finances in line with short- and long-term objectives. It spans eight interlocking areas around the client's overall financial life. Click any node in the diagram to jump to that topic.</p>
+
+      <div class="diagram-frame">
+        <div class="scope-diagram-wrap">
+          <svg viewBox="0 0 380 380" width="100%" style="max-width:460px">
+            <!-- connecting lines -->
+            <g>
+              <line class="scope-line" x1="190" y1="190" x2="190" y2="55" style="animation-delay:.05s"/>
+              <line class="scope-line" x1="190" y1="190" x2="285" y2="95" style="animation-delay:.1s"/>
+              <line class="scope-line" x1="190" y1="190" x2="325" y2="190" style="animation-delay:.15s"/>
+              <line class="scope-line" x1="190" y1="190" x2="285" y2="285" style="animation-delay:.2s"/>
+              <line class="scope-line" x1="190" y1="190" x2="190" y2="325" style="animation-delay:.25s"/>
+              <line class="scope-line" x1="190" y1="190" x2="95" y2="285" style="animation-delay:.3s"/>
+              <line class="scope-line" x1="190" y1="190" x2="55" y2="190" style="animation-delay:.35s"/>
+              <line class="scope-line" x1="190" y1="190" x2="95" y2="95" style="animation-delay:.4s"/>
+            </g>
+            <!-- center -->
+            <g class="scope-center">
+              <circle cx="190" cy="190" r="42"/>
+              <text x="190" y="185" text-anchor="middle">CLIENT'S</text>
+              <text x="190" y="200" text-anchor="middle">FINANCIAL LIFE</text>
+            </g>
+            <!-- nodes -->
+            <a href="#scope-goals"><g class="scope-node" transform="translate(190,55)">
+              <circle class="dot" r="26" fill="#d4af37"/>
+              <text y="-34" text-anchor="middle">Goal Setting</text>
+            </g></a>
+            <a href="#scope-cashflow"><g class="scope-node" transform="translate(285,95)">
+              <circle class="dot" r="26" fill="#2fb6a9"/>
+              <text y="-34" text-anchor="middle">Cash Flow</text>
+            </g></a>
+            <a href="#scope-insurance"><g class="scope-node" transform="translate(325,190)">
+              <circle class="dot" r="26" fill="#e5534b"/>
+              <text x="0" y="-34" text-anchor="middle">Insurance</text>
+            </g></a>
+            <a href="#scope-debt"><g class="scope-node" transform="translate(285,285)">
+              <circle class="dot" r="26" fill="#2b5299"/>
+              <text y="46" text-anchor="middle">Debt Mgmt</text>
+            </g></a>
+            <a href="#scope-invest"><g class="scope-node" transform="translate(190,325)">
+              <circle class="dot" r="26" fill="#7c5cff"/>
+              <text y="46" text-anchor="middle">Investment</text>
+            </g></a>
+            <a href="#scope-tax"><g class="scope-node" transform="translate(95,285)">
+              <circle class="dot" r="26" fill="#2fae66"/>
+              <text y="46" text-anchor="middle">Tax Planning</text>
+            </g></a>
+            <a href="#scope-retirement"><g class="scope-node" transform="translate(55,190)">
+              <circle class="dot" r="26" fill="#d4af37"/>
+              <text x="0" y="-34" text-anchor="middle">Retirement</text>
+            </g></a>
+            <a href="#scope-estate"><g class="scope-node" transform="translate(95,95)">
+              <circle class="dot" r="26" fill="#2fb6a9"/>
+              <text y="-34" text-anchor="middle">Estate</text>
+            </g></a>
+          </svg>
+        </div>
+        <div class="caption">The eight elements of financial advisory &amp; planning services — click a node to read more</div>
+      </div>
+
+      <h3 id="scope-goals" style="margin-top:34px">1.3.1 Personal financial analysis — goal setting</h3>
+      <p>The process starts with setting goals: a clear target with specific detail (not "I want to be rich" but "I want Rs. 50 lakh a year"), that is measurable, realistic given the client's savings capacity, and time-bound. Once listed, goals must be <strong>prioritised</strong> — important goals like children's education and retirement ahead of discretionary spending like a car.</p>
+
+      <p>The mnemonic below is the standard test for whether a goal is usable in planning. Click each letter.</p>
+      <div class="flip-grid" id="smart-flip-grid"></div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — In the SMART framework, what does the "M" stand for?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Monetary</button>
+          <button class="mini-opt" data-correct="true">Measurable</button>
+          <button class="mini-opt" data-correct="false">Monthly</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a goal must be measurable so the exact amount needed to reach it is known." data-wrong-msg="Not quite — M stands for Measurable: the goal must specify an amount that can be tracked."></div>
+      </div>
+
+      <h3 id="scope-cashflow" style="margin-top:34px">1.3.2 Cash flow management &amp; budgeting</h3>
+      <p>Even a client who spends less than they earn can run into cash flow problems if inflows and outflows are mistimed — for example, a large expense early in the month before income arrives. This can force costly short-term borrowing. A <strong>budget</strong> — a list of inflows and outflows with their timing — is the standard tool to prevent this.</p>
+
+      <h3 id="scope-insurance" style="margin-top:34px">1.3.3 Insurance Planning</h3>
+      <p>Insurance is a risk-transfer mechanism: a small premium buys protection against a large, unexpected loss. Life insurance covers temporary loss of income (disability) and permanent loss of income (death). Health and accident insurance address unexpected medical costs. General insurance covers loss or damage to property. Planning here means estimating potential losses and matching them to the right product and cover amount.</p>
+
+      <h3 id="scope-debt" style="margin-top:34px">1.3.4 Debt management and counselling</h3>
+      <p>Borrowing uses tomorrow's income today — future income must be set aside to repay it, which can stress even essential spending. The asset funded matters: an appreciating asset like property (which can also earn rent) strengthens wealth, while a depreciating asset like a car adds convenience but ongoing cost. Advisers help decide what to fund via debt, how much to borrow, how repayment is provided for, and how to avoid a debt trap.</p>
+
+      <h3 id="scope-invest" style="margin-top:34px">1.3.5 Investment Planning and Asset Allocation</h3>
+      <p>This is about funding the goals identified earlier. The adviser doesn't pick individual stocks or bonds — instead, it's a <strong>top-down asset allocation</strong> exercise: how much goes into which asset class to deliver the required return within the client's risk preference.</p>
+
+      <h3 id="scope-tax" style="margin-top:34px">1.3.6 Tax Planning</h3>
+      <p>Taxes affect how much a client can save, the return earned, and therefore the final corpus. Post-tax returns, taxability of dividends/rent/interest, and holding-period rules all matter — but tax efficiency should guide, not drive, the decision. The basis remains the client's requirements and risk appetite.</p>
+
+      <h3 id="scope-retirement" style="margin-top:34px">1.3.7 Retirement Planning</h3>
+      <p>Many people under-plan retirement, assuming provident fund, superannuation and gratuity will be enough — often they aren't. Retirement planning leans heavily on time value of money, inflation and compounding. Pre-retirement, portfolios shift to less volatile assets; post-retirement, focus moves to whether investment and pension income covers expenses, with the corpus still monitored and rebalanced through the retirement years.</p>
+
+      <h3 id="scope-estate" style="margin-top:34px">1.3.8 Estate Planning</h3>
+      <p>Estate planning covers the transfer of wealth to heirs, charities or other beneficiaries — legally and tax-efficiently. Some tools, like gifts, are exercised during one's lifetime; others, like wills, take effect only after death. Advisers help clients choose the right tools and complete documentation correctly.</p>
+    </section>
+
+    <!-- 1.4 -->
+    <section class="lesson-section" id="sec-1-4">
+      <span class="section-kicker">1.4</span>
+      <h2>Concept of asset, liabilities and net worth</h2>
+      <p>Income funds current expenses; the portion set aside for the future is <strong>savings</strong>. Savings are put to work in <strong>assets</strong> — broadly physical (real estate, gold — tangible, natural inflation hedges, but illiquid and lightly regulated) or financial (deposits, equities, bonds — a claim on benefits, typically standardised, liquid and easier to compare). Loans used to buy assets create a <strong>liability</strong> — a repayment obligation against future income.</p>
+
+      <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))" id="asset-flip-grid"></div>
+
+      <p style="margin-top:26px">A household's financial well-being is captured in one number:</p>
+
+      <div class="diagram-frame">
+        <div class="scale-wrap">
+          <svg viewBox="0 0 380 200" width="100%" style="max-width:420px">
+            <g class="beam" id="scale-beam">
+              <line x1="60" y1="80" x2="320" y2="80" stroke="var(--ink-500)" stroke-width="4" stroke-linecap="round"/>
+              <line x1="60" y1="80" x2="60" y2="120" stroke="var(--teal-500)" stroke-width="3"/>
+              <line x1="320" y1="80" x2="320" y2="120" stroke="var(--red-500)" stroke-width="3"/>
+              <rect x="30" y="120" width="60" height="8" rx="4" fill="var(--teal-500)"/>
+              <rect x="290" y="120" width="60" height="8" rx="4" fill="var(--red-500)"/>
+            </g>
+            <line x1="190" y1="30" x2="190" y2="80" stroke="var(--ink-500)" stroke-width="5"/>
+            <polygon points="190,140 170,168 210,168" fill="var(--navy-800)"/>
+            <rect x="150" y="168" width="80" height="10" rx="4" fill="var(--navy-800)"/>
+            <circle cx="190" cy="30" r="10" fill="var(--gold-500)"/>
+          </svg>
+          <div class="scale-figures">
+            <div class="scale-figure assets"><div class="amt" data-count="8500000">₹0</div><div class="lbl">Assets</div></div>
+            <div class="scale-figure liabilities"><div class="amt" data-count="3200000">₹0</div><div class="lbl">Liabilities</div></div>
+            <div class="scale-figure networth"><div class="amt" data-count="5300000">₹0</div><div class="lbl">Net worth</div></div>
+          </div>
+        </div>
+        <div class="caption">Illustrative household — Net Worth = Assets − Liabilities. Calculate it periodically and track the trend.</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A household has Rs. 60 lakh in assets and Rs. 22 lakh in outstanding loans. What is its net worth?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Rs. 82 lakh</button>
+          <button class="mini-opt" data-correct="true">Rs. 38 lakh</button>
+          <button class="mini-opt" data-correct="false">Rs. 22 lakh</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — Net Worth = Assets (60L) − Liabilities (22L) = Rs. 38 lakh." data-wrong-msg="Net Worth = Assets − Liabilities = Rs. 60L − Rs. 22L = Rs. 38 lakh."></div>
+      </div>
+    </section>
+
+    <!-- 1.5 -->
+    <section class="lesson-section" id="sec-1-5">
+      <span class="section-kicker">1.5</span>
+      <h2>Financial Planning process</h2>
+      <p>NISM defines a six-step process Investment Advisers follow, within the context of a defined planner–client relationship. Scroll down to see each step reveal in order.</p>
+
+      <div class="stepper" id="process-stepper"></div>
+    </section>
+
+    <!-- 1.6 -->
+    <section class="lesson-section" id="sec-1-6">
+      <span class="section-kicker">1.6</span>
+      <h2>Financial advisory and execution</h2>
+      <p>When someone selling financial products earns commission from the manufacturer, there's a built-in conflict of interest — they may push higher-commission products over suitable ones (mis-selling). SEBI's regulatory response: separate <em>advice</em> (paid by the client) from <em>distribution</em> (paid by commission). Advisers offering advice for a fee must register with SEBI and cannot also earn from product producers.</p>
+
+      <div class="model-grid" id="model-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Regulatory note</strong>
+          <p>Under SEBI's amended Investment Adviser Regulations, an individual Investment Adviser must choose either advisory or distribution — not both. A non-individual adviser must segregate the two at the group level with an arm's-length structure. Individual advisers may still offer execution, but only through direct schemes/products, with no consideration received at the adviser's group or family level.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch01";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 1", href: "../../index.html" },
+    { label: "Chapter 1", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---- Role of the Financial Planner flip cards ----
+  var roleItems = [
+    { icon: "🎯", label: "Identifies goals", back: "Recognises the exact needs and goals of an individual or household and works to ensure they're achieved." },
+    { icon: "⏱️", label: "Saves time", back: "Personal finance management needs time most busy individuals don't have to dedicate to it." },
+    { icon: "🧭", label: "Goal-setting skill", back: "Setting realistic, well-formed goals is a specific expertise most individuals lack." },
+    { icon: "🧩", label: "Right asset mix", back: "Every goal needs a suitable product and asset allocation — where the planner steps in." },
+    { icon: "🔎", label: "Product research", back: "Comparing and evaluating competing products, providers and managers takes deep, ongoing research." },
+    { icon: "⚖️", label: "Asset allocation", back: "A technical discipline: evaluating risk/return, aligning to goals, and rebalancing weights over time." },
+    { icon: "🔄", label: "Dynamic attention", back: "Markets, products and client circumstances change constantly — planning requires continuous attention." }
+  ];
+  document.getElementById("role-flip-grid").innerHTML = roleItems.map(function (it) {
+    return '<div class="flip-card"><div class="flip-card-inner">' +
+      '<div class="flip-face flip-front"><div style="font-size:26px">' + it.icon + '</div><div class="label">' + it.label + '</div><div class="hint">Tap to see why</div></div>' +
+      '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+    '</div></div>';
+  }).join("");
+
+  // ---- SMART flip cards ----
+  var smart = [
+    { l: "S", label: "Specific", back: "State exactly what you want to accomplish — who, what, where, why. \"I want Rs. 50L a year\" beats \"I want to be rich.\"" },
+    { l: "M", label: "Measurable", back: "The goal must have a concrete amount so progress and completion can be tracked." },
+    { l: "A", label: "Achievable", back: "The goal should be within the client's realistic ability to save and invest — stretching, not impossible." },
+    { l: "R", label: "Relevant", back: "The goal should tie into the client's real priorities and life objectives." },
+    { l: "T", label: "Time-bound", back: "Set a target date — the \"by when\" — so the plan knows how long it has to work." }
+  ];
+  document.getElementById("smart-flip-grid").innerHTML = smart.map(function (it) {
+    return '<div class="flip-card"><div class="flip-card-inner">' +
+      '<div class="flip-face flip-front"><div style="font-size:28px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.l + '</div><div class="label">' + it.label + '</div><div class="hint">Tap to expand</div></div>' +
+      '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+    '</div></div>';
+  }).join("");
+
+  // ---- Physical vs Financial asset cards ----
+  var assetCards = [
+    { icon: "🏠", label: "Physical assets", back: "Real estate, gold, precious metals. Intrinsic value, natural inflation hedge, growth-oriented — but illiquid, lightly regulated, and needing specialised skill and large ticket sizes." },
+    { icon: "📄", label: "Financial assets", back: "Deposits, equities, bonds. A claim on benefits (interest, dividends, repayment). Standardised, regulated, easier to evaluate and compare, and available in small units." }
+  ];
+  document.getElementById("asset-flip-grid").innerHTML = assetCards.map(function (it) {
+    return '<div class="flip-card"><div class="flip-card-inner">' +
+      '<div class="flip-face flip-front"><div style="font-size:28px">' + it.icon + '</div><div class="label">' + it.label + '</div><div class="hint">Tap to compare</div></div>' +
+      '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+    '</div></div>';
+  }).join("");
+
+  // ---- Six-step process stepper ----
+  var steps = [
+    { t: "Establish and define the client-planner relationship", d: "The process begins when the client engages the adviser and both agree on the scope and terms of work." },
+    { t: "Gather client data, including goals", d: "Define future needs precisely — how much money, and by when." },
+    { t: "Analyse and evaluate financial status", d: "Understand current income, expenses, assets and liabilities to gauge the ability to save." },
+    { t: "Develop and present financial planning recommendations", d: "A plan of action — income, expenses, asset reallocation, liabilities, and a saving/investment plan." },
+    { t: "Implement the financial planning recommendations", d: "Execute the plan and complete the necessary paperwork and procedures." },
+    { t: "Monitor the financial planning recommendations", d: "Review performance and circumstances continuously, revising the plan as needed." }
+  ];
+  document.getElementById("process-stepper").innerHTML = steps.map(function (s, i) {
+    return '<div class="step"><div class="step-rail"><div class="step-num">' + (i + 1) + '</div><div class="step-line"></div></div>' +
+      '<div class="step-body"><h4>' + s.t + '</h4><p>' + s.d + '</p></div></div>';
+  }).join("");
+
+  // ---- Business model cards ----
+  var models = [
+    { tag: "badge-gold", name: "Fee-only planners", body: "Earn primarily from the client — one-time plan fees, ongoing review fees, asset-based fees, or fees for assessment and portfolio construction. Usually don't execute trades themselves, to avoid commission bias." },
+    { tag: "badge-navy", name: "Execution-only services", body: "Core function is distribution. Income comes from commissions on products sold, potentially across investment, insurance, banking and loan products." },
+    { tag: "badge-teal", name: "Wraps &amp; platforms", body: "Technology-based, standardised execution for model portfolios. May charge the client and share the fee with the adviser using the platform." }
+  ];
+  document.getElementById("model-grid").innerHTML = models.map(function (m) {
+    return '<div class="card model-card"><span class="badge ' + m.tag + ' tag">Business model</span><h4>' + m.name + '</h4><p>' + m.body + '</p></div>';
+  }).join("");
+
+  // ---- Net worth count-up animation ----
+  function animateCount(el, target, duration) {
+    var start = performance.now();
+    function tick(now) {
+      var progress = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var val = Math.round(target * eased);
+      el.textContent = "₹" + val.toLocaleString("en-IN");
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var scaleObserver = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        document.querySelectorAll(".scale-figure .amt").forEach(function (el) {
+          animateCount(el, parseInt(el.dataset.count, 10), 1200);
+        });
+        document.getElementById("scale-beam").style.transform = "rotate(-6deg)";
+        obs.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  scaleObserver.observe(document.querySelector(".scale-wrap"));
+
+  // ---- Quiz ----
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH01_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  // ---- Page-wide interaction wiring ----
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

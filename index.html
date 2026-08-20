@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NISM Learn — Investment Adviser Certification Prep</title>
+<meta name="description" content="Interactive, chapter-by-chapter learning for the NISM Series-X Investment Adviser certifications." />
+<link rel="stylesheet" href="assets/css/design-system.css" />
+<link rel="stylesheet" href="assets/css/components.css" />
+<style>
+  .hero {
+    padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 72px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10% auto -10%;
+    height: 480px;
+    background:
+      radial-gradient(600px 260px at 20% 20%, color-mix(in srgb, var(--gold-500) 16%, transparent), transparent 65%),
+      radial-gradient(600px 260px at 80% 10%, color-mix(in srgb, var(--teal-500) 14%, transparent), transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero .kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gold-600);
+    background: color-mix(in srgb, var(--gold-500) 12%, transparent);
+    padding: 6px 14px; border-radius: var(--radius-pill);
+    margin-bottom: 20px;
+  }
+  .hero h1 { max-width: 760px; margin-left: auto; margin-right: auto; }
+  .hero h1 .accent {
+    background: linear-gradient(100deg, var(--gold-500), var(--teal-500));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .lede { max-width: 600px; margin: 0 auto 30px; font-size: 1.08rem; color: var(--text-secondary); }
+
+  .stats-strip {
+    display: flex; justify-content: center; gap: clamp(20px, 6vw, 56px); flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .stat { text-align: center; }
+  .stat .num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; color: var(--text-primary); }
+  .stat .lbl { font-size: 0.76rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .books-section { padding: 20px 0 80px; }
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 26px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .book-card {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+  }
+  .book-card.locked { opacity: 0.62; }
+  .book-card .top-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+  .book-card .code { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 6px; display:block; }
+  .book-card h3 { margin-bottom: 6px; }
+  .book-card p.tagline { color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 0; }
+  .book-card .meta-line { display: flex; gap: 18px; font-size: 0.8rem; color: var(--text-secondary); flex-wrap: wrap; }
+  .book-card .meta-line strong { color: var(--text-primary); }
+  .book-card .cta-row { margin-top: auto; display: flex; align-items: center; gap: 14px; justify-content: space-between; }
+  .book-icon {
+    width: 52px; height: 52px; border-radius: var(--radius-md);
+    display: grid; place-items: center; flex-shrink: 0;
+    background: linear-gradient(145deg, var(--navy-800), var(--navy-950));
+    color: var(--gold-400);
+  }
+  .book-icon svg { width: 28px; height: 28px; }
+
+  .why-section { padding: 10px 0 90px; }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 20px; max-width: 980px; margin: 32px auto 0;
+  }
+  .why-card { padding: 22px; text-align: left; }
+  .why-card svg { width: 26px; height: 26px; color: var(--gold-600); margin-bottom: 12px; }
+  .why-card h4 { margin-bottom: 6px; font-size: 1rem; }
+  .why-card p { font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 0; }
+  .section-heading { text-align: center; max-width: 560px; margin: 0 auto; }
+  .section-heading p { color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link current" href="index.html">Home</a>
+      <a class="nav-link" href="books/xa/index.html">Course</a>
+      <a class="nav-link" href="dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="overall-progress"></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <span class="kicker">Personal exam-prep companion</span>
+    <h1>Learn <span class="accent">Investment Advisory</span> the way it should be taught</h1>
+    <p class="lede">Interactive, chapter-by-chapter lessons built directly from the official NISM Series-X workbooks — with visual explanations and a graded assessment at the end of every chapter.</p>
+    <div class="stats-strip" id="stats-strip"></div>
+  </div>
+</section>
+
+<section class="books-section">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Choose a certification</h2>
+      <p>Each book is organised as modules of chapters, matching the official NISM syllabus.</p>
+    </div>
+    <div class="books-grid" id="books-grid"></div>
+  </div>
+</section>
+
+<section class="why-section">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Built to actually teach the material</h2>
+      <p>Not a PDF viewer. Every chapter is redesigned as an interactive lesson.</p>
+    </div>
+    <div class="why-grid">
+      <div class="card why-card">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.6"/></svg>
+        <h4>Chapter-exact content</h4>
+        <p>Every lesson is built from the actual NISM workbook text — same concepts, same terminology, same examples.</p>
+      </div>
+      <div class="card why-card">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 12c2-5 6-8 9-8s7 3 9 8c-2 5-6 8-9 8s-7-3-9-8z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg>
+        <h4>Visual, not just text</h4>
+        <p>Animated SVG diagrams and interactive cards turn abstract concepts like net worth or asset allocation into something you can see.</p>
+      </div>
+      <div class="card why-card">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+        <h4>Graded at every chapter</h4>
+        <p>A dedicated assessment closes out each chapter, drawing heavily on its content so you know exactly what you've absorbed.</p>
+      </div>
+      <div class="card why-card">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5.5L20 9l-4.5 3.9L16.9 19 12 15.8 7.1 19l1.4-6.1L4 9l5.5-.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <h4>Tracks your progress</h4>
+        <p>Scores and completion are saved on this device, so you always know how far along you are in each book.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "";</script>
+<script src="assets/js/curriculum.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/nav.js"></script>
+<script>
+  var BOOK_ICONS = {
+    xa: '<svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 13l2.5 2.5L16 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    xb: '<svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 16V9M12 16v-4M15 16v-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+  };
+
+  function renderBooks() {
+    var grid = document.getElementById("books-grid");
+    var totalChaptersDone = 0, totalChaptersAll = 0, totalActiveChapters = 0;
+
+    var html = window.NISM_CURRICULUM.books.map(function (book) {
+      var chapterCount = window.NismCurriculum.totalChapterCount(book);
+      var moduleCount = book.modules.length;
+      var stats = window.NismProgress.getBookStats(book);
+      totalChaptersDone += stats.done;
+      totalChaptersAll += chapterCount;
+      book.modules.forEach(function(m){ m.chapters.forEach(function(c){ if(c.status === "active") totalActiveChapters++; }); });
+
+      var isActive = book.status === "active";
+      var cta = isActive
+        ? '<a class="btn btn-primary" href="' + book.path + '">Open book</a>'
+        : '<span class="badge badge-muted">Coming soon</span>';
+
+      return (
+        '<div class="card card-hover book-card reveal ' + (isActive ? "" : "locked") + '">' +
+          '<div class="top-row">' +
+            '<div><span class="code">' + book.code + '</span><h3>' + book.title + "</h3></div>" +
+            '<div class="book-icon">' + (BOOK_ICONS[book.id] || "") + "</div>" +
+          "</div>" +
+          '<p class="tagline">' + book.tagline + "</p>" +
+          '<div class="meta-line">' +
+            "<span><strong>" + moduleCount + "</strong> modules</span>" +
+            "<span><strong>" + chapterCount + "</strong> chapters</span>" +
+            (book.totalMarks ? "<span><strong>" + book.totalMarks + "</strong> exam marks</span>" : "") +
+          "</div>" +
+          (isActive ? '<div class="progress-track"><div class="progress-fill" style="width:' + stats.pct + '%"></div></div>' : "") +
+          '<div class="cta-row">' +
+            (isActive ? "<span style=\"font-size:.78rem;color:var(--text-secondary)\">" + stats.done + " / " + chapterCount + " complete</span>" : "<span></span>") +
+            cta +
+          "</div>" +
+        "</div>"
+      );
+    }).join("");
+
+    grid.innerHTML = html;
+
+    document.getElementById("stats-strip").innerHTML =
+      '<div class="stat"><div class="num">' + window.NISM_CURRICULUM.books.length + '</div><div class="lbl">Certifications</div></div>' +
+      '<div class="stat"><div class="num">' + totalChaptersAll + '</div><div class="lbl">Chapters mapped</div></div>' +
+      '<div class="stat"><div class="num">' + totalActiveChapters + '</div><div class="lbl">Live now</div></div>' +
+      '<div class="stat"><div class="num">' + totalChaptersDone + '</div><div class="lbl">You\'ve completed</div></div>';
+
+    var xa = window.NismCurriculum.getBook("xa");
+    document.getElementById("overall-progress").innerHTML =
+      '<span>' + window.NismProgress.getBookStats(xa).done + ' / ' + window.NismCurriculum.totalChapterCount(xa) + ' chapters (X-A)</span>';
+  }
+
+  renderBooks();
+</script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NISM Series-X-A — Investment Adviser (Level 1) | NISM Learn</title>
+<meta name="description" content="Module and chapter map for NISM Series-X-A: Investment Adviser (Level 1)." />
+<link rel="stylesheet" href="../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../assets/css/components.css" />
+<style>
+  .book-hero { padding: 32px 0 30px; border-bottom: 1px solid var(--border-subtle); }
+  .book-hero .top-row { display:flex; gap: 24px; align-items:flex-start; justify-content:space-between; flex-wrap: wrap; }
+  .book-hero .code { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); }
+  .book-hero h1 { margin-bottom: 8px; }
+  .book-hero .lede { max-width: 620px; color: var(--text-secondary); margin-bottom: 0; }
+  .hero-stats { display:flex; gap: 14px; flex-wrap: wrap; }
+  .hero-stat-card {
+    padding: 14px 20px; text-align:center; min-width: 108px;
+  }
+  .hero-stat-card .num { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; }
+  .hero-stat-card .lbl { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .weightage-wrap { margin-top: 26px; }
+  .weightage-wrap h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 12px; }
+  .weightage-bar { display: flex; height: 30px; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border-subtle); }
+  .weightage-bar .seg { display:flex; align-items:center; justify-content:center; font-size: 0.68rem; color: #fff; font-weight: 700; transition: filter .2s; white-space:nowrap; overflow:hidden; }
+  .weightage-bar .seg:hover { filter: brightness(1.15); }
+  .weightage-legend { display:flex; flex-wrap:wrap; gap: 12px 20px; margin-top: 12px; font-size: 0.76rem; color: var(--text-secondary); }
+  .weightage-legend .dot { width:9px; height:9px; border-radius:2px; display:inline-block; margin-right:6px; }
+
+  .modules-section { padding: 34px 0 90px; }
+  .module-title-row { display: flex; align-items: center; gap: 12px; flex: 1; }
+  .module-badge {
+    width: 34px; height: 34px; border-radius: 9px; flex-shrink:0;
+    background: var(--bg-surface-2); display:grid; place-items:center;
+    font-family: var(--font-mono); font-weight:700; font-size: 0.82rem; color: var(--text-secondary);
+  }
+  .module-title-row .name { font-weight: 700; }
+  .module-title-row .sub { font-size: 0.78rem; color: var(--text-secondary); font-weight: 400; }
+  .module-progress-mini { display:flex; align-items:center; gap:8px; font-size: 0.76rem; color: var(--text-secondary); min-width: 130px; justify-content:flex-end; }
+  .module-progress-mini .progress-track { width: 70px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../index.html">Home</a>
+      <a class="nav-link current" href="../../books/xa/index.html">Course</a>
+      <a class="nav-link" href="../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="book-hero">
+  <div class="container">
+    <div class="top-row">
+      <div>
+        <span class="code" id="book-code"></span>
+        <h1 id="book-title"></h1>
+        <p class="lede" id="book-tagline"></p>
+      </div>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+    <div class="weightage-wrap">
+      <h4>Exam weightage by module</h4>
+      <div class="weightage-bar" id="weightage-bar"></div>
+      <div class="weightage-legend" id="weightage-legend"></div>
+    </div>
+  </div>
+</section>
+
+<section class="modules-section">
+  <div class="container">
+    <div id="modules-list"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../";</script>
+<script src="../../assets/js/curriculum.js"></script>
+<script src="../../assets/js/progress.js"></script>
+<script src="../../assets/js/nav.js"></script>
+<script>
+  var MODULE_COLORS = ["#2b5299", "#4fd1c5", "#d4af37", "#e5534b", "#7c5cff", "#2fae66"];
+
+  var book = window.NismCurriculum.getBook("xa");
+  var chapterCount = window.NismCurriculum.totalChapterCount(book);
+  var stats = window.NismProgress.getBookStats(book);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../index.html" },
+    { label: book.code, href: "" }
+  ]);
+
+  document.getElementById("book-code").textContent = book.code;
+  document.getElementById("book-title").textContent = book.title;
+  document.getElementById("book-tagline").textContent = book.tagline;
+
+  document.getElementById("hero-stats").innerHTML =
+    '<div class="card hero-stat-card"><div class="num">' + book.modules.length + '</div><div class="lbl">Modules</div></div>' +
+    '<div class="card hero-stat-card"><div class="num">' + chapterCount + '</div><div class="lbl">Chapters</div></div>' +
+    '<div class="card hero-stat-card"><div class="num">' + book.totalMarks + '</div><div class="lbl">Exam marks</div></div>' +
+    '<div class="card hero-stat-card"><div class="num">' + book.passPercent + '%</div><div class="lbl">Pass mark</div></div>';
+
+  document.getElementById("book-progress-badge").innerHTML =
+    "<span>" + stats.done + " / " + chapterCount + " chapters</span>" +
+    '<div class="progress-track sm" style="width:90px"><div class="progress-fill" style="width:' + stats.pct + '%"></div></div>';
+
+  // Weightage bar
+  var barEl = document.getElementById("weightage-bar");
+  var legendEl = document.getElementById("weightage-legend");
+  barEl.innerHTML = book.modules.map(function (m, i) {
+    var w = (m.marks / book.totalMarks) * 100;
+    return '<div class="seg" style="width:' + w + '%;background:' + MODULE_COLORS[i % MODULE_COLORS.length] + '" title="Module ' + m.number + ': ' + m.title + ' — ' + m.marks + ' marks">' + m.marks + '</div>';
+  }).join("");
+  legendEl.innerHTML = book.modules.map(function (m, i) {
+    return '<span><span class="dot" style="background:' + MODULE_COLORS[i % MODULE_COLORS.length] + '"></span>M' + m.number + ' — ' + m.title + '</span>';
+  }).join("");
+
+  // Modules accordion
+  var listEl = document.getElementById("modules-list");
+  listEl.innerHTML = book.modules.map(function (m, mi) {
+    var mstats = window.NismProgress.getModuleStats("xa", m);
+    var chaptersHtml = m.chapters.map(function (c) {
+      var isActive = c.status === "active";
+      var done = window.NismProgress.isChapterComplete("xa", c.id);
+      var dotClass = done ? "done" : (isActive ? "" : "locked");
+      var progress = window.NismProgress.getChapterProgress("xa", c.id);
+      var scoreTag = progress ? '<span class="badge badge-green" style="margin-left:8px">' + Math.round((progress.bestScore/progress.bestTotal)*100) + '%</span>' : "";
+      var rowInner =
+        '<span class="status-dot ' + dotClass + '"></span>' +
+        '<span class="num">' + String(c.number).padStart(2, "0") + '</span>' +
+        '<span class="title">' + c.title + scoreTag + '<span class="sub">' + c.summary + '</span></span>' +
+        (isActive ? '<span class="badge badge-gold">Open</span>' : '<span class="badge badge-muted">Coming soon</span>');
+      return isActive
+        ? '<a class="chapter-row" href="' + c.path + '" style="display:flex;color:inherit">' + rowInner + '</a>'
+        : '<div class="chapter-row" style="opacity:.6">' + rowInner + '</div>';
+    }).join("");
+
+    return (
+      '<div class="accordion-item' + (mi === 0 ? " open" : "") + '" id="mod-' + m.id + '">' +
+        '<button class="accordion-header" data-target="mod-' + m.id + '">' +
+          '<div class="module-title-row">' +
+            '<div class="module-badge">M' + m.number + '</div>' +
+            '<div><div class="name">' + m.title + '</div><div class="sub">' + m.chapters.length + ' chapters · ' + m.marks + ' marks</div></div>' +
+          '</div>' +
+          '<div class="module-progress-mini"><span>' + mstats.done + '/' + mstats.total + '</span><div class="progress-track"><div class="progress-fill" style="width:' + (mstats.total? (mstats.done/mstats.total*100):0) + '%"></div></div></div>' +
+          '<svg class="accordion-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        '</button>' +
+        '<div class="accordion-panel"><div class="accordion-panel-inner">' + chaptersHtml + '</div></div>' +
+      '</div>'
+    );
+  }).join("");
+
+  listEl.querySelectorAll(".accordion-header").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.getElementById(btn.dataset.target).classList.toggle("open");
+    });
+  });
+</script>
+</body>
+</html>

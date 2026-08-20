@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard | NISM Learn</title>
+<meta name="description" content="Your NISM Series-X-A preparation dashboard — coverage, accuracy, weak topics and what to study next." />
+<link rel="stylesheet" href="assets/css/design-system.css" />
+<link rel="stylesheet" href="assets/css/components.css" />
+<style>
+  .dash-hero { padding: 32px 0 6px; }
+  .dash-hero h1 { margin-bottom: 6px; }
+  .dash-hero p { color: var(--text-secondary); max-width: 620px; margin-bottom: 0; }
+  .dash-hero .book-tag { margin-bottom: 12px; }
+
+  .dash-section { padding: 26px 0; }
+  .dash-section h2 { font-size: 1.15rem; margin-bottom: 4px; }
+  .dash-section .section-sub { color: var(--text-secondary); font-size: 0.86rem; margin-bottom: 18px; }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .stat-tile {
+    padding: 20px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-tile .stat-icon {
+    width: 34px; height: 34px; border-radius: 9px;
+    display: grid; place-items: center;
+    background: var(--bg-surface-2); color: var(--gold-600);
+  }
+  .stat-tile .stat-icon svg { width: 18px; height: 18px; }
+  .stat-tile .stat-value { font-family: var(--font-display); font-size: 1.7rem; font-weight: 800; line-height:1; }
+  .stat-tile .stat-value small { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); }
+  .stat-tile .stat-label { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); }
+  .stat-tile .stat-caption { font-size: 0.76rem; color: var(--text-secondary); margin-top: -4px; }
+  .stat-tile.accent-gold .stat-icon { background: color-mix(in srgb, var(--gold-500) 16%, transparent); color: var(--gold-600); }
+  .stat-tile.accent-teal .stat-icon { background: color-mix(in srgb, var(--teal-500) 16%, transparent); color: var(--teal-500); }
+  .stat-tile.accent-green .stat-icon { background: color-mix(in srgb, var(--green-500) 16%, transparent); color: var(--green-500); }
+  .stat-tile.accent-red .stat-icon { background: color-mix(in srgb, var(--red-500) 16%, transparent); color: var(--red-500); }
+  .stat-tile.accent-navy .stat-icon { background: color-mix(in srgb, var(--navy-600) 16%, transparent); color: var(--navy-600); }
+  :root[data-theme="dark"] .stat-tile.accent-navy .stat-icon,
+  @media (prefers-color-scheme: dark) { .stat-tile.accent-navy .stat-icon { color: #9db6ea; } }
+
+  /* Target score editor */
+  .target-edit-row { display:flex; align-items:center; gap:8px; }
+  .target-edit-row input {
+    width: 72px; padding: 6px 8px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle); background: var(--bg-app); color: var(--text-primary);
+    font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+  }
+  .target-edit-row button { font-size: 0.74rem; padding: 6px 10px; }
+  .edit-target-btn {
+    background:none; border:none; color: var(--text-secondary); font-size: 0.72rem;
+    text-decoration: underline; padding: 0; align-self: flex-start;
+  }
+  .edit-target-btn:hover { color: var(--gold-600); }
+
+  /* Recommended next */
+  .reco-card {
+    display:flex; align-items:center; gap: 18px; padding: 22px 26px;
+    background: linear-gradient(120deg, var(--navy-900), var(--navy-800));
+    color: #fff; border-radius: var(--radius-lg); flex-wrap: wrap;
+  }
+  :root:not([data-theme="dark"]) .reco-card,
+  @media (prefers-color-scheme: light) { .reco-card { } }
+  .reco-icon {
+    width: 48px; height: 48px; border-radius: 12px; flex-shrink:0;
+    background: rgba(212,175,55,0.18); color: var(--gold-400);
+    display:grid; place-items:center;
+  }
+  .reco-icon svg { width: 24px; height: 24px; }
+  .reco-body { flex: 1; min-width: 220px; }
+  .reco-body .kicker { font-size: 0.72rem; text-transform:uppercase; letter-spacing:.06em; color: var(--gold-400); margin-bottom: 4px; font-weight:700; }
+  .reco-body h3 { color:#fff; margin-bottom: 4px; }
+  .reco-body p { color: rgba(255,255,255,0.72); margin-bottom: 0; font-size: 0.88rem; }
+
+  /* Heatmap */
+  .heatmap-list { display:flex; flex-direction:column; gap: 14px; }
+  .heatmap-row { display:grid; grid-template-columns: 200px 1fr 56px; gap: 16px; align-items:center; }
+  .heatmap-row .name { font-size: 0.9rem; font-weight: 600; }
+  .heatmap-row .name .chapters-sub { display:block; font-weight:400; font-size: 0.72rem; color: var(--text-secondary); margin-top:1px; }
+  .heatmap-track { height: 16px; border-radius: var(--radius-pill); background: var(--bg-surface-2); overflow:hidden; }
+  .heatmap-fill { height:100%; border-radius: var(--radius-pill); width:0%; transition: width 900ms var(--ease-out); }
+  .heatmap-fill.band-weak { background: linear-gradient(90deg, #e5534b, #f0827c); }
+  .heatmap-fill.band-mid { background: linear-gradient(90deg, #d4af37, #f0c76a); }
+  .heatmap-fill.band-strong { background: linear-gradient(90deg, #2fae66, #63d494); }
+  .heatmap-fill.band-none { background: var(--border-subtle); }
+  .heatmap-pct { font-family: var(--font-mono); font-size: 0.82rem; text-align:right; color: var(--text-secondary); }
+  .heatmap-row.is-weak .name { color: var(--red-500); }
+  .heatmap-legend { display:flex; gap:18px; margin-top:18px; font-size:0.76rem; color:var(--text-secondary); flex-wrap:wrap; }
+  .heatmap-legend .dot { width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px; }
+
+  @media (max-width: 640px) {
+    .heatmap-row { grid-template-columns: 1fr; gap: 6px; }
+    .heatmap-pct { text-align:left; }
+  }
+
+  .empty-note {
+    font-size: 0.86rem; color: var(--text-secondary); padding: 14px 18px;
+    border: 1px dashed var(--border-subtle); border-radius: var(--radius-md);
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="books/xa/index.html">Course</a>
+      <a class="nav-link current" href="dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="dash-hero">
+  <div class="container">
+    <span class="badge badge-navy book-tag" id="book-tag"></span>
+    <h1>Your preparation dashboard</h1>
+    <p>A single view of how much ground you've covered, how accurate you are, and exactly what to study next.</p>
+  </div>
+</section>
+
+<section class="dash-section">
+  <div class="container">
+    <div class="stat-grid" id="stat-grid"></div>
+  </div>
+</section>
+
+<section class="dash-section">
+  <div class="container">
+    <h2>Recommended next</h2>
+    <p class="section-sub">Based on your chapter completion and quiz accuracy so far.</p>
+    <div id="reco-slot"></div>
+  </div>
+</section>
+
+<section class="dash-section">
+  <div class="container">
+    <h2>Weakness heatmap</h2>
+    <p class="section-sub">Average quiz accuracy by module — the lower the bar, the more that module needs a revisit.</p>
+    <div class="card" style="padding:26px 28px">
+      <div class="heatmap-list" id="heatmap-list"></div>
+      <div class="heatmap-legend">
+        <span><span class="dot" style="background:#e5534b"></span>Below 60% — needs revision</span>
+        <span><span class="dot" style="background:#d4af37"></span>60–79% — getting there</span>
+        <span><span class="dot" style="background:#2fae66"></span>80%+ — mastered</span>
+        <span><span class="dot" style="background:var(--border-subtle)"></span>Not started</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "";</script>
+<script src="assets/js/curriculum.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/nav.js"></script>
+<script>
+  var BOOK_ID = "xa";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+  var stats = window.NismProgress.getOverallStats(book);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "index.html" },
+    { label: "Dashboard", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  document.getElementById("book-tag").textContent = book.code + " — " + book.title;
+
+  var ICONS = {
+    prep: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg>',
+    trophy: '<svg viewBox="0 0 24 24" fill="none"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 5H4a3 3 0 003 3M17 5h3a3 3 0 01-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    flag: '<svg viewBox="0 0 24 24" fill="none"><path d="M5 21V4M5 4h13l-3 4 3 4H5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+    list: '<svg viewBox="0 0 24 24" fill="none"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    target: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>',
+    clock: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    exam: '<svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    score: '<svg viewBox="0 0 24 24" fill="none"><path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    bullseye: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+  };
+
+  function tile(opts) {
+    return (
+      '<div class="card stat-tile ' + (opts.accent ? "accent-" + opts.accent : "") + '">' +
+        '<div class="stat-icon">' + opts.icon + "</div>" +
+        '<div class="stat-value">' + opts.value + (opts.suffix ? "<small> " + opts.suffix + "</small>" : "") + "</div>" +
+        '<div class="stat-label">' + opts.label + "</div>" +
+        (opts.caption ? '<div class="stat-caption">' + opts.caption + "</div>" : "") +
+        (opts.extra || "") +
+      "</div>"
+    );
+  }
+
+  var dash = "—";
+
+  var tiles = [
+    tile({ icon: ICONS.prep, accent: "gold", value: stats.preparationPct + "%", label: "Overall preparation", caption: "Weighted by exam marks per module" }),
+    tile({ icon: ICONS.book, accent: "navy", value: stats.chaptersDone + "/" + stats.chaptersTotal, label: "Chapters completed" }),
+    tile({ icon: ICONS.trophy, accent: "green", value: stats.masteredTopics.length, label: "Topics mastered", caption: stats.masteredTopics.length ? stats.masteredTopics.map(function(m){return m.module.title;}).join(", ") : "80%+ accuracy, fully complete" }),
+    tile({ icon: ICONS.flag, accent: "red", value: stats.weakTopics.length, label: "Weak topics", caption: stats.weakTopics.length ? stats.weakTopics.map(function(m){return m.module.title;}).join(", ") : "Below 60% accuracy" }),
+    tile({ icon: ICONS.list, accent: "teal", value: stats.questionsAttempted, label: "Questions attempted" }),
+    tile({ icon: ICONS.bullseye, accent: "teal", value: stats.accuracyPct !== null ? stats.accuracyPct + "%" : dash, label: "Accuracy", caption: stats.correctAnswers + " correct so far" }),
+    tile({ icon: ICONS.clock, accent: "navy", value: stats.avgTimeSec !== null ? stats.avgTimeSec + "s" : dash, label: "Avg. time / question" }),
+    tile({ icon: ICONS.exam, accent: "gold", value: stats.mockExamsCompleted, label: "Mock exams completed", caption: "Full mock exams — coming soon" }),
+    tile({ icon: ICONS.score, accent: "navy", value: stats.estimatedScore !== null ? stats.estimatedScore : dash, suffix: book.totalMarks ? "/ " + book.totalMarks : "", label: "Estimated score", caption: "Accuracy × total exam marks" }),
+    tile({
+      icon: ICONS.target, accent: "gold",
+      value: '<span id="target-score-display">' + stats.targetScore + '</span>',
+      suffix: book.totalMarks ? "/ " + book.totalMarks : "",
+      label: "Target score",
+      extra: '<button class="edit-target-btn" id="edit-target-btn">Edit target</button><div class="target-edit-row" id="target-edit-row" style="display:none"><input type="number" id="target-input" min="0" max="' + (book.totalMarks || 150) + '" value="' + stats.targetScore + '"/><button class="btn btn-primary btn-sm" id="save-target-btn">Save</button></div>'
+    })
+  ];
+  document.getElementById("stat-grid").innerHTML = tiles.join("");
+
+  // Target score inline editor
+  document.getElementById("edit-target-btn").addEventListener("click", function () {
+    document.getElementById("target-edit-row").style.display = "flex";
+    this.style.display = "none";
+    document.getElementById("target-score-display").parentElement.style.display = "none";
+  });
+  document.getElementById("save-target-btn").addEventListener("click", function () {
+    var val = parseInt(document.getElementById("target-input").value, 10);
+    if (!isNaN(val)) {
+      window.NismProgress.setTargetScore(book, val);
+      document.getElementById("target-score-display").textContent = val;
+    }
+    document.getElementById("target-edit-row").style.display = "none";
+    document.getElementById("edit-target-btn").style.display = "inline";
+    document.getElementById("target-score-display").parentElement.style.display = "";
+  });
+
+  // Recommended next
+  var recoSlot = document.getElementById("reco-slot");
+  if (stats.recommended) {
+    var r = stats.recommended;
+    var isRevise = r.type === "revise";
+    recoSlot.innerHTML =
+      '<a class="reco-card" href="' + r.chapter.path + '" style="color:inherit">' +
+        '<div class="reco-icon">' + (isRevise ? ICONS.flag : ICONS.book) + "</div>" +
+        '<div class="reco-body">' +
+          '<div class="kicker">' + (isRevise ? "Revise" : "Start next") + "</div>" +
+          '<h3>Ch. ' + r.chapter.number + " — " + r.chapter.title + "</h3>" +
+          '<p>' + r.reason + " · " + r.module.title + "</p>" +
+        "</div>" +
+        '<span class="btn btn-primary btn-sm">Open chapter</span>' +
+      "</a>";
+  } else {
+    recoSlot.innerHTML = '<div class="empty-note">Complete a chapter to get a personalised recommendation here.</div>';
+  }
+
+  // Weakness heatmap
+  var heatmapEl = document.getElementById("heatmap-list");
+  heatmapEl.innerHTML = stats.moduleStats.map(function (s) {
+    var band = "band-none", pctLabel = "—";
+    if (s.avgAccuracy !== null) {
+      pctLabel = s.avgAccuracy + "%";
+      band = s.avgAccuracy < window.NismProgress.WEAK_THRESHOLD ? "band-weak" : (s.avgAccuracy < window.NismProgress.MASTERY_THRESHOLD ? "band-mid" : "band-strong");
+    }
+    var width = s.avgAccuracy !== null ? s.avgAccuracy : 0;
+    return (
+      '<div class="heatmap-row' + (s.status === "weak" ? " is-weak" : "") + '">' +
+        '<div class="name">M' + s.module.number + ' — ' + s.module.title + '<span class="chapters-sub">' + s.done + '/' + s.total + ' chapters</span></div>' +
+        '<div class="heatmap-track"><div class="heatmap-fill ' + band + '" style="width:' + width + '%"></div></div>' +
+        '<div class="heatmap-pct">' + pctLabel + '</div>' +
+      "</div>"
+    );
+  }).join("");
+</script>
+</body>
+</html>

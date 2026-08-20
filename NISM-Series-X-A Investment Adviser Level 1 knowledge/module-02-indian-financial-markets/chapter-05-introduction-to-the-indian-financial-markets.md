@@ -1,0 +1,344 @@
+#### **MODULE 2: INDIAN FINANCIAL MARKETS** 
+
+<u>Chapter 5: Introduction to the Indian Financial Markets</u> 
+
+<u>Chapter 6: Securities Market Segments</u> 
+
+88 
+
+**<u>CHAPTER 5: INTRODUCTION TO THE INDIAN FINANCIAL MARKETS</u>** 
+
+##### **LEARNING OBJECTIVES:** 
+
+After studying this chapter, you should know about: 
+
+- Overview of Indian Economy 
+
+- Indian Financial Markets 
+
+- Role of Regulators of Financial Markets 
+
+- Structure of Financial Markets in India 
+
+- Role of the participants in the Indian Financial Markets 
+
+#### **5.1 The Indian Economy** 
+
+The Indian economy has evolved from agriculture-based to one dominated by services and manufacturing, contributing three-fourths of its GDP. Economic growth depends on a robust financial system for access to resources. 
+
+Our context is financial markets - keeps the wheels of the economy running. Banks provide credit to corporates and individuals, and savings channels. Securities markets help businesses raise funds through equity and debt offerings. Foreign exchange markets impact import costs and enable global investments while mitigating currency risk. Commodity markets manage price volatility, and insurance protects against financial shocks, promoting savings and investments. Well-regulated, developed markets are essential for sustained growth. 
+
+#### **5.2 The Indian Financial Markets** 
+
+#### **5.2.1 Key Features** 
+
+Financial markets facilitate the efficient allocation of resources by channeling surplus funds from lenders (or investors) to borrowers (or businesses). Intermediaries like banks, mutual funds, and insurance companies help in this process. 
+
+Markets aggregate funds, provide liquidity, and enable informed decision-making by disseminating relevant information. They are categorized into: 
+
+- Money Markets (short-term lending/borrowing) 
+
+- Capital Markets (long-term funding via debt and equity) 
+
+Transactions occur in primary markets (new securities issuance) or secondary markets (trading among investors). Market participants include banks, brokers, depositories, and institutional investors like mutual funds and pension funds, which enhance liquidity and asset pricing. 
+
+Beyond financial markets, commodities, forex, insurance, and pension markets also play crucial roles in economic stability and risk management. 
+
+89 
+
+#### **5.3 Regulators of Financial Markets** 
+
+Regulation of the financial markets is motivated by the need to safeguard the interests of investors. What is paramount is to ensure that investors make informed decisions about their financial transactions on the basis of a fair understanding of various markets which enable such financial transactions. 
+
+The Reserve Bank of India (RBI) regulates commercial banks, the Securities and Exchange Board of India (SEBI) regulates securities markets and commodity, the Insurance Regulatory and Development Authority of India (IRDAI) regulates insurance companies, the Pension Fund Regulatory and Development Authority (PFRDA) regulates the pension sector. The Central Government exercises a certain level of oversight on these and other regulatory institutions. FSDC, Financial Stability and Development Council, is a government-established body that monitors and addresses financial stability, financial sector development, and financial inclusion 
+
+#### **5.3.1 Ministry of Finance** 
+
+The Ministry of Finance through its Department of Financial Services regulates and overseas the activities of the banking system, insurance and pension sectors. The Department of Economic Affairs regulates the capital markets and its participants. The ministry initiates discussions on reforms and overseas the implementation of law. 
+
+The Ministry of Finance (MoF) has a wide range of responsibilities. It has five departments under it, whose roles are briefly described below: 
+
+- **a) Department of Economic Affairs** is the nodal agency of the Central Government to formulate and monitor India’s macroeconomic policies, covering monetary and fiscal policy as well as the functioning of the capital market including stock exchanges. 
+
+- **b) Department of Expenditure** is concerned with, among other things, the administration of various financial rules and regulations including service conditions of all Central Government employees. The department is also involved with matters such as financial assistance to states and borrowings by states. 
+
+- **c) Department of Revenue** exercises control over matters relating to direct and indirect taxes of the Central Government, through two statutory boards, viz., the Central Board of Direct Taxes and Central Board of Excise and Customs. 
+
+- **d) Department of Financial Services** administers government policies relating to: 
+
+   - Public sector banks. 
+
+   - Term-lending financial institutions. 
+
+90 
+
+- Life Insurance and General Insurance. 
+
+- Pension Reforms. 
+
+**e) Department of Investment and Public Asset Management** oversees, among other things, all matters relating to the disinvestment of Central Government equity from Central Public Sector undertakings. The department is also concerned with the financial policy relating to the utilization of proceeds of disinvestment. 
+
+#### **5.3.2 Ministry of Corporate Affairs** 
+
+The Ministry is primarily concerned with administration of the Companies Act 2013, the Companies Act 1956, the Limited Liability Partnership Act, 2008 & other allied Acts and rules & regulations framed there-under mainly for regulating the functioning of the corporate sector in accordance with law. The Ministry is also responsible for administering the Competition Act, 2002 to prevent practices having adverse effect on competition, to promote and sustain competition in markets, to protect the interests of consumers through the commission set up under the Act. Besides, it exercises supervision over the three professional bodies, namely, Institute of Chartered Accountants of India (ICAI), Institute of Company Secretaries of India (ICSI) and the Institute of Cost Accountants of India (ICAI) which are constituted under three separate Acts of the Parliament for proper and orderly growth of the professions concerned. 
+
+#### **5.3.3 Registrar of Companies** 
+
+The Registrar of Companies (RoC) is the authority appointed under the Companies Act to register companies and to ensure that they comply with the provisions of the law. 
+
+#### **5.3.4 Reserve Bank of India (RBI)** 
+
+The Preamble of the Reserve Bank of India describes the basic functions of the Reserve Bank as: "to regulate the issue of Bank notes and keeping of reserves with a view to securing monetary stability in India and generally to operate the currency and credit system of the country to its advantage; to have a modern monetary policy framework to meet the challenge of an increasingly complex economy, to maintain price stability while keeping in mind the objective of growth." 
+
+The main functions/roles of RBI **:** 
+
+- Formulates, implements and monitors the monetary policy. 
+
+- Objective: maintaining price stability while keeping in mind the objective of growth. 
+
+- Regulator and supervisor of the financial system: 
+
+- Manager of Foreign Exchange 
+
+- Issuer of currency 
+
+- Regulator and Supervisor of Payment and Settlement Systems 
+
+91 
+
+- Banker to the Government: performs merchant banking function for the central and the state governments; also acts as their banker. 
+
+- Banker to banks: maintains banking accounts of all scheduled banks. 
+
+#### **5.3.5 Securities and Exchange Board of India (SEBI)** 
+
+The Securities and Exchange Board of India (SEBI), a statutory body appointed by an Act of Parliament (SEBI Act, 1992), is the primary regulator of securities markets in India. The Preamble of the Securities and Exchange Board of India describes the basic functions of the Securities and Exchange Board of India as "...to protect the interests of investors in securities and to promote the development of, and to regulate the securities market and for matters connected therewith or incidental thereto". 
+
+#### **Some of the Functions of SEBI:** 
+
+- Regulating the business in stock exchanges and other securities markets. 
+
+- Register and regulate the working of intermediaries associated with the securities market such as stock brokers, authorised persons, share transfer agents, bankers to an issue etc. 
+
+- Prohibit fraudulent and unfair trade practices, insider trading relating to securities markets. 
+
+- Power to call for information, undertake inspection, conduct inquiries and audits, summon witnesses from such intermediaries. 
+
+- Promote investor education and training of intermediaries of securities markets. 
+
+#### **5.3.6 Insurance Regulatory and Development Authority of India (IRDAI)** 
+
+IRDAI regulates the insurance sector in India in accordance with the terms of the IRDA Act of 1999. IRDAI is the licensing authority for insurance companies and defines the capital and networth requirements for insurance companies. 
+
+- Regulates the insurance sector including registering insurance companies, clearing insurance products, licensing and establishing norms for the intermediaries and protecting policy holders’ interest. 
+
+- Ensures the adherence of insurance products to the rules laid down and defines the rules for the terms and conditions of insurance contracts such as sum assured, surrender value, settlement of claims, nomination and assignment, insurable interest and others. 
+
+- Regulates distribution of insurance products by laying down the qualification and training requirements of intermediaries and the payment of commission to distributors. 
+
+92 
+
+- Supervises the functioning of the Tariff Advisory Committee that determines the rates for general insurance products. It also lays down the modalities for investment of funds by insurance companies. 
+
+#### **5.3.7 Pension Fund Regulatory and Development Authority (PFRDA)** 
+
+The PFRDA is the authority entrusted to act as a regulator of the pension sector in India under the PFRDA Act, 2013. PFRDA regulates the National Pension System (NPS) and any other pension scheme specified under its ambit. It is responsible for registering the various constituents such as the fund managers, custodians, central record keeping agency and trustee banks and to define the parameters of their roles and responsibilities. 
+
+The Act and its provisions apply to the National Pension System (NPS) and other pension schemes not regulated by any other enactment. The NPS will be based on defined contributions. It will also offer a menu of investment choices and Fund Managers. 
+
+The functions and responsibilities of the PFRDA include: 
+
+- Regulating the NPS and any other pension schemes to which the act applies. 
+
+- Approving the schemes and their terms and investment guidelines to manage the corpus. 
+
+- Registering and regulating intermediaries. 
+
+- Protecting the interests of the subscribers by ensuring the funds are managed according to the mandate received, costs of management are reasonable and establishing a mechanism for redressal. 
+
+- Educating subscribers and the general public on matters relating to retirement savings 
+
+#### **5.3.8 Role of Self-Regulatory Organizations (SRO)** 
+
+According to SEBI (Self-Regulatory Organizations) Regulations, 2004, “Self-Regulatory Organisation” means an organization of intermediaries which represents a particular segment of the securities market and which is duly recognized by SEBI but excludes a stock exchange.” 
+
+In Indian securities markets, an SRO needs to be registered and recognized by SEBI after following a registration process that lays down norms for professional competence of the Board, infrastructure and capital requirements.  The SEBI (SRO) Regulations, 2004 lay down certain obligations and responsibilities on SROs. An SRO must always abide by the directions of the SEBI and act in the best interest of investors. SEBI also nominates Directors on the Board of the SRO. The SRO can also conduct inspection and audit of its members. It is bound to report any violations or non-compliance by any of its members to SEBI. 
+
+93 
+
+#### **5.4 Structure of Financial Markets in India** 
+
+#### **5.4.1 Banking System** 
+
+The banking system is at the core of the financial structure of an economy and supports its growth. It enables capital growth and formation through financial intermediation by accumulating savings from households, governments and businesses and making credit available for productive activities. RBI is the regulator of the banking system and the monetary authority. 
+
+#### **RBI** 
+
+RBI is the central bank of India. It performs supervisory function under the guidance of the Board for Financial Supervision (BFS). The primary objective of BFS is to undertake consolidated supervision of the financial sector comprising Scheduled Commercial and Cooperative Banks, All India Financial Institutions, Local Area Banks, Small Finance Banks, Payments Banks, Credit Information Companies, Non-Banking Finance Companies and Primary Dealers. 
+
+#### **Banks** 
+
+Banks act as an intermediary between those that have excess funds to invest and those that need funds by undertaking the role of mobilizing these surplus funds by taking deposits and lending it on the basis of a credit evaluation done on the ability of the borrowers to pay interest and return the principal. The banks also provide a secure system for settling financial transactions of their customers through a system of cheques and electronic payment systems. Apart from these primary banking activities, banks also provide third-party products and services to their clients by offering advice on investments and insurance. Banks tie up with mutual funds, portfolio management service providers, insurance companies and others and offer their products and services. 
+
+**Commercial banks** may be scheduled commercial banks which include public sector banks, private sector banks, foreign banks and regional rural banks or non-scheduled commercial banks that include local area banks. 
+
+Apart from commercial banks, there are **co-operative credit institutions** such as the urban co-operative banks and state and district level co-operative banks that cover rural area needs. 
+
+**Payment banks** have been notified by the RBI to encourage financial inclusion to low income households, small business and others by providing small savings accounts and payment/remittance services. Their activities include accepting current and savings deposits not exceeding Rs.100,000/- issuing ATM/Debit cards but not credit cards and providing payment and remittance services. The bank cannot undertake any lending activities. 
+
+94 
+
+**Small Finance Banks** are another category of banks approved by RBI to provide a savings vehicle, banking facilities and to supply credit to small businesses, marginal farmers, micro and small industries and other entities in the unorganized sector. The capital requirements, functions and obligations and regulatory provisions of each category are defined by the RBI. 
+
+#### **Non-Banking Finance Companies** 
+
+Non-Banking Finance Companies (NBFCs) play an important role in the Indian financial system. They are companies that are engaged in the business of loans and advances,   leasing, hire purchase, insurance business or chit business. In a way the NBFCs are in a business that is similar to banks but there are some key differences between the two. NBFCs cannot accept demand deposits nor can they have the facility of issuing cheques and in addition they do not have the benefit of deposit insurance with the Deposit Insurance and Credit Guarantee Corporation. NBFC’s fill in the gap of lending, where banks are unable to lend due to high risk or reach. 
+
+#### **Housing Finance Companies** 
+
+Housing Finance Companies are those whose primary business is for the purpose of lending for purchase of property/real estate. The regulation for these companies was earlier under the National Housing Bank but now their regulation has been taken over by the Reserve Bank of India. Increasingly there are detailed guidelines being framed for the purpose of clear definition and the modes of working of the housing finance companies. 
+
+#### **P2P lending** 
+
+An area of lending that has witnessed a sharp rise is that of Peer to Peer (P2P) lending wherein one person lends to another person(s). This is a form of unsecured lending and it takes place through a peer-to-peer lending platform. These platforms are regulated by the Reserve Bank of India and there are detailed guidelines in place. The financial stability of the peer-to-peer lending platform is one thing but these platforms also need to conduct the required checks and due diligence on various participants especially lenders on their platform in order to reduce the risk element that is present. This is meant to ensure that a robust peer to peer lending system develops so that there is increased confidence too in the manner and operation of these platforms. 
+
+#### **Money market** 
+
+Money market is a part of the financial market where instruments with short term maturities (< 1 year) are traded. The money market instruments consist of call (overnight) and shortnotice (up to fourteen days) money, commercial paper (CP) certificates of deposit (CDs), commercial bills and Treasury Bills. Among these, call and short-notice money and Treasury Bills consist of the most significant segments of the Indian money market. Banks, financial 
+
+95 
+
+institutions (FIs) and Primary Dealers (PDs) are the major players in these segments of the money market. 
+
+These are usually very liquid as there are a lot of players who transact in these markets to meet their immediate requirements of funds. There is also a lot of intervention by the Reserve Bank of India in the money market in order to influence the way things are going so as to meet its policy objectives. As the depth of the market grows there is a greater choice for investors who are institutions and hence this can be considered as a wholesale market. 
+
+#### **Foreign Exchange Market** 
+
+International trade necessitated currency exchange, leading to the concept of **foreign exchange (forex)** —the relative value of one currency against another, known as a **currency pair** (e.g., USD/INR). The first currency in the pair is the **base currency** , while the second is the **quoting currency** . 
+
+The Indian foreign exchange market has a spot market, a forward market, and also currency derivatives contracts trading is available on exchanges. The spot market has an interbank segment and a merchant segment. In the interbank segment, banks make market by giving two-way quotes for buying and selling a currency. In the merchant segment, the merchants are price takers who buy or sell currency based on the price given by the banks. The participants in the spot markets are the banks, the dealers and brokers, businesses, government and retail customers. The quotes offered for different currencies will depend upon the interbank rate available to the bank for different currencies. 
+
+**Financial Benchmark India Pvt. Ltd. (FBIL)** publishes daily reference rates for major currency pairs (USD/INR, EUR/INR, GBP/INR, JPY/INR) on Mumbai business days. 
+
+#### **Credit Information Companies** 
+
+Credit reporting system consists of the institutions, individuals, statutes, procedures, standards and technology that enable information flows relevant to making decision relating to credit and loan agreements. Credit Reporting System in India currently consists of credit Information companies such as Trans Union CIBIL limited, Experian Credit Information Company of India Private Ltd, Equifax Credit Information Services Private Limited and CRIF High Mark Credit Information Services Pvt. Ltd. and credit institutions – Banks, All India Financial Institutions, NBFCs, Housing Finance companies, State Financial Corporations, Credit Card Companies etc., are governed by the provisions of Credit Information Companies (Regulation) Act, 2005, CIC Rules 2006 and CIC Regulation, 2006. The credit information reports (CIR) of borrowers can be obtained from the CICs by specified users listed under CIC regulations which include credit institutions, telecom companies, other regulators, insurance companies, stock brokers, credit rating agencies, resolution professionals, etc. CICs also offer value added products like credit scores. Individual borrowers can also obtain credit report 
+
+96 
+
+from CICs. RBI has directed CICs to furnish Free Full Credit Report (FFCR) which includes credit score to individual borrowers once in a calendar year. 
+
+#### **Account Aggregators (AA)** 
+
+Account aggregators are financial entities that are licensed by the Reserve Bank of India whose main role is to bring together different parts of customer information and share it in a consolidated manner with third parties. This is done only with the express consent of the customer whose data is being shared. It is meant to ensure that there is proper data available so digital lending becomes easier and more people are brought into the formal credit system. The customer has the right to revoke their consent at any point of time. Also, this can lead to less paperwork in the entire lending process making the experience easier and quicker. 
+
+#### **5.4.2 Securities Market under SEBI** 
+
+#### **Definition of securities** 
+
+The term “securities” has been defined in Section 2 (h) of the Securities Contracts (Regulation) Act 1956. The Act defines securities to include: 
+
+- a) shares, scrips, stocks, bonds, debentures, debenture stock or other marketable securities of a like nature in or of any incorporated company or other body corporate; 
+
+- b) derivative<sup>2</sup> ; 
+
+- c) units or any other instrument issued by any collective investment scheme to the investors in such schemes; 
+
+- d) security receipt as defined in clause (zg) of section 2 of the Securitisation and Reconstruction of Financial Assets and Enforcement of Security Interest Act, 2002; 
+
+- e) units or any other such instrument issued to the investors under any mutual fund scheme (securities do not include any unit linked insurance policy or scrips or any such instrument or unit, by whatever name called which provides a combined benefit risk on the life of the persons and investment by such persons and issued by an insurer referred to in clause (9) of section 2 of the Insurance Act, 1938 (4 of 1938)); 
+
+- f) any certificate or instrument (by whatever name called), issued to an investor by any issuer being a special purpose distinct entity which possesses any debt or receivable, including mortgage debt, assigned to such entity, and acknowledging beneficial interest of such investor in such debt or receivable, including mortgage debt, as the case may be; 
+
+> 2As per SCRA, derivatives include a security derived from a debt instrument, share, loan, whether secured or unsecured, risk instrument or contract for differences or any other form of security; a contract which derives its value from the prices, or index of prices, of underlying securities; commodity derivatives; and such other instruments as may be declared by the Central Government to be derivatives. [Amended by the Finance Act 2017] 
+
+97 
+
+- g) government securities; 
+
+- h) such other instruments as may be declared by the Central Government to be securities (including onshore rupee bonds issued by multilateral institutions like the Asian Development Bank and the International Finance Corporation <mark>electronic gold receipts, zero coupon zero principal instruments);</mark> 
+
+- i) rights or interest in securities. 
+
+The securities market comprises the primary market, where new securities are issued, and the secondary market, where existing securities are traded. The primary market enables capital raising, while the secondary market provides liquidity and price discovery. 
+
+**Securities exchanges** facilitate trading at market-driven prices, ensuring fair valuation and liquidity. National exchanges like NSE and BSE enable electronic trading via anonymous order matching. They also oversee clearing and settlement to ensure smooth transactions. 
+
+**Clearing corporations** are an important part of the entire stock exchange structure. When an investor transacts through a registered stock exchange, they need the confidence that their money and trades are safe. The clearing corporation has the role to ensure the confirmation, settlement and delivery of transactions on the stock exchange. The clearing corporation has to set up risk management systems so that there is no risk to the overall system in case some investor or member is not able to pay their dues. 
+
+**Depositories** enable a single point for electronic holding of financial assets. This includes equities, warrants, preference shares, mutual funds held in demat form, corporate bonds, money market instruments, government securities, securitized instruments and postal savings schemes. In order for a security to be eligible to trade in the secondary markets, it should be held in electronic or dematerialised form. Issuers get their securities admitted to the depositories, where they are held as electronic entries against investor names, without any paper certificate National Securities Depository Ltd (NSDL) and Central Depository Services Ltd (CDSL) are the two depositories in India. 
+
+**Depository participants** enable investors to hold and transact in securities in the dematerialised form. Demat securities are held by depositories, where they are admitted for dematerialisation after the issuer applies to the depository and pays a fee. Depository participants (DPs) open investor accounts, in which they hold the securities that they have bought in dematerialised form. Brokers and banks offer DP services to investors. DPs help investors receive and deliver securities when they trade in them. While the investor-level accounts in securities are held and maintained by the DP, the company enters into an agreement with the depository to dematerialize the securities. In other words, DPs act as agents of the Depositories. 
+
+98 
+
+**Custodians** typically work with institutional investors. They hold securities and manage bank accounts on behalf of the institutional investors. They manage the transactions pertaining to delivery of securities and money after a trade is made through the broker, and also keeps the accounts of securities and money. They are also responsible for collecting the benefits and rights in respect of the securities held by the client and maintaining records of the services provided. Custodians are usually large banks. 
+
+**Stock brokers** are registered trading members of stock exchanges. They put through the buy and sell transactions of investors on stock exchanges. All secondary market transactions on stock exchanges have to be conducted through registered brokers. Several brokers provide research, analysis and recommendations about securities to buy and sell, to their investors.  Brokers may also enable screen-based electronic trading of securities for their investors, or support investor orders over phone. Brokers earn a commission for their services. 
+
+#### **Bond market** 
+
+There are a lot of debt issuances that are used by issuers to raise money for their businesses. These also become a source of investment for investors. The part of the market where the debt securities are listed and traded is known as the bond market. The different types of securities here would include bonds, debentures, government securities etc. and it provides a place where secondary trading in these instruments takes place. 
+
+#### **Derivatives market** 
+
+A derivative is any instrument that gives exposure to another asset through it i.e. they derive their value out of underlying assets which could be equity/debt or commodity. The derivative market is where instruments like futures and options are traded. These instruments allow the investor to take a leveraged exposure and thus has the scope of high returns but higher losses too. It can be used effectively to hedge positions but can also become a source of speculation if the investor is not aware about the risks involved in the instrument. 
+
+#### **Mutual funds** 
+
+Mutual funds have emerged as one of the biggest sources of investment choices for investors. Mutual funds collect money from multiple investors and then deploy this according to the mandate in their funds. They represent a collective investment option for investors. Mutual funds have exposure to equity, debt, commodity and even international markets and hence they can be used to achieve a wide variety of goals. They play the role of an important intermediary who are able to channel funds from small investors in the securities market because they invest on behalf of these investors. 
+
+99 
+
+#### **Investment advisers** 
+
+There is a huge amount of choice of investment products that are present for investors in securities market. There is also the need for effective allocation and choice, considering the risk appetite for the investor. This is facilitated through investment advisers, who guide their clients towards their goals through the effective creation of a portfolio of investments. The investment adviser plays an important role because they enable those who do not understand the complex finance products and services to choose what is right for them. 
+
+**Alternative Investment Funds** are those that privately pool money and then deploy them for investing in accordance with a defined investment policy for the benefit of its investors. The investors are sophisticated investors and hence these funds cater to a segment of investors who are well versed with the technical and other aspects so are able to take a decision on the kind of investment policy that they should follow. This is a growing segment of the Indian securities market. 
+
+**KYC registration agencies** perform a significant task in the securities market. There is a need to ensure that there is a proper verification of the investors who are putting their money into the various investments. This is done through the KYC process and the details of this is maintained by the KYC registration agency. Every time that an investor goes to transact they would not need to submit the same documents and this can be verified through the details maintained by the KYC registration agency. The records of the investors are maintained in a central database on behalf of the various intermediaries which can be fetched when required. For individuals, it’s called CKYC Registry and for non-individuals it’s called KRA maintained by various bodies such as CVL, CAMS, NDML etc. 
+
+#### **Credit rating agencies** 
+
+The actual performance and financial position of any issuer in the securities market is the key for investors to determine whether they should invest or not. Normal investors do not have access to the detailed financial position of the issues and in most cases might not be able to understand the risk that is present in these instruments. Credit rating agencies are those which look at the detailed financial position of an issuer and then they give a credit rating about a specific issue that is being made. The rating is given in standard terms so that the investor is able to know the risk element by looking at the rating. 
+
+Credit rating agencies have an important role to play in case of debt securities where the investor would like to know the risk of default by an issuer. A default can lead to a large loss and the rating agency is expected to reflect the financial situation that the issuer finds itself in through its ratings. Each credit rating agency has its own way of showing the various financial positions so this has to be seen by the investor in the specific context. 
+
+100 
+
+**Investment Banks** are financial entities that provide strategic advice to companies, governments and others on their capital requirements and investment decisions and arrange raising such funds on terms that are most suitable to the company. Their activities include advisory services for business expansions, project financing, mergers and acquisition, investment valuation, among others. 
+
+**Asset Management Companies** and **Portfolio Managers** are investment specialists who offer their services in selecting and managing a portfolio of securities (‘Portfolio’ is the collective noun for securities. A portfolio holds multiple securities). Asset management companies are permitted to offer securities (called ‘units’) that represent participation in a pool of money, which is used to create the portfolio of a mutual fund. 
+
+Portfolio managers do not offer any security and are not permitted to pool the money collected from investors. They act on behalf of the investor in creating and managing a portfolio. Both asset managers and portfolio managers charge the investor a fee for their services, and may engage other security market intermediaries such as brokers, registrars, and custodians in conducting their functions. 
+
+**Registrar and Transfer agencies** help in the process of ensuring a smooth experience for investors in their investment. There are various actions like dividend payment or voting for several issues in companies. The registrar and transfer agency has the records of the investor and they carry out the process of paying the dividend into the respective bank accounts or sending emails with the details for e-voting and so on. They carry out the backroom work that helps in the benefits of the investment reaching the investor. In case of mutual funds, they also ensure that the investors can transact through them and complete their investment requirements and even update their details like email, phone number or address. 
+
+#### **5.4.3 Industry and market under IRDAI** 
+
+IRDAI is the regulator of insurance market. The insurance market is a significant part of the overall financial structure that has to be developed as the economy grows. The Indian insurance market consists of the life insurance segment and the general insurance segment. The life insurance sector was opened to private service providers in 2001. 
+
+The life insurance products may be broadly categorized as the traditional products, variable insurance products and the unit linked products. Traditional life insurance products include term insurance, endowment policies, whole life policies and the like. Term insurance is a pure risk protection product with no benefit on maturity. If the insured event occurs, in this case loss of life insured, then the sum assured is paid to the beneficiaries. Other traditional products typically have maturity benefits and have a small savings component. Variable insurance products and unit linked products combine risk protection and investment. A 
+
+101 
+
+portion of the premium is used for risk cover while the remaining portion of the premium is invested to provide returns linked to an index or based on the performance of the portfolio in which it is invested. On the occurrence of the event or maturity of the policy the sum assured and/or value of the fund created is returned to the policy holder or beneficiary. 
+
+The products are distributed through multiple channels such as agency, bancassurance, direct agents, broking and corporate agency, among others. 
+
+The non-life insurance or general insurance segment covers motor, health insurance, travel, fire and personal accident, among others. 
+
+Other entities involved in the insurance sector include insurance brokers, who are licensed to offer policies from any insurance company and are paid a brokerage by the company whose policy is sold. Individual agents are certified and licensed by IRDAI and can sell policies of life insurance and general insurance companies or both. Corporate agents include institutions such as banks, and they offer the insurance products to their clients. Agents typically represent one life insurer, one general insurer and one standalone health insurance company. Surveyors and loss assessors are used by general insurance companies to assess a claim and quantum of loss. Third party administrators are used to process health insurance claims. 
+
+#### **5.3.4 Industry and markets under PFRDA** 
+
+The Pension Fund Regulatory and Development Authority (PFRDA) is the regulator of the pension market. The pension market especially the National Pension System (NPS) has been growing in India as a larger part of the population has to rely on its own savings for the purpose of meeting the various needs during retirement and old age. 
+
+A growing elderly population and a large unorganized employment market are two primary factors that define the pension industry in India. Much of the Indian population is still outside the formal retirement benefit cover provided by the government and its associated organisations, and companies covered under the Employees Provident Fund Organisation (EPFO) rules. The government’s pension plan has moved from defined benefit structure, where all retired employees of a particular rank get the same pension with no contributions by the employee, to a defined contribution structure, where the employee and the employer contribute to the pension fund and the pension received on retirement will depend upon the fund accumulated. The retirement benefits in the private sector are primarily covered by the Employee Provident Fund administered and supervised by the Employee Provident Fund Organisation with contributions made both by the employee and the employer. A portion of the employers’ contribution is earmarked to provide pension under the Employee Pension scheme. Some private companies may provide Superannuation plans and privately sponsored pension plans to their employees. 
+
+102 
+
+National Pension System (NPS) is a voluntary, defined contribution retirement savings scheme designed to enable the subscribers to make optimum decisions regarding their future through systematic savings during their working life. The NPS is also available for government employees and the general public to voluntarily contribute periodically and create a retirement corpus. There are different fund managers under the NPS which offer different investment choices for the investor. 
+
+103 
+

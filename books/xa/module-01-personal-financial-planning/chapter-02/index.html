@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 2 — Time Value of Money | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Time Value of Money — present value, future value, compounding, CAGR, EMI, annuities and perpetuity. NISM Series-X-A, Module 1, Chapter 2." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Timeline (money now vs later) ---- */
+  .tvm-line { stroke: var(--border-subtle); stroke-width: 2; }
+  .tvm-axis-lbl { font-size: 10px; fill: var(--text-secondary); }
+  .tvm-coin { transform-box: fill-box; transform-origin: center; }
+  .tvm-arrow { stroke: var(--gold-500); stroke-width: 2.4; fill:none; stroke-dasharray: 220; stroke-dashoffset: 220; }
+  .tvm-arrow.go { animation: draw-arrow 1.1s var(--ease-out) forwards; }
+  @keyframes draw-arrow { to { stroke-dashoffset: 0; } }
+  .tvm-amt { font-family: var(--font-display); font-weight: 800; font-size: 15px; }
+
+  /* ---- Formula chips ---- */
+  .formula {
+    font-family: var(--font-mono);
+    background: var(--bg-surface-2);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    font-size: 1.02rem;
+    display: inline-block;
+    margin: 6px 0 4px;
+    color: var(--text-primary);
+  }
+  .formula .var { color: var(--gold-600); font-weight: 700; }
+  .formula-legend { list-style:none; padding:0; margin: 10px 0 0; display:grid; gap:4px; font-size:0.84rem; color: var(--text-secondary); }
+  .formula-legend b { color: var(--text-primary); font-family: var(--font-mono); }
+
+  /* ---- Interactive calculator ---- */
+  .calc {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-sm);
+    padding: 22px 22px 20px;
+    margin: 22px 0;
+  }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.95rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .seg { display:inline-flex; border:1px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; }
+  .seg button { padding:7px 13px; font-size:0.8rem; font-weight:700; background:var(--bg-app); border:none; cursor:pointer; color:var(--text-secondary); transition: all var(--dur-fast); }
+  .seg button.active { background:var(--navy-800); color:#fff; }
+  .calc-output {
+    background: var(--bg-surface-2);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    text-align:center;
+  }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.9rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .calc-bar-track { height:10px; border-radius:var(--radius-pill); background:var(--bg-app); overflow:hidden; margin-top:14px; }
+  .calc-bar-fill { height:100%; border-radius:var(--radius-pill); background:linear-gradient(90deg,var(--teal-500),var(--gold-500)); width:0%; transition: width var(--dur-slow) var(--ease-out); }
+
+  /* ---- Comparison bars (scenarios / annuity) ---- */
+  .barset { display:flex; flex-direction:column; gap:14px; margin: 18px 0 6px; }
+  .barrow { }
+  .barrow .bar-head { display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px; }
+  .barrow .bar-head .nm { font-weight:600; }
+  .barrow .bar-head .amt { font-family:var(--font-mono); font-weight:700; }
+  .bar-track { height:26px; border-radius:var(--radius-sm); background:var(--bg-surface-2); overflow:hidden; }
+  .bar-fill { height:100%; width:0%; border-radius:var(--radius-sm); transition: width 1.1s var(--ease-out); }
+  .bar-fill.c1 { background: var(--ink-300); }
+  .bar-fill.c2 { background: var(--teal-500); }
+  .bar-fill.c3 { background: var(--gold-500); }
+
+  /* ---- Compounding curve ---- */
+  .curve-path { fill:none; stroke:var(--gold-500); stroke-width:2.6; stroke-linecap:round; stroke-dasharray: 620; stroke-dashoffset: 620; }
+  .curve-path.go { animation: draw-curve 1.6s var(--ease-out) forwards; }
+  .curve-area { fill: url(#curveGrad); opacity:0; transition: opacity 1s ease .4s; }
+  .curve-area.go { opacity:1; }
+  @keyframes draw-curve { to { stroke-dashoffset: 0; } }
+  .grid-line { stroke: var(--border-subtle); stroke-width:1; }
+  .curve-lbl { font-size:9.5px; fill: var(--text-secondary); }
+
+  /* ---- Parameter cards ---- */
+  .param-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin:20px 0; }
+  .param-card { padding:16px; }
+  .param-card .ic { font-size:22px; }
+  .param-card h4 { margin:8px 0 6px; font-size:0.95rem; }
+  .param-card p { font-size:0.82rem; color:var(--text-secondary); margin:0; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 1 · Personal Financial Planning</span>
+      <span class="badge badge-gold">Chapter 2 of 4</span>
+    </div>
+    <h1>Time Value of Money</h1>
+    <p class="lede">Why a rupee today beats a rupee tomorrow — and the exact maths that lets an adviser compare cash flows across time: present value, future value, compounding, CAGR, EMIs, annuities and perpetuity. Every formula here has a live calculator to play with.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~22 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 37 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 8 live calculators</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:620px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The concept of Time Value of Money</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Present value, future value, rate of return, EMI &amp; loan tenure</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The concept of Annuity — ordinary &amp; annuity due</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The concept of Perpetuity</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-2-1">2.1 The core idea</a></li>
+      <li><a href="#sec-2-2">2.2 Present Value</a></li>
+      <li><a href="#sec-2-3">2.3 Future Value &amp; compounding</a></li>
+      <li><a href="#sec-2-4">2.4 Rate of return (CAGR)</a></li>
+      <li><a href="#sec-2-5">2.5 EMI &amp; loan tenure</a></li>
+      <li><a href="#sec-2-6">2.6 Annuities</a></li>
+      <li><a href="#sec-2-7">2.7 Perpetuity</a></li>
+      <li><a href="#sec-cards">Formula flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main">
+
+    <!-- 2.1 -->
+    <section class="lesson-section" id="sec-2-1">
+      <span class="section-kicker">2.1</span>
+      <h2>The core idea — money has a time value</h2>
+      <p>The value of money does <strong>not</strong> stay the same at every point in time. A rupee available today is worth more than the same rupee in the future, because today's rupee can be invested to earn a return. Given a choice — with no uncertainty — every investor prefers cash <em>now</em>:</p>
+      <ul>
+        <li>An <strong>instinctive preference</strong> for current consumption over future consumption, and</li>
+        <li>The <strong>ability to invest</strong> today's money (say, in a bank deposit) so it grows to <em>more</em> than the same amount received later.</li>
+      </ul>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="tvm-timeline" viewBox="0 0 460 190" width="100%" style="max-width:520px">
+            <line class="tvm-line" x1="40" y1="130" x2="430" y2="130"/>
+            <line class="tvm-line" x1="60" y1="124" x2="60" y2="136"/>
+            <line class="tvm-line" x1="400" y1="124" x2="400" y2="136"/>
+            <text class="tvm-axis-lbl" x="60" y="152" text-anchor="middle">Today</text>
+            <text class="tvm-axis-lbl" x="400" y="152" text-anchor="middle">After 1 month</text>
+            <!-- coin today -->
+            <g class="tvm-coin">
+              <circle cx="60" cy="95" r="22" fill="var(--gold-500)"/>
+              <text x="60" y="100" text-anchor="middle" class="tvm-amt" fill="var(--navy-950)">₹100</text>
+            </g>
+            <!-- arrow -->
+            <path class="tvm-arrow" id="tvm-arrow" d="M84 90 C 200 40, 300 40, 388 82"/>
+            <text x="235" y="42" text-anchor="middle" class="curve-lbl" style="fill:var(--gold-600);font-weight:700">invest @ 6% p.a.</text>
+            <!-- coin later -->
+            <g class="tvm-coin">
+              <circle cx="400" cy="95" r="24" fill="var(--teal-500)"/>
+              <text x="400" y="100" text-anchor="middle" class="tvm-amt" fill="#fff">₹100.50</text>
+            </g>
+          </svg>
+        </div>
+        <div class="caption">₹100 today, placed in a 1-month deposit yielding 6% p.a., grows to ₹100.50. So ₹100 <em>now</em> ≡ ₹100.50 <em>in a month</em> — the extra ₹0.50 is the compensation for waiting.</div>
+      </div>
+
+      <p>The value attached to the same sum of money received at different points on the timeline is the <strong>time value of money (TVM)</strong>. Money received earlier is always worth more than the same amount received later. Since almost every decision in finance involves cash flows spread over more than one period, TVM is a foundational principle.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Did you know? — TVM is 7,000 years old</strong>
+          <p>Records from as far back as 5000 BC show the Mesopotamians, Hittites, Phoenicians and Egyptians charging interest on loans of olives, dates, seeds and animals. The idea was easiest to see with seeds: a planted seed yields a plant that produces <em>more</em> seeds — so a seed today was worth more than a seed next season.</p>
+        </div>
+      </div>
+
+      <h3 id="sec-2-1-key" style="margin-top:30px">Four things to keep straight</h3>
+      <ul>
+        <li><strong>Discounting:</strong> future inflows are brought down to today's value using a <em>discount rate</em> (a.k.a. return rate / interest rate).</li>
+        <li><strong>Compounding:</strong> present inflows are grown to a future value using a <em>compound interest rate</em>.</li>
+        <li><strong>The further in the future</strong> a cash flow arrives, the lower its value today. ₹100 in a month &gt; ₹100 in a year &gt; ₹100 in five years.</li>
+        <li><strong>The higher the discount rate</strong>, the lower the present value of a future cash flow.</li>
+      </ul>
+      <p>For example, ₹1,000 received after 3 years is worth <strong>₹864</strong> today when discounted at 5%, but only <strong>₹794</strong> at 8%. Drag the rate below and watch it happen:</p>
+
+      <div class="calc" id="calc-discount">
+        <div class="calc-title"><span class="pill">Live</span> Discount-rate explorer</div>
+        <div class="calc-sub">How much is a future ₹1,000 worth today? &nbsp;PV = FV ÷ (1 + r)<sup>n</sup></div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Future amount (FV) <span class="val" data-out="dc-fv">₹1,000</span></label>
+              <input type="range" id="dc-fv-in" min="500" max="10000" step="500" value="1000">
+            </div>
+            <div class="ctrl">
+              <label>Years until received (n) <span class="val" data-out="dc-n">3</span></label>
+              <input type="range" id="dc-n-in" min="1" max="20" step="1" value="3">
+            </div>
+            <div class="ctrl">
+              <label>Discount rate (r) <span class="val" data-out="dc-r">5%</span></label>
+              <input type="range" id="dc-r-in" min="1" max="15" step="1" value="5">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Present value today</div>
+            <div class="out-val" id="dc-pv">₹864</div>
+            <div class="calc-bar-track"><div class="calc-bar-fill" id="dc-bar"></div></div>
+            <div class="out-note" id="dc-note">You'd give up ₹136 by waiting 3 years.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="sec-2-1-params" style="margin-top:30px">The four parameters in any TVM problem</h3>
+      <p>Every time-value problem is really about solving for <em>one</em> of these four inputs, given the other three:</p>
+      <div class="param-grid">
+        <div class="card param-card"><div class="ic">💵</div><h4>Cash flows</h4><p>A single amount, or a stream — even (an annuity) or uneven — flowing in or out.</p></div>
+        <div class="card param-card"><div class="ic">📈</div><h4>Rate of interest</h4><p>Also called the compounding, discount or reinvestment rate.</p></div>
+        <div class="card param-card"><div class="ic">🗓️</div><h4>Time period</h4><p>Annual, or a fraction of it — monthly, quarterly, half-yearly.</p></div>
+        <div class="card param-card"><div class="ic">🔁</div><h4>Frequency</h4><p>How often the cash flows occur — and it may or may not be fixed.</p></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Two investors are offered ₹1,000 receivable in 3 years. Priya discounts at 5%, Arjun at 8%. Whose present value is higher?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Priya's — a lower discount rate gives a higher present value</button>
+          <button class="mini-opt" data-correct="false">Arjun's — a higher rate always means more value</button>
+          <button class="mini-opt" data-correct="false">They are identical — the amount is the same</button>
+        </div>
+        <div class="feedback" data-correct-msg="Right — PV moves inversely to the discount rate. At 5% PV is ₹864; at 8% it falls to ₹794." data-wrong-msg="Not quite — the higher the discount rate, the LOWER the present value. Priya (5%) gets ₹864; Arjun (8%) only ₹794."></div>
+      </div>
+    </section>
+
+    <!-- 2.2 -->
+    <section class="lesson-section" id="sec-2-2">
+      <span class="section-kicker">2.2</span>
+      <h2>Present Value — what a future sum is worth today</h2>
+      <p>Present value (PV) is the amount you would pay <em>today</em> for a cash flow that arrives in the future. It brings a future value back to today's price by discounting it at the rate of return. For a single future receipt:</p>
+
+      <div class="formula">PV = <span class="var">C</span> / (1 + <span class="var">r</span>)<sup><span class="var">n</span></sup></div>
+      <ul class="formula-legend">
+        <li><b>C</b> = the future cash flow (or FV) &nbsp;·&nbsp; <b>r</b> = rate of return per period &nbsp;·&nbsp; <b>n</b> = number of periods</li>
+      </ul>
+
+      <p style="margin-top:20px">When the cash flow <em>repeats</em> every period (a regular receipt), the present value of the whole stream is:</p>
+      <div class="formula">PV = <span class="var">C</span> × [ 1 − (1 + <span class="var">r</span>)<sup>−<span class="var">n</span></sup> ] / <span class="var">r</span></div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — Shyam's ₹6,500 a year</strong>
+          <p>Shyam will receive ₹6,500 every year for the next 8 years, and the interest rate is 7%. Should he take the yearly stream, or a lump sum now — and what is that stream worth today?</p>
+          <p>Discounting each year's ₹6,500 back and adding them up (or using the annuity formula / Excel <code>PV(0.07, 8, -6500)</code>) gives a present value of <strong>₹38,813.44</strong>. If someone offered him more than ₹38,813 as a lump sum today, he should take the lump sum.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-pv">
+        <div class="calc-title"><span class="pill">Live</span> Present value of a yearly receipt</div>
+        <div class="calc-sub">Reproduce Shyam's case — then change the numbers. &nbsp;PV = C × [1 − (1+r)<sup>−n</sup>] / r</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Yearly cash flow (C) <span class="val" data-out="pv-c">₹6,500</span></label>
+              <input type="range" id="pv-c-in" min="1000" max="50000" step="500" value="6500">
+            </div>
+            <div class="ctrl">
+              <label>Number of years (n) <span class="val" data-out="pv-n">8</span></label>
+              <input type="range" id="pv-n-in" min="1" max="30" step="1" value="8">
+            </div>
+            <div class="ctrl">
+              <label>Interest rate (r) <span class="val" data-out="pv-r">7%</span></label>
+              <input type="range" id="pv-r-in" min="1" max="15" step="1" value="7">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Present value of the stream</div>
+            <div class="out-val" id="pv-out">₹38,813</div>
+            <div class="out-note" id="pv-note">8 payments of ₹6,500 = ₹52,000 undiscounted.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Present value brings a future amount to today by:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Multiplying it by (1 + r)<sup>n</sup> — compounding it up</button>
+          <button class="mini-opt" data-correct="true">Dividing it by (1 + r)<sup>n</sup> — discounting it down</button>
+          <button class="mini-opt" data-correct="false">Adding the interest rate to the amount</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — PV discounts a future sum down to today by dividing by (1+r)ⁿ. Compounding does the reverse." data-wrong-msg="Not quite — discounting DIVIDES by (1+r)ⁿ to move a future amount back to the present. Multiplying is compounding (future value)."></div>
+      </div>
+    </section>
+
+    <!-- 2.3 -->
+    <section class="lesson-section" id="sec-2-3">
+      <span class="section-kicker">2.3</span>
+      <h2>Future Value &amp; the power of compounding</h2>
+      <p>Future value (FV) is what an amount invested today will be worth at some point in the future, growing at the compound rate:</p>
+      <div class="formula">FV = <span class="var">PV</span> × (1 + <span class="var">r</span>)<sup><span class="var">n</span></sup></div>
+      <p style="margin-top:16px">The rate per period must match the <strong>frequency of compounding</strong>. If an investment pays 8% p.a. compounded quarterly, each period's rate is 8% ÷ 4 = 2%, and there are 4 periods a year. <strong>The more often interest compounds, the more interest earns interest — and the greater the return.</strong></p>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="curve-svg" viewBox="0 0 460 220" width="100%" style="max-width:520px">
+            <defs>
+              <linearGradient id="curveGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--gold-500)" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="var(--gold-500)" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <line class="grid-line" x1="45" y1="30" x2="45" y2="180"/>
+            <line class="grid-line" x1="45" y1="180" x2="440" y2="180"/>
+            <line class="grid-line" x1="45" y1="120" x2="440" y2="120" stroke-dasharray="3 4"/>
+            <line class="grid-line" x1="45" y1="75" x2="440" y2="75" stroke-dasharray="3 4"/>
+            <path class="curve-area" id="curve-area" d="M45,180 C 160,172 250,150 340,100 C 390,72 420,48 440,35 L440,180 Z"/>
+            <path class="curve-path" id="curve-path" d="M45,180 C 160,172 250,150 340,100 C 390,72 420,48 440,35"/>
+            <text class="curve-lbl" x="45" y="196" text-anchor="middle">Year 0</text>
+            <text class="curve-lbl" x="440" y="196" text-anchor="end">Year n</text>
+            <text class="curve-lbl" x="52" y="40">Value grows faster as interest compounds on interest →</text>
+          </svg>
+        </div>
+        <div class="caption">Compound growth is not a straight line — it curves upward, because each period's interest is added to the base that earns the next period's interest.</div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — Krishna's ₹5 lakh, three ways</strong>
+          <p>Krishna invests ₹5,00,000 in a 5-year bank deposit at 8%. How much interest does he earn under three scenarios? Scroll to animate the comparison:</p>
+        </div>
+      </div>
+
+      <div class="diagram-frame">
+        <div class="barset" id="krishna-bars">
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">1 · Simple interest (interest taken out yearly)</span><span class="amt" data-count="200000">₹0</span></div>
+            <div class="bar-track"><div class="bar-fill c1" data-w="82"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">2 · Compounded yearly (cumulative)</span><span class="amt" data-count="234664">₹0</span></div>
+            <div class="bar-track"><div class="bar-fill c2" data-w="96"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">3 · Compounded quarterly (cumulative)</span><span class="amt" data-count="242974">₹0</span></div>
+            <div class="bar-track"><div class="bar-fill c3" data-w="100"></div></div>
+          </div>
+        </div>
+        <div class="caption">Interest earned over 5 years. Same ₹5 lakh, same 8% — only the compounding differs. Simple: 5,00,000 × 8% × 5. Yearly: 5,00,000 × (1.08)<sup>5</sup> − 5,00,000. Quarterly: 5,00,000 × (1.02)<sup>20</sup> − 5,00,000.</div>
+      </div>
+
+      <div class="calc" id="calc-fv">
+        <div class="calc-title"><span class="pill">Live</span> Compounding-frequency lab</div>
+        <div class="calc-sub">Watch the maturity value rise as you compound more often. &nbsp;FV = PV × (1 + r/m)<sup>n×m</sup></div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Principal (PV) <span class="val" data-out="fv-pv">₹5,00,000</span></label>
+              <input type="range" id="fv-pv-in" min="50000" max="2000000" step="50000" value="500000">
+            </div>
+            <div class="ctrl">
+              <label>Rate p.a. (r) <span class="val" data-out="fv-r">8%</span></label>
+              <input type="range" id="fv-r-in" min="1" max="15" step="1" value="8">
+            </div>
+            <div class="ctrl">
+              <label>Years (n) <span class="val" data-out="fv-n">5</span></label>
+              <input type="range" id="fv-n-in" min="1" max="30" step="1" value="5">
+            </div>
+            <div class="ctrl">
+              <label style="margin-bottom:8px">Compounding frequency</label>
+              <div class="seg" id="fv-seg">
+                <button data-m="1" class="active">Yearly</button>
+                <button data-m="2">Half-yearly</button>
+                <button data-m="4">Quarterly</button>
+                <button data-m="12">Monthly</button>
+              </div>
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Maturity value</div>
+            <div class="out-val" id="fv-out">₹7,34,664</div>
+            <div class="out-note" id="fv-note">Interest earned: ₹2,34,664</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Krishna earns ₹2,34,664 with yearly compounding but ₹2,42,974 with quarterly. Why is quarterly higher?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">The interest rate is secretly higher for quarterly</button>
+          <button class="mini-opt" data-correct="true">Interest is paid four times a year, so interest starts earning interest sooner and more often</button>
+          <button class="mini-opt" data-correct="false">Quarterly deposits have a government top-up</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — more frequent compounding means interest is credited and starts earning its own interest sooner, raising the effective return." data-wrong-msg="Not quite — the nominal rate is the same 8%. Quarterly wins purely because compounding happens more often, so interest earns interest sooner."></div>
+      </div>
+    </section>
+
+    <!-- 2.4 -->
+    <section class="lesson-section" id="sec-2-4">
+      <span class="section-kicker">2.4</span>
+      <h2>Rate of return — CAGR</h2>
+      <p>Often you know how much an investment <em>grew</em> but need to express it as an annual rate, so you can compare it with other options. The Compound Annual Growth Rate (CAGR) is that standard measure:</p>
+      <div class="formula">CAGR = (<span class="var">FV</span> / <span class="var">PV</span>)<sup>1/<span class="var">n</span></sup> − 1</div>
+      <ul class="formula-legend">
+        <li>In Excel: <b>= RATE(n, , −PV, FV)</b>. e.g. ₹100 → ₹120 over 2 years = <b>9.54%</b>.</li>
+      </ul>
+      <p style="margin-top:16px">CAGR is the accepted standard for return in financial markets — <em>except</em> for periods shorter than a year. It even works for fractional periods: convert days to years (÷365) in the exponent.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Two mutual-fund examples</strong>
+          <p><strong>Whole years:</strong> ₹10.50 invested, redeemed at ₹12.25 after 3 years → CAGR = (12.25/10.50)<sup>1/3</sup> − 1 = <strong>5.27%</strong>.</p>
+          <p><strong>Fractional period:</strong> units bought at NAV ₹11, redeemed at ₹13.50 after 450 days (non-leap year) → CAGR = (13.50/11)<sup>365/450</sup> − 1 = <strong>18.07%</strong>.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-cagr">
+        <div class="calc-title"><span class="pill">Live</span> CAGR calculator</div>
+        <div class="calc-sub">Enter what you put in, what you got out, and how long. &nbsp;CAGR = (FV/PV)<sup>1/n</sup> − 1</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Amount invested (PV) <span class="val" data-out="cg-pv">₹10.50</span></label>
+              <input type="range" id="cg-pv-in" min="1" max="1000" step="0.5" value="10.5">
+            </div>
+            <div class="ctrl">
+              <label>Value at redemption (FV) <span class="val" data-out="cg-fv">₹12.25</span></label>
+              <input type="range" id="cg-fv-in" min="1" max="2000" step="0.25" value="12.25">
+            </div>
+            <div class="ctrl">
+              <label>Holding period (years) <span class="val" data-out="cg-n">3</span></label>
+              <input type="range" id="cg-n-in" min="0.5" max="20" step="0.5" value="3">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Compound annual growth rate</div>
+            <div class="out-val" id="cg-out">5.27%</div>
+            <div class="out-note" id="cg-note">Total gain: 16.7% over 3 years.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — When is CAGR <em>not</em> the appropriate measure of return?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">When the investment is in a mutual fund</button>
+          <button class="mini-opt" data-correct="true">For returns over periods shorter than one year</button>
+          <button class="mini-opt" data-correct="false">Whenever the holding period is a whole number of years</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — CAGR is the standard measure except for holding periods of less than one year." data-wrong-msg="Not quite — CAGR is the accepted standard EXCEPT for periods shorter than a year."></div>
+      </div>
+    </section>
+
+    <!-- 2.5 -->
+    <section class="lesson-section" id="sec-2-5">
+      <span class="section-kicker">2.5</span>
+      <h2>Periodic payments — EMI (PMT) &amp; loan tenure (NPER)</h2>
+      <p>Many financial commitments are a <em>regular</em> payment — most commonly a loan's Equated Monthly Instalment (EMI). Excel's <strong>PMT</strong> function computes it from three inputs: the rate per period, the number of periods, and the loan value. The catch: for a monthly loan you must divide the annual rate by 12 and count the tenure in months.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — Satish's home loan</strong>
+          <p>Satish wants a ₹30 lakh loan for 20 years at 6.5% (monthly reset). Rate per period = 6.5%/12; periods = 240. <code>PMT(0.065/12, 240, −3000000)</code> = <strong>₹22,367</strong> a month.</p>
+          <p>If the rate falls to 6.25%, the EMI drops to <strong>₹21,928</strong> — a ₹439 saving from a 0.25% cut. Slide the rate below to see it move.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-emi">
+        <div class="calc-title"><span class="pill">Live</span> EMI calculator</div>
+        <div class="calc-sub">EMI = P × r × (1+r)<sup>n</sup> ÷ [(1+r)<sup>n</sup> − 1], with r = annual rate ÷ 12 and n in months</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Loan amount (P) <span class="val" data-out="emi-p">₹30,00,000</span></label>
+              <input type="range" id="emi-p-in" min="100000" max="10000000" step="100000" value="3000000">
+            </div>
+            <div class="ctrl">
+              <label>Interest rate p.a. <span class="val" data-out="emi-r">6.5%</span></label>
+              <input type="range" id="emi-r-in" min="5" max="15" step="0.25" value="6.5">
+            </div>
+            <div class="ctrl">
+              <label>Tenure (years) <span class="val" data-out="emi-y">20</span></label>
+              <input type="range" id="emi-y-in" min="1" max="30" step="1" value="20">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Monthly EMI</div>
+            <div class="out-val" id="emi-out">₹22,367</div>
+            <div class="out-note" id="emi-note">Total repaid: ₹53,68,046 · Interest: ₹23,68,046</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="sec-2-5-nper" style="margin-top:30px">How long to clear a loan? — NPER</h3>
+      <p>Flip the question: given a loan amount, a fixed monthly payment and the rate, <strong>NPER</strong> tells you how many months clearing it will take. For a ₹5,00,000 loan at 8% with a ₹12,000 EMI: <code>NPER(0.08/12, −12000, 500000)</code> = <strong>48.97 months</strong>. This lets an adviser match the tenure to an EMI the client can actually afford.</p>
+
+      <div class="calc" id="calc-nper">
+        <div class="calc-title"><span class="pill">Live</span> Loan-tenure (NPER) calculator</div>
+        <div class="calc-sub">A bigger EMI clears the loan faster. Watch the months fall as you raise the payment.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Loan amount (PV) <span class="val" data-out="np-pv">₹5,00,000</span></label>
+              <input type="range" id="np-pv-in" min="100000" max="5000000" step="50000" value="500000">
+            </div>
+            <div class="ctrl">
+              <label>Monthly payment (EMI) <span class="val" data-out="np-pmt">₹12,000</span></label>
+              <input type="range" id="np-pmt-in" min="4000" max="80000" step="1000" value="12000">
+            </div>
+            <div class="ctrl">
+              <label>Interest rate p.a. <span class="val" data-out="np-r">8%</span></label>
+              <input type="range" id="np-r-in" min="5" max="15" step="0.25" value="8">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Months to repay</div>
+            <div class="out-val" id="np-out">48.97</div>
+            <div class="out-note" id="np-note">≈ 4 years 1 month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — For a home loan quoted at 9% p.a. with monthly EMIs over 15 years, what goes into the PMT formula?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Rate 9, periods 15</button>
+          <button class="mini-opt" data-correct="true">Rate 9%/12 per month, periods 15 × 12 = 180</button>
+          <button class="mini-opt" data-correct="false">Rate 9%/15, periods 12</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — for monthly EMIs the annual rate is divided by 12 and the tenure is counted in months (15 × 12 = 180)." data-wrong-msg="Not quite — monthly EMIs need the rate ÷ 12 (per month) and the tenure in months: 15 × 12 = 180 periods."></div>
+      </div>
+    </section>
+
+    <!-- 2.6 -->
+    <section class="lesson-section" id="sec-2-6">
+      <span class="section-kicker">2.6</span>
+      <h2>Annuities — a stream of regular payments</h2>
+      <p>An <strong>annuity</strong> is a sum of money paid at regular intervals — monthly, quarterly or annually. A pension is the classic example. Annuities come in two flavours by <em>how the return behaves</em>, and two types by <em>when the payment lands</em>.</p>
+
+      <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))" id="annuity-type-grid"></div>
+
+      <h3 id="sec-2-6-timing" style="margin-top:32px">Ordinary annuity vs. annuity due — timing changes value</h3>
+      <p>The single difference is <em>when</em> in the period the payment is made:</p>
+      <ul>
+        <li><strong>Ordinary annuity</strong> — payment at the <em>end</em> of each period (most annuities, e.g. a bond coupon). Excel: leave <code>type</code> as 0.</li>
+        <li><strong>Annuity due</strong> — payment at the <em>start</em> of each period. Excel: set <code>type</code> = 1.</li>
+      </ul>
+      <p>Receiving each payment one period <em>earlier</em> means it can be invested sooner — so an annuity due is always worth more. Take ₹5,000 a year for 4 years at 10%:</p>
+
+      <div class="diagram-frame">
+        <div class="barset" id="annuity-bars">
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">Ordinary annuity — paid at year-end &nbsp;<code>PV(0.1,4,-5000)</code></span><span class="amt" data-count="15849">₹0</span></div>
+            <div class="bar-track"><div class="bar-fill c2" data-w="91"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">Annuity due — paid at year-start &nbsp;<code>PV(0.1,4,-5000,,1)</code></span><span class="amt" data-count="17434">₹0</span></div>
+            <div class="bar-track"><div class="bar-fill c3" data-w="100"></div></div>
+          </div>
+        </div>
+        <div class="caption">Same ₹5,000 × 4 years at 10% — the annuity due is worth ₹1,585 more purely because each payment arrives a year earlier. (Annuity due PV = ordinary PV × (1 + r).)</div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Annuity tables</strong>
+          <p>Instead of the full formula you can use an <em>annuity factor</em> from a table. To value ₹12,000 a year for 10 years at 5%: the factor is 7.7217, so PV = 12,000 × 7.7217 = <strong>₹92,660</strong> — exactly what <code>PV(0.05, 10, −12000)</code> returns.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-annuity">
+        <div class="calc-title"><span class="pill">Live</span> Annuity value — ordinary vs due</div>
+        <div class="calc-sub">Toggle the timing and watch the value jump. &nbsp;Due = Ordinary × (1 + r)</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Payment per year (C) <span class="val" data-out="an-c">₹5,000</span></label>
+              <input type="range" id="an-c-in" min="1000" max="50000" step="500" value="5000">
+            </div>
+            <div class="ctrl">
+              <label>Years (n) <span class="val" data-out="an-n">4</span></label>
+              <input type="range" id="an-n-in" min="1" max="30" step="1" value="4">
+            </div>
+            <div class="ctrl">
+              <label>Rate (r) <span class="val" data-out="an-r">10%</span></label>
+              <input type="range" id="an-r-in" min="1" max="15" step="1" value="10">
+            </div>
+            <div class="ctrl">
+              <label style="margin-bottom:8px">Payment timing</label>
+              <div class="seg" id="an-seg">
+                <button data-t="0" class="active">Ordinary (end)</button>
+                <button data-t="1">Annuity due (start)</button>
+              </div>
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Present value of the annuity</div>
+            <div class="out-val" id="an-out">₹15,849</div>
+            <div class="out-note" id="an-note">Ordinary annuity — paid at each year-end.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — For the person <em>receiving</em> the payments, which is more valuable, and why?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Annuity due — money arrives at the start of each period and can be invested sooner</button>
+          <button class="mini-opt" data-correct="false">Ordinary annuity — paying at the end earns more interest</button>
+          <button class="mini-opt" data-correct="false">They are always equal; timing is irrelevant</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — an annuity due pays at the start of each period, so each receipt can be reinvested a full period earlier, raising its present value." data-wrong-msg="Not quite — the annuity DUE is worth more to a recipient: earlier receipt means earlier reinvestment. Its PV = ordinary × (1 + r)."></div>
+      </div>
+    </section>
+
+    <!-- 2.7 -->
+    <section class="lesson-section" id="sec-2-7">
+      <span class="section-kicker">2.7</span>
+      <h2>Perpetuity — a cash flow that never ends</h2>
+      <p>A <strong>perpetuity</strong> is a stream of equal cash flows that continues <em>forever</em> — there is no finite end date. Real-world examples are <em>perpetual bonds</em> (they pay a coupon year after year with no maturity) and certain lifelong pensions. Summing the infinite discounted series collapses to a strikingly simple formula:</p>
+      <div class="formula">PV = <span class="var">C</span> / <span class="var">r</span></div>
+      <ul class="formula-legend">
+        <li><b>C</b> = the constant periodic cash flow &nbsp;·&nbsp; <b>r</b> = the discount rate</li>
+      </ul>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — a perpetual bond</strong>
+          <p>A perpetual bond pays ₹10,000 of interest every year, forever. At a discount rate of 8%: PV = 10,000 ÷ 0.08 = <strong>₹1,25,000</strong>. That is the most a rational investor would pay for the never-ending ₹10,000 stream.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-perp">
+        <div class="calc-title"><span class="pill">Live</span> Perpetuity valuer</div>
+        <div class="calc-sub">Notice how sensitive the value is to the discount rate. &nbsp;PV = C / r</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Annual cash flow (C) <span class="val" data-out="pp-c">₹10,000</span></label>
+              <input type="range" id="pp-c-in" min="1000" max="100000" step="1000" value="10000">
+            </div>
+            <div class="ctrl">
+              <label>Discount rate (r) <span class="val" data-out="pp-r">8%</span></label>
+              <input type="range" id="pp-r-in" min="1" max="15" step="0.5" value="8">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Value of the perpetuity</div>
+            <div class="out-val" id="pp-out">₹1,25,000</div>
+            <div class="out-note" id="pp-note">A lower rate makes an endless stream far more valuable.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A perpetual bond pays ₹8,000 a year. If the discount rate is 10%, what is it worth today?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">₹8,800</button>
+          <button class="mini-opt" data-correct="true">₹80,000</button>
+          <button class="mini-opt" data-correct="false">₹8,00,000</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — PV = C / r = 8,000 / 0.10 = ₹80,000." data-wrong-msg="Not quite — for a perpetuity, PV = C / r = 8,000 / 0.10 = ₹80,000."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Formula flashcards</h2>
+      <p>Every core formula from this chapter on one card each — tap to reveal the formula and when to use it. Great for a last-minute revision pass.</p>
+      <div class="flip-grid" id="formula-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch02";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 1", href: "../../index.html" },
+    { label: "Chapter 2", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---------- Formatting helpers ----------
+  function inr(n, dp) {
+    var v = (dp ? n.toFixed(dp) : Math.round(n));
+    return "₹" + Number(v).toLocaleString("en-IN", dp ? { minimumFractionDigits: dp, maximumFractionDigits: dp } : {});
+  }
+  function pow(b, e) { return Math.pow(b, e); }
+  function setText(id, txt) { var el = document.getElementById(id); if (el) el.textContent = txt; }
+  function outVal(key, txt) { var el = document.querySelector('[data-out="' + key + '"]'); if (el) el.textContent = txt; }
+
+  // ---------- Count-up animation ----------
+  function animateCount(el, target, duration, formatter) {
+    var start = performance.now();
+    function tick(now) {
+      var p = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = formatter(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // =====================================================================
+  // 2.1  Discount-rate explorer
+  // =====================================================================
+  (function () {
+    var fv = document.getElementById("dc-fv-in"),
+        n  = document.getElementById("dc-n-in"),
+        r  = document.getElementById("dc-r-in");
+    function update() {
+      var FV = +fv.value, N = +n.value, R = +r.value / 100;
+      var pv = FV / pow(1 + R, N);
+      outVal("dc-fv", inr(FV)); outVal("dc-n", N); outVal("dc-r", r.value + "%");
+      setText("dc-pv", inr(pv));
+      document.getElementById("dc-bar").style.width = (pv / FV * 100) + "%";
+      setText("dc-note", "You'd give up " + inr(FV - pv) + " by waiting " + N + (N === 1 ? " year." : " years."));
+    }
+    [fv, n, r].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 2.2  Present value of a yearly receipt (ordinary annuity)
+  // =====================================================================
+  (function () {
+    var c = document.getElementById("pv-c-in"),
+        n = document.getElementById("pv-n-in"),
+        r = document.getElementById("pv-r-in");
+    function update() {
+      var C = +c.value, N = +n.value, R = +r.value / 100;
+      var pv = C * (1 - pow(1 + R, -N)) / R;
+      outVal("pv-c", inr(C)); outVal("pv-n", N); outVal("pv-r", r.value + "%");
+      setText("pv-out", inr(pv));
+      setText("pv-note", N + " payments of " + inr(C) + " = " + inr(C * N) + " undiscounted.");
+    }
+    [c, n, r].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 2.3  Compounding-frequency lab
+  // =====================================================================
+  (function () {
+    var pv = document.getElementById("fv-pv-in"),
+        r  = document.getElementById("fv-r-in"),
+        n  = document.getElementById("fv-n-in"),
+        seg = document.getElementById("fv-seg"),
+        m = 1;
+    function update() {
+      var PV = +pv.value, R = +r.value / 100, N = +n.value;
+      var fv = PV * pow(1 + R / m, N * m);
+      outVal("fv-pv", inr(PV)); outVal("fv-r", r.value + "%"); outVal("fv-n", N);
+      setText("fv-out", inr(fv));
+      setText("fv-note", "Interest earned: " + inr(fv - PV));
+    }
+    seg.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      m = +b.dataset.m;
+      Array.prototype.forEach.call(seg.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      update();
+    });
+    [pv, r, n].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 2.4  CAGR calculator
+  // =====================================================================
+  (function () {
+    var pv = document.getElementById("cg-pv-in"),
+        fv = document.getElementById("cg-fv-in"),
+        n  = document.getElementById("cg-n-in");
+    function update() {
+      var PV = +pv.value, FV = +fv.value, N = +n.value;
+      var cagr = (pow(FV / PV, 1 / N) - 1) * 100;
+      var total = (FV / PV - 1) * 100;
+      outVal("cg-pv", inr(PV, 2)); outVal("cg-fv", inr(FV, 2)); outVal("cg-n", N);
+      setText("cg-out", cagr.toFixed(2) + "%");
+      setText("cg-note", "Total gain: " + total.toFixed(1) + "% over " + N + (N === 1 ? " year." : " years."));
+    }
+    [pv, fv, n].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 2.5  EMI calculator
+  // =====================================================================
+  (function () {
+    var p = document.getElementById("emi-p-in"),
+        r = document.getElementById("emi-r-in"),
+        y = document.getElementById("emi-y-in");
+    function update() {
+      var P = +p.value, R = (+r.value / 100) / 12, N = +y.value * 12;
+      var emi = P * R * pow(1 + R, N) / (pow(1 + R, N) - 1);
+      var totalPaid = emi * N;
+      outVal("emi-p", inr(P)); outVal("emi-r", (+r.value) + "%"); outVal("emi-y", y.value);
+      setText("emi-out", inr(emi));
+      setText("emi-note", "Total repaid: " + inr(totalPaid) + " · Interest: " + inr(totalPaid - P));
+    }
+    [p, r, y].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 2.5  NPER (loan tenure)
+  // =====================================================================
+  (function () {
+    var pv = document.getElementById("np-pv-in"),
+        pmt = document.getElementById("np-pmt-in"),
+        r = document.getElementById("np-r-in");
+    function update() {
+      var PV = +pv.value, PMT = +pmt.value, R = (+r.value / 100) / 12;
+      outVal("np-pv", inr(PV)); outVal("np-pmt", inr(PMT)); outVal("np-r", (+r.value) + "%");
+      // NPER = -ln(1 - PV*r/PMT) / ln(1+r)
+      var ratio = PV * R / PMT;
+      if (ratio >= 1) {
+        setText("np-out", "∞");
+        setText("np-note", "EMI too small — it doesn't even cover the monthly interest.");
+        return;
+      }
+      var nper = -Math.log(1 - ratio) / Math.log(1 + R);
+      setText("np-out", nper.toFixed(2));
+      var yrs = Math.floor(nper / 12), mo = Math.round(nper % 12);
+      setText("np-note", "≈ " + yrs + " year" + (yrs === 1 ? "" : "s") + " " + mo + " month" + (mo === 1 ? "" : "s"));
+    }
+    [pv, pmt, r].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 2.6  Annuity — ordinary vs due
+  // =====================================================================
+  (function () {
+    var c = document.getElementById("an-c-in"),
+        n = document.getElementById("an-n-in"),
+        r = document.getElementById("an-r-in"),
+        seg = document.getElementById("an-seg"),
+        type = 0;
+    function update() {
+      var C = +c.value, N = +n.value, R = +r.value / 100;
+      var ord = C * (1 - pow(1 + R, -N)) / R;
+      var val = type === 1 ? ord * (1 + R) : ord;
+      outVal("an-c", inr(C)); outVal("an-n", N); outVal("an-r", r.value + "%");
+      setText("an-out", inr(val));
+      setText("an-note", type === 1
+        ? "Annuity due — paid at each year-start. That's " + inr(val - ord) + " more than the ordinary annuity."
+        : "Ordinary annuity — paid at each year-end.");
+    }
+    seg.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      type = +b.dataset.t;
+      Array.prototype.forEach.call(seg.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      update();
+    });
+    [c, n, r].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 2.7  Perpetuity
+  // =====================================================================
+  (function () {
+    var c = document.getElementById("pp-c-in"),
+        r = document.getElementById("pp-r-in");
+    function update() {
+      var C = +c.value, R = +r.value / 100;
+      outVal("pp-c", inr(C)); outVal("pp-r", (+r.value) + "%");
+      setText("pp-out", inr(C / R));
+    }
+    [c, r].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // Annuity-type flip cards
+  // =====================================================================
+  var annuityTypes = [
+    { icon: "🔒", label: "Fixed annuity", back: "Pays a fixed return at regular intervals — e.g. a 5-year bank FD paying 5.5% p.a. on the invested sum for a predetermined term." },
+    { icon: "🌊", label: "Floating annuity", back: "Returns are benchmarked to inflation, an index, or another agreed reference, so the payout changes in line with that benchmark." },
+    { icon: "🏦", label: "Ordinary annuity", back: "Payment at the END of each period. Most annuities are this type — e.g. a bond coupon received at year-end." },
+    { icon: "⏫", label: "Annuity due", back: "Payment at the START of each period. Worth more than an ordinary annuity: PV = ordinary × (1 + r)." }
+  ];
+  document.getElementById("annuity-type-grid").innerHTML = annuityTypes.map(function (it) {
+    return '<div class="flip-card"><div class="flip-card-inner">' +
+      '<div class="flip-face flip-front"><div style="font-size:26px">' + it.icon + '</div><div class="label">' + it.label + '</div><div class="hint">Tap to expand</div></div>' +
+      '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+    '</div></div>';
+  }).join("");
+
+  // =====================================================================
+  // Formula flashcards
+  // =====================================================================
+  var formulaCards = [
+    { l: "PV", label: "Present Value", back: "PV = C / (1+r)ⁿ — discounts a single future amount back to today. For a stream: C × [1−(1+r)⁻ⁿ]/r." },
+    { l: "FV", label: "Future Value", back: "FV = PV × (1+r)ⁿ — grows today's money forward. Adjust r and n for the compounding frequency (r/m, n×m)." },
+    { l: "CAGR", label: "Rate of Return", back: "CAGR = (FV/PV)^(1/n) − 1 — the standard annual return, except for periods under one year." },
+    { l: "EMI", label: "Periodic Payment", back: "PMT = P·r·(1+r)ⁿ ÷ [(1+r)ⁿ−1]. For monthly loans use r/12 and n in months." },
+    { l: "NPER", label: "Loan Tenure", back: "The number of periods to repay a loan given the amount, EMI and rate. Match tenure to an affordable EMI." },
+    { l: "AD", label: "Annuity Due", back: "Payment at the start of each period. PV = ordinary annuity × (1+r) — always worth more than an ordinary annuity." },
+    { l: "∞", label: "Perpetuity", back: "PV = C / r — the value of an equal cash flow that continues forever, e.g. a perpetual bond." }
+  ];
+  document.getElementById("formula-cards").innerHTML = formulaCards.map(function (it) {
+    return '<div class="flip-card"><div class="flip-card-inner">' +
+      '<div class="flip-face flip-front"><div style="font-size:26px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.l + '</div><div class="label">' + it.label + '</div><div class="hint">Tap for the formula</div></div>' +
+      '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+    '</div></div>';
+  }).join("");
+
+  // =====================================================================
+  // Scroll-triggered animations (timeline arrow, curve, bar sets)
+  // =====================================================================
+  function onReveal(selector, cb, threshold) {
+    var el = document.querySelector(selector);
+    if (!el) return;
+    var obs = new IntersectionObserver(function (entries, o) {
+      entries.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: threshold || 0.35 });
+    obs.observe(el);
+  }
+
+  onReveal("#tvm-arrow", function () { document.getElementById("tvm-arrow").classList.add("go"); }, 0.5);
+
+  onReveal("#curve-path", function () {
+    document.getElementById("curve-path").classList.add("go");
+    document.getElementById("curve-area").classList.add("go");
+  }, 0.4);
+
+  function animateBarSet(container) {
+    container.querySelectorAll(".bar-fill").forEach(function (bar) {
+      requestAnimationFrame(function () { bar.style.width = bar.dataset.w + "%"; });
+    });
+    container.querySelectorAll(".amt[data-count]").forEach(function (el) {
+      animateCount(el, parseInt(el.dataset.count, 10), 1300, function (v) { return inr(v); });
+    });
+  }
+  onReveal("#krishna-bars", animateBarSet, 0.4);
+  onReveal("#annuity-bars", animateBarSet, 0.4);
+
+  // =====================================================================
+  // Quiz
+  // =====================================================================
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH02_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  // ---- Page-wide interaction wiring ----
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>
