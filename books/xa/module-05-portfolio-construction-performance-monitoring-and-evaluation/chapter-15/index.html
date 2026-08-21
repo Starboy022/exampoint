@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 15 — Portfolio Construction Process | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Portfolio Construction Process — asset allocation and correlation across asset classes, the portfolio management process and the Investment Policy Statement (IPS), investment objectives and constraints (liquidity, regulatory, tax), exposure limits, unique needs, sustainable and ethical investing, assessing investor goals and financial position, psychographic analysis (Bailard, Biehl &amp; Kaiser), life-cycle analysis, forecasting risk/return, benchmarking, portfolio construction principles, strategic vs tactical asset allocation and rebalancing. NISM Series-X-A, Module 5, Chapter 15." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+
+  /* ---- Pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+
+  /* ---- Matcher (shared, reused for correlation / ESG / goals / benchmarks) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.95rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Net-worth mini calculator ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 13px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.92rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; text-align:center; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.7rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .dual-out { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+  .dual-out .box { background:var(--bg-app); border-radius:var(--radius-md); padding:12px; }
+  .dual-out .box .l { font-size:0.66rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); }
+  .dual-out .box .v { font-family:var(--font-display); font-weight:800; font-size:1.1rem; color:var(--gold-600); }
+
+  /* ---- BB&K quadrant ---- */
+  .quad-wrap { display:grid; grid-template-columns: 28px 1fr; grid-template-rows: 1fr 28px; gap:6px; margin:20px 0 6px; max-width:520px; }
+  .quad-axis-y { grid-row:1; grid-column:1; display:flex; align-items:center; justify-content:center; }
+  .quad-axis-y span { writing-mode:vertical-rl; transform:rotate(180deg); font-size:0.72rem; font-weight:700; color:var(--text-secondary); letter-spacing:.03em; }
+  .quad-axis-x { grid-row:2; grid-column:2; display:flex; align-items:center; justify-content:space-between; font-size:0.72rem; font-weight:700; color:var(--text-secondary); padding:0 4px; }
+  .quad-grid { grid-row:1; grid-column:2; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:8px; }
+  .quad-cell { border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-app); padding:14px 12px; cursor:pointer; transition:all var(--dur-med) var(--ease-spring); text-align:center; min-height:88px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; }
+  .quad-cell:hover { border-color:var(--gold-500); }
+  .quad-cell.active { background:color-mix(in srgb,var(--gold-500) 16%,var(--bg-app)); border-color:var(--gold-500); transform:translateY(-2px); box-shadow:var(--shadow-md); }
+  .quad-cell .qn { font-family:var(--font-display); font-weight:800; font-size:0.98rem; }
+  .quad-cell .qs { font-size:0.68rem; color:var(--text-secondary); }
+  .quad-desc { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface-2); padding:14px 16px; margin-top:10px; font-size:0.85rem; min-height:2.4em; }
+  .quad-desc strong { font-family:var(--font-display); color:var(--gold-600); }
+
+  /* ---- Life-cycle explorer ---- */
+  .lc-wrap { background:var(--bg-surface-2); border-radius:var(--radius-md); padding:16px; }
+  .lc-slider-row label { display:flex; justify-content:space-between; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .lc-slider-row .val { font-family:var(--font-mono); color:var(--gold-600); font-weight:700; }
+  .lc-slider-row input[type=range] { width:100%; accent-color:var(--gold-500); }
+  .lc-phase-card { margin-top:14px; padding:14px 16px; border-radius:var(--radius-md); background:var(--bg-app); border:1px solid var(--border-subtle); }
+  .lc-phase-card .ph-name { font-family:var(--font-display); font-weight:800; font-size:1.02rem; color:var(--gold-600); }
+  .lc-phase-card p { font-size:0.83rem; color:var(--text-secondary); margin:6px 0 0; }
+
+  /* ---- SVG animation helpers ---- */
+  .draw-line { fill:none; stroke-dasharray:900; stroke-dashoffset:900; }
+  .draw-line.long { stroke-dasharray:1600; stroke-dashoffset:1600; }
+  .draw-line.go { animation: draw 1.9s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+  .pop-el { opacity:0; transform:scale(0.4); transform-origin:center; transition:opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring); }
+  .pop-el.go { opacity:1; transform:scale(1); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 5 · Portfolio Construction, Performance Monitoring &amp; Evaluation</span>
+      <span class="badge badge-gold">Chapter 15 of 20</span>
+    </div>
+    <h1>Portfolio Construction Process</h1>
+    <p class="lede">Once MPT gives an adviser the mathematics of risk and return, the next question is practical: <strong>how do you actually build a portfolio for a real client?</strong> This chapter walks through the full process — understanding <strong>asset allocation</strong> and <strong>correlation</strong>, drafting the <strong>Investment Policy Statement (IPS)</strong>, capturing the client's <strong>objectives, constraints, unique preferences</strong> and <strong>goals</strong>, reading their <strong>financial position</strong>, <strong>psychographic profile</strong> and <strong>life-cycle stage</strong>, forecasting <strong>risk and return</strong>, choosing a <strong>benchmark</strong>, applying <strong>portfolio construction principles</strong>, and finally distinguishing <strong>strategic from tactical asset allocation</strong> and knowing when to <strong>rebalance</strong>.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~30 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> <span id="meta-qcount">44</span> assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 6 interactive tools</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 16 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:700px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Importance of the asset allocation decision</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Correlation across asset classes and securities</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Steps in the portfolio construction process</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Investment objectives</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Investment constraints</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Exposure limits to sectors, entities and asset classes</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Unique needs and preferences of investors</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Assessing needs and requirements of the investor</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Analysing the investor's financial position</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Psychographic analysis of the investor</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Life-cycle analysis of the investor</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Forecasting risk and return of asset classes</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Benchmarking the client's portfolio</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The asset allocation decision</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Portfolio construction principles; strategic vs tactical asset allocation; rebalancing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-15-1">15.1–15.2 Asset allocation &amp; correlation</a></li>
+      <li><a href="#sec-15-2">15.3 Process &amp; the IPS</a></li>
+      <li><a href="#sec-15-3">15.4–15.5 Objectives &amp; constraints</a></li>
+      <li><a href="#sec-15-4">15.6–15.7 Exposure limits &amp; ESG</a></li>
+      <li><a href="#sec-15-5">15.8–15.9 Goals &amp; financial position</a></li>
+      <li><a href="#sec-15-6">15.10–15.11 Psychographic &amp; life-cycle</a></li>
+      <li><a href="#sec-15-7">15.12–15.14 Forecasting &amp; benchmarking</a></li>
+      <li><a href="#sec-15-8">15.15–15.17 Principles, SAA/TAA &amp; rebalancing</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 15.1-15.2 -->
+    <section class="lesson-section" id="sec-15-1">
+      <span class="section-kicker">15.1–15.2</span>
+      <h2>Asset allocation &amp; correlation across asset classes</h2>
+      <p><strong>Asset allocation</strong> is the process of deciding how to distribute an investor's wealth across different <strong>asset classes</strong> — a collection of securities sharing similar characteristics and risk/return relationships (e.g. bonds, equities, cash and cash-like securities). A broad class can be split further: "bonds" into Treasury, corporate and junk bonds; equity into large-, mid- and small-cap.</p>
+      <p>Asset allocation is <strong>the</strong> starting point for an investor pursuing their goals. Professional experience shows that, over the long run, the asset-allocation decision is the <strong>major</strong> influence on portfolio performance — the choice of individual products <em>within</em> an asset class matters, but contributes far less to the end result.</p>
+
+      <p><strong>Correlation</strong> measures the strength and direction of the relationship between two variables, ranging from <strong>−1 to +1</strong>. +1 (−1) is a perfect positive (negative) relationship; a positive relationship means the variables move together in the same direction. Securities within the <em>same</em> asset class tend to be sensitive to the same economic/investment factors, so their correlation is typically <strong>high</strong>; correlation <em>across</em> different asset classes is typically <strong>low</strong> — which is exactly what makes diversification work. Correlations change over time and across economic regimes, so advisers should not rely solely on past correlation data.</p>
+
+      <div class="matcher" id="corr-matcher">
+        <h4>Tap a pair — indicative correlation</h4>
+        <div class="hint">Correlation within an asset class runs high; correlation across different asset classes runs low (and can turn negative in stress periods).</div>
+        <div class="match-markets" id="corr-markets">
+          <button class="match-mkt" data-reg="EE">Large-cap ↔ Mid-cap equity</button>
+          <button class="match-mkt" data-reg="ED">Equity ↔ Debt</button>
+          <button class="match-mkt" data-reg="EG">Equity ↔ Gold</button>
+        </div>
+        <div class="match-regs" id="corr-cards">
+          <div class="reg-card" data-reg="EE"><div class="rn">High positive</div><div class="rd">Same asset class (equity) — both react to the same equity-market and economic factors, so they tend to move together.</div></div>
+          <div class="reg-card" data-reg="ED"><div class="rn">Low / can turn negative</div><div class="rd">Different asset classes with different return drivers — equities react to growth/earnings, debt to interest rates. Combining the two reduces portfolio risk.</div></div>
+          <div class="reg-card" data-reg="EG"><div class="rn">Low / often negative in stress</div><div class="rd">Gold is frequently a "safe haven" — in risk-off periods money can flow into gold while flowing out of equities, giving diversification exactly when it is needed most.</div></div>
+        </div>
+        <div class="match-feedback" id="corr-feedback"></div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Correlation is the engine of diversification</strong>
+          <p>Understanding correlation across asset classes is crucial to the asset-allocation decision — it is the most relevant factor in reaping the benefits of risk diversification. But correlations among asset classes can and do change over time and across economic regimes, so future correlation may differ from history.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Two securities belong to the <em>same</em> asset class. Their correlation is generally expected to be:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">High, because they are sensitive to the same major economic/investment factors</button>
+          <button class="mini-opt" data-correct="false">Always exactly −1</button>
+          <button class="mini-opt" data-correct="false">Irrelevant to asset allocation</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — investments within the same asset class are sensitive to the same major economic/investment factors, so correlation among them is expected to be high." data-wrong-msg="Not quite — same-asset-class securities share return drivers, so their correlation is typically high."></div>
+      </div>
+    </section>
+
+    <!-- 15.3 -->
+    <section class="lesson-section" id="sec-15-2">
+      <span class="section-kicker">15.3</span>
+      <h2>Steps in the portfolio construction process &amp; the IPS</h2>
+      <p>Portfolio management is a set of integrated activities carried out in a logical, orderly and consistent manner — planning, execution and evaluation — to create and maintain an optimum portfolio:</p>
+
+      <div class="stepper" id="process-stepper"></div>
+
+      <p>Thus the process moves from <strong>planning</strong> through <strong>execution</strong> to <strong>feedback</strong> — and back to planning, since it is continuous.</p>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:22px">15.3.1–15.3.3 The Investment Policy Statement (IPS)</h3>
+      <p>The <strong>Investment Policy Statement (IPS)</strong> is the key output of step one — the road map that guides the entire investment process. Either the investor or their Investment Adviser drafts it, specifying objectives, goals, constraints, preferences and the risk the investor is willing to take. Every investment decision flows from the IPS, and because investor circumstances change, the IPS must be <strong>updated and revised periodically</strong>. It forms the basis for <strong>strategic asset allocation</strong> — the interaction between the investor's risk-return requirements and expected investment returns.</p>
+
+      <p>The IPS serves four important purposes:</p>
+      <div class="term-grid" id="ips-purpose-grid"></div>
+
+      <p style="margin-top:16px">Its <strong>constituents</strong> typically include: the investor's goals with priorities, investment objectives with time horizon, risk/return profile, liquidity constraints, preferred (and excluded) asset classes, and a <strong>systematic review process</strong> to keep the investor on track.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which of the following is <em>not</em> one of the four purposes of an IPS listed in the chapter?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Guaranteeing a minimum absolute return regardless of market conditions</button>
+          <button class="mini-opt" data-correct="false">Giving investors realistic return expectations</button>
+          <button class="mini-opt" data-correct="false">Protecting the investor against inappropriate or unethical decisions by the manager</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — an IPS sets realistic expectations, frames the manager's decisions and evaluation, and protects the investor from inappropriate/unethical action; it never guarantees a return." data-wrong-msg="Not quite — an IPS never guarantees returns; it sets expectations, frames decisions/evaluation and protects the investor."></div>
+      </div>
+    </section>
+
+    <!-- 15.4-15.5 -->
+    <section class="lesson-section" id="sec-15-3">
+      <span class="section-kicker">15.4–15.5</span>
+      <h2>Investment objectives &amp; constraints</h2>
+      <p>Investors state objectives in terms of <strong>risk–return–liquidity</strong>. Risk and return move together (higher risk, higher expected return); liquidity moves inversely with return — illiquid investments demand an <strong>illiquidity risk premium</strong>. Depending on the objective, the asset allocation tilts accordingly:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🎯 Objective → tilt</h4>
+          <ul>
+            <li><strong>Capital appreciation</strong> → high-return, higher-risk assets (e.g. equity)</li>
+            <li><strong>Capital preservation</strong> → safe bonds and debt securities</li>
+            <li><strong>Regular income</strong> → dividend-paying stocks, interest-paying bonds, rent-paying realty</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🚧 Types of constraint</h4>
+          <ul>
+            <li><strong>Liquidity</strong> constraint — how much must stay accessible</li>
+            <li><strong>Regulatory</strong> constraint — legal limits on investment choices</li>
+            <li><strong>Tax</strong> constraint — different income types taxed differently</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:22px">Liquidity needs fall into three categories</h3>
+      <div class="term-grid" id="liquidity-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Regulatory constraint — the LRS example</strong>
+          <p>Under the RBI's <strong>Liberalised Remittance Scheme (LRS)</strong>, a resident individual (including minors) can remit up to <strong>USD 2,50,000 per financial year</strong> for permissible current/capital account transactions — a hard ceiling on how much can be invested overseas. Separately, trading on unpublished price-sensitive information ("insider trading") is prohibited for those with access to it.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Under the Liberalised Remittance Scheme, a resident individual can remit overseas, per financial year, up to:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">USD 2,50,000</button>
+          <button class="mini-opt" data-correct="false">USD 25,000</button>
+          <button class="mini-opt" data-correct="false">USD 10,00,000</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the current LRS limit is USD 2,50,000 per financial year (it started at USD 25,000 in 2004 and has since been revised upward)." data-wrong-msg="Not quite — the current LRS limit is USD 2,50,000 per financial year."></div>
+      </div>
+    </section>
+
+    <!-- 15.6-15.7 -->
+    <section class="lesson-section" id="sec-15-4">
+      <span class="section-kicker">15.6–15.7</span>
+      <h2>Exposure limits, unique needs &amp; sustainable/ethical investing</h2>
+      <p>Under <strong>SEBI (Portfolio Managers) Regulations, 2020</strong>, the agreement between a portfolio manager and investor must include the <strong>investment approach</strong> — the broad outlay of permissible securities/instruments and the proportion of exposure. Once the investor's objective, risk appetite, liquidity, tax/regulatory constraints and horizon are known, exposure limits to specific sectors, entities and asset classes can be set to avoid <strong>concentration risk</strong>, which the manager must then adhere to.</p>
+
+      <p>Investors also carry <strong>idiosyncratic</strong> concerns — personal, social, ethical or cultural preferences (e.g. avoiding stocks of environmentally harmful businesses, or reluctance to sell an employer's stock out of emotional attachment). Every such preference should be recorded clearly in the IPS.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🌱 Sustainable investing</h4>
+          <ul>
+            <li>Considers <strong>Environmental, Social and Governance (ESG)</strong> criteria alongside financial return</li>
+            <li>Goal: financial return <em>and</em> positive societal impact</li>
+            <li>Driven by personal values, institutional mission, or a belief that good ESG practice supports future outperformance</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>⚖️ Ethical investing</h4>
+          <ul>
+            <li>Selects investments using <strong>moral/ethical principles</strong> as the primary filter</li>
+            <li>Highly <strong>personalised</strong> to the investor's own views</li>
+            <li>Typically screens out "sin" areas — gambling, alcohol, smoking, firearms</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="matcher" id="esg-matcher">
+        <h4>Tap an ESG factor — which bucket?</h4>
+        <div class="hint">Sustainable investing screens on Environmental, Social and Governance criteria.</div>
+        <div class="match-markets" id="esg-markets">
+          <button class="match-mkt" data-reg="E">Water use &amp; pollution</button>
+          <button class="match-mkt" data-reg="S">Workplace safety</button>
+          <button class="match-mkt" data-reg="G">Board independence</button>
+        </div>
+        <div class="match-regs" id="esg-cards">
+          <div class="reg-card" data-reg="E"><div class="rn">Environmental</div><div class="rd">Pollution, water use, clean technology adopted.</div></div>
+          <div class="reg-card" data-reg="S"><div class="rn">Social</div><div class="rd">Workplace safety, community development, human rights.</div></div>
+          <div class="reg-card" data-reg="G"><div class="rn">Governance</div><div class="rd">Board independence, board diversity, executive compensation.</div></div>
+        </div>
+        <div class="match-feedback" id="esg-feedback"></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An investor personally refuses to hold gambling, alcohol or tobacco stocks regardless of financial merit. This is best described as:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Ethical investing — a personalised moral filter applied to selection</button>
+          <button class="mini-opt" data-correct="false">Tactical asset allocation</button>
+          <button class="mini-opt" data-correct="false">A regulatory constraint imposed by SEBI</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — screening out 'sin' sectors like gambling, alcohol, smoking or firearms based on personal moral principles is ethical investing." data-wrong-msg="Not quite — this personalised moral screen is ethical investing, distinct from the broader ESG criteria of sustainable investing."></div>
+      </div>
+    </section>
+
+    <!-- 15.8-15.9 -->
+    <section class="lesson-section" id="sec-15-5">
+      <span class="section-kicker">15.8–15.9</span>
+      <h2>Assessing investor goals &amp; financial position</h2>
+      <p>Investors hold many goals with different <strong>priorities</strong> and <strong>time horizons</strong>. A goal sheet records each goal's priority, time period and amount needed:</p>
+
+      <div class="matcher" id="goal-matcher">
+        <h4>Tap a goal — where does it belong?</h4>
+        <div class="hint">Priority and time horizon drive the investment vehicle chosen for each goal.</div>
+        <div class="match-markets" id="goal-markets">
+          <button class="match-mkt" data-reg="NT">Daughter's wedding in 18 months</button>
+          <button class="match-mkt" data-reg="LT">Building a retirement corpus</button>
+          <button class="match-mkt" data-reg="LP">Buying a farmhouse "someday"</button>
+        </div>
+        <div class="match-regs" id="goal-cards">
+          <div class="reg-card" data-reg="NT"><div class="rn">Near-term, high priority</div><div class="rd">High emotional priority, due within a few years. Use cash equivalents / fixed-income with maturity matching the goal date — the cost of missing it is too great to risk volatility.</div></div>
+          <div class="reg-card" data-reg="LT"><div class="rn">Long-term, high priority</div><div class="rd">Planned well in advance with a long runway, so a diversified, multi-asset-class approach is usually preferred.</div></div>
+          <div class="reg-card" data-reg="LP"><div class="rn">Low priority</div><div class="rd">Not painful if missed — luxury purchases and similar goals can take a more aggressive investment approach.</div></div>
+        </div>
+        <div class="match-feedback" id="goal-feedback"></div>
+      </div>
+
+      <p>Analysing the <strong>financial position</strong> is done through personal financial statements: a <strong>net-worth (balance sheet)</strong> statement — all assets (house, car, stocks/bonds/MF holdings, savings, jewellery, other assets) at market value, minus all liabilities (home/car/education/personal loans, credit-card dues) — and an <strong>income–expense statement</strong>, typically monthly, showing the surplus available for investment. Net worth should be recalculated <strong>at least once a year</strong>.</p>
+
+      <div class="calc" id="calc-nw">
+        <div class="calc-title"><span class="pill">Live</span> Net-worth mini calculator</div>
+        <div class="calc-sub">Illustrative — drag assets and liabilities to see how net worth (assets − liabilities) moves.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl"><label>House &amp; real assets (₹ lakh) <span class="val" id="nw-a1v">60</span></label><input type="range" id="nw-a1" min="0" max="200" step="5" value="60"></div>
+            <div class="ctrl"><label>Investments — stocks/bonds/MF (₹ lakh) <span class="val" id="nw-a2v">15</span></label><input type="range" id="nw-a2" min="0" max="100" step="1" value="15"></div>
+            <div class="ctrl"><label>Savings, jewellery &amp; other (₹ lakh) <span class="val" id="nw-a3v">8</span></label><input type="range" id="nw-a3" min="0" max="50" step="1" value="8"></div>
+            <div class="ctrl"><label>Home loan outstanding (₹ lakh) <span class="val" id="nw-l1v">30</span></label><input type="range" id="nw-l1" min="0" max="150" step="5" value="30"></div>
+            <div class="ctrl"><label>Other loans — car/personal/education (₹ lakh) <span class="val" id="nw-l2v">4</span></label><input type="range" id="nw-l2" min="0" max="30" step="1" value="4"></div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Net worth</div>
+            <div class="out-val" id="nw-out">₹49.00 L</div>
+            <div class="dual-out">
+              <div class="box"><div class="l">Total assets</div><div class="v" id="nw-assets">₹83.00 L</div></div>
+              <div class="box"><div class="l">Total liabilities</div><div class="v" id="nw-liab">₹34.00 L</div></div>
+            </div>
+            <div class="out-note">Net worth = Total assets − Total liabilities. Recompute at least annually as values and balances change.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A client's total assets are ₹90 lakh and total liabilities are ₹35 lakh. Her net worth is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">₹55 lakh</button>
+          <button class="mini-opt" data-correct="false">₹125 lakh</button>
+          <button class="mini-opt" data-correct="false">₹35 lakh</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — Net worth = Assets − Liabilities = ₹90L − ₹35L = ₹55L." data-wrong-msg="Not quite — Net worth = Assets − Liabilities = ₹90L − ₹35L = ₹55L."></div>
+      </div>
+    </section>
+
+    <!-- 15.10-15.11 -->
+    <section class="lesson-section" id="sec-15-6">
+      <span class="section-kicker">15.10–15.11</span>
+      <h2>Psychographic analysis &amp; life-cycle analysis</h2>
+      <p><strong>Psychographic analysis</strong> bridges standard finance (which treats investors as fully rational) and behavioural finance (which treats them as normal human beings prone to biases and cognitive errors). One well-known framework is <strong>Bailard, Biehl &amp; Kaiser (BB&amp;K)</strong>, which classifies investor personalities on two axes: <strong>confidence</strong> (confident ↔ anxious) in approaching career/wealth, and <strong>method of action</strong> (careful/analytical ↔ impetuous). Tap each quadrant:</p>
+
+      <div class="quad-wrap">
+        <div class="quad-axis-y"><span>Confident ← → Anxious</span></div>
+        <div class="quad-grid" id="bbk-grid">
+          <div class="quad-cell" data-q="individualist"><div class="qn">Individualist</div><div class="qs">Confident + Careful</div></div>
+          <div class="quad-cell" data-q="adventurer"><div class="qn">Adventurer</div><div class="qs">Confident + Impetuous</div></div>
+          <div class="quad-cell" data-q="guardian"><div class="qn">Guardian</div><div class="qs">Anxious + Careful</div></div>
+          <div class="quad-cell" data-q="celebrity"><div class="qn">Celebrity</div><div class="qs">Anxious + Impetuous</div></div>
+        </div>
+        <div class="quad-axis-x"><span>Careful</span><span>Impetuous</span></div>
+      </div>
+      <div class="quad-desc" id="bbk-desc">Tap a quadrant above to read its characteristics.</div>
+
+      <p style="margin-top:18px">The <strong>life-cycle</strong> lens looks at how net worth, income and priorities evolve with age. Drag the slider through a typical life:</p>
+
+      <div class="lc-wrap">
+        <div class="lc-slider-row">
+          <label>Investor age <span class="val" id="lc-agev">40</span></label>
+          <input type="range" id="lc-age" min="25" max="85" step="1" value="40">
+        </div>
+        <div style="display:flex;justify-content:center;margin-top:10px">
+          <svg id="lc-chart" viewBox="0 0 460 190" width="100%" style="max-width:600px">
+            <line x1="45" y1="160" x2="440" y2="160" stroke="var(--border-strong)" stroke-width="1.2"/>
+            <text x="242" y="182" text-anchor="middle" style="font-size:10px;fill:var(--text-secondary)">Age →</text>
+            <text x="18" y="90" text-anchor="middle" transform="rotate(-90 18 90)" style="font-size:10px;fill:var(--text-secondary)">Net worth →</text>
+            <path class="draw-line long" id="lc-curve" d="M50 150 C 140 145, 200 60, 300 35 S 420 55, 435 75" stroke="var(--gold-500)" stroke-width="2.6"/>
+            <line class="fade-el" id="lc-b1" x1="150" y1="20" x2="150" y2="160" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="3 3"/>
+            <line class="fade-el" id="lc-b2" x1="300" y1="20" x2="300" y2="160" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="3 3"/>
+            <line class="fade-el" id="lc-b3" x1="390" y1="20" x2="390" y2="160" stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="3 3"/>
+            <text class="fade-el" id="lc-t1" x="95" y="30" text-anchor="middle" style="font-size:9px;font-weight:700;fill:var(--text-secondary)">Accumulation</text>
+            <text class="fade-el" id="lc-t2" x="222" y="30" text-anchor="middle" style="font-size:9px;font-weight:700;fill:var(--text-secondary)">Consolidation</text>
+            <text class="fade-el" id="lc-t3" x="345" y="30" text-anchor="middle" style="font-size:9px;font-weight:700;fill:var(--text-secondary)">Spending</text>
+            <text class="fade-el" id="lc-t4" x="415" y="30" text-anchor="middle" style="font-size:9px;font-weight:700;fill:var(--text-secondary)">Gifting</text>
+            <circle id="lc-dot" cx="140" cy="70" r="6" fill="var(--navy-800)" stroke="var(--gold-500)" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="lc-phase-card">
+          <div class="ph-name" id="lc-name">Consolidation Phase</div>
+          <p id="lc-body">Income now exceeds expenses; investment portfolios consolidate. Time horizon to retirement is still relatively long (15–20 years), so high-capital-gain investments are balanced with some lower-risk assets.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An investor is anxious about markets but acts on impulse, chasing whatever is trending. In the BB&amp;K framework she is closest to a:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Celebrity — anxious and impetuous, easily swayed by trends/peers</button>
+          <button class="mini-opt" data-correct="false">Guardian — anxious and careful</button>
+          <button class="mini-opt" data-correct="false">Individualist — confident and careful</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — Celebrity combines anxiousness with impetuous action, making such investors prone to chasing trends." data-wrong-msg="Not quite — anxious + impetuous is the Celebrity profile in BB&amp;K."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — In the decumulation/spending phase, the typical investment preference shifts toward:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Stability, with dividend-, interest- and rental-generating investments, since expenses are met from accumulated assets</button>
+          <button class="mini-opt" data-correct="false">Maximum leverage to chase capital gains</button>
+          <button class="mini-opt" data-correct="false">100% illiquid alternative investments</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — with living expenses funded from accumulated assets rather than earned income, the focus shifts to stability and income-generating investments (dividends, interest, rent)." data-wrong-msg="Not quite — the decumulation/spending phase favours stability and income generation, not leveraged capital-gains bets."></div>
+      </div>
+    </section>
+
+    <!-- 15.12-15.14 -->
+    <section class="lesson-section" id="sec-15-7">
+      <span class="section-kicker">15.12–15.14</span>
+      <h2>Forecasting risk &amp; return, benchmarking, and the asset allocation decision</h2>
+      <p>Portfolio management integrates <strong>two sets of inputs</strong>: (1) everything learned about the investor — objectives, goals, personality type, life-cycle phase, liquidity needs, tax and other constraints — and (2) <strong>capital-market forecasts</strong> of the risk-return opportunities available. Historical risk-return by asset class is a useful starting point for forecasting, though future correlations/returns may diverge from history.</p>
+
+      <p>The IPS must also provide a framework for <strong>evaluating performance</strong> — a <strong>benchmark portfolio</strong> matching the composition of the investor's portfolio, so performance is compared "apple with apple". A wrongly chosen benchmark can paint a misleading picture and lead to poor decisions. Benchmarks should be <strong>reviewed periodically</strong>, and hybrid/blended benchmarks are used where the portfolio itself mixes asset classes.</p>
+
+      <div class="matcher" id="bench-matcher">
+        <h4>Tap a portfolio type — pick its benchmark</h4>
+        <div class="hint">The benchmark must match the nature of the investments made.</div>
+        <div class="match-markets" id="bench-markets">
+          <button class="match-mkt" data-reg="LC">Large-cap equity portfolio</button>
+          <button class="match-mkt" data-reg="DB">Long-term bond portfolio</button>
+          <button class="match-mkt" data-reg="HY">Hybrid (equity + debt) portfolio</button>
+        </div>
+        <div class="match-regs" id="bench-cards">
+          <div class="reg-card" data-reg="LC"><div class="rn">BSE 30 / NIFTY 50</div><div class="rd">A broad large-cap index — matches the composition of a large-cap equity portfolio.</div></div>
+          <div class="reg-card" data-reg="DB"><div class="rn">Matching bond index</div><div class="rd">A bond index with similar maturity and credit profile to the portfolio's holdings.</div></div>
+          <div class="reg-card" data-reg="HY"><div class="rn">Hybrid / blended benchmark</div><div class="rd">Where allocation across asset classes is reasonably stable, a blended benchmark represents the whole mix more fairly than any single index.</div></div>
+        </div>
+        <div class="match-feedback" id="bench-feedback"></div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>The asset allocation decision</strong>
+          <p>The interaction of the two input sets — investor profile and capital-market forecasts — culminates in the asset allocation decision. It follows logically from the investor's needs, goals, risk preferences and liquidity needs: after forecasting risk and return across asset classes, the adviser decides the asset mix that optimises the investor's <strong>after-tax</strong> returns.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An investor's portfolio is invested entirely in mid-cap stocks, but performance is compared against a large-cap index. This benchmark choice is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Wrong — it can paint a misleading picture and lead to incorrect investment decisions</button>
+          <button class="mini-opt" data-correct="false">Correct, since any equity index works for any equity portfolio</button>
+          <button class="mini-opt" data-correct="false">Irrelevant, since benchmarks don't affect decisions</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the benchmark must match the nature of the investments; a mismatched benchmark can lead to wrong conclusions and wrong decisions." data-wrong-msg="Not quite — benchmark selection must match the portfolio's composition; a large-cap index is the wrong yardstick for a mid-cap portfolio."></div>
+      </div>
+    </section>
+
+    <!-- 15.15-15.17 -->
+    <section class="lesson-section" id="sec-15-8">
+      <span class="section-kicker">15.15–15.17</span>
+      <h2>Portfolio construction principles, SAA vs TAA &amp; rebalancing</h2>
+      <p>With the investor's requirements, goals and horizon established, a few principles guide the actual construction:</p>
+      <div class="flip-grid" id="principle-cards"></div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:24px">Strategic vs Tactical Asset Allocation</h3>
+      <p><strong>Strategic Asset Allocation (SAA)</strong> is the long-term target policy portfolio — essentially the IPS translated into asset-class weights, designed to meet the investor's goals over a long horizon. <strong>Tactical Asset Allocation (TAA)</strong> is a dynamic, short-term overlay taken <em>within</em> the SAA framework: when a manager believes one asset class is temporarily mispriced relative to another, they shift weights to exploit it, then rebalance back after booking gains. In short: <strong>SAA is "time in the market"; TAA is "timing the markets."</strong></p>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="saa-taa-chart" viewBox="0 0 460 170" width="100%" style="max-width:560px">
+            <line x1="35" y1="140" x2="440" y2="140" stroke="var(--border-strong)" stroke-width="1.2"/>
+            <text x="237" y="160" text-anchor="middle" style="font-size:10px;fill:var(--text-secondary)">Time →</text>
+            <path class="draw-line" id="saa-line" d="M40 75 L 430 75" stroke="var(--navy-800)" stroke-width="2.4"/>
+            <text class="fade-el" id="saa-label" x="80" y="60" style="font-size:10px;font-weight:800;fill:var(--navy-800)">SAA — target policy weight</text>
+            <path class="draw-line long" id="taa-line" d="M40 75 C 80 60, 110 95, 150 70 S 220 40, 260 78 S 330 105, 370 68 S 415 55, 430 75" stroke="var(--gold-500)" stroke-width="2.2"/>
+            <text class="fade-el" id="taa-label" x="300" y="112" style="font-size:10px;font-weight:800;fill:var(--gold-600)">TAA — short-term tilts around SAA</text>
+          </svg>
+        </div>
+        <div class="caption">The flat navy line is the <strong>strategic (SAA)</strong> target weight. The gold line shows short-term <strong>tactical (TAA)</strong> tilts above and below it as the manager exploits — and then unwinds — perceived mispricing.</div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Empirical support for asset allocation's importance</strong>
+          <p>Brinson, Hood &amp; Beebower (1986) found that a portfolio's target asset allocation explained the majority of a diversified portfolio's return variability over time — confirmed by Ibbotson &amp; Kaplan (2000): across all portfolios, asset allocation explains an average of <strong>40%</strong> of the variation in fund returns; for a <strong>single</strong> fund, it explains as much as <strong>90%</strong> of the variation in returns over time.</p>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:22px">Rebalancing</h3>
+      <p>Price changes in holdings drift a portfolio away from its target allocation, so it needs continuous monitoring and periodic <strong>rebalancing</strong> to restore the original risk-return characteristics (rebalancing may also be triggered by changes in the investor's goals or risk tolerance). The IPS should specify <strong>how often</strong> to rebalance and the <strong>tolerance</strong> for deviation from target.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>💸 Transaction cost</h4>
+          <ul>
+            <li>Research and brokerage costs of buying/selling</li>
+            <li>Higher for relatively illiquid holdings like <strong>private equity and real estate</strong></li>
+            <li>Lower/easier for liquid assets like listed equities or government bonds</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🧾 Tax cost</h4>
+          <ul>
+            <li>Selling appreciated assets to buy depreciated ones can trigger tax liability</li>
+            <li>Managers set price targets for buying/selling securities</li>
+            <li>An <strong>opportunity cost</strong> is also possible — the sold (appreciated) asset may keep outperforming</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01M10.3 3.9L2.6 18a2 2 0 001.7 3h15.4a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Rebalancing is a trade-off, not a rule of thumb</strong>
+          <p>If the target allocation is optimal, any drift from it is undesirable — but rebalancing itself is not free. The decision on <strong>how often</strong> and <strong>how much</strong> tolerance to allow must weigh the cost of rebalancing against the cost of not rebalancing.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — SAA and TAA differ mainly in that:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">SAA is the long-term target policy portfolio ("time in the market"); TAA is a short-term overlay that tries to time markets within that framework</button>
+          <button class="mini-opt" data-correct="false">TAA is set once and never revisited</button>
+          <button class="mini-opt" data-correct="false">SAA and TAA are unrelated and never used together</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — SAA is the long-run target policy mix; TAA takes short-term tilts within that framework to exploit perceived market mispricing, then rebalances back." data-wrong-msg="Not quite — SAA is the long-term target; TAA is a dynamic short-term overlay within that same framework."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Rebalancing a portfolio holding significant private equity and real estate is typically harder than rebalancing a listed-equity portfolio because:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Illiquid assets carry higher transaction costs and cannot be bought/sold quickly</button>
+          <button class="mini-opt" data-correct="false">Private equity and real estate have no tax implications</button>
+          <button class="mini-opt" data-correct="false">Rebalancing is never required for alternative assets</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — relatively illiquid investments like private equity and real estate pose higher transaction costs and challenges in rebalancing compared with liquid assets like listed equities or government bonds." data-wrong-msg="Not quite — the challenge is higher transaction costs and lower liquidity, making rebalancing harder and costlier."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The definitions and key facts most likely to be tested — tap to reveal.</p>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:14px 0 6px">Core concepts</h3>
+      <div class="flip-grid" id="concept-cards"></div>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:22px 0 6px">Numbers &amp; facts</h3>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch15";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 5", href: "../../index.html" },
+    { label: "Chapter 15", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  if (window.NISM_CH15_QUESTIONS) {
+    var mc = document.getElementById("meta-qcount");
+    if (mc) mc.textContent = window.NISM_CH15_QUESTIONS.length;
+  }
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:15px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // ---- Process stepper (5 steps) ----
+  var steps = [
+    { t: "Develop the policy statement (IPS)", d: "A road map identifying the investor's risk appetite and defining investment objectives, goals and constraints." },
+    { t: "Study current financial conditions and forecast trends", d: "Assess prevailing market conditions and forecast the future risk-return landscape across asset classes." },
+    { t: "Construct the portfolio", d: "Build the portfolio consistent with the policy statement and the investor's objectives, risk appetite and horizon." },
+    { t: "Measure and evaluate performance", d: "Track how the portfolio has performed against its benchmark and objectives." },
+    { t: "Periodic review", d: "Check consistency with objectives and watch for any significant change in the investor's circumstances — then loop back to planning." }
+  ];
+  document.getElementById("process-stepper").innerHTML = steps.map(function (s, i) {
+    return '<div class="step"><div class="step-rail"><div class="step-num">' + (i + 1) + '</div><div class="step-line"></div></div>' +
+      '<div class="step-body"><h4>' + s.t + '</h4><p>' + s.d + '</p></div></div>';
+  }).join("");
+
+  // IPS four purposes
+  renderCards("ips-purpose-grid", [
+    { icon: "🎯", label: "Realistic expectations", body: "Enables investors to have realistic return expectations from their investments." },
+    { icon: "🧭", label: "Effective decisions", body: "Enables the portfolio manager to make effective investment decisions in line with the investor's objectives." },
+    { icon: "📊", label: "Evaluation framework", body: "Provides a framework for evaluating the portfolio manager's performance." },
+    { icon: "🛡️", label: "Investor protection", body: "Protects the investor against the portfolio manager's inappropriate or unethical investment decisions." }
+  ]);
+
+  // Liquidity need categories
+  renderCards("liquidity-grid", [
+    { icon: "🚑", label: "Emergency cash", body: "Usually measured at 2–3 months' spending — more if income is volatile or at risk." },
+    { icon: "🎯", label: "Near-term goal", body: "For known goals due within a year, funds should sit in relatively liquid, low-risk assets." },
+    { icon: "🔀", label: "Investment flexibility", body: "Liquidity to seize opportunities as asset classes become over/undervalued." }
+  ]);
+
+  // Portfolio construction principles
+  renderFlip("principle-cards", [
+    { icon: "📈", label: "Selecting equity portfolios", back: "Large-cap gives stability; mid/small-cap are more volatile but can lift capital appreciation. The right mix follows the investor's risk-taking ability, goals and horizon. Higher-dividend stocks add cash flow, but capital appreciation drives the bulk of equity returns." },
+    { icon: "📉", label: "Selecting debt portfolios", back: "Match instrument maturity to the investment horizon. Short-term debt instruments serve short-term goals — even parking money briefly can beat idle bank balances. The investor's credit-risk appetite shapes the medium/long-term debt mix." },
+    { icon: "🔗", label: "Selecting hybrid portfolios", back: "Blend stability with upside potential; often used as a long-term goal approaches, giving a smoother transition in the asset-allocation mix instead of managing debt and equity separately." },
+    { icon: "🪙", label: "Other portfolios", back: "Adds elements like gold, precious metals or alternative investments to raise overall return and provide diversification exposure that helps reduce risk and add stability." }
+  ]);
+
+  // Concept flip deck
+  renderFlip("concept-cards", [
+    { icon: "🧩", label: "Asset allocation", back: "Deciding how to distribute wealth across asset classes. The single biggest driver of long-run portfolio performance — bigger than product selection within an asset class." },
+    { icon: "🔗", label: "Correlation", back: "Ranges −1 to +1. High within an asset class, low across different asset classes. The engine of diversification — but it can and does change over time." },
+    { icon: "📋", label: "Investment Policy Statement", back: "The road map for the whole process: objectives, goals, constraints, preferences, risk appetite. Basis for strategic asset allocation; must be reviewed periodically." },
+    { icon: "🌱", label: "Sustainable investing", back: "Screens on Environmental, Social and Governance (ESG) criteria for both return and positive impact." },
+    { icon: "⚖️", label: "Ethical investing", back: "A personalised moral filter — typically excludes gambling, alcohol, smoking, firearms." },
+    { icon: "🧠", label: "Psychographic analysis (BB&K)", back: "Confidence (confident↔anxious) × method of action (careful↔impetuous) → Individualist, Adventurer, Guardian, Celebrity." },
+    { icon: "⏳", label: "Life-cycle analysis", back: "Accumulation → Consolidation → Decumulation/Spending → Gifting. Boundaries are fuzzy, not fixed by exact age." },
+    { icon: "🎯", label: "Benchmarking", back: "Compare 'apple with apple' — the benchmark must match the portfolio's composition (e.g. large-cap index for a large-cap portfolio) and be reviewed regularly." },
+    { icon: "🔄", label: "SAA vs TAA", back: "SAA = long-term target policy mix ('time in the market'). TAA = short-term tilts to exploit perceived mispricing ('timing the markets'), taken within the SAA framework." }
+  ]);
+
+  // BB&K quadrant
+  (function () {
+    var grid = document.getElementById("bbk-grid"), desc = document.getElementById("bbk-desc");
+    if (!grid) return;
+    var info = {
+      individualist: "<strong>Individualist</strong> — Confident and careful/analytical. Self-assured but methodical: does their own research, weighs decisions calmly before acting.",
+      adventurer: "<strong>Adventurer</strong> — Confident and impetuous. Willing to place large, concentrated bets on their own convictions; strong-willed and hard to talk out of an investment idea — the highest risk-taking profile.",
+      guardian: "<strong>Guardian</strong> — Anxious and careful. Cautious about their financial future, seeks capital protection and professional guidance before acting — the most risk-averse profile.",
+      celebrity: "<strong>Celebrity</strong> — Anxious and impetuous. Uncertain of their own judgement, so they act quickly on trends, tips and peer opinion — easily swayed by the crowd."
+    };
+    grid.addEventListener("click", function (e) {
+      var cell = e.target.closest(".quad-cell"); if (!cell) return;
+      Array.prototype.forEach.call(grid.children, function (c) { c.classList.toggle("active", c === cell); });
+      desc.innerHTML = info[cell.dataset.q];
+    });
+  })();
+
+  // Matchers (correlation / ESG / goals / benchmarks) share one wiring function
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("corr-markets", "corr-cards", "corr-feedback", {
+    EE: "High positive — both are equity, sensitive to the same broad market and economic factors.",
+    ED: "Low, sometimes negative — different return drivers (growth/earnings vs interest rates) give a real diversification benefit.",
+    EG: "Low, often negative under stress — gold's safe-haven behaviour can offset equity drawdowns."
+  });
+  wireMatcher("esg-markets", "esg-cards", "esg-feedback", {
+    E: "Environmental — pollution, water use and clean technology adopted.",
+    S: "Social — workplace safety, community development and human rights.",
+    G: "Governance — board independence, board diversity and executive compensation."
+  });
+  wireMatcher("goal-markets", "goal-cards", "goal-feedback", {
+    NT: "Near-term, high priority — matched to cash/fixed-income with maturity aligned to the goal date; too costly to risk volatility.",
+    LT: "Long-term, high priority — planned early, so a diversified multi-asset approach is preferred over the long runway.",
+    LP: "Low priority — not painful if missed, so a more aggressive approach is acceptable."
+  });
+  wireMatcher("bench-markets", "bench-cards", "bench-feedback", {
+    LC: "BSE 30 / NIFTY 50 — a broad large-cap index matching a large-cap equity portfolio.",
+    DB: "A bond index of similar maturity and credit profile — matching a long-term bond portfolio.",
+    HY: "A hybrid/blended benchmark — representative of a portfolio with a stable mix across asset classes."
+  });
+
+  // Revision deck (mono fronts)
+  renderFlip("revision-cards", [
+    { icon: "−1 to +1", label: "Correlation range", back: "Correlation coefficients run from −1 (perfect negative) to +1 (perfect positive). Same-asset-class correlation tends high; cross-asset-class correlation tends low." },
+    { icon: "4 steps", label: "Portfolio management process", back: "Policy statement (IPS) → study conditions/forecast → construct portfolio → measure & evaluate performance → periodic review, looping back to planning." },
+    { icon: "4 purposes", label: "Why an IPS matters", back: "Realistic return expectations, effective manager decisions, an evaluation framework, and protection against inappropriate/unethical action." },
+    { icon: "2–3 months", label: "Emergency cash reserve", back: "Typically 2–3 months' spending, more if income is volatile or at risk — one of three liquidity-need categories (with near-term goals and investment flexibility)." },
+    { icon: "USD 2,50,000", label: "LRS remittance limit", back: "RBI's Liberalised Remittance Scheme caps overseas remittance for resident individuals at USD 2,50,000 per financial year (started at USD 25,000 in 2004)." },
+    { icon: "SEBI PMS 2020", label: "Exposure limits", back: "SEBI (Portfolio Managers) Regulations, 2020 require the manager-investor agreement to state the investment approach — instrument types and exposure proportions — enabling exposure limits that avoid concentration risk." },
+    { icon: "40% / 90%", label: "Asset allocation & return variability", back: "Ibbotson & Kaplan (2000), building on Brinson, Hood & Beebower (1986): asset allocation explains an average of 40% of variation across portfolios, and up to 90% of a single fund's return variation over time." },
+    { icon: "Assets − Liabilities", label: "Net worth", back: "Sum of all assets at market value minus all liabilities. Should be recalculated at least once a year to track the investor's financial position." },
+    { icon: "4 phases", label: "Life-cycle phases", back: "Accumulation → Consolidation → Decumulation/Spending → Gifting. Boundaries between phases are fuzzy, not fixed by exact age." }
+  ], "mono");
+
+  var fmt2 = function (n) { return n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+
+  // ---------- Net worth calculator ----------
+  (function () {
+    var a1 = document.getElementById("nw-a1"), a2 = document.getElementById("nw-a2"), a3 = document.getElementById("nw-a3"),
+        l1 = document.getElementById("nw-l1"), l2 = document.getElementById("nw-l2");
+    var a1v = document.getElementById("nw-a1v"), a2v = document.getElementById("nw-a2v"), a3v = document.getElementById("nw-a3v"),
+        l1v = document.getElementById("nw-l1v"), l2v = document.getElementById("nw-l2v");
+    var out = document.getElementById("nw-out"), assetsEl = document.getElementById("nw-assets"), liabEl = document.getElementById("nw-liab");
+    function render() {
+      var A = (+a1.value) + (+a2.value) + (+a3.value);
+      var L = (+l1.value) + (+l2.value);
+      a1v.textContent = a1.value; a2v.textContent = a2.value; a3v.textContent = a3.value;
+      l1v.textContent = l1.value; l2v.textContent = l2.value;
+      assetsEl.textContent = "₹" + fmt2(A) + " L";
+      liabEl.textContent = "₹" + fmt2(L) + " L";
+      out.textContent = "₹" + fmt2(A - L) + " L";
+    }
+    [a1, a2, a3, l1, l2].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // ---------- Life-cycle explorer ----------
+  (function () {
+    var ageIn = document.getElementById("lc-age"), ageV = document.getElementById("lc-agev");
+    var dot = document.getElementById("lc-dot"), nameEl = document.getElementById("lc-name"), bodyEl = document.getElementById("lc-body");
+    var phases = [
+      { max: 45, name: "Accumulation Phase", body: "Net worth is small relative to liabilities; investments are fewer and less diversified. Goals include education, a house, and — time and income permitting — investments toward future financial independence. A long horizon and growing income allow more high-return, high-risk, capital-gain-oriented investments." },
+      { max: 65, name: "Consolidation Phase", body: "Income now exceeds expenses; investment portfolios consolidate. Time horizon to retirement is still relatively long (15–20 years), so high-capital-gain investments are balanced with some lower-risk assets as capital preservation gains importance." },
+      { max: 80, name: "Decumulation / Spending Phase", body: "Living expenses are covered from accumulated assets rather than earned income, so the focus shifts to stability — dividend-, interest- and rental-generating investments. Some growth/inflation-hedge exposure remains since the horizon can still exceed 15–20 years." },
+      { max: 200, name: "Gifting Phase", body: "The investor has more assets than needed for their own spending. The purpose of investing shifts toward leaving a legacy or supporting a charitable cause." }
+    ];
+    // approximate x-position on the drawn curve path for a given age (25..85 mapped to x 50..435)
+    function ageToX(age) { return 50 + ((age - 25) / (85 - 25)) * (435 - 50); }
+    // approximate y along the drawn curve shape (visual only, matches path's rough contour)
+    function ageToY(age) {
+      var x = ageToX(age);
+      if (x <= 150) return 150 - (x - 50) * (150 - 60) / (150 - 50) * 0.55;
+      if (x <= 300) return 60 - (x - 150) * (60 - 35) / (300 - 150);
+      return 35 + (x - 300) * (75 - 35) / (435 - 300);
+    }
+    function render() {
+      var age = +ageIn.value;
+      ageV.textContent = age;
+      var x = ageToX(age), y = ageToY(age);
+      dot.setAttribute("cx", x); dot.setAttribute("cy", y);
+      var ph = phases[0];
+      for (var i = 0; i < phases.length; i++) { if (age <= phases[i].max) { ph = phases[i]; break; } }
+      nameEl.textContent = ph.name;
+      bodyEl.textContent = ph.body;
+    }
+    ageIn.addEventListener("input", render);
+    render();
+  })();
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.3 }).observe(el);
+  }
+  onReveal("#lc-chart", function (root) {
+    root.querySelector("#lc-curve").classList.add("go");
+    ["#lc-b1", "#lc-b2", "#lc-b3", "#lc-t1", "#lc-t2", "#lc-t3", "#lc-t4"].forEach(function (s, i) {
+      setTimeout(function () { root.querySelector(s).classList.add("go"); }, 500 + i * 120);
+    });
+  }, 0.25);
+  onReveal("#saa-taa-chart", function (root) {
+    root.querySelector("#saa-line").classList.add("go");
+    setTimeout(function () { root.querySelector("#saa-label").classList.add("go"); }, 500);
+    setTimeout(function () { root.querySelector("#taa-line").classList.add("go"); }, 800);
+    setTimeout(function () { root.querySelector("#taa-label").classList.add("go"); }, 2200);
+  }, 0.25);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH15_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

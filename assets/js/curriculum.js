@@ -185,7 +185,7 @@
                 title: "Portfolio Construction Process",
                 summary: "Asset allocation, investor profiling and rebalancing.",
                 path: p("books/xa/module-05-portfolio-construction-performance-monitoring-and-evaluation/chapter-15/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch16",
