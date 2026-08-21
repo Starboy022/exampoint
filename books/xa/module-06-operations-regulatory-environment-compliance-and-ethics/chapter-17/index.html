@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 17 — Operational Aspects of Investment Management | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Operational Aspects of Investment Management — investors and the investing process, PAN and the KYC process (micro-investment exemptions, e-KYC, IPV/VIPV, uniform KYC, CERSAI/CKYCR), dematerialisation and rematerialisation of securities, Power of Attorney (general and specific), account opening for non-residents (NRE/NRO/FCNR, repatriation, PINS, NRI demat/trading), folio maintenance (change of address/name/status, lien, transmission, nomination, assignment), special investor categories (minors, minor-turned-major, status change), payment instruments (cheques, NEFT/RTGS, ASBA, third-party rules, PMLA), documentation for investment advice and the MITC, and investing in mutual funds through the stock exchange platform. NISM Series-X-A, Module 6, Chapter 17." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive explorer (calculator-style) ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.05fr 0.95fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 13px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.92rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; text-align:center; }
+  .calc-output.left { text-align:left; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.5rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.15; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .verdict { display:inline-block; margin-top:8px; font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:4px 11px; border-radius:var(--radius-pill); }
+  .verdict.good { background:color-mix(in srgb,var(--green-500) 18%,var(--bg-app)); color:var(--green-500); }
+  .verdict.warn { background:color-mix(in srgb,var(--gold-500) 20%,var(--bg-app)); color:var(--gold-600); }
+
+  /* ---- Segmented control ---- */
+  .seg-field { margin-bottom:4px; }
+  .seg-field .sl { display:block; font-size:0.82rem; font-weight:700; margin-bottom:7px; }
+  .seg { display:inline-flex; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; flex-wrap:wrap; }
+  .seg button { border:none; background:var(--bg-app); font-size:0.76rem; font-weight:700; padding:7px 13px; cursor:pointer; color:var(--text-secondary); transition:all var(--dur-fast); }
+  .seg button.on { background:var(--navy-800); color:#fff; }
+
+  /* ---- Formula / rule callout ---- */
+  .formula { font-family:var(--font-mono); background:var(--bg-surface-2); border:1px dashed var(--border-strong); border-radius:var(--radius-md); padding:12px 14px; font-size:0.84rem; margin:14px 0; overflow-x:auto; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+
+  /* ---- Pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+
+  /* ---- Matcher (shared) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.92rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Process step chips (demat / remat) ---- */
+  .proc-list { counter-reset: proc; display:grid; gap:10px; margin:18px 0; }
+  .proc-item { display:flex; gap:12px; align-items:flex-start; padding:13px 15px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); }
+  .proc-item::before { counter-increment: proc; content: counter(proc); flex:0 0 26px; width:26px; height:26px; border-radius:50%; background:var(--navy-800); color:#fff; font-family:var(--font-display); font-weight:800; font-size:0.82rem; display:flex; align-items:center; justify-content:center; }
+  .proc-item .pt { font-size:0.85rem; color:var(--text-secondary); }
+  .proc-item .pt strong { color:var(--text-primary); }
+
+  /* ---- SVG animation helpers ---- */
+  .draw-line { fill:none; stroke-dasharray:900; stroke-dashoffset:900; }
+  .draw-line.long { stroke-dasharray:1600; stroke-dashoffset:1600; }
+  .draw-line.go { animation: draw 1.9s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+  .pop-el { opacity:0; transform:scale(0.4); transform-origin:center; transition:opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring); }
+  .pop-el.go { opacity:1; transform:scale(1); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 6 · Operations, Regulatory Environment, Compliance &amp; Ethics</span>
+      <span class="badge badge-gold">Chapter 17 of 20</span>
+    </div>
+    <h1>Operational Aspects of Investment Management</h1>
+    <p class="lede">Behind every piece of investment advice sits a machinery of <strong>operations</strong> — the paperwork, identity checks, accounts and settlement plumbing that actually get money invested and returned safely. This chapter is the adviser's operations manual: <strong>who can invest</strong> and how they are on-boarded, <strong>PAN and the KYC process</strong> (including e-KYC, IPV/VIPV, uniform KYC and the CERSAI/CKYCR registry), <strong>dematerialisation and rematerialisation</strong> of securities, the <strong>Power of Attorney</strong>, <strong>account opening for non-residents</strong> (NRE/NRO/FCNR, repatriation, PINS), ongoing <strong>folio maintenance</strong> (change of address/name/status, lien, transmission, nomination, assignment), <strong>special investor categories</strong> (minors and minor-turned-major), <strong>payment instruments</strong> (cheques, NEFT/RTGS, ASBA, third-party rules under the PMLA), the <strong>documentation for advice</strong> and the new <strong>MITC</strong>, and finally <strong>investing in mutual funds through the stock exchange platform</strong>.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~38 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> <span id="meta-qcount">60</span> assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 3 interactive explorers</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 9 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:720px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Investors and the investing process</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> PAN, KYC and other processes</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Demat and remat processes</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The Power of Attorney (PoA) and other agreements</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Account opening for Non-Resident Investors (NRIs)</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Folio maintenance and change in status of special categories</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Various payment instruments</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Documentation required for financial advice</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Investing in mutual funds through stock exchange platforms</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-17-1">17.1 Investors &amp; the investing process</a></li>
+      <li><a href="#sec-17-2">17.2 PAN &amp; the KYC process</a></li>
+      <li><a href="#sec-17-3">17.3 Demat &amp; remat of securities</a></li>
+      <li><a href="#sec-17-4">17.4 Power of Attorney</a></li>
+      <li><a href="#sec-17-5">17.5 Account opening for non-residents</a></li>
+      <li><a href="#sec-17-6">17.6 Folio maintenance, lien &amp; transmission</a></li>
+      <li><a href="#sec-17-7">17.7 Special investor categories</a></li>
+      <li><a href="#sec-17-8">17.8 Payment instruments</a></li>
+      <li><a href="#sec-17-9">17.9–17.10 Documentation &amp; exchange platform</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 17.1 -->
+    <section class="lesson-section" id="sec-17-1">
+      <span class="section-kicker">17.1</span>
+      <h2>Investors and the investing process</h2>
+      <p>Investors in the securities markets split into two broad camps. <strong>Individual investors</strong> — resident individuals competent to contract, minors through guardians, HUFs, NRIs and Foreign Portfolio Investors — invest their own or borrowed funds, in small ticket sizes, spread out geographically. <strong>Institutional investors</strong> — companies, trusts, charitable organisations, societies, pension/insurance funds and banks — must follow a <strong>formal process</strong>: the apex body (Board or Trustees) approves decisions against an approved asset-allocation pattern, and authorised signatories execute the documentation.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Accredited Investors</strong>
+          <p>SEBI's "Accredited Investor" concept covers individuals, sole proprietorships, HUFs, trusts, partnerships and companies that meet prescribed criteria on <strong>net-worth, income or assets under management</strong>. They are expected to have a greater ability and inclination for risk — so they get access to products that meet that profile.</p>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:8px">On-boarding, terms of offer &amp; regulatory pre-requisites</h3>
+      <p>Investors must fulfil mandatory requirements before investing. Some are imposed by regulation (being <strong>KYC compliant</strong>, quoting <strong>PAN</strong>); others are product-specific and set out in the <strong>terms of offer</strong> — which can restrict who invests (e.g. NRIs cannot invest in post-office small savings), set minimum/maximum amounts, or impose age/health conditions.</p>
+      <p>Since <strong>January 1, 2016</strong>, payment for a public-issue application must be made only via the <strong>ASBA</strong> (Application Supported by Blocked Amount) facility — an authorisation to the bank to <em>block</em> the money and release it only on allotment. SEBI has since added <strong>UPI with the block-funds (ASBA) facility</strong> for retail applications through intermediaries.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Since January 1, 2016, payment for a public-issue (IPO) application must be made using:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The ASBA facility — money is blocked in the bank account and debited only on allotment</button>
+          <button class="mini-opt" data-correct="false">Cash paid at the registrar's counter</button>
+          <button class="mini-opt" data-correct="false">An outstation demand draft</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — from January 1, 2016 public-issue applications must use ASBA; the money stays blocked in the bank account and is debited only at allotment. SEBI also added UPI-ASBA for retail applications through intermediaries." data-wrong-msg="Not quite — since January 1, 2016 ASBA is the only permitted mode; the application money is blocked, not paid out, until allotment."></div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:14px">Mandatory investor information &amp; the folio</h3>
+      <p>An application is invalid without its mandatory fields — <strong>name, signature, address, bank account details, PAN and KYC status</strong>. For an <strong>adviser</strong>, <strong>risk profiling</strong> is an additional must-do that should never be missed. The <strong>first holder</strong> is the anchor: all payouts (dividend, interest, redemption), the tax benefit/liability and all correspondence go to the first holder, even though every joint holder's name is kept on record.</p>
+      <p>On a valid application, the provider (or its R&amp;T agent) allots a unique <strong>folio / account number</strong> that must be quoted on every subsequent transaction. Additional investments in an existing folio can be made with a <strong>transaction slip</strong> needing only minimum details — <em>no</em> fresh PAN/KYC proof.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>👥 Up to 3 joint holders</h4>
+          <ul>
+            <li>Mutual funds, shares, bonds, demat accounts</li>
+            <li>Post Office Savings Bank accounts</li>
+            <li>Most company deposits</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>👤 Maximum 2 holders / sole holder</h4>
+          <ul>
+            <li>Bank FD, Senior Citizens Savings Scheme, NSC → max 2</li>
+            <li>NPS account → held in the <strong>sole</strong> name of the subscriber</li>
+            <li>A minor's investment → minor is sole/first holder, no joint holders</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — In a mutual fund, shares, bonds or demat account, the maximum number of joint holders on a purchase application is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">3</button>
+          <button class="mini-opt" data-correct="false">2</button>
+          <button class="mini-opt" data-correct="false">Unlimited</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — MF/shares/bonds/demat/POSB accounts and most company deposits allow up to 3 joint holders. A bank FD, SCSS and NSC allow a maximum of 2; NPS is sole-name only." data-wrong-msg="Not quite — the maximum is 3 for MF/shares/bonds/demat. It is a bank FD/SCSS/NSC that cap at 2 holders, and NPS is sole-name only."></div>
+      </div>
+    </section>
+
+    <!-- 17.2 -->
+    <section class="lesson-section" id="sec-17-2">
+      <span class="section-kicker">17.2</span>
+      <h2>PAN and the KYC process</h2>
+      <p>The <strong>Permanent Account Number (PAN)</strong>, issued by the Income Tax authorities, is the single identification number for capital-market transactions. Apply on <strong>Form 49A</strong>; where PAN is mandatory but unavailable, submit a declaration in <strong>Form 60/61</strong>. Section 114B of the Income Tax Rules lists transactions that mandatorily require PAN.</p>
+
+      <p>Not everything needs PAN, though. Try the explorer — pick a transaction to see whether PAN is mandatory or exempt. The recurring threshold is <strong>₹50,000</strong>.</p>
+
+      <div class="calc" id="pan-explorer">
+        <div class="calc-title"><span class="pill">Interactive</span> Is PAN required? — transaction explorer</div>
+        <div class="calc-sub">Tap a transaction. The ₹50,000 threshold — and the "individuals only" rule for micro investments — recurs throughout.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="seg-field">
+              <span class="sl">Choose a transaction</span>
+              <div class="seg" id="pan-seg" style="flex-direction:column;align-items:stretch;border-radius:var(--radius-md)">
+                <button class="on" data-k="micro">Micro MF investment ≤ ₹50,000 / yr (individual)</button>
+                <button data-k="microHUF">Same micro investment, but by an HUF</button>
+                <button data-k="fd">Bank fixed deposit above ₹50,000</button>
+                <button data-k="bsbda">Opening a BSBDA (basic savings account)</button>
+                <button data-k="npsTier2">Opening an NPS Tier II account</button>
+                <button data-k="demat">A capital-market / demat transaction</button>
+              </div>
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">PAN status</div>
+            <div class="out-val" id="pan-out">Exempt</div>
+            <div><span class="verdict good" id="pan-verdict">PAN not required</span></div>
+            <div class="out-note" id="pan-note">Micro investments up to ₹50,000 aggregate under all schemes of a fund house by an individual are PAN-exempt — quote the 'PAN Exempt KYC' Reference Number instead.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>The micro-investment PAN exemption</strong>
+          <p>Investments up to <strong>₹50,000 in aggregate</strong> under all schemes of a fund house (reckoned on a rolling 12-month period or a financial year) are exempt from PAN — but only for <strong>individual</strong> investors; HUFs and non-individuals are <em>not</em> eligible. Such investors enclose a KYC acknowledgement quoting a <strong>'PAN Exempt KYC' Reference Number</strong> and hold only one such number. Cash MF investments up to ₹50,000 per fund per year are also allowed for those without a PAN.</p>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:8px">The KYC process — from the PMLA to CERSAI</h3>
+      <p>KYC norms flow from the <strong>Prevention of Money Laundering Act (PMLA), 2002</strong> — the identity of those entering financial transactions must be known and verified. KYC verifies <strong>proof of identity</strong> (a photo document: passport, driving licence, voter ID, Aadhaar) and <strong>proof of address</strong>, and also the PAN where available. For a <strong>first-time investor, In-Person Verification (IPV) is mandatory</strong>.</p>
+
+      <p>Technology has reshaped this. SEBI's <strong>circular of April 24, 2020</strong> enables online KYC via <strong>eSign</strong> (under the IT Act framework), <strong>DigiLocker</strong> e-documents and electronic signature — details verified through OTP (mobile/email), UIDAI authentication (Aadhaar), the online tax database (PAN) and a penny-drop (bank account). Tap the concepts:</p>
+
+      <div class="matcher" id="kyc-matcher">
+        <h4>Tap a KYC / identity concept</h4>
+        <div class="hint">The uniform KYC (from Jan 1, 2012) via the KRA, and the central registry at CERSAI, remove duplicate KYC across intermediaries.</div>
+        <div class="match-markets" id="kyc-markets">
+          <button class="match-mkt" data-reg="KRA">KRA &amp; uniform KYC</button>
+          <button class="match-mkt" data-reg="CERSAI">CERSAI / CKYCR</button>
+          <button class="match-mkt" data-reg="ESIGN">eSign</button>
+          <button class="match-mkt" data-reg="VIPV">VIPV</button>
+          <button class="match-mkt" data-reg="IPV">IPV waiver</button>
+          <button class="match-mkt" data-reg="PWD">Inclusive KYC (PwD)</button>
+        </div>
+        <div class="match-regs" id="kyc-cards">
+          <div class="reg-card" data-reg="KRA"><div class="rn">KRA &amp; uniform KYC</div><div class="rd">From <strong>January 1, 2012</strong>, one KYC works across MFs, DPs, brokers, PMS, VCFs. The KYC form has two parts — common identity/address, plus intermediary-specific fields. Enabled by the <strong>KYC Registration Agency (KRA)</strong>.</div></div>
+          <div class="reg-card" data-reg="CERSAI"><div class="rn">CERSAI / CKYCR</div><div class="rd">Authorised (notification Nov 26, 2015) as the <strong>Central KYC Records Registry</strong> under PML Rules. De-duplicates records, issues a <strong>unique KYC Identifier</strong>, serves RBI, SEBI, IRDAI &amp; PFRDA. RIs upload records for accounts opened on/after <strong>Aug 1, 2016</strong>.</div></div>
+          <div class="reg-card" data-reg="ESIGN"><div class="rn">eSign</div><div class="rd">Online electronic signature letting an <strong>Aadhaar holder</strong> digitally sign and forward a document. Operated under the Second Schedule of the <strong>Information Technology Act</strong>.</div></div>
+          <div class="reg-card" data-reg="VIPV"><div class="rn">VIPV</div><div class="rd">Video In-Person Verification: <strong>live</strong>, clear and still, investor recognisable (face uncovered), random questions/OTP, must match the Aadhaar photo, and be tamper-proof with <strong>date/time stamping</strong>.</div></div>
+          <div class="reg-card" data-reg="IPV"><div class="rn">IPV waiver</div><div class="rd">IPV/VIPV is <strong>not required</strong> when KYC uses Aadhaar authentication/UIDAI, or when the form is submitted online with documents via DigiLocker or another online-verifiable source.</div></div>
+          <div class="reg-card" data-reg="PWD"><div class="rn">Inclusive KYC (PwD)</div><div class="rd">SEBI circular <strong>May 23, 2025</strong> — intermediaries must offer <strong>assistive digital services</strong> so digital KYC is accessible to persons with disabilities, including the visually impaired.</div></div>
+        </div>
+        <div class="match-feedback" id="kyc-feedback"></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Registered Intermediaries must upload KYC records with the CKYCR (CERSAI) for individual accounts opened on or after:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">August 1, 2016</button>
+          <button class="mini-opt" data-correct="false">January 1, 2012</button>
+          <button class="mini-opt" data-correct="false">March 1, 2025</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — per the 2015 PML Rules amendment, RIs upload KYC records with the CKYCR for all individual accounts opened on or after August 1, 2016. (Uniform KYC via KRA began Jan 1, 2012; CERSAI was authorised Nov 26, 2015.)" data-wrong-msg="Not quite — the CKYCR upload obligation applies to individual accounts opened on or after August 1, 2016."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A first-time investor completes KYC using Aadhaar (UIDAI) authentication and submits documents via DigiLocker. Is a separate IPV/VIPV required?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">No — IPV/VIPV is waived when KYC uses Aadhaar authentication or documents come through DigiLocker / another online-verifiable source</button>
+          <button class="mini-opt" data-correct="false">Yes — physical IPV is always mandatory, no exceptions</button>
+          <button class="mini-opt" data-correct="false">Yes — but only for investments above ₹1 crore</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the April 24, 2020 circular waives IPV/VIPV where KYC is completed via Aadhaar/UIDAI authentication, or the form is submitted online with documents through DigiLocker or another online-verifiable source." data-wrong-msg="Not quite — IPV/VIPV is not required when Aadhaar authentication is used or documents are provided online via DigiLocker."></div>
+      </div>
+    </section>
+
+    <!-- 17.3 -->
+    <section class="lesson-section" id="sec-17-3">
+      <span class="section-kicker">17.3</span>
+      <h2>Dematerialisation &amp; rematerialisation of securities</h2>
+      <p>A <strong>depository</strong> holds investors' securities in electronic form — analogous to a bank holding funds. The <strong>Depositories Act, 1996</strong> made this possible; India has two depositories, <strong>NSDL</strong> and <strong>CDSL</strong>. All public issues above <strong>₹10 crore</strong> must be issued only in demat form. Dematerialised securities are <strong>fungible</strong> — a share loses its distinctive certificate/folio number and is identified only by the <strong>12-character ISIN</strong> and the number of shares held.</p>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="demat-flow" viewBox="0 0 640 150" width="100%" style="max-width:660px">
+            <path class="draw-line" id="dm-l1" d="M118 55 L188 55" stroke="var(--gold-500)" stroke-width="2"/>
+            <path class="draw-line" id="dm-l2" d="M312 55 L382 55" stroke="var(--gold-500)" stroke-width="2"/>
+            <path class="draw-line" id="dm-l3" d="M506 55 L576 55" stroke="var(--gold-500)" stroke-width="2"/>
+            <g class="pop-el" id="dm-1">
+              <rect x="8" y="30" width="110" height="50" rx="9" fill="var(--navy-800)"/>
+              <text x="63" y="52" text-anchor="middle" style="font-size:10px;font-weight:800;fill:#fff">Investor</text>
+              <text x="63" y="66" text-anchor="middle" style="font-size:8px;fill:var(--gold-500)">DRF + certificates</text>
+            </g>
+            <g class="pop-el" id="dm-2">
+              <rect x="192" y="30" width="120" height="50" rx="9" fill="var(--bg-surface-2)" stroke="var(--border-subtle)"/>
+              <text x="252" y="50" text-anchor="middle" style="font-size:10px;font-weight:800;fill:var(--text-primary)">DP</text>
+              <text x="252" y="64" text-anchor="middle" style="font-size:8px;fill:var(--text-secondary)">generates DRN</text>
+            </g>
+            <g class="pop-el" id="dm-3">
+              <rect x="386" y="30" width="120" height="50" rx="9" fill="var(--bg-surface-2)" stroke="var(--border-subtle)"/>
+              <text x="446" y="47" text-anchor="middle" style="font-size:9.5px;font-weight:800;fill:var(--text-primary)">R&amp;T agent +</text>
+              <text x="446" y="60" text-anchor="middle" style="font-size:9.5px;font-weight:800;fill:var(--text-primary)">Depository</text>
+              <text x="446" y="72" text-anchor="middle" style="font-size:7.5px;fill:var(--text-secondary)">verify &amp; mutilate certs</text>
+            </g>
+            <g class="pop-el" id="dm-4">
+              <rect x="580" y="30" width="56" height="50" rx="9" fill="color-mix(in srgb,var(--green-500) 16%,var(--bg-app))" stroke="var(--green-500)"/>
+              <text x="608" y="50" text-anchor="middle" style="font-size:8px;font-weight:800;fill:var(--green-500)">Demat</text>
+              <text x="608" y="63" text-anchor="middle" style="font-size:8px;font-weight:800;fill:var(--green-500)">credit</text>
+            </g>
+            <g class="fade-el" id="dm-cap">
+              <text x="320" y="118" text-anchor="middle" style="font-size:9px;fill:var(--text-secondary)">No stamp duty on demat · certificates stamped "Surrendered for Dematerialisation" · physical transfer discontinued 1 Apr 2019</text>
+              <text x="320" y="134" text-anchor="middle" style="font-size:9px;fill:var(--text-secondary)">DRFs stored ≥ 5 years · ownership described by number of shares (ISIN), not certificate number</text>
+            </g>
+          </svg>
+        </div>
+        <div class="caption">Dematerialisation: the investor lodges the <strong>Dematerialisation Request Form (DRF)</strong> and physical certificates with the DP → a <strong>DRN</strong> is generated → the R&amp;T agent verifies, mutilates the certificates ("Surrendered for Dematerialisation") and the depository credits the demat account. <strong>No stamp duty</strong> is payable.</div>
+      </div>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>📥 Dematerialisation</h4>
+          <ul>
+            <li>Physical → electronic; via the <strong>DRF</strong> and DRN</li>
+            <li>Certificates mutilated &amp; destroyed; entered in the Register of Destroyed Certificates</li>
+            <li><strong>No stamp duty</strong> payable</li>
+            <li>Physical transfer of shares <strong>discontinued from 1 April 2019</strong>; DRFs stored ≥ 5 years</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>📤 Rematerialisation</h4>
+          <ul>
+            <li>Electronic → physical; via the <strong>RRF</strong></li>
+            <li>R&amp;T agent assigns a <strong>new certificate number</strong> &amp; distinctive numbers</li>
+            <li>Beneficial owners added to the Register of Members; depository removed to that extent</li>
+            <li>R&amp;T agent ensures <strong>revenue stamps</strong> are affixed before dispatch</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which statement about dematerialisation is correct?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">No stamp duty is payable, and physical transfer of shares has been discontinued since 1 April 2019</button>
+          <button class="mini-opt" data-correct="false">Stamp duty equal to the share value is payable on demat</button>
+          <button class="mini-opt" data-correct="false">Each share retains its unique certificate number after demat</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — no stamp duty is payable on demat, physical share transfer stopped from 1 April 2019, and demat securities are fungible (identified by ISIN and number of shares, not a certificate number)." data-wrong-msg="Not quite — no stamp duty is payable on demat, and physical transfer of shares was discontinued from 1 April 2019."></div>
+      </div>
+    </section>
+
+    <!-- 17.4 -->
+    <section class="lesson-section" id="sec-17-4">
+      <span class="section-kicker">17.4</span>
+      <h2>Power of Attorney</h2>
+      <p>An investor can empower someone they trust to transact on their behalf by executing a <strong>Power of Attorney (PoA)</strong> — commonly used by non-residents or by investors who let brokers/advisers manage their investments. A PoA has two parties: the <strong>grantor</strong> (primary investor granting the rights) and the <strong>holder / attorney</strong> (authorised to act). Both must comply with PAN and KYC norms, and the <strong>grantor can still operate the account</strong> after granting a PoA.</p>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>What a PoA holder CANNOT do</strong>
+          <p>A PoA holder can do normal transactions — purchase, payment, sale, settlement, redemption — but <strong>cannot appoint or change a nominee</strong>, and <strong>cannot open or close a bank or demat account</strong> (those need the account holders' signatures). And since minors cannot enter valid contracts, <strong>there can be no PoA for a minor</strong> — the guardian plays that role instead.</p>
+        </div>
+      </div>
+
+      <div class="matcher" id="poa-matcher">
+        <h4>Tap a PoA concept</h4>
+        <div class="hint">A General PoA is broad; a Specific/Limited PoA is confined to designated acts. Execution formalities differ in India vs abroad.</div>
+        <div class="match-markets" id="poa-markets">
+          <button class="match-mkt" data-reg="GEN">General PoA</button>
+          <button class="match-mkt" data-reg="SPEC">Specific / Limited PoA</button>
+          <button class="match-mkt" data-reg="INDIA">Executed in India</button>
+          <button class="match-mkt" data-reg="ABROAD">Executed abroad</button>
+        </div>
+        <div class="match-regs" id="poa-cards">
+          <div class="reg-card" data-reg="GEN"><div class="rn">General PoA</div><div class="rd">Very broad — banking, filing tax returns, buying/selling/managing property, entering contracts, settling claims. Used when the investor cannot act (travel, ill-health).</div></div>
+          <div class="reg-card" data-reg="SPEC"><div class="rn">Specific / Limited PoA</div><div class="rd">Confined to a specific act or acts. Be very clear about the powers granted, since it is limited to what the document designates.</div></div>
+          <div class="reg-card" data-reg="INDIA"><div class="rn">Executed in India</div><div class="rd">Typed on <strong>non-judicial stamp paper</strong>, stamped per state rules, signed by the grantor on all pages, by both parties on the last page, and <strong>notarised</strong> where required.</div></div>
+          <div class="reg-card" data-reg="ABROAD"><div class="rn">Executed abroad</div><div class="rd">May be on <strong>plain paper</strong>, attested by an Indian embassy official or a notary abroad, signed on all pages by the grantor, then sent to India for the holder to sign and be stamped/notarised if required.</div></div>
+        </div>
+        <div class="match-feedback" id="poa-feedback"></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which of these can a Power of Attorney holder NOT do?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Appoint or change a nominee, or open/close a bank or demat account</button>
+          <button class="mini-opt" data-correct="false">Make a purchase and pay for it on the grantor's behalf</button>
+          <button class="mini-opt" data-correct="false">Redeem units per the rights granted</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a PoA holder cannot appoint/change a nominee and cannot open or close a bank or demat account; those require the account holders' own signatures. Normal purchases, payments and redemptions are within a PoA's scope." data-wrong-msg="Not quite — a PoA holder can transact, but cannot make/change a nomination or open/close a bank or demat account."></div>
+      </div>
+    </section>
+
+    <!-- 17.5 -->
+    <section class="lesson-section" id="sec-17-5">
+      <span class="section-kicker">17.5</span>
+      <h2>Account opening process for non-residents</h2>
+      <p>An <strong>NRI</strong> is a citizen of India (or person of Indian origin) who is not a resident of India. Residential status is decided under <strong>Section 6 of the Income Tax Act</strong> — an individual is resident if in India for <strong>182 days or more</strong> in the year, or <strong>60 days or more</strong> in the year <em>and</em> 365 days or more in the preceding 4 years (the 60-day test relaxes for citizens/PIOs visiting India). Under <strong>FEMA (Notification 13, May 3, 2000)</strong>, an NRI is a person resident outside India who is a citizen of India.</p>
+
+      <p>The key operational issue is <strong>repatriation</strong> — can the proceeds go back abroad? It depends on the <strong>source of funds</strong>, tracked through the bank account. Try the explorer:</p>
+
+      <div class="calc" id="repat-explorer">
+        <div class="calc-title"><span class="pill">Interactive</span> Repatriation explorer</div>
+        <div class="calc-sub">Foreign-currency source → freely repatriable; rupee source → limited. Pick the account the investment is routed through.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="seg-field">
+              <span class="sl">Source account for the investment</span>
+              <div class="seg" id="repat-seg">
+                <button class="on" data-k="nre">NRE</button>
+                <button data-k="fcnr">FCNR</button>
+                <button data-k="nro">NRO</button>
+                <button data-k="income">India income*</button>
+              </div>
+            </div>
+            <p style="font-size:0.76rem;color:var(--text-secondary);margin:2px 0 0">*Income earned in India (interest, rent, dividends) is freely repatriable regardless of the source, provided Indian taxes have been paid.</p>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Repatriability of proceeds</div>
+            <div class="out-val" id="repat-out">Freely repatriable</div>
+            <div><span class="verdict good" id="repat-verdict">No limit</span></div>
+            <div class="out-note" id="repat-note">Funds remitted from abroad into an NRE account (foreign-currency source) can be freely taken back out without limit.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Why rupee-sourced proceeds are non-repatriable</strong>
+          <p>Since the rupee is not fully convertible on the capital account, RBI norms don't permit rupee investments to be freely converted and taken out. So funds from an <strong>NRE/FCNR</strong> account (or a draft on a foreign bank with FIRC) are <strong>freely repatriable</strong>; funds from an <strong>NRO</strong> account are repatriable only up to <strong>USD 1 million per financial year</strong>. From <strong>January 2016</strong>, a <strong>FATCA/CRS self-declaration</strong> is mandatory for all Indian and NRI investors.</p>
+        </div>
+      </div>
+
+      <div class="matcher" id="nri-matcher">
+        <h4>Tap an NRI account / scheme</h4>
+        <div class="hint">NRIs need distinct accounts for repatriable vs non-repatriable money, and a PINS account for trading in listed shares.</div>
+        <div class="match-markets" id="nri-markets">
+          <button class="match-mkt" data-reg="NRE">NRE</button>
+          <button class="match-mkt" data-reg="NRO">NRO</button>
+          <button class="match-mkt" data-reg="FCNR">FCNR</button>
+          <button class="match-mkt" data-reg="RFC">RFC</button>
+          <button class="match-mkt" data-reg="PINS">PINS</button>
+        </div>
+        <div class="match-regs" id="nri-cards">
+          <div class="reg-card" data-reg="NRE"><div class="rn">NRE account</div><div class="rd">Non-Resident External — foreign-currency source; proceeds <strong>freely repatriable</strong>.</div></div>
+          <div class="reg-card" data-reg="NRO"><div class="rn">NRO account</div><div class="rd">Non-Resident Ordinary — rupee income source; proceeds repatriable only up to <strong>USD 1 million / financial year</strong>.</div></div>
+          <div class="reg-card" data-reg="FCNR"><div class="rn">FCNR account</div><div class="rd">Foreign Currency Non-Resident — holds foreign currency; source proceeds <strong>freely repatriable</strong>.</div></div>
+          <div class="reg-card" data-reg="RFC"><div class="rn">RFC account</div><div class="rd">Resident Foreign Currency — for a <strong>returning</strong> NRI to transfer NRE/FCNR(B) balances and keep receiving foreign currency.</div></div>
+          <div class="reg-card" data-reg="PINS"><div class="rn">PINS account</div><div class="rd">RBI's Portfolio Investment Scheme — mandatory for NRIs/PIOs trading listed shares on an exchange. One NRE(PIS) + one NRO(PIS) only; separate even if an NRE account exists.</div></div>
+        </div>
+        <div class="match-feedback" id="nri-feedback"></div>
+      </div>
+
+      <p><strong>NRI demat &amp; trading accounts.</strong> No RBI permission is needed to open an NRI demat account, but <strong>separate accounts</strong> are needed for repatriable and non-repatriable securities; <strong>short selling and currency/commodity trading are not allowed</strong>. Under PINS, an individual NRI cannot buy more than <strong>5%</strong> of a company's paid-up capital, within an overall <strong>10%</strong> for all NRIs (raisable to 24% by a General Body resolution).</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An NRI invests using funds from his NRO account. The sale proceeds are repatriable:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Only up to USD 1 million per financial year</button>
+          <button class="mini-opt" data-correct="false">Freely, without any limit</button>
+          <button class="mini-opt" data-correct="false">Never, under any circumstances</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — NRO (rupee-source) proceeds are repatriable only up to USD 1 million per financial year. NRE/FCNR-sourced proceeds are freely repatriable, since the rupee is not fully convertible on capital account." data-wrong-msg="Not quite — NRO-sourced proceeds are capped at USD 1 million per financial year; it is NRE/FCNR sources that are freely repatriable."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An NRI who already holds an NRE account now wants to trade in listed Indian shares. He:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Must open a separate PINS account — one NRE(PIS) and one NRO(PIS) only</button>
+          <button class="mini-opt" data-correct="false">Can trade directly from the existing NRE account with no PINS account</button>
+          <button class="mini-opt" data-correct="false">Needs five separate PINS accounts</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a PINS account is mandatory for NRIs/PIOs trading listed shares, and is separate even where an NRE account already exists; only one NRE(PIS) and one NRO(PIS) are allowed at a time." data-wrong-msg="Not quite — even with an existing NRE account, a separate PINS account is required to trade in listed shares (one NRE(PIS) + one NRO(PIS))."></div>
+      </div>
+    </section>
+
+    <!-- 17.6 -->
+    <section class="lesson-section" id="sec-17-6">
+      <span class="section-kicker">17.6</span>
+      <h2>Folio maintenance, lien &amp; transmission</h2>
+      <p>Accounts need upkeep — changes of address, name, status, bank mandate — plus marking a lien, transmission on death, and nomination. For <strong>capital-market</strong> records the golden rule is that a change of address/name/status must be carried out in the <strong>KYC records at the KRA</strong> (via the KYC details change form); merely informing the AMC, RTA, DP, broker or PMS is <strong>not sufficient</strong>. The KRA then propagates the change to every entity the investor deals with.</p>
+
+      <div class="term-grid" id="maint-grid"></div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:8px">Marking a lien</h3>
+      <p>Investors can pledge securities as collateral; the lender creates a <strong>lien</strong>. The investor <strong>cannot redeem or transfer securities under lien</strong> until the lien holder authorises unmarking in writing — but <strong>dividends/benefits still go to the investor</strong> unless specifically barred. "<strong>Invoking</strong>" the lien means the lien holder sells/redeems the pledged securities to recover dues; there is <em>no</em> transfer of securities to the lien holder.</p>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:8px">Transmission — who inherits?</h3>
+      <p>Transmission passes investments to those entitled on the death of the holder. Who receives them depends on <strong>how the account was held</strong> and whether there was a <strong>nomination</strong>. Work the decision tree:</p>
+
+      <div class="calc" id="transmit-tree">
+        <div class="calc-title"><span class="pill">Interactive</span> Transmission decision tree</div>
+        <div class="calc-sub">Set how the account was held and whether it carried a nomination. Remember: joint holders' right supersedes a nominee.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="seg-field">
+              <span class="sl">How was the account held?</span>
+              <div class="seg" id="tt-hold">
+                <button class="on" data-k="single">Single holder</button>
+                <button data-k="joint">Joint holders</button>
+                <button data-k="huf">HUF (Karta)</button>
+              </div>
+            </div>
+            <div class="seg-field">
+              <span class="sl">Was there a nomination?</span>
+              <div class="seg" id="tt-nom">
+                <button class="on" data-k="yes">Yes</button>
+                <button data-k="no">No</button>
+              </div>
+            </div>
+          </div>
+          <div class="calc-output left">
+            <div class="out-lbl">Investments are transmitted to</div>
+            <div class="out-val" id="tt-out" style="font-size:1.25rem">The nominee</div>
+            <div class="out-note" id="tt-note">A single-holder account with a valid nomination is transmitted to the nominee.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Simplified transmission thresholds</strong>
+          <p>A <strong>death certificate</strong> is required in <em>every</em> transmission. Below a threshold, heavy documents (succession certificate, probate) may be waived — a death certificate, indemnity bond and NOC being adequate. The simplified threshold is <strong>₹5 lakh for physical securities</strong> and <strong>₹15 lakh for dematerialised securities</strong>. On the death of an HUF Karta, the investment passes to the <strong>new Karta</strong> against an indemnity bond signed by all remaining co-parceners.</p>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:8px">Nomination &amp; assignment</h3>
+      <p>Investors subscribing to MF units on/after <strong>October 1, 2022</strong> must <strong>nominate or opt out</strong> via a signed declaration; nomination is <strong>mandatory for singly-held</strong> MF/demat folios and can be made only by <strong>individuals</strong> (a PoA holder cannot nominate). Per revisions effective <strong>1 March 2025</strong>, an investor can nominate up to <strong>10 persons</strong>. <strong>Assignment</strong> transfers rights to another — for insurance, an assignment to a lender is <strong>absolute</strong> (unchangeable), while one in case of early death can be <strong>conditional</strong>.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An account was held jointly and also carried a nomination. On the first holder's death, who has the superior right?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The surviving joint holder — joint holders' right to transmission supersedes the nominee's right</button>
+          <button class="mini-opt" data-correct="false">The nominee — a nomination always beats joint holding</button>
+          <button class="mini-opt" data-correct="false">The legal heirs, ignoring both</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — where a folio is held jointly and has a nomination, the joint holders' right to transmission supersedes the nominee's. A nominee inherits only when the account was held singly." data-wrong-msg="Not quite — the joint holders' right to transmission supersedes the nominee's right; the nominee inherits only for singly-held accounts."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — While securities are under a lien, which is TRUE?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The investor cannot redeem them, but dividends/benefits still go to the investor unless specifically barred by the lien holder</button>
+          <button class="mini-opt" data-correct="false">The securities immediately transfer into the lien holder's name</button>
+          <button class="mini-opt" data-correct="false">The investor loses all dividends automatically</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — securities under lien cannot be redeemed/transferred until the lien holder authorises unmarking in writing, but dividends/benefits still flow to the investor unless barred. Invoking the lien means the lien holder sells them to recover dues — with no transfer of the securities." data-wrong-msg="Not quite — the investor can't redeem under lien, but dividends still go to the investor unless specifically barred; the securities do not transfer to the lien holder."></div>
+      </div>
+    </section>
+
+    <!-- 17.7 -->
+    <section class="lesson-section" id="sec-17-7">
+      <span class="section-kicker">17.7</span>
+      <h2>Change in status of special investor categories</h2>
+      <p>Minors, NRIs and investors acting through a constituted attorney need extra documentation because of differences in taxation, mode of operation, or restrictions.</p>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:4px">Minors &amp; the minor-turned-major event</h3>
+      <p>A <strong>minor</strong> (under 18) invests through a <strong>guardian</strong> — the minor is sole/first holder with <strong>no joint holders</strong>; the guardian completes KYC as if investing themselves and provides the guardian's PAN. Guardianship can change on death (notarised death certificate) or mutual consent (consent/NOC or court order under the Guardians and Wards Act, 1890 / Hindu Minority and Guardianship Act, 1956).</p>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>The day a minor turns major</strong>
+          <p>On the date of majority, the folio is <strong>frozen</strong> for the guardian's operation and all standing instructions (<strong>SIP, STP, SWP</strong>) are <strong>suspended</strong> until the minor-turned-major documents are received. The minor must complete fresh KYC; a <strong>new demat account</strong> is opened (a minor's demat is single-name only) and securities transferred; and the <strong>PAN is resubmitted</strong> for a new card with the <em>same number</em> but the new adult signature.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🏠 NRI → Resident</h4>
+          <ul>
+            <li>Can no longer operate NRO/NRE/FCNR(B); open a <strong>Resident Rupee Account</strong></li>
+            <li>Optionally open an <strong>RFC account</strong> to hold transferred foreign-currency balances</li>
+            <li>New <strong>Resident</strong> demat &amp; trading accounts; balances transferred, NRI accounts closed</li>
+            <li>File KYC change form with the KRA</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>✈️ Resident → NRI</h4>
+          <ul>
+            <li>Can no longer operate the resident savings account; open <strong>NRE/NRO</strong></li>
+            <li>FDs converted to NRO FDs; new NRI demat &amp; trading accounts (non-repatriable)</li>
+            <li>Can keep securities bought as a resident, on a non-repatriable basis</li>
+            <li>Once flagged NRI, <strong>TDS</strong> applies on gains at redemption</li>
+          </ul>
+        </div>
+      </div>
+
+      <p><strong>Adding/deleting a name.</strong> A bank account allows name addition/deletion with documents and KYC. A <strong>mutual fund</strong> usually does <strong>not</strong> allow adding a name (it amounts to a transfer of units) — the solution is to open a new folio with the desired holding and move the units after closing the existing one.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — On the exact date a minor attains majority (documents not yet submitted), what happens to a running SIP in the folio?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The folio is frozen for the guardian and the SIP (and any STP/SWP) is suspended until the minor-turned-major documents are received</button>
+          <button class="mini-opt" data-correct="false">The SIP simply continues for years uninterrupted</button>
+          <button class="mini-opt" data-correct="false">The folio is closed and the money refunded automatically</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — standing instructions are registered only till majority; on that date SIP/STP/SWP are suspended and the folio is frozen for guardian operation until the minor-turned-major documentation is completed." data-wrong-msg="Not quite — at majority the folio freezes for the guardian and SIP/STP/SWP are suspended until the minor-turned-major documents are received."></div>
+      </div>
+    </section>
+
+    <!-- 17.8 -->
+    <section class="lesson-section" id="sec-17-8">
+      <span class="section-kicker">17.8</span>
+      <h2>Payment instruments</h2>
+      <p>All capital-market payments must be routed through the <strong>first holder's bank account</strong>. Accepted modes include local &amp; at-par cheques, demand drafts, post-dated cheques (for SIPs only), electronic modes (NACH/ACH, RTGS, NEFT), standing instructions, limited cash, and ASBA. <strong>Outstation cheques and post-dated cheques (except for SIPs) are not permitted.</strong></p>
+
+      <div class="matcher" id="pay-matcher">
+        <h4>Tap a payment instrument</h4>
+        <div class="hint">Watch the thresholds: RTGS is for ₹2 lakh and above; NEFT has no minimum; IFSC is 11 characters, MICR is 9 digits.</div>
+        <div class="match-markets" id="pay-markets">
+          <button class="match-mkt" data-reg="ASBA">ASBA</button>
+          <button class="match-mkt" data-reg="RTGS">RTGS</button>
+          <button class="match-mkt" data-reg="NEFT">NEFT</button>
+          <button class="match-mkt" data-reg="CHQ">Cheques</button>
+          <button class="match-mkt" data-reg="CASH">Cash (MF)</button>
+        </div>
+        <div class="match-regs" id="pay-cards">
+          <div class="reg-card" data-reg="ASBA"><div class="rn">ASBA</div><div class="rd">Blocks money in the bank account for a primary issue; debited only on allotment. Advantages: money keeps earning interest, and no refunds needed.</div></div>
+          <div class="reg-card" data-reg="RTGS"><div class="rn">RTGS</div><div class="rd">For transactions of <strong>₹2 lakh and above</strong>; settled continuously in real time. Needs the beneficiary's IFSC (11 characters).</div></div>
+          <div class="reg-card" data-reg="NEFT"><div class="rn">NEFT</div><div class="rd"><strong>No minimum</strong> amount; settled in timed batches. Also needs the IFSC. Charges range ₹5–₹25 per transaction.</div></div>
+          <div class="reg-card" data-reg="CHQ"><div class="rn">Cheques</div><div class="rd">Local &amp; at-par cheques accepted; <strong>outstation and post-dated cheques not permitted</strong> (post-dated allowed only for SIPs, matching the SIP date).</div></div>
+          <div class="reg-card" data-reg="CASH"><div class="rn">Cash (MF)</div><div class="rd">Since Sept 2012, cash MF investment up to <strong>₹50,000 per investor per MF per financial year</strong> — but redemptions/dividends are paid only through banking channels.</div></div>
+        </div>
+        <div class="match-feedback" id="pay-feedback"></div>
+      </div>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Third-party payments &amp; fraud prevention</strong>
+          <p>Payment must come from the <strong>investor's own (first holder's) account</strong> — third-party payments are generally not accepted, to prevent fraud. Exceptions (with a third-party declaration and PAN/KYC compliance): <strong>grandparents/parents up to ₹50,000 per transaction for a minor</strong>, an <strong>employer</strong> paying for an employee via payroll, and a <strong>custodian</strong> paying for FPIs. Under the PMLA, cash MF subscriptions are capped at ₹50,000/investor/MF/year, but redemptions and dividends flow only through banking channels.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which is correct about RTGS and NEFT?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">RTGS is for ₹2 lakh and above (real-time); NEFT has no minimum amount (batch settlement)</button>
+          <button class="mini-opt" data-correct="false">NEFT is for ₹2 lakh and above; RTGS has no minimum</button>
+          <button class="mini-opt" data-correct="false">Both have a fixed minimum of ₹50,000</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — RTGS handles ₹2 lakh and above and settles continuously in real time; NEFT has no minimum and settles in timed batches. Both need the beneficiary's 11-character IFSC." data-wrong-msg="Not quite — RTGS is for ₹2 lakh and above (real-time); NEFT has no minimum and settles in batches."></div>
+      </div>
+    </section>
+
+    <!-- 17.9 & 17.10 -->
+    <section class="lesson-section" id="sec-17-9">
+      <span class="section-kicker">17.9–17.10</span>
+      <h2>Documentation for advice, the MITC &amp; the exchange platform</h2>
+      <p>The <strong>SEBI (Investment Adviser) Regulations, 2013</strong> prescribe the documentation that makes advice complete: a signed <strong>client agreement</strong> (roles, scope, remuneration, good faith), collected client information, <strong>risk profiling</strong> and suitability, a documented product short-listing process, and records maintained for <strong>five years</strong> (if electronic, digitally signed). SEBI now mandates including the <strong>Most Important Terms and Conditions (MITC)</strong> in the advisory agreement.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>MITC — the headline protections</strong>
+          <p>The IA <strong>only accepts fees</strong> (never funds/securities on the client's behalf); does <strong>not guarantee returns</strong>; and <strong>cannot execute any trade without the client's specific positive consent on every trade</strong>. Assured/guaranteed-return schemes are prohibited. Fees are capped for individual/HUF clients; <strong>advance fees ≤ one year</strong>; <strong>cash is not allowed</strong> (cheque/bank transfer/UPI, or CeFCoM run by BSE); on premature termination the client gets a proportionate refund (IA retains at most a <strong>one-quarter breakage fee</strong>). The IA advises <strong>direct (non-commission) plans</strong>, avoids distribution to the client/family, and shall <strong>never ask for the client's login credentials or OTPs</strong>. Grievances escalate: IA → SEBI <strong>SCORES</strong> → <strong>Smart ODR</strong>.</p>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:8px">Investing in mutual funds through the stock exchange platform</h3>
+      <p>Recognised exchanges let investors buy and sell MF units through their platforms — <strong>BSE StAR MF</strong> and <strong>NSE NMF II</strong>. A distributor must be <strong>registered with AMFI</strong> to use the infrastructure; units are purchased from and redeemed with the <strong>AMCs directly</strong>. The distributor only handles the transaction — the <strong>pay-in/pay-out of money and units</strong> flows through the exchange infrastructure and the <strong>clearing corporation, eliminating counterparty risk</strong>. SIP, STP, SWP and switch transactions are all supported, in demat or physical form.</p>
+      <p>For the <strong>adviser</strong>, the transaction feed shows the client's <strong>entire MF portfolio and transaction status in one place</strong>, allows family members to be clubbed, generates holding statements on demand, and needs almost no paperwork — improving transparency and service.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Under the MITC, may an Investment Adviser hold a client's money and trade at its own discretion?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">No — the IA cannot accept the client's funds/securities and cannot execute any trade without the client's specific positive consent on every trade</button>
+          <button class="mini-opt" data-correct="false">Yes — once appointed, the IA can hold funds and trade freely</button>
+          <button class="mini-opt" data-correct="false">Yes — provided the IA guarantees a minimum return</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — per the MITC the IA only accepts fees (not funds/securities), does not guarantee returns, and needs the client's specific positive consent on every trade. Guaranteed-return schemes are prohibited." data-wrong-msg="Not quite — the MITC bars the IA from holding the client's funds/securities and from trading without specific positive consent on every trade."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — The BSE and NSE mutual fund transaction platforms are:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">BSE StAR MF and NSE NMF II</button>
+          <button class="mini-opt" data-correct="false">SCORES and Smart ODR</button>
+          <button class="mini-opt" data-correct="false">NSDL and CDSL</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — BSE StAR MF and NSE NMF II are the two exchange platforms for MF transactions; the clearing corporation in the flow eliminates counterparty risk, and distributors must be AMFI-registered to use them." data-wrong-msg="Not quite — the exchange MF platforms are BSE StAR MF and NSE NMF II. (SCORES/Smart ODR are grievance platforms; NSDL/CDSL are depositories.)"></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The rules, dates and thresholds most likely to be tested — tap to reveal.</p>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:14px 0 6px">Core concepts</h3>
+      <div class="flip-grid" id="concept-cards"></div>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:22px 0 6px">Dates, thresholds &amp; numbers</h3>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch17";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 6", href: "../../index.html" },
+    { label: "Chapter 17", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  if (window.NISM_CH17_QUESTIONS) {
+    var mc = document.getElementById("meta-qcount");
+    if (mc) mc.textContent = window.NISM_CH17_QUESTIONS.length;
+  }
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:15px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // Folio-maintenance cards
+  renderCards("maint-grid", [
+    { icon: "🏠", label: "Change of address", body: "For capital markets, update the KYC records at the KRA (KYC details change form + address proof). Merely informing the AMC/RTA/DP/broker/PMS is not sufficient." },
+    { icon: "✍️", label: "Change of name", body: "Supported by a name-change certificate / official gazette copy and, if applicable, a marriage certificate — via the prescribed form." },
+    { icon: "🔄", label: "Change of status", body: "Filed via the KYC change form at the KRA; re-designate bank accounts (e.g. to NRO), open new demat/trading, small-savings maturities credited to NRO." },
+    { icon: "🔒", label: "Marking a lien", body: "Lender creates a lien; investor can't redeem under lien; dividends still go to the investor unless barred. Unmarking needs the lien holder's written communication." },
+    { icon: "⚰️", label: "Transmission", body: "Passing investments on death to those entitled. Death certificate always required; simplified threshold ₹5 lakh (physical) / ₹15 lakh (demat)." },
+    { icon: "👥", label: "Nomination", body: "MF units on/after 1 Oct 2022 → nominate or opt out. Mandatory for singly-held MF/demat; individuals only; up to 10 nominees (from 1 Mar 2025)." }
+  ]);
+
+  // Concept flip deck
+  renderFlip("concept-cards", [
+    { icon: "🪪", label: "PAN & Form 49A / 60-61", back: "Apply for PAN on Form 49A. Where PAN is mandatory but unavailable, submit Form 60/61. Section 114B lists transactions needing PAN." },
+    { icon: "🧾", label: "Micro-investment PAN exemption", back: "MF investments ≤ ₹50,000 aggregate per fund house (rolling 12 months / FY) by INDIVIDUALS only — quote the 'PAN Exempt KYC' Reference Number. HUFs/non-individuals not eligible." },
+    { icon: "🔐", label: "KYC & PMLA", back: "KYC (proof of identity + address) flows from the PMLA, 2002. IPV mandatory for first-time investors; waived when Aadhaar authentication or DigiLocker/online verification is used." },
+    { icon: "🏦", label: "Uniform KYC & CERSAI", back: "Uniform KYC via KRA from 1 Jan 2012 (two-part form). CERSAI = Central KYC Records Registry (CKYCR); de-duplicates, issues a unique KYC Identifier; serves RBI/SEBI/IRDAI/PFRDA." },
+    { icon: "💽", label: "Demat & remat", back: "Depository (NSDL, CDSL) holds securities electronically (Depositories Act 1996). Demat via DRF/DRN, no stamp duty; fungible (ISIN). Remat via RRF, new certificate number, revenue stamps affixed." },
+    { icon: "📜", label: "Power of Attorney", back: "Grantor + holder. Holder cannot appoint/change a nominee or open/close a bank/demat account. No PoA for a minor. General PoA = broad; Specific/Limited PoA = designated acts only." },
+    { icon: "🌐", label: "NRI repatriation", back: "Foreign-currency source (NRE/FCNR) = freely repatriable; rupee source (NRO) = up to USD 1 million/FY. India income freely repatriable if taxes paid. PINS mandatory for trading listed shares." },
+    { icon: "⚰️", label: "Transmission rules", back: "Joint (no nom) → survivors; joint (with nom) → joint holders supersede nominee; single (with nom) → nominee; single (no nom) → legal heirs; HUF → new Karta with indemnity bond." },
+    { icon: "🧒", label: "Minor turned major", back: "At majority the folio freezes for the guardian; SIP/STP/SWP suspend until documents received. New demat account (single-name only); PAN resubmitted, same number, new signature." },
+    { icon: "🤝", label: "MITC & advice records", back: "SEBI (IA) Regs 2013: agreement, risk profiling, records for 5 years. MITC: no custody of funds, no guaranteed returns, no trade without consent, advance fee ≤ 1 year, no cash, direct plans, never ask for OTPs." }
+  ]);
+
+  // Matchers
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("kyc-markets", "kyc-cards", "kyc-feedback", {
+    KRA: "KRA & uniform KYC — one KYC across intermediaries from 1 Jan 2012; two-part form.",
+    CERSAI: "CERSAI / CKYCR — Central KYC Records Registry (notified 26 Nov 2015); unique KYC Identifier; RIs upload for accounts opened on/after 1 Aug 2016.",
+    ESIGN: "eSign — Aadhaar-based online electronic signature under the Information Technology Act.",
+    VIPV: "VIPV — live, still, recognisable, tamper-proof with date/time stamp; matches the Aadhaar photo.",
+    IPV: "IPV waiver — not required when Aadhaar authentication/UIDAI or online DigiLocker verification is used.",
+    PWD: "Inclusive KYC — SEBI circular 23 May 2025 mandates assistive digital services for persons with disabilities."
+  });
+  wireMatcher("poa-markets", "poa-cards", "poa-feedback", {
+    GEN: "General PoA — broad powers: banking, tax returns, property, contracts, claims.",
+    SPEC: "Specific / Limited PoA — confined to the designated act(s) only.",
+    INDIA: "Executed in India — non-judicial stamp paper, stamped per state, signed by grantor on all pages + both on the last, notarised if required.",
+    ABROAD: "Executed abroad — plain paper, attested by an Indian embassy official/notary abroad, then signed and stamped/notarised in India if required."
+  });
+  wireMatcher("nri-markets", "nri-cards", "nri-feedback", {
+    NRE: "NRE — foreign-currency source; freely repatriable.",
+    NRO: "NRO — rupee income source; repatriable only up to USD 1 million/financial year.",
+    FCNR: "FCNR — holds foreign currency; freely repatriable.",
+    RFC: "RFC — for a returning NRI to hold transferred NRE/FCNR(B) balances.",
+    PINS: "PINS — RBI's Portfolio Investment Scheme, mandatory for NRIs/PIOs trading listed shares; one NRE(PIS) + one NRO(PIS) only."
+  });
+  wireMatcher("pay-markets", "pay-cards", "pay-feedback", {
+    ASBA: "ASBA — blocks money for a primary issue, debited only on allotment; keeps earning interest, no refunds.",
+    RTGS: "RTGS — ₹2 lakh and above, real-time settlement; needs the 11-character IFSC.",
+    NEFT: "NEFT — no minimum amount, batch settlement; also needs the IFSC.",
+    CHQ: "Cheques — local/at-par accepted; outstation & post-dated not permitted (post-dated only for SIPs).",
+    CASH: "Cash (MF) — up to ₹50,000/investor/MF/FY since Sept 2012; redemptions/dividends only via banking channels."
+  });
+
+  // Revision deck (mono fronts)
+  renderFlip("revision-cards", [
+    { icon: "1 Jan 2016", label: "ASBA for IPOs", back: "From January 1, 2016, public-issue applications must use the ASBA facility (money blocked, debited only on allotment). UPI-ASBA added for retail via intermediaries." },
+    { icon: "₹50,000", label: "The recurring threshold", back: "Micro MF investment (PAN-exempt, individuals); cash MF per fund per year; bank FD / insurance premium / NPS cash above which PAN is needed; third-party parent/grandparent payment for a minor." },
+    { icon: "1 Jan 2012", label: "Uniform KYC", back: "SEBI mandated uniform KYC across intermediaries from January 1, 2012, via the KRA. Two-part KYC form." },
+    { icon: "1 Aug 2016", label: "CKYCR upload", back: "RIs upload KYC records with the CKYCR (CERSAI) for all individual accounts opened on or after August 1, 2016. CERSAI notified 26 Nov 2015." },
+    { icon: "₹10 crore", label: "Compulsory demat issue", back: "SEBI requires all public issues above ₹10 crore to be issued only in dematerialised form." },
+    { icon: "1 Apr 2019", label: "Physical transfer ends", back: "Physical transfer of shares discontinued from April 1, 2019. DRFs stored for at least 5 years. No stamp duty on demat." },
+    { icon: "182 / 60+365", label: "Residence test (Sec 6)", back: "Resident if in India ≥ 182 days in the year, OR ≥ 60 days in the year and ≥ 365 days over the preceding 4 years (60-day test relaxes for citizens/PIOs visiting)." },
+    { icon: "USD 1 mn", label: "NRO repatriation", back: "NRO (rupee source) proceeds repatriable only up to USD 1 million per financial year. NRE/FCNR freely repatriable." },
+    { icon: "5% / 10% / 24%", label: "NRI holding limits (PINS)", back: "An individual NRI ≤ 5% of a company's paid-up capital, overall 10% for all NRIs, raisable to 24% by a General Body resolution." },
+    { icon: "₹5L / ₹15L", label: "Simplified transmission", back: "Simplified documentation threshold: ₹5 lakh for physical securities, ₹15 lakh for dematerialised securities. Death certificate always required." },
+    { icon: "1 Oct 2022 · 10", label: "MF nomination", back: "MF units on/after 1 Oct 2022 → nominate or opt out. Mandatory for singly-held MF/demat; individuals only; up to 10 nominees (revisions effective 1 Mar 2025)." },
+    { icon: "₹2 lakh", label: "RTGS floor", back: "RTGS is for transactions of ₹2 lakh and above (real-time). NEFT has no minimum (batch). IFSC = 11 chars; MICR = 9 digits." }
+  ], "mono");
+
+  // ---------- Explorer 1: PAN requirement ----------
+  (function () {
+    var seg = document.getElementById("pan-seg");
+    var out = document.getElementById("pan-out"), verdict = document.getElementById("pan-verdict"), note = document.getElementById("pan-note");
+    if (!seg) return;
+    var data = {
+      micro:    { req: false, note: "Micro MF investments up to ₹50,000 aggregate under all schemes of a fund house (rolling 12 months / FY) by an individual are PAN-exempt — quote the 'PAN Exempt KYC' Reference Number instead." },
+      microHUF: { req: true,  note: "The micro-investment exemption is for INDIVIDUALS only. HUFs and non-individual investors are NOT eligible — PAN is required." },
+      fd:       { req: true,  note: "A bank fixed deposit exceeding ₹50,000 requires the PAN card to be provided for verification." },
+      bsbda:    { req: false, note: "Opening a Basic Savings Bank Deposit Account (BSBDA) does not require a PAN card." },
+      npsTier2: { req: true,  note: "Opening a Tier II account with the NPS requires a PAN card. (Cash contributions above ₹50,000 to NPS also need PAN.)" },
+      demat:    { req: true,  note: "Capital-market investments through a demat account (or in physical mode) require PAN — it is the single identification number for capital-market transactions." }
+    };
+    function render(k) {
+      var d = data[k];
+      out.textContent = d.req ? "PAN required" : "PAN exempt";
+      verdict.className = "verdict " + (d.req ? "warn" : "good");
+      verdict.textContent = d.req ? "PAN mandatory" : "PAN not required";
+      note.textContent = d.note;
+    }
+    seg.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      Array.prototype.forEach.call(seg.children, function (x) { x.classList.remove("on"); });
+      b.classList.add("on");
+      render(b.dataset.k);
+    });
+    render("micro");
+  })();
+
+  // ---------- Explorer 2: Repatriation ----------
+  (function () {
+    var seg = document.getElementById("repat-seg");
+    var out = document.getElementById("repat-out"), verdict = document.getElementById("repat-verdict"), note = document.getElementById("repat-note");
+    if (!seg) return;
+    var data = {
+      nre:    { free: true,  v: "No limit", note: "Funds remitted from abroad into an NRE account (foreign-currency source) can be freely repatriated without limit." },
+      fcnr:   { free: true,  v: "No limit", note: "An FCNR account holds foreign currency — proceeds are freely repatriable without limit." },
+      nro:    { free: false, v: "USD 1 mn / FY", note: "NRO is a rupee-income source; since the rupee is not fully convertible on capital account, proceeds are repatriable only up to USD 1 million per financial year." },
+      income: { free: true,  v: "If taxes paid", note: "Income earned in India (interest, rent, dividends) is freely repatriable regardless of the source of funds, provided Indian taxes have been paid." }
+    };
+    function render(k) {
+      var d = data[k];
+      out.textContent = d.free ? "Freely repatriable" : "Limited repatriation";
+      verdict.className = "verdict " + (d.free ? "good" : "warn");
+      verdict.textContent = d.v;
+      note.textContent = d.note;
+    }
+    seg.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      Array.prototype.forEach.call(seg.children, function (x) { x.classList.remove("on"); });
+      b.classList.add("on");
+      render(b.dataset.k);
+    });
+    render("nre");
+  })();
+
+  // ---------- Explorer 3: Transmission decision tree ----------
+  (function () {
+    var hold = document.getElementById("tt-hold"), nom = document.getElementById("tt-nom");
+    var out = document.getElementById("tt-out"), note = document.getElementById("tt-note");
+    if (!hold) return;
+    var state = { hold: "single", nom: "yes" };
+    function render() {
+      var res, msg;
+      if (state.hold === "huf") {
+        res = "The new Karta";
+        msg = "On the death of the Karta of an HUF, the investment is transmitted to the new Karta on receipt of an indemnity bond signed by all remaining co-parceners.";
+      } else if (state.hold === "joint") {
+        res = "The surviving joint holder(s)";
+        msg = state.nom === "yes"
+          ? "Held jointly WITH a nomination: the joint holders' right to transmission supersedes the nominee's — the second holder becomes the first holder."
+          : "Held jointly with NO nomination: transmitted to the surviving joint holders in the same order (the second holder becomes the first holder).";
+      } else { // single
+        if (state.nom === "yes") {
+          res = "The nominee";
+          msg = "Held singly WITH a valid nomination: the investment is transmitted to the nominee.";
+        } else {
+          res = "The legal heirs / claimants";
+          msg = "Held singly with NO nomination: transmitted to legal heirs or claimants who can establish succession (e.g. succession certificate).";
+        }
+      }
+      out.textContent = res;
+      note.textContent = msg;
+    }
+    function wire(group, key) {
+      group.addEventListener("click", function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        Array.prototype.forEach.call(group.children, function (x) { x.classList.remove("on"); });
+        b.classList.add("on");
+        state[key] = b.dataset.k;
+        render();
+      });
+    }
+    wire(hold, "hold"); wire(nom, "nom");
+    render();
+  })();
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.3 }).observe(el);
+  }
+  onReveal("#demat-flow", function (root) {
+    root.querySelector("#dm-1").classList.add("go");
+    setTimeout(function () { root.querySelector("#dm-l1").classList.add("go"); }, 350);
+    setTimeout(function () { root.querySelector("#dm-2").classList.add("go"); }, 550);
+    setTimeout(function () { root.querySelector("#dm-l2").classList.add("go"); }, 900);
+    setTimeout(function () { root.querySelector("#dm-3").classList.add("go"); }, 1100);
+    setTimeout(function () { root.querySelector("#dm-l3").classList.add("go"); }, 1450);
+    setTimeout(function () { root.querySelector("#dm-4").classList.add("go"); }, 1650);
+    setTimeout(function () { root.querySelector("#dm-cap").classList.add("go"); }, 1950);
+  }, 0.25);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH17_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

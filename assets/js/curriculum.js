@@ -209,7 +209,7 @@
                 title: "Operational Aspects of Investment Management",
                 summary: "KYC, dematerialisation, POA and documentation for advice.",
                 path: p("books/xa/module-06-operations-regulatory-environment-compliance-and-ethics/chapter-17/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch18",
