@@ -193,7 +193,7 @@
                 title: "Portfolio Performance Measurement and Evaluation",
                 summary: "Return measures, risk measures and performance attribution.",
                 path: p("books/xa/module-05-portfolio-construction-performance-monitoring-and-evaluation/chapter-16/index.html"),
-                status: "coming-soon"
+                status: "active"
               }
             ]
           },

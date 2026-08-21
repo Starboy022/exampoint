@@ -3,10 +3,9 @@
 _Task tracker. Used to resume mid-stream. Keep in sync with `implementation.md`._
 
 ## In progress
-- (none — Ch.15 complete)
+- (none — Ch.16 complete)
 
 ## Up next (in order)
-- [ ] **XA Ch.16** — Portfolio Performance Measurement and Evaluation (Module 5). Maths-heavy: build live calculators for Sharpe / Treynor / Jensen's alpha / information ratio + return measures. Flip `status` to active.
 - [ ] **XA Ch.17** — Operational Aspects of Investment Management (Module 6)
 - [ ] **XA Ch.18** — Key Regulations (Module 6)
 - [ ] **XA Ch.19** — Ethical Issues (Module 6)
@@ -16,6 +15,7 @@ _Task tracker. Used to resume mid-stream. Keep in sync with `implementation.md`.
 ## Done
 - [x] XA Ch.1–14 (pre-existing)
 - [x] **XA Ch.15** — Portfolio Construction Process (built + activated 2026-08-21; 70-question bank incl. 10 scenarios)
+- [x] **XA Ch.16** — Portfolio Performance Measurement and Evaluation (built + activated 2026-08-21; 56-question bank incl. ~20 scenarios; 5 live calculators)
 - [x] Created `implementation.md` and `todo.md` tracking files
 
 ## Reminders
