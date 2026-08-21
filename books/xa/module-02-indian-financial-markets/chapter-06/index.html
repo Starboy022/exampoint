@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 6 — Securities Market Segments | NISM Learn</title>
+<meta name="description" content="Interactive lesson: the primary market (IPOs, FPOs, book building, ASBA), the secondary market (liquidity, price discovery, risk-management systems) and corporate actions (rights, bonus, dividend, stock split, buyback). NISM Series-X-A, Module 2, Chapter 6." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive calculator ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.95rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .seg { display:inline-flex; flex-wrap:wrap; border:1px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; }
+  .seg button { padding:7px 13px; font-size:0.8rem; font-weight:700; background:var(--bg-app); border:none; cursor:pointer; color:var(--text-secondary); transition: all var(--dur-fast); }
+  .seg button.active { background:var(--navy-800); color:#fff; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; text-align:center; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.9rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .calc-output .out-sub { font-size:0.82rem; color:var(--text-primary); margin-top:6px; }
+  .calc-output .out-sub b { color:var(--teal-text); font-family:var(--font-mono); }
+
+  /* ---- Book-building demand table ---- */
+  .bb-table { width:100%; border-collapse:collapse; margin:14px 0 6px; font-size:0.86rem; }
+  .bb-table th, .bb-table td { padding:9px 10px; text-align:right; border-bottom:1px solid var(--border-subtle); font-variant-numeric:tabular-nums; }
+  .bb-table th { font-size:0.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); font-weight:700; }
+  .bb-table td:first-child, .bb-table th:first-child { text-align:left; font-family:var(--font-mono); font-weight:700; }
+  .bb-table tr.cutoff td { background:color-mix(in srgb,var(--gold-500) 16%,var(--bg-app)); font-weight:800; }
+  .bb-table tr.filled td { color:var(--text-primary); }
+  .bb-table .bar { display:inline-block; height:9px; border-radius:3px; background:var(--teal-500); vertical-align:middle; margin-right:6px; transition:width var(--dur-slow) var(--ease-out); }
+  .cutoff-badge { display:inline-block; margin-left:6px; font-size:0.6rem; background:var(--gold-500); color:var(--navy-950); font-weight:800; padding:2px 7px; border-radius:var(--radius-pill); letter-spacing:.05em; }
+
+  /* ---- Split / holding-value viz ---- */
+  .split-cols { display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:center; margin-top:14px; }
+  .split-box { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-app); padding:12px; text-align:center; }
+  .split-box .sb-lbl { font-size:0.68rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); }
+  .split-box .sb-big { font-family:var(--font-display); font-weight:800; font-size:1.3rem; margin:3px 0; }
+  .split-box .sb-small { font-size:0.74rem; color:var(--text-secondary); }
+  .split-eq { font-size:1.4rem; color:var(--gold-500); text-align:center; font-weight:800; }
+
+  /* ---- Money-flow SVG (primary vs secondary) ---- */
+  .mf-line { stroke-width:2.4; fill:none; stroke-dasharray:200; stroke-dashoffset:200; }
+  .mf-line.go { animation: mf-draw 1s var(--ease-out) forwards; }
+  @keyframes mf-draw { to { stroke-dashoffset:0; } }
+  .mf-node rect, .mf-node circle { transition: all var(--dur-fast); }
+  .mf-cap { font-size:9px; font-weight:700; }
+
+  /* ---- Circuit-breaker ladder ---- */
+  .cb-ladder { display:flex; flex-direction:column; gap:10px; margin:18px 0; }
+  .cb-step { display:flex; align-items:center; gap:14px; padding:12px 16px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); opacity:0; transform:translateX(-14px); transition:all var(--dur-med) var(--ease-out); }
+  .cb-step.in { opacity:1; transform:translateX(0); }
+  .cb-step .pct { font-family:var(--font-display); font-weight:800; font-size:1.5rem; width:64px; flex-shrink:0; text-align:center; border-radius:var(--radius-sm); padding:6px 0; color:#fff; }
+  .cb-step .cb-desc { font-size:0.82rem; }
+  .cb-step .cb-desc b { font-weight:800; }
+
+  /* ---- Interactive matcher (shared) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.95rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Flow nodes ---- */
+  .flow { display:flex; align-items:stretch; gap:0; flex-wrap:wrap; justify-content:center; margin:20px 0; }
+  .flow-node { flex:1; min-width:120px; padding:14px 12px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); text-align:center; opacity:0; transform:translateY(10px); transition:all var(--dur-med) var(--ease-out); }
+  .flow-node.in { opacity:1; transform:translateY(0); }
+  .flow-node .fn-ic { font-size:22px; }
+  .flow-node .fn-t { font-weight:800; font-size:0.85rem; margin-top:4px; font-family:var(--font-display); }
+  .flow-node .fn-d { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .flow-arrow { display:flex; align-items:center; color:var(--gold-500); font-size:20px; padding:0 6px; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 2 · Indian Financial Markets</span>
+      <span class="badge badge-gold">Chapter 6 of 6</span>
+    </div>
+    <h1>Securities Market Segments</h1>
+    <p class="lede">Where capital is raised and where it changes hands. The <strong>primary market</strong> creates new securities (IPOs, FPOs, book building, ASBA); the <strong>secondary market</strong> gives them liquidity and a price; and <strong>corporate actions</strong> — rights, bonus, dividend, splits, buybacks — reach back to every shareholder.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~28 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 66 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 4 live calculators</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 3 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:640px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The nature and definition of the primary market</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The role and function of the secondary market</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Corporate actions and their impact on shareholders</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-6-1">6.1 Primary market</a></li>
+      <li><a href="#sec-6-1-types">Types of issues, issuers &amp; investors</a></li>
+      <li><a href="#sec-6-1-ipo">6.1.5 IPO &amp; FPO</a></li>
+      <li><a href="#sec-6-1-price">6.1.6 Pricing &amp; book building</a></li>
+      <li><a href="#sec-6-1-process">6.1.7–6.1.10 Process, ASBA &amp; rights</a></li>
+      <li><a href="#sec-6-2">6.2 Secondary market</a></li>
+      <li><a href="#sec-6-2-info">6.2.2–6.2.3 Structure &amp; market info</a></li>
+      <li><a href="#sec-6-2-risk">6.2.4 Risk management</a></li>
+      <li><a href="#sec-6-3">6.3 Corporate actions</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 6.1 Primary market -->
+    <section class="lesson-section" id="sec-6-1">
+      <span class="section-kicker">6.1</span>
+      <h2>Nature and definition of the primary market</h2>
+      <p>A company's early capital comes from its <strong>promoters and their associates</strong>. As it needs more, it turns to a wider group of <strong>"outside" investors</strong> — investors not associated with the promoters. The <strong>primary market</strong> is where equity or debt funds are raised by companies from these outside investors through an offer of securities.</p>
+      <p>In the primary market, investors buy the security <strong>directly from the issuer</strong>. It is also called the <strong>"new issue market"</strong>, because the securities are issued for the first time. Expanding an issuer's ability to raise capital from public investors who were not part of the early stages is known as <strong>"going public"</strong>. This makes long-term capital available from a larger number of investors.</p>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="money-flow" viewBox="0 0 480 250" width="100%" style="max-width:560px">
+            <!-- Primary market row -->
+            <text x="12" y="24" style="font-size:11px;font-weight:800;fill:var(--gold-600)">PRIMARY MARKET — new issue</text>
+            <g class="mf-node">
+              <rect x="12" y="34" width="96" height="50" rx="10" fill="var(--navy-800)"/>
+              <text x="60" y="56" text-anchor="middle" style="font-size:11px;font-weight:800;fill:#fff">Issuer</text>
+              <text x="60" y="72" text-anchor="middle" style="font-size:8.5px;fill:rgba(255,255,255,.8)">(company)</text>
+            </g>
+            <path class="mf-line" d="M108 50 L360 50" stroke="var(--teal-500)" marker-end="url(#ah-t)"/>
+            <text x="234" y="42" text-anchor="middle" class="mf-cap" fill="var(--teal-text)">securities issued →</text>
+            <path class="mf-line" d="M360 70 L108 70" stroke="var(--gold-500)" marker-end="url(#ah-g)"/>
+            <text x="234" y="84" text-anchor="middle" class="mf-cap" fill="var(--gold-600)">← ₹ capital to issuer</text>
+            <g class="mf-node">
+              <rect x="360" y="34" width="108" height="50" rx="10" fill="var(--bg-surface-2)" stroke="var(--border-subtle)"/>
+              <text x="414" y="56" text-anchor="middle" style="font-size:10.5px;font-weight:800;fill:var(--text-primary)">New investors</text>
+              <text x="414" y="72" text-anchor="middle" style="font-size:8.5px;fill:var(--text-secondary)">subscribe to issue</text>
+            </g>
+
+            <!-- Divider -->
+            <line x1="12" y1="118" x2="468" y2="118" stroke="var(--border-subtle)" stroke-dasharray="4 4"/>
+            <text x="240" y="112" text-anchor="middle" style="font-size:8.5px;fill:var(--text-secondary)">↓ mandatory listing opens the secondary market ↓</text>
+
+            <!-- Secondary market row -->
+            <text x="12" y="150" style="font-size:11px;font-weight:800;fill:var(--teal-text)">SECONDARY MARKET — existing securities</text>
+            <g class="mf-node">
+              <rect x="40" y="162" width="110" height="50" rx="10" fill="var(--bg-surface-2)" stroke="var(--border-subtle)"/>
+              <text x="95" y="184" text-anchor="middle" style="font-size:10.5px;font-weight:800;fill:var(--text-primary)">Investor A</text>
+              <text x="95" y="200" text-anchor="middle" style="font-size:8.5px;fill:var(--text-secondary)">seller</text>
+            </g>
+            <path class="mf-line" d="M150 178 L330 178" stroke="var(--teal-500)" marker-end="url(#ah-t)"/>
+            <text x="240" y="172" text-anchor="middle" class="mf-cap" fill="var(--teal-text)">securities →</text>
+            <path class="mf-line" d="M330 198 L150 198" stroke="var(--gold-500)" marker-end="url(#ah-g)"/>
+            <text x="240" y="212" text-anchor="middle" class="mf-cap" fill="var(--gold-600)">← ₹ (between investors)</text>
+            <g class="mf-node">
+              <rect x="330" y="162" width="110" height="50" rx="10" fill="var(--bg-surface-2)" stroke="var(--border-subtle)"/>
+              <text x="385" y="184" text-anchor="middle" style="font-size:10.5px;font-weight:800;fill:var(--text-primary)">Investor B</text>
+              <text x="385" y="200" text-anchor="middle" style="font-size:8.5px;fill:var(--text-secondary)">buyer</text>
+            </g>
+            <text x="240" y="236" text-anchor="middle" style="font-size:9px;font-weight:700;fill:var(--red-500)">✗ No new capital reaches the issuer here</text>
+
+            <defs>
+              <marker id="ah-t" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--teal-500)"/></marker>
+              <marker id="ah-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6z" fill="var(--gold-500)"/></marker>
+            </defs>
+          </svg>
+        </div>
+        <div class="caption">In the <strong>primary</strong> market, capital flows to the issuer for newly created securities. In the <strong>secondary</strong> market, the same securities change hands between investors — the issuer receives nothing.</div>
+      </div>
+
+      <h3 id="sec-6-1-func" style="margin-top:28px">Functions of the primary market</h3>
+      <p>Raising capital from outside investors does much more than fund the business — tap each card:</p>
+      <div class="flip-grid" id="primary-func-grid"></div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — What distinguishes the primary market from the secondary market?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">In the primary market investors buy directly from the issuer and the capital reaches the company</button>
+          <button class="mini-opt" data-correct="false">The primary market only trades government securities</button>
+          <button class="mini-opt" data-correct="false">The primary market is where investors trade existing shares among themselves</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the primary (new issue) market is where securities are sold directly by the issuer to outside investors, and the money raised goes to the company. Trading between investors is the secondary market." data-wrong-msg="Not quite — the primary market is the 'new issue' market: investors buy directly from the issuer and the capital reaches the company. Trading existing shares between investors is the secondary market."></div>
+      </div>
+    </section>
+
+    <!-- Types -->
+    <section class="lesson-section" id="sec-6-1-types">
+      <span class="section-kicker">6.1.2–6.1.4</span>
+      <h2>Types of issues, issuers and investors</h2>
+
+      <h3 id="types-issues">Types of issues</h3>
+      <p>Not every primary issue is a public issue. Capital can be raised through five broad routes — tap to compare:</p>
+      <div class="flip-grid" id="issue-types-grid"></div>
+
+      <h3 id="types-issuers" style="margin-top:28px">Types of issuers</h3>
+      <p>Under SEBI's <strong>ICDR Regulations, 2018</strong>, an issuer is a company or body corporate authorised to issue securities, meeting eligibility criteria and honouring obligations (bond interest, equity dividends). The main categories:</p>
+      <div class="flip-grid" id="issuer-types-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Government securities are gilt-edged</strong>
+          <p>Governments raise money through <strong>G-Secs</strong>: short-term <strong>treasury bills</strong> (original maturity &lt; 1 year — only the <em>Central</em> Government issues these, at 91, 182 and 364 days) and long-term <strong>dated securities/bonds</strong> (1 year or more). State Governments issue only bonds — the <strong>State Government Securities (SGS)</strong>. G-Secs carry <strong>no default risk</strong>, hence "risk-free gilt-edged". REITs/InvITs and AIFs are special issuers: REITs/InvITs list units (with a <em>higher minimum investment</em> than a normal IPO), while an AIF can only raise money by <strong>private placement</strong> — never a public invitation.</p>
+        </div>
+      </div>
+
+      <h3 id="types-investors" style="margin-top:26px">Types of investors</h3>
+      <p>Both retail and institutional investors participate in primary issues:</p>
+      <div class="pill-list">
+        <span>Resident individuals</span><span>HUF</span><span>Minors (via guardian)</span><span>Registered societies &amp; clubs</span><span>NRIs</span><span>PIOs</span><span>Banks</span><span>Financial institutions</span><span>Association of persons</span><span>Companies</span><span>Partnership firms</span><span>Trusts</span><span>FPIs</span><span>LLPs</span>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A listed company issues shares to a select group of qualified institutional buyers (mutual funds, FPIs, insurers) on a private-placement basis. This is a:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Rights issue</button>
+          <button class="mini-opt" data-correct="true">Qualified Institutions Placement (QIP)</button>
+          <button class="mini-opt" data-correct="false">Initial Public Offer (IPO)</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a QIP is an issue of eligible securities by a listed issuer to qualified institutional buyers on a private-placement basis." data-wrong-msg="Not quite — issuing to qualified institutional buyers (MFs, FPIs, insurers) on a private-placement basis by a listed issuer is a QIP."></div>
+      </div>
+    </section>
+
+    <!-- 6.1.5 IPO/FPO -->
+    <section class="lesson-section" id="sec-6-1-ipo">
+      <span class="section-kicker">6.1.5</span>
+      <h2>Public issue of equity: IPO &amp; FPO</h2>
+      <p>The first public offer of shares a company ever makes is an <strong>Initial Public Offer (IPO)</strong>. After that, any further issue of securities to the public is a <strong>Further Public Offer (FPO)</strong>. Both can be a fresh issue, an offer for sale, or a combination.</p>
+
+      <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))" id="ipo-mech-grid"></div>
+
+      <div class="matcher" id="fresh-ofs-matcher">
+        <h4>Fresh issue or offer for sale? — tap a scenario</h4>
+        <div class="hint">Decide whether the company's share capital changes and where the money goes.</div>
+        <div class="match-markets" id="fs-markets">
+          <button class="match-mkt" data-reg="FRESH">A company issues brand-new shares to the public to fund expansion</button>
+          <button class="match-mkt" data-reg="OFS">The government disinvests part of its stake in a PSU to the public</button>
+          <button class="match-mkt" data-reg="OFS">Promoters sell a portion of their existing holding to public investors</button>
+          <button class="match-mkt" data-reg="FRESH">A company raises capital to retire debt by issuing new shares in an FPO</button>
+        </div>
+        <div class="match-regs" id="fs-cards">
+          <div class="reg-card" data-reg="FRESH"><div class="rn">Fresh issue</div><div class="rd">Share capital ↑ · money to the company · existing holders' % falls</div></div>
+          <div class="reg-card" data-reg="OFS"><div class="rn">Offer for sale</div><div class="rd">Share capital unchanged · money to the selling shareholder · not to the company</div></div>
+        </div>
+        <div class="match-feedback" id="fs-feedback"></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — In an <em>offer for sale</em> (e.g. the government disinvesting a PSU stake), what happens to the company's issued share capital?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">It stays unchanged — existing shares change hands and proceeds go to the seller, not the company</button>
+          <button class="mini-opt" data-correct="false">It increases, because new shares are created</button>
+          <button class="mini-opt" data-correct="false">It falls to zero once the shares are sold</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — an offer for sale transfers existing shares to public investors; the share capital is unchanged and the money goes to the selling shareholder. Only the shareholder list changes." data-wrong-msg="Not quite — in an offer for sale no new shares are created: the share capital is unchanged and the proceeds go to the selling shareholder, not the company."></div>
+      </div>
+    </section>
+
+    <!-- 6.1.6 Pricing / book building -->
+    <section class="lesson-section" id="sec-6-1-price">
+      <span class="section-kicker">6.1.6</span>
+      <h2>Pricing a public issue: fixed price vs book building</h2>
+      <p>SEBI lets the issuer decide the price. It may be a <strong>fixed price</strong> (set by the company with its lead manager, disclosed upfront so investors know it before applying) or discovered through a <strong>book-building</strong> process.</p>
+      <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))" id="pricing-grid"></div>
+
+      <p style="margin-top:22px">In book building, the issuer specifies a <strong>floor price</strong> or a <strong>price band</strong> (from the floor to <strong>20% above</strong> it). Investors bid a price and quantity at or above the floor. The issuer and book-running lead manager then set the <strong>cut-off price</strong> — the price at which the issue gets fully subscribed. Everyone who bid <strong>at or above</strong> the cut-off is a successful bidder.</p>
+
+      <div class="calc" id="calc-bookbuild">
+        <div class="calc-title"><span class="pill">Live</span> Book-building cut-off explorer</div>
+        <div class="calc-sub">The workbook's example: a company offers shares within a price band of ₹120–₹144. Bids arrive at each price. Slide the offer size and watch the cut-off price (where cumulative demand from the top first fills the offer) move.</div>
+        <div class="calc-controls" style="margin-bottom:16px">
+          <div class="ctrl">
+            <label>Shares on offer <span class="val" id="bb-offer-val">5,000</span></label>
+            <input type="range" id="bb-offer-in" min="500" max="6500" step="500" value="5000">
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="bb-table" id="bb-table">
+            <thead><tr><th>Price</th><th>Bid at price</th><th>Cumulative demand</th></tr></thead>
+            <tbody id="bb-body"></tbody>
+          </table>
+        </div>
+        <div class="calc-output" style="margin-top:6px">
+          <div class="out-lbl">Cut-off price</div>
+          <div class="out-val" id="bb-cutoff">₹135</div>
+          <div class="out-note" id="bb-note">At ₹135 the cumulative demand (from the highest bid down) first reaches the 5,000 shares on offer. All bids at ₹135 and above are successful.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Reading the demand book (offer = 5,000 shares)</strong>
+          <p>Bids stack from the highest price down: ₹144→1,000, ₹140→1,500, ₹135→2,500, ₹130→1,000, ₹120→500. Cumulative demand reaches exactly 5,000 at <strong>₹135</strong> — the cut-off. Retail investors may even get an allotment at a <em>discount</em> to the cut-off, but not more than <strong>10%</strong> below the price allotted to other categories.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A price band in a book-built issue can run from the floor price up to how much above it?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">10% above the floor</button>
+          <button class="mini-opt" data-correct="true">20% above the floor</button>
+          <button class="mini-opt" data-correct="false">50% above the floor</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the price band runs from the floor price to 20% above it. Bids must be at or above the floor / within the band." data-wrong-msg="Not quite — a price band runs from the floor price to 20% above it."></div>
+      </div>
+    </section>
+
+    <!-- 6.1.7-6.1.10 Process -->
+    <section class="lesson-section" id="sec-6-1-process">
+      <span class="section-kicker">6.1.7–6.1.10</span>
+      <h2>The issue process: regulation, ASBA, debt &amp; rights</h2>
+      <p>Primary offerings are governed by SEBI's <strong>ICDR Regulations, 2018</strong> and the <strong>Companies Act</strong>, plus RBI rules for non-resident money. They cover eligibility (net worth, profitability track record), the process and timelines, and how the funds may be used.</p>
+
+      <div class="term-grid" id="process-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>ASBA — Application Supported by Blocked Amount</strong>
+          <p>Applications to a public issue <strong>must</strong> use ASBA: the application money is <em>blocked</em> in the investor's bank account and released only on allotment. SEBI has added <strong>UPI with block facility</strong> for retail applications through intermediaries. In a book-built offer the minimum application value must sit in SEBI's prescribed range of <strong>₹10,000–₹15,000</strong>. Investors can bid a specific price or bid <strong>"at cut-off"</strong> — accepting whatever price the process determines, which guarantees their application is accepted.</p>
+        </div>
+      </div>
+
+      <h3 id="oversub" style="margin-top:24px">Over-subscription and allotment</h3>
+      <p>If bids at the cut-off and above exceed the shares offered, the issue is <strong>over-subscribed</strong> and shares are allotted on a <strong>proportionate</strong> basis with a refund for the shortfall. If bids fall short, it is <strong>under-subscribed</strong> and all applicants at or above the cut-off get full allotment. Shares are credited to the successful applicants' <strong>demat accounts</strong>.</p>
+
+      <h3 id="debt-rights" style="margin-top:24px">Debt issues &amp; the rights offer</h3>
+      <p>A <strong>public issue of debt securities</strong> (e.g. debentures) needs a lead manager, mandatory <strong>listing</strong>, a <strong>credit rating</strong> from at least one agency (all ratings disclosed if more than one), and <strong>debenture trustees</strong> (SEBI-registered banks/FIs) to protect investors — checking that any security charged is adequate. A <strong>rights offer</strong> gives existing shareholders the right to buy more shares in a fixed ratio; the tradable <strong>Rights Entitlement (RE)</strong> has its own ISIN, so a shareholder who does not want to subscribe can sell the RE on the exchange. Rights applications too are only via <strong>ASBA</strong>.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An issue is over-subscribed at the cut-off price. How are shares allotted?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Only to the earliest applicants, first-come-first-served</button>
+          <button class="mini-opt" data-correct="true">On a proportionate basis, with a refund for the shares not allotted</button>
+          <button class="mini-opt" data-correct="false">The issue is cancelled and all money refunded</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — in an over-subscribed issue, shares are allotted proportionately and investors are refunded to the extent the allotment is lower than what they applied for." data-wrong-msg="Not quite — over-subscription is resolved by proportionate allotment, with a refund for the shortfall. It is not first-come-first-served."></div>
+      </div>
+    </section>
+
+    <!-- 6.2 Secondary market -->
+    <section class="lesson-section" id="sec-6-2">
+      <span class="section-kicker">6.2</span>
+      <h2>Role and function of the secondary market</h2>
+      <p>The secondary market is where securities, once issued, are <strong>bought and sold between investors</strong>. Trades here bring <em>no new capital to the issuer</em> — funds simply change hands. Its job is to support the primary market's capital-raising by providing liquidity, price identification, information signalling and acting as a barometer of the economy.</p>
+      <div class="flip-grid" id="secondary-func-grid"></div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Price discovery helps the next raise</strong>
+          <p>A company with ₹10 face-value shares trading around <strong>₹100</strong> can price a fresh equity issue close to ₹100 — the value investors have already discovered in the market. Rising demand pushes prices up (a signal of expected good performance); more sellers than buyers pushes them down.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which function lets stock markets act as a "market for corporate control"?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Guaranteed settlement of every trade</button>
+          <button class="mini-opt" data-correct="true">Underperforming firms get undervalued and can become takeover targets, disciplining management</button>
+          <button class="mini-opt" data-correct="false">The exchange sets each company's dividend</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — poor governance depresses the share price, making the firm a cheap takeover target; even the threat of takeover pushes managers to perform. That is the market for corporate control." data-wrong-msg="Not quite — the 'market for corporate control' works because underperformers get undervalued and become takeover targets, so the threat alone disciplines management."></div>
+      </div>
+    </section>
+
+    <!-- 6.2.2-6.2.3 Structure & market info -->
+    <section class="lesson-section" id="sec-6-2-info">
+      <span class="section-kicker">6.2.2–6.2.3</span>
+      <h2>Market structure &amp; market information</h2>
+      <p>The secondary market brings together <strong>Market Infrastructure Institutions</strong> (stock exchanges, clearing corporations, depositories), <strong>investors</strong> (individuals, institutions, FPIs), <strong>issuers</strong>, <strong>financial intermediaries</strong>, and the <strong>regulator</strong>.</p>
+
+      <h3 id="mkt-info" style="margin-top:20px">Reading the market: cap, turnover &amp; indices</h3>
+      <div class="term-grid" id="mktinfo-grid"></div>
+
+      <div class="calc" id="calc-mcap">
+        <div class="calc-title"><span class="pill">Live</span> Market capitalisation &amp; size bucket</div>
+        <div class="calc-sub">Market cap = shares outstanding × market price per share. It measures the market value of a company's share capital and is used to bucket stocks by size.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Shares outstanding (crore) <span class="val" id="mc-sh-val">50</span></label>
+              <input type="range" id="mc-sh-in" min="1" max="1000" step="1" value="50">
+            </div>
+            <div class="ctrl">
+              <label>Market price per share <span class="val" id="mc-pr-val">₹100</span></label>
+              <input type="range" id="mc-pr-in" min="5" max="5000" step="5" value="100">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Market capitalisation</div>
+            <div class="out-val" id="mc-out">₹5,000 cr</div>
+            <div class="out-sub">Bucket: <b id="mc-bucket">Large / blue-chip</b></div>
+            <div class="out-note">Blue-chip (large-cap) stocks are the largest and most liquid; mid-caps are medium-sized with good liquidity; small-caps are smaller with less liquidity. Market-cap ÷ GDP gauges the size of a country's market.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — How is a company's market capitalisation calculated?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Face value × number of shareholders</button>
+          <button class="mini-opt" data-correct="true">Number of shares outstanding × market price per share</button>
+          <button class="mini-opt" data-correct="false">Annual turnover ÷ number of trades</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — market cap = shares outstanding × market price per share. It measures the market value of the company's share capital." data-wrong-msg="Not quite — market cap = shares outstanding × market price per share. It uses market price, not face value."></div>
+      </div>
+    </section>
+
+    <!-- 6.2.4 Risk management -->
+    <section class="lesson-section" id="sec-6-2-risk">
+      <span class="section-kicker">6.2.4</span>
+      <h2>Risk-management systems in the secondary market</h2>
+      <p>High volumes make markets liquid and cheap — but raise <strong>systemic risk</strong>: one member defaulting on payment or delivery could cascade. Exchanges deliver two things at once — <strong>high liquidity</strong> in execution and <strong>guaranteed settlement</strong> — through layered risk controls. Tap each:</p>
+      <div class="flip-grid" id="risk-grid"></div>
+
+      <div class="calc" id="calc-margin">
+        <div class="calc-title"><span class="pill">Live</span> Margin calculator</div>
+        <div class="calc-sub">The workbook's case: an investor buys 100 shares of Company X at ₹100 each on 1 Jan 2020 — a ₹10,000 trade. To cover default risk, a percentage is paid upfront as margin. At 17% margin the buyer pays ₹1,700 in advance.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Shares purchased <span class="val" id="mg-sh-val">100</span></label>
+              <input type="range" id="mg-sh-in" min="10" max="1000" step="10" value="100">
+            </div>
+            <div class="ctrl">
+              <label>Price per share <span class="val" id="mg-pr-val">₹100</span></label>
+              <input type="range" id="mg-pr-in" min="10" max="1000" step="10" value="100">
+            </div>
+            <div class="ctrl">
+              <label>Margin rate <span class="val" id="mg-mr-val">17%</span></label>
+              <input type="range" id="mg-mr-in" min="5" max="50" step="1" value="17">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Upfront margin</div>
+            <div class="out-val" id="mg-out">₹1,700</div>
+            <div class="out-sub">Trade value <b id="mg-tv">₹10,000</b></div>
+            <div class="out-note">Brokers collect margin from clients when the order is placed; exchanges collect it from brokers when the order is executed.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="circuit" style="margin-top:26px">Circuit breakers &amp; price bands</h3>
+      <p>An abnormal index move triggers a market-wide <strong>circuit breaker</strong> — a coordinated trading halt across all equity and equity-derivative markets nationwide, set off by whichever of the <strong>BSE Sensex</strong> or <strong>Nifty 50</strong> is breached first. The halt length depends on the size of the move and the time of day:</p>
+      <div class="cb-ladder" id="cb-ladder">
+        <div class="cb-step"><span class="pct" style="background:var(--gold-500);color:var(--navy-950)">10%</span><span class="cb-desc"><b>First trigger.</b> A coordinated halt whose duration depends on when in the day it occurs. Limits are recomputed daily on the previous day's closing index.</span></div>
+        <div class="cb-step"><span class="pct" style="background:#e08a2b">15%</span><span class="cb-desc"><b>Second trigger.</b> A longer halt — the deeper the fall and the earlier it hits, the longer trading is suspended.</span></div>
+        <div class="cb-step"><span class="pct" style="background:var(--red-500)">20%</span><span class="cb-desc"><b>Third trigger.</b> Trading is halted for the <b>remainder of the day</b>.</span></div>
+      </div>
+      <p>Separately, <strong>price bands</strong> cap individual scrips: daily bands of 2%, 5% or 10% as specified; scrips with derivatives (or in derivative indices) have <em>no</em> price band but may get a 10% operating range to block non-genuine prices; all remaining scrips get a 20% band.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Novation &amp; the Core SGF</strong>
+          <p>The clearing corporation becomes the <strong>counterparty to every trade</strong> — legally stepping between buyer and seller. This is <strong>novation</strong>, and it eliminates counterparty risk: the clearing corporation settles every trade even if a member defaults. Margins fund part of this risk; the <strong>Core Settlement Guarantee Fund (Core SGF)</strong> guarantees settlement in each segment (cash, equity derivatives, currency derivatives) if a clearing member fails.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — At which index-movement level does a market-wide circuit breaker halt trading for the rest of the day?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">10%</button>
+          <button class="mini-opt" data-correct="false">15%</button>
+          <button class="mini-opt" data-correct="true">20%</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — circuit breakers act at 10%, 15% and 20%. A 20% move (in either direction, on the Sensex or Nifty, whichever is breached first) halts trading for the remainder of the day." data-wrong-msg="Not quite — the three levels are 10%, 15% and 20%; the 20% trigger halts trading for the rest of the day."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — When the clearing corporation becomes the legal counterparty to both sides of every trade, eliminating counterparty risk, the process is called:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Dematerialisation</button>
+          <button class="mini-opt" data-correct="true">Novation</button>
+          <button class="mini-opt" data-correct="false">Book building</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — novation is the clearing corporation stepping in as counterparty to all trades, guaranteeing settlement even if a member defaults." data-wrong-msg="Not quite — that is novation. Dematerialisation is holding securities electronically; book building is a price-discovery method for issues."></div>
+      </div>
+    </section>
+
+    <!-- 6.3 Corporate actions -->
+    <section class="lesson-section" id="sec-6-3">
+      <span class="section-kicker">6.3</span>
+      <h2>Corporate actions</h2>
+      <p>Beyond running its business, a company takes actions that directly affect shareholders — sharing surplus (dividend, bonus), changing capital structure (rights, buyback), and mergers, acquisitions or delisting. All are governed by the <strong>Companies Act, 2013</strong>, SEBI regulations and the listing agreement, and require notice to regulators. Eligibility is fixed on a <strong>record date</strong> (or book-closure period): only shareholders on the records that day are entitled.</p>
+
+      <div class="flip-grid" id="corpaction-grid"></div>
+
+      <h3 id="split-calc" style="margin-top:26px">Stock split — the value stays put</h3>
+      <p>A <strong>stock split</strong> reduces the face value of each share in a defined ratio, multiplying the share count to match. The company's share capital is unchanged, and — crucially — <strong>the value of your holding does not change</strong>. Companies split to lower a high share price and improve liquidity.</p>
+
+      <div class="calc" id="calc-split">
+        <div class="calc-title"><span class="pill">Live</span> Stock-split calculator</div>
+        <div class="calc-sub">The workbook's case: 100 shares of face value ₹10, trading at ₹1,000. A 1:5 split turns each share into 5 — so 500 shares of face value ₹2, priced around ₹200. Holding value: unchanged at ₹1,00,000.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Shares held <span class="val" id="sp-sh-val">100</span></label>
+              <input type="range" id="sp-sh-in" min="10" max="1000" step="10" value="100">
+            </div>
+            <div class="ctrl">
+              <label>Price before split <span class="val" id="sp-pr-val">₹1,000</span></label>
+              <input type="range" id="sp-pr-in" min="100" max="5000" step="50" value="1000">
+            </div>
+            <div class="ctrl">
+              <label>Face value before <span class="val" id="sp-fv-val">₹10</span></label>
+              <input type="range" id="sp-fv-in" min="2" max="10" step="1" value="10">
+            </div>
+            <div class="ctrl">
+              <label>Split ratio 1 : <span class="val" id="sp-rt-val">5</span></label>
+              <input type="range" id="sp-rt-in" min="2" max="10" step="1" value="5">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="split-cols">
+              <div class="split-box">
+                <div class="sb-lbl">Before</div>
+                <div class="sb-big" id="sp-b-sh">100</div>
+                <div class="sb-small">shares · FV <span id="sp-b-fv">₹10</span></div>
+                <div class="sb-small">@ <span id="sp-b-pr">₹1,000</span></div>
+              </div>
+              <div class="split-eq">→</div>
+              <div class="split-box">
+                <div class="sb-lbl">After</div>
+                <div class="sb-big" id="sp-a-sh">500</div>
+                <div class="sb-small">shares · FV <span id="sp-a-fv">₹2</span></div>
+                <div class="sb-small">@ <span id="sp-a-pr">₹200</span></div>
+              </div>
+            </div>
+            <div class="out-sub" style="margin-top:12px">Holding value <b id="sp-val">₹1,00,000</b> — unchanged</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Split vs bonus vs rights — don't confuse them</strong>
+          <p><strong>Stock split:</strong> face value falls, share count rises, capital &amp; holding value unchanged. <strong>Bonus (e.g. 1:3):</strong> free shares from free reserves — 1 new for every 3 held; no money paid; barred if the company defaulted on debt interest/principal or a fixed deposit. <strong>Rights (e.g. 1:1, 1:2):</strong> existing shareholders get the <em>right to buy</em> more shares at a set price, protecting them from dilution; the tradable RE has its own ISIN. A <strong>buyback</strong> extinguishes shares (capital falls, EPS supported); a <strong>dividend</strong> can only be paid by a profit-making company out of profits — never out of share premium, revaluation reserve or capital redemption reserve.</p>
+        </div>
+      </div>
+
+      <div class="matcher" id="ca-matcher">
+        <h4>Match the corporate action to its effect — tap an action</h4>
+        <div class="hint">Tap an action and watch its defining effect light up.</div>
+        <div class="match-markets" id="ca-markets">
+          <button class="match-mkt" data-reg="SPLIT">Stock split (1:5)</button>
+          <button class="match-mkt" data-reg="BONUS">Bonus issue (1:3)</button>
+          <button class="match-mkt" data-reg="BUYBACK">Share buyback</button>
+          <button class="match-mkt" data-reg="RIGHTS">Rights issue (1:1)</button>
+        </div>
+        <div class="match-regs" id="ca-cards">
+          <div class="reg-card" data-reg="SPLIT"><div class="rn">Face value falls</div><div class="rd">More shares, lower face value; capital &amp; holding value unchanged</div></div>
+          <div class="reg-card" data-reg="BONUS"><div class="rn">Free shares</div><div class="rd">From free reserves, no consideration; barred if in default</div></div>
+          <div class="reg-card" data-reg="BUYBACK"><div class="rn">Shares extinguished</div><div class="rd">Capital reduced, EPS supported using surplus cash</div></div>
+          <div class="reg-card" data-reg="RIGHTS"><div class="rn">Right to buy more</div><div class="rd">Offered to existing holders at a set price; RE is tradable</div></div>
+        </div>
+        <div class="match-feedback" id="ca-feedback"></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — After a 1:5 stock split, an investor's 100 shares priced at ₹1,000 become 500 shares. What happens to the value of the holding?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">It rises fivefold to ₹5,00,000</button>
+          <button class="mini-opt" data-correct="true">It stays about the same — 500 shares priced near ₹200 ≈ ₹1,00,000</button>
+          <button class="mini-opt" data-correct="false">It falls to ₹20,000</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a split changes the number and face value of shares, not the total value: 500 × ~₹200 ≈ ₹1,00,000, the same as 100 × ₹1,000." data-wrong-msg="Not quite — a split leaves total value unchanged: the price drops in proportion, so 500 shares at ~₹200 ≈ ₹1,00,000, just like before."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which statement about dividends is correct?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">A loss-making company may still pay dividends out of its share premium account</button>
+          <button class="mini-opt" data-correct="true">A loss-making company cannot pay a dividend, and listed companies must declare dividends on a per-share basis</button>
+          <button class="mini-opt" data-correct="false">Dividends may be paid out of the revaluation reserve</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — dividends come only from profits; a loss-making company (or one that failed to redeem preference shares) cannot pay them, and SEBI requires listed companies to declare dividends per share. They can't come from share premium, revaluation reserve or capital redemption reserve." data-wrong-msg="Not quite — dividends can only be paid from profits, never from share premium, revaluation or capital redemption reserves; a loss-making company cannot pay them, and SEBI mandates per-share declaration."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The numbers, ratios and definitions most likely to be tested — tap to reveal.</p>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch06";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 2", href: "../../index.html" },
+    { label: "Chapter 6", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:20px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // Primary market functions
+  renderFlip("primary-func-grid", [
+    { icon: "🌐", label: "Access to wider markets", back: "Companies move beyond restrictive known sources of funding to a wider group of investors, often raising funds at much more competitive terms." },
+    { icon: "⚖️", label: "Transparent pricing", back: "Prices are set by demand and supply and the issuer's perceived strength. G-Secs are priced by RBI auction; equity via book building within a narrow band set with the merchant banker." },
+    { icon: "👥", label: "Ownership diversification", back: "New equity holders broaden ownership, enabling separation of ownership from management; independent directors representing public shareholders raise governance standards." },
+    { icon: "📑", label: "Better disclosures", back: "Raising money from unfamiliar investors demands higher disclosure and transparency, giving investors relevant, accurate, verifiable information to decide." },
+    { icon: "🔍", label: "Evaluation by investors", back: "A large body of prospective investors, analysts, researchers, activists and media scrutinise the issuer — a layer of review beyond auditors and regulators." },
+    { icon: "🚪", label: "Exit for early investors", back: "Promoters and early investors who took the initial risk can sell and make a profit — a vibrant primary market incentivises early-stage funding." },
+    { icon: "💧", label: "Liquidity for securities", back: "A public issue distributes securities widely and mandatory listing opens the secondary market, so securities can be traded easily in small or large lots." },
+    { icon: "🛡️", label: "Regulatory supervision", back: "Every step — process, intermediaries, disclosures — is under comprehensive regulatory supervision to protect investors, with fair procedures and defined rights." }
+  ]);
+
+  // Types of issues
+  renderFlip("issue-types-grid", [
+    { icon: "📢", label: "Public issue", back: "Securities offered to the public; anyone eligible can apply. Comprises the IPO (unlisted issuer's first offer) and the FPO (a listed issuer's further offer). Includes offers for sale by existing holders." },
+    { icon: "🤝", label: "Private placement", back: "Securities issued to a select set of investors who bid and buy — primarily a wholesale issue to institutional investors by an unlisted company." },
+    { icon: "⭐", label: "Preferential issue", back: "A listed issuer issues specified securities to a select person/group on a private-placement basis under SEBI rules. Excludes ESOP/ESPS, sweat equity and depository receipts." },
+    { icon: "🏛️", label: "Qualified Institutions Placement (QIP)", back: "A listed issuer issues eligible securities to qualified institutional buyers (mutual funds, FPIs, insurers…) on a private-placement basis; can include an offer for sale by promoters." },
+    { icon: "🎁", label: "Rights & bonus", back: "Offered to existing investors as on a cut-off date: rights let them buy more at a set price; bonus allots additional shares free (without any consideration)." }
+  ]);
+
+  // Types of issuers
+  renderFlip("issuer-types-grid", [
+    { icon: "🏛️", label: "Governments", back: "Central/State/local governments issue G-Secs — treasury bills (< 1 yr, Central only: 91/182/364 days) and dated securities/bonds (≥ 1 yr). Risk-free, gilt-edged. States issue only bonds (SGS)." },
+    { icon: "🏭", label: "Public Sector Units", back: "Government-majority companies. May offer government-held shares to the public (disinvestment) and issue bonds — some with tax benefits (e.g. NHAI tax-free bonds; 54EC capital-gains bonds)." },
+    { icon: "🏢", label: "Private sector companies", back: "The securities market is their principal funding source. Issue equity, preference shares, convertibles, corporate bonds (long-term) and commercial paper (< 1 yr). Access domestic & international markets." },
+    { icon: "🏦", label: "Banks, FIs & NBFCs", back: "Issue equity, preference shares, bonds, convertibles, commercial paper, certificates of deposit and securitised paper. Deposit-taking banks rely less on markets; FIs & NBFCs raise short- and long-term capital." },
+    { icon: "📦", label: "Mutual funds", back: "Make a New Fund Offer (NFO) of units for a defined scheme — closed-end (funds returned at end) or open-ended/perpetual (exit anytime at prevailing value)." },
+    { icon: "🏗️", label: "REITs & InvITs", back: "Issue units via public offer or private placement — REITs invest in real estate, InvITs in infrastructure. Managed by merchant bankers, listed on an exchange, with a higher minimum investment than a normal IPO." },
+    { icon: "💼", label: "Alternative Investment Funds", back: "Privately pooled investments that raise money only through private placement — they cannot invite the public at large. May also borrow debt." }
+  ]);
+
+  // IPO mechanisms
+  renderFlip("ipo-mech-grid", [
+    { icon: "🆕", label: "Fresh issue of shares", back: "New shares issued by the company to public investors. Issued share capital rises; existing shareholders' percentage holding falls. Money raised goes to the company." },
+    { icon: "💸", label: "Offer for sale", back: "Existing shareholders (promoters/FIs/government) sell part of their holding to the public. Share capital unchanged; proceeds go to the seller, not the company. PSU disinvestment is an example." },
+    { icon: "🚀", label: "IPO", back: "The first public offer of shares by a company — shares become widely held; may be a fresh issue, an offer for sale, or a combination." },
+    { icon: "🔁", label: "Further Public Offer (FPO)", back: "A later public issue by a company that has already done an IPO — to raise growth capital, retire debt, meet minimum public shareholding, or let promoters dilute after lock-in." }
+  ]);
+
+  // Pricing
+  renderFlip("pricing-grid", [
+    { icon: "🏷️", label: "Fixed price issue", back: "The company, with its lead manager (merchant banker in charge), fixes the price upfront, justified by expected performance and comparable companies. Investors know the price when they apply." },
+    { icon: "📊", label: "Book built issue", back: "Price is discovered by bidding. The issuer sets a floor price or a price band (floor to 20% above). Investors bid price + quantity at/above the floor; the cut-off is the price at which the issue is fully subscribed. Bids at/above the cut-off succeed." }
+  ]);
+
+  // Process cards
+  renderCards("process-grid", [
+    { icon: "📄", label: "Prospectus", body: "The document filed with SEBI giving all issuer & issue details. A draft is filed for SEBI comments, then the final prospectus goes to the Registrar of Companies, SEBI and the exchange." },
+    { icon: "🧑‍💼", label: "Lead manager", body: "The merchant banker in charge of the issue — ensures compliance with all regulatory requirements and (in a fixed-price offer) helps set the price." },
+    { icon: "🏦", label: "ASBA / UPI", body: "Applications must use ASBA — money blocked in the bank account, released only on allotment. Retail can apply via UPI with block facility through intermediaries." },
+    { icon: "🎯", label: "Bid at cut-off", body: "Investors may bid a specific price or 'at cut-off' — accepting whatever price the process sets, which ensures the application is always accepted." }
+  ]);
+
+  // Secondary market functions
+  renderFlip("secondary-func-grid", [
+    { icon: "💧", label: "Liquidity", back: "Provides marketability to existing securities — investors can enter or exit any listed security at low cost and in a short time, so long-term/perpetual securities don't lock funds in." },
+    { icon: "🎯", label: "Price discovery", back: "Continuous buy/sell prices reflect investors' collective assessment of a security's worth. Rising demand lifts price (good-prospects signal); more sellers push it down." },
+    { icon: "📡", label: "Information signalling", back: "Prices instantly convey information about issuers and act as a continuous monitor, pushing issuers to improve. In efficient markets, prices reflect all available information." },
+    { icon: "📈", label: "Indicating economic activity", back: "Indices built from a representative basket (S&P BSE Sensex, NSE Nifty 50) act as a barometer — sustained rises signal a strongly growing economy; declines signal weakening activity." },
+    { icon: "🎛️", label: "Medium for corporate control", back: "Underperforming firms get undervalued and become takeover targets; acquirers can improve governance. Even the possibility of takeover disciplines management." }
+  ]);
+
+  // Market info cards
+  renderCards("mktinfo-grid", [
+    { icon: "💰", label: "Market capitalisation", body: "Shares outstanding × market price. Buckets stocks into blue-chip/large-cap (largest, most liquid), mid-cap and small-cap. Market-cap ÷ GDP gauges a country's market size." },
+    { icon: "🔄", label: "Market turnover", body: "How much trading happened — in rupees or number of trades. Higher turnover means better liquidity. Turnover ratio = turnover ÷ market cap. Large-caps usually have high traded value." },
+    { icon: "📊", label: "Market indices", body: "Track the market via a representative, usually market-cap-weighted, liquid sample. Sensex & Nifty 50 lead; sector indices track banking, IT, pharma, FMCG. A performance benchmark and leading indicator." }
+  ]);
+
+  // Risk management systems
+  renderFlip("risk-grid", [
+    { icon: "🧱", label: "Capital adequacy norms", back: "Trading/clearing members must maintain minimum paid-up capital & net worth: the Base Minimum Capital (a deposit with no trade exposure allowed against it) plus additional/optional capital tied to business volume to cover margins." },
+    { icon: "📥", label: "Margins", back: "Funds deposited with the clearing corporation to cover non-payment/non-delivery risk. Both buyers and sellers pay a percentage upfront when placing the order. Brokers collect from clients at order placement; exchanges from brokers at execution." },
+    { icon: "🛑", label: "Circuit breakers & price bands", back: "Index-wide breakers at 10%/15%/20% (Sensex or Nifty, whichever first) halt all equity & derivative trading. Individual scrips get daily price bands (2/5/10% or 20%); derivative scrips get a 10% operating range." },
+    { icon: "🤝", label: "Settlement guarantee", back: "The clearing corporation becomes counterparty to all trades (novation), eliminating counterparty risk and settling even on a member default. Backed by margins and the Core Settlement Guarantee Fund (Core SGF)." },
+    { icon: "🖥️", label: "On-line monitoring", back: "Positions and transactions are watched in real time. Alerts fire on abnormal buy/sell build-up or inadequate margins; the clearing corporation can check members and cut open positions. Unusual price/volume news is investigated." },
+    { icon: "🎚️", label: "Price monitoring & action", back: "On abnormal moves: special margins on volatile scrips, tighter circuit-filter limits, or shifting a scrip to the trade-to-trade segment (compulsory delivery) to curb intraday-closing volatility." },
+    { icon: "📚", label: "Inspection of books", back: "The exchange inspects each market segment's trading members' books at least once a year to check compliance; violations lead to disciplinary action." }
+  ]);
+
+  // Corporate actions
+  renderFlip("corpaction-grid", [
+    { icon: "🎟️", label: "Rights issue", back: "A fresh issue offered first to existing shareholders in a set ratio (1:1, 1:2, 2:3…) to prevent dilution. Needs a record date and a letter of offer (draft filed with SEBI). REs are credited to demat and are tradable." },
+    { icon: "🎁", label: "Bonus issue", back: "Free shares to existing holders without consideration (e.g. 1:3 = 1 bonus per 3 held), made from free reserves built of genuine profits. Barred if the company defaulted on debt interest/principal or a fixed deposit. Needs board (sometimes shareholder) approval." },
+    { icon: "💵", label: "Dividend", back: "Shareholders' share of profits — interim (during the year) or final (year-end). Only from profits; a loss-making company (or one that failed to redeem preference shares) cannot pay. Not from share premium, revaluation or capital redemption reserves. Listed firms declare per share." },
+    { icon: "✂️", label: "Stock split", back: "Face value cut in a ratio (1:5 → FV ÷ 5, shares × 5). Share capital and holding value unchanged. Used when a high price restricts participation; improves liquidity." },
+    { icon: "🔙", label: "Share buyback", back: "Company buys back its listed shares from reserves & surplus; bought-back shares are extinguished, reducing share capital and supporting EPS/price. Barred if in default on debt, deposits, preference redemption, dividend or term-loan interest." },
+    { icon: "🚫", label: "Delisting", back: "Permanent removal of shares from the exchange. Compulsory (for non-compliance with regulations/listing agreement) or voluntary (company buys back shares via reverse book building)." },
+    { icon: "🔗", label: "Mergers & acquisitions", back: "A substantial acquisition of shares/voting rights by an acquirer (and persons acting in concert) changes the shareholding pattern. SEBI regulations give public shareholders the chance to exit." },
+    { icon: "💸", label: "Offer for sale", back: "Existing investors sell their shares to the public — no new shares; the money goes to the selling investor, not the company. Used to give anchor investors a partial or full exit." }
+  ]);
+
+  // Revision deck
+  renderFlip("revision-cards", [
+    { icon: "20%", label: "Price band width", back: "A book-building price band runs from the floor price to a maximum of 20% above it." },
+    { icon: "₹135", label: "Cut-off price", back: "In the workbook example (5,000 shares, band ₹120–₹144), cumulative demand from the top first fills 5,000 at ₹135 — the cut-off. All bids at/above ₹135 succeed." },
+    { icon: "₹10k–15k", label: "Min application", back: "In a book-built offer the minimum application value must fall within SEBI's prescribed range of ₹10,000 to ₹15,000." },
+    { icon: "ASBA", label: "Only via ASBA", back: "Public-issue and rights applications must use ASBA — money blocked in the bank account, released only on allotment. UPI-with-block added for retail." },
+    { icon: "SCRA", label: "Securities defined", back: "Section 2(h), Securities Contracts (Regulation) Act, 1956 defines 'securities'. Debenture public issues need mandatory listing + a credit rating." },
+    { icon: "10/15/20", label: "Circuit breakers", back: "Market-wide breakers at 10%, 15% and 20% of the Sensex or Nifty (whichever breached first); 20% halts trading for the rest of the day." },
+    { icon: "17%", label: "Margin example", back: "100 shares × ₹100 = ₹10,000 trade; at 17% margin the buyer pays ₹1,700 upfront. Brokers collect from clients at order placement." },
+    { icon: "1:5", label: "Stock split", back: "100 shares @ ₹1,000 (FV ₹10) → 500 shares @ ~₹200 (FV ₹2). Share capital and holding value (₹1,00,000) unchanged." },
+    { icon: "Core SGF", label: "Novation", back: "The clearing corporation becomes counterparty to all trades (novation); the Core Settlement Guarantee Fund guarantees settlement on member default." },
+    { icon: "RE", label: "Rights Entitlement", back: "The tradable Rights Entitlement has its own ISIN, so a shareholder who won't subscribe can sell it on the exchange." }
+  ], "mono");
+
+  // ---------- Interactive: fresh-issue vs offer-for-sale matcher ----------
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("fs-markets", "fs-cards", "fs-feedback", {
+    FRESH: "Fresh issue — new shares are created, share capital rises, and the money reaches the company.",
+    OFS: "Offer for sale — existing shares change hands, share capital is unchanged, and the money goes to the seller."
+  });
+  wireMatcher("ca-markets", "ca-cards", "ca-feedback", {
+    SPLIT: "Stock split — face value falls and share count rises; capital and holding value are unchanged.",
+    BONUS: "Bonus — free shares from free reserves, no consideration; barred if the company is in default.",
+    BUYBACK: "Buyback — shares are extinguished, reducing capital and supporting EPS.",
+    RIGHTS: "Rights — existing holders get the right to buy more at a set price; the RE is tradable."
+  });
+
+  // ---------- Calculators ----------
+  var fmt = function (n) { return n.toLocaleString("en-IN"); };
+
+  // Book-building cut-off explorer
+  (function () {
+    var band = [
+      { price: 144, bid: 1000 },
+      { price: 140, bid: 1500 },
+      { price: 135, bid: 2500 },
+      { price: 130, bid: 1000 },
+      { price: 120, bid: 500 }
+    ];
+    var offIn = document.getElementById("bb-offer-in"),
+        offVal = document.getElementById("bb-offer-val"),
+        body = document.getElementById("bb-body"),
+        cutEl = document.getElementById("bb-cutoff"),
+        noteEl = document.getElementById("bb-note");
+    var totalDemand = 6500; // sum of bids, for bar scaling
+    function render() {
+      var offer = +offIn.value;
+      offVal.textContent = fmt(offer);
+      var cum = 0, cutoff = null;
+      var rows = band.map(function (r) {
+        cum += r.bid;
+        var isCut = cutoff === null && cum >= offer;
+        if (isCut) cutoff = r.price;
+        var filled = cutoff === null || isCut;
+        var w = Math.round((cum / totalDemand) * 100);
+        return { price: r.price, bid: r.bid, cum: cum, isCut: isCut, filled: filled, w: w };
+      });
+      body.innerHTML = rows.map(function (r) {
+        var cls = (r.isCut ? "cutoff " : "") + (r.filled ? "filled" : "");
+        var badge = r.isCut ? '<span class="cutoff-badge">Cut-off</span>' : "";
+        return '<tr class="' + cls.trim() + '"><td>₹' + r.price + badge + '</td><td>' + fmt(r.bid) +
+          '</td><td><span class="bar" style="width:' + r.w + '%"></span>' + fmt(r.cum) + '</td></tr>';
+      }).join("");
+      if (cutoff === null) {
+        cutEl.textContent = "Under-subscribed";
+        noteEl.textContent = "Total demand across all prices (" + fmt(totalDemand) + " shares) is less than the " + fmt(offer) + " shares on offer — the issue would be under-subscribed and all bidders at/above the floor get full allotment.";
+      } else {
+        cutEl.textContent = "₹" + cutoff;
+        noteEl.textContent = "At ₹" + cutoff + " the cumulative demand (from the highest bid down) first reaches the " + fmt(offer) + " shares on offer. All bids at ₹" + cutoff + " and above are successful.";
+      }
+    }
+    offIn.addEventListener("input", render);
+    render();
+  })();
+
+  // Market cap
+  (function () {
+    var shIn = document.getElementById("mc-sh-in"), prIn = document.getElementById("mc-pr-in");
+    var shVal = document.getElementById("mc-sh-val"), prVal = document.getElementById("mc-pr-val");
+    var out = document.getElementById("mc-out"), bucket = document.getElementById("mc-bucket");
+    function render() {
+      var sh = +shIn.value, pr = +prIn.value; // sh in crore
+      shVal.textContent = fmt(sh);
+      prVal.textContent = "₹" + fmt(pr);
+      var capCr = sh * pr; // ₹ crore
+      out.textContent = "₹" + fmt(capCr) + " cr";
+      var b;
+      if (capCr >= 20000) b = "Large / blue-chip";
+      else if (capCr >= 5000) b = "Mid-cap";
+      else b = "Small-cap";
+      bucket.textContent = b;
+    }
+    shIn.addEventListener("input", render); prIn.addEventListener("input", render);
+    render();
+  })();
+
+  // Margin
+  (function () {
+    var shIn = document.getElementById("mg-sh-in"), prIn = document.getElementById("mg-pr-in"), mrIn = document.getElementById("mg-mr-in");
+    var shVal = document.getElementById("mg-sh-val"), prVal = document.getElementById("mg-pr-val"), mrVal = document.getElementById("mg-mr-val");
+    var out = document.getElementById("mg-out"), tv = document.getElementById("mg-tv");
+    function render() {
+      var sh = +shIn.value, pr = +prIn.value, mr = +mrIn.value;
+      shVal.textContent = fmt(sh); prVal.textContent = "₹" + fmt(pr); mrVal.textContent = mr + "%";
+      var val = sh * pr, margin = Math.round(val * mr / 100);
+      tv.textContent = "₹" + fmt(val);
+      out.textContent = "₹" + fmt(margin);
+    }
+    [shIn, prIn, mrIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // Stock split
+  (function () {
+    var shIn = document.getElementById("sp-sh-in"), prIn = document.getElementById("sp-pr-in"),
+        fvIn = document.getElementById("sp-fv-in"), rtIn = document.getElementById("sp-rt-in");
+    var shVal = document.getElementById("sp-sh-val"), prVal = document.getElementById("sp-pr-val"),
+        fvVal = document.getElementById("sp-fv-val"), rtVal = document.getElementById("sp-rt-val");
+    var bSh = document.getElementById("sp-b-sh"), bFv = document.getElementById("sp-b-fv"), bPr = document.getElementById("sp-b-pr"),
+        aSh = document.getElementById("sp-a-sh"), aFv = document.getElementById("sp-a-fv"), aPr = document.getElementById("sp-a-pr"),
+        valEl = document.getElementById("sp-val");
+    function render() {
+      var sh = +shIn.value, pr = +prIn.value, fv = +fvIn.value, rt = +rtIn.value;
+      shVal.textContent = fmt(sh); prVal.textContent = "₹" + fmt(pr); fvVal.textContent = "₹" + fv; rtVal.textContent = rt;
+      var nSh = sh * rt, nFv = +(fv / rt).toFixed(2), nPr = +(pr / rt).toFixed(2);
+      bSh.textContent = fmt(sh); bFv.textContent = "₹" + fv; bPr.textContent = "₹" + fmt(pr);
+      aSh.textContent = fmt(nSh); aFv.textContent = "₹" + nFv; aPr.textContent = "₹" + fmt(nPr);
+      valEl.textContent = "₹" + fmt(Math.round(sh * pr));
+    }
+    [shIn, prIn, fvIn, rtIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.35 }).observe(el);
+  }
+  onReveal("#money-flow", function () {
+    document.querySelectorAll("#money-flow .mf-line").forEach(function (l, i) {
+      setTimeout(function () { l.classList.add("go"); }, i * 180);
+    });
+  }, 0.3);
+  onReveal("#cb-ladder", function (c) {
+    var steps = c.querySelectorAll(".cb-step");
+    steps.forEach(function (n, i) { setTimeout(function () { n.classList.add("in"); }, i * 220); });
+  }, 0.3);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH06_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

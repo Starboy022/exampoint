@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 14 — Modern Portfolio Theory | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Introduction to Modern Portfolio Theory (MPT) — Markowitz's framework, the assumptions of the theory, risk-averse / risk-neutral / risk-seeking investors, the risk premium, fair game and certainty equivalent rate (CER), calculating the expected return and variance/standard deviation of an individual security and a portfolio, the two-security portfolio risk formula and the role of correlation, the Efficient Frontier, the Portfolio Optimization Process and estimation issues. NISM Series-X-A, Module 5, Chapter 14." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive calculator ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.95rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .seg { display:inline-flex; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; flex-wrap:wrap; }
+  .seg button { border:none; background:var(--bg-app); font-size:0.76rem; font-weight:700; padding:7px 12px; cursor:pointer; color:var(--text-secondary); transition:all var(--dur-fast); }
+  .seg button.on { background:var(--navy-800); color:#fff; }
+  .seg-field .sl { display:block; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; text-align:center; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.9rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .verdict { display:inline-block; margin-top:8px; font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:4px 11px; border-radius:var(--radius-pill); }
+  .verdict.good { background:color-mix(in srgb,var(--green-500) 18%,var(--bg-app)); color:var(--green-500); }
+  .verdict.warn { background:color-mix(in srgb,var(--gold-500) 20%,var(--bg-app)); color:var(--gold-600); }
+  .dual-out { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dual-out .box { background:var(--bg-app); border-radius:var(--radius-md); padding:12px; }
+  .dual-out .box .l { font-size:0.66rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); }
+  .dual-out .box .v { font-family:var(--font-display); font-weight:800; font-size:1.15rem; color:var(--gold-600); }
+  .tri-out { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .tri-out .box { background:var(--bg-app); border-radius:var(--radius-md); padding:11px 8px; text-align:center; }
+  .tri-out .box .l { font-size:0.62rem; text-transform:uppercase; letter-spacing:.04em; color:var(--text-secondary); }
+  .tri-out .box .v { font-family:var(--font-display); font-weight:800; font-size:1.15rem; color:var(--gold-600); }
+  .dev-row { font-family:var(--font-mono); font-size:0.72rem; color:var(--text-secondary); margin-top:12px; line-height:1.7; text-align:left; }
+  .calc-full { grid-template-columns:1fr; }
+  .calc-full .calc-output { text-align:left; }
+
+  /* ---- Live risk-return plot ---- */
+  .plot-wrap { background:var(--bg-surface-2); border-radius:var(--radius-md); padding:12px; }
+  .plot-legend { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; font-size:0.72rem; color:var(--text-secondary); margin-top:6px; }
+  .plot-legend span { display:inline-flex; align-items:center; gap:5px; }
+  .plot-legend i { width:10px; height:10px; border-radius:50%; display:inline-block; }
+
+  /* ---- SVG animation helpers ---- */
+  .draw-line { fill:none; stroke-dasharray:700; stroke-dashoffset:700; }
+  .draw-line.long { stroke-dasharray:1500; stroke-dashoffset:1500; }
+  .draw-line.go { animation: draw 1.9s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+  .pop-el { opacity:0; transform:scale(0.4); transform-origin:center; transition:opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring); }
+  .pop-el.go { opacity:1; transform:scale(1); }
+  .grow-bar { transform:scaleY(0); transform-origin:bottom; transition:transform var(--dur-slow) var(--ease-spring); }
+  .grow-bar.go { transform:scaleY(1); }
+
+  /* ---- Matcher (shared) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.95rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+
+  /* ---- Formula callout ---- */
+  .formula { font-family:var(--font-mono); background:var(--bg-surface-2); border:1px dashed var(--border-strong); border-radius:var(--radius-md); padding:12px 14px; font-size:0.86rem; margin:14px 0; overflow-x:auto; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 5 · Portfolio Construction, Performance Monitoring &amp; Evaluation</span>
+      <span class="badge badge-gold">Chapter 14 of 20</span>
+    </div>
+    <h1>Introduction to Modern Portfolio Theory</h1>
+    <p class="lede"><strong>Modern Portfolio Theory (MPT)</strong> — Harry Markowitz's Nobel-winning framework from his 1952 paper <em>"Portfolio Selection"</em> — turned the old wisdom of "don't put all your eggs in one basket" into <strong>mathematics</strong>. It quantified <strong>diversification</strong> through covariance/correlation and established the <strong>variance (and standard deviation) of returns</strong> as the meaningful measure of risk. This chapter builds it up from first principles: the <strong>assumptions</strong>, how <strong>risk-averse, risk-neutral and risk-seeking</strong> investors behave (risk premium, fair game, certainty equivalent rate), how to <strong>compute the return and risk</strong> of a single security and a portfolio, the <strong>two-security risk formula</strong> and the power of correlation, the <strong>Efficient Frontier</strong>, the <strong>portfolio optimization process</strong>, and its <strong>estimation issues</strong>.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~32 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> <span id="meta-qcount">55</span> assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 3 live calculators</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 8 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:680px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Understand the framework for constructing and selecting portfolios</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Know the assumptions of Modern Portfolio Theory</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Define risk-averse, risk-neutral and risk-seeking investors</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Calculate the risk and return of an individual security</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Graphically present the risk and return of a two-security portfolio</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Understand the concept of the Efficient Frontier</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Understand the portfolio optimization process</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Appreciate the estimation issues in applying the theory</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-14-1">14.1 The MPT framework</a></li>
+      <li><a href="#sec-14-2">14.2 Assumptions of MPT</a></li>
+      <li><a href="#sec-14-3">14.3 Risk attitudes &amp; the CER</a></li>
+      <li><a href="#sec-14-4">14.4 Return &amp; risk of a security</a></li>
+      <li><a href="#sec-14-5">14.5 Two-security portfolio risk</a></li>
+      <li><a href="#sec-14-6">14.6 The Efficient Frontier</a></li>
+      <li><a href="#sec-14-7">14.7 Portfolio optimization</a></li>
+      <li><a href="#sec-14-8">14.8 Estimation issues</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 14.1 Framework -->
+    <section class="lesson-section" id="sec-14-1">
+      <span class="section-kicker">14.1</span>
+      <h2>The framework for Modern Portfolio Theory</h2>
+      <p>The idea behind diversification — <em>"don't put all your eggs in one basket"</em> — is ancient. Before <strong>1950</strong>, investors were familiar with the benefits of a diversified portfolio, but they had <strong>no way of quantifying</strong> those benefits. That changed in <strong>1952</strong>, when <em>The Journal of Finance</em> published <strong>Harry Markowitz's</strong> paper <strong>"Portfolio Selection."</strong> Its ideas became the foundation of <strong>Modern Portfolio Theory (MPT)</strong>, and Markowitz was awarded the <strong>Nobel Prize in Economics in 1990</strong>.</p>
+      <p>MPT provides a framework for constructing and selecting portfolios based on the <strong>expected performance</strong> of the investments and the <strong>risk appetite</strong> of the investor. Its two mathematical breakthroughs were:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🔗 Quantifying diversification</h4>
+          <ul>
+            <li>Introduced the statistical notion of <strong>covariance</strong> / <strong>correlation</strong> between assets</li>
+            <li>Showed how much risk combining assets can remove</li>
+            <li>Turned "don't put all your eggs in one basket" into a formula</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>📐 Measuring risk</h4>
+          <ul>
+            <li>Demonstrated that the <strong>variance of the rate of return</strong> is a meaningful measure of portfolio risk</li>
+            <li>Derived the formula for the <strong>variance of a portfolio</strong></li>
+            <li>Standard deviation (√variance) became the standard risk yardstick</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Markowitz's central contribution in his 1952 paper was to:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Quantify diversification (via covariance/correlation) and establish variance as a measure of portfolio risk</button>
+          <button class="mini-opt" data-correct="false">Prove that diversification does not reduce risk</button>
+          <button class="mini-opt" data-correct="false">Invent the stock exchange</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — before 1950 diversification's benefits were known but not quantified; Markowitz quantified them through covariance/correlation and showed variance of return is a meaningful risk measure." data-wrong-msg="Not quite — Markowitz quantified the benefit of diversification and established variance as the risk measure."></div>
+      </div>
+    </section>
+
+    <!-- 14.2 Assumptions -->
+    <section class="lesson-section" id="sec-14-2">
+      <span class="section-kicker">14.2</span>
+      <h2>Assumptions of Modern Portfolio Theory</h2>
+      <p>MPT rests on a set of assumptions about how rational investors behave. Tap through the five:</p>
+      <div class="term-grid" id="assumptions-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>The bottom line of the assumptions</strong>
+          <p>Investors are assumed to make decisions <strong>solely</strong> on the basis of <strong>expected return</strong> and <strong>risk</strong>. Their utility curves are therefore a function of expected return and the <strong>expected variance (or standard deviation)</strong> of returns only — nothing else enters the decision.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Given two assets offering the <em>same</em> expected return, MPT assumes an investor will:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Choose the one with lower risk</button>
+          <button class="mini-opt" data-correct="false">Choose the one with higher risk</button>
+          <button class="mini-opt" data-correct="false">Toss a coin between them</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — investors want to maximise return for a given level of risk, so between two equal-return assets they pick the one with lower risk." data-wrong-msg="Not quite — for equal expected return, the lower-risk asset is preferred."></div>
+      </div>
+    </section>
+
+    <!-- 14.3 Risk attitudes -->
+    <section class="lesson-section" id="sec-14-3">
+      <span class="section-kicker">14.3</span>
+      <h2>Risk-averse, risk-neutral &amp; risk-seeking investors</h2>
+      <p>Where there is risk, more than one outcome is possible, so investors demand a <strong>risk premium</strong> — extra expected return as compensation for bearing risk. A prospect with a <strong>zero risk premium</strong> is called a <strong>fair game</strong>. How an investor treats a fair game reveals their risk attitude. Tap each type:</p>
+      <div class="matcher" id="risk-matcher">
+        <h4>Three risk attitudes — tap one</h4>
+        <div class="hint">Watch how each treats a fair game and how each sets the certainty equivalent rate (CER).</div>
+        <div class="match-markets" id="risk-markets">
+          <button class="match-mkt" data-reg="AV">Risk-averse</button>
+          <button class="match-mkt" data-reg="NE">Risk-neutral</button>
+          <button class="match-mkt" data-reg="SK">Risk-seeking</button>
+        </div>
+        <div class="match-regs" id="risk-cards">
+          <div class="reg-card" data-reg="AV"><div class="rn">Risk-averse</div><div class="rd">Rejects a fair game · demands a positive risk premium (bigger for bigger risk) · makes a <strong>downward</strong> utility adjustment for risk · CER can fall <em>below</em> the risk-free rate</div></div>
+          <div class="reg-card" data-reg="NE"><div class="rn">Risk-neutral</div><div class="rd">Judges only on expected return · <strong>no penalty</strong> for risk · CER <strong>equals</strong> the expected return of the risky portfolio</div></div>
+          <div class="reg-card" data-reg="SK"><div class="rn">Risk-seeking</div><div class="rd">Willing to <strong>engage in a fair game</strong> · makes an <strong>upward</strong> utility adjustment for risk (the opposite of risk-averse)</div></div>
+        </div>
+        <div class="match-feedback" id="risk-feedback"></div>
+      </div>
+
+      <p>The <strong>Certainty Equivalent Rate (CER)</strong> is the rate a <em>risk-free</em> investment would have to offer to be <strong>equally attractive</strong> as a given risky investment. It is how MPT converts "risky return + risk" into a single comparable number:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🛡️ Highly risk-averse</h4>
+          <ul>
+            <li>Assigns a risky portfolio a CER <strong>below the risk-free rate</strong></li>
+            <li>Therefore <strong>rejects</strong> the risky portfolio</li>
+            <li>A less risk-averse investor may assign a higher CER and <strong>accept</strong> it</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>⚖️ Risk-neutral</h4>
+          <ul>
+            <li>Ignores risk entirely — no risk penalty</li>
+            <li>CER <strong>= expected return</strong> of the risky portfolio</li>
+            <li>Chooses purely on the highest expected return</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A highly risk-averse investor assigns a risky portfolio a CER that is <em>below</em> the risk-free rate. She will:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Reject the risky portfolio in favour of the risk-free investment</button>
+          <button class="mini-opt" data-correct="false">Accept it because the CER is positive</button>
+          <button class="mini-opt" data-correct="false">Be forced to buy it</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — when the CER falls below the risk-free rate, the risk-free asset is more attractive, so a highly risk-averse investor rejects the risky portfolio." data-wrong-msg="Not quite — a CER below the risk-free rate means she rejects the risky portfolio."></div>
+      </div>
+    </section>
+
+    <!-- 14.4 Individual security return & risk -->
+    <section class="lesson-section" id="sec-14-4">
+      <span class="section-kicker">14.4</span>
+      <h2>Calculating the return and risk of a security</h2>
+      <p>MPT needs two numbers for every asset: its <strong>expected return</strong> and its <strong>risk</strong> (variance / standard deviation).</p>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:8px">Expected return (probability-weighted)</h3>
+      <p>When future returns depend on scenarios with known probabilities, the expected return is the <strong>sum of each possible return times its probability</strong>:</p>
+      <div class="formula">E(R) = Σ ( probability<sub>i</sub> × return<sub>i</sub> )</div>
+      <p>The workbook example forecasts two stocks across three states of the economy. Toggle between Stock A and Stock B and vary the inputs:</p>
+
+      <div class="calc" id="calc-er">
+        <div class="calc-title"><span class="pill">Live</span> Expected-return calculator</div>
+        <div class="calc-sub">Default = the workbook forecast. <strong>Stock A</strong> → 9.9%; switch to <strong>Stock B</strong> → 17.7%. Probabilities are shared across the three economic states.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl seg-field">
+              <span class="sl">Stock</span>
+              <div class="seg" id="er-stock">
+                <button data-s="A" class="on">Stock A</button>
+                <button data-s="B">Stock B</button>
+              </div>
+            </div>
+            <div class="ctrl">
+              <label>Boom — probability <span class="val" id="er-p0v">0.30</span></label>
+              <input type="range" id="er-p0" min="0" max="1" step="0.05" value="0.3">
+              <label style="margin-top:6px">Boom — return <span class="val" id="er-r0v">15%</span></label>
+              <input type="range" id="er-r0" min="-10" max="40" step="1" value="15">
+            </div>
+            <div class="ctrl">
+              <label>Normal — probability <span class="val" id="er-p1v">0.50</span></label>
+              <input type="range" id="er-p1" min="0" max="1" step="0.05" value="0.5">
+              <label style="margin-top:6px">Normal — return <span class="val" id="er-r1v">10%</span></label>
+              <input type="range" id="er-r1" min="-10" max="40" step="1" value="10">
+            </div>
+            <div class="ctrl">
+              <label>Recession — probability <span class="val" id="er-p2v">0.20</span></label>
+              <input type="range" id="er-p2" min="0" max="1" step="0.05" value="0.2">
+              <label style="margin-top:6px">Recession — return <span class="val" id="er-r2v">2%</span></label>
+              <input type="range" id="er-r2" min="-10" max="40" step="1" value="2">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Expected return E(R)</div>
+            <div class="out-val" id="er-out">9.90%</div>
+            <div><span class="verdict good" id="er-verdict">Σ probabilities = 1.00</span></div>
+            <div class="out-note" id="er-note">E(R) = 0.30×15% + 0.50×10% + 0.20×2% = 9.90%.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1.05rem;margin-top:26px">Variance &amp; standard deviation (from historical returns)</h3>
+      <p>Risk is measured by how far returns scatter around their mean. Compute the <strong>mean</strong>, subtract it from each year's return to get <strong>deviations</strong>, <strong>square</strong> them, sum, then divide by <strong>n − 1</strong>. The standard deviation is the square root of the variance — a larger value means larger risk.</p>
+      <div class="formula">Variance = Σ (R<sub>i</sub> − R̄)² ⁄ (n − 1)&nbsp;&nbsp;·&nbsp;&nbsp;SD = √Variance</div>
+
+      <div class="calc" id="calc-sd">
+        <div class="calc-title"><span class="pill">Live</span> Variance &amp; standard-deviation calculator</div>
+        <div class="calc-sub">Default = the workbook's 5-year series <strong>15%, 12%, 20%, −5%, 10%</strong> → mean <strong>10.4</strong>, variance <strong>88.3</strong>, standard deviation <strong>9.40</strong>. Drag any year's return.</div>
+        <div class="calc-grid calc-full">
+          <div class="calc-controls">
+            <div class="ctrl"><label>Year 1 return <span class="val" id="sd-r0v">15%</span></label><input type="range" id="sd-r0" min="-25" max="35" step="1" value="15"></div>
+            <div class="ctrl"><label>Year 2 return <span class="val" id="sd-r1v">12%</span></label><input type="range" id="sd-r1" min="-25" max="35" step="1" value="12"></div>
+            <div class="ctrl"><label>Year 3 return <span class="val" id="sd-r2v">20%</span></label><input type="range" id="sd-r2" min="-25" max="35" step="1" value="20"></div>
+            <div class="ctrl"><label>Year 4 return <span class="val" id="sd-r3v">−5%</span></label><input type="range" id="sd-r3" min="-25" max="35" step="1" value="-5"></div>
+            <div class="ctrl"><label>Year 5 return <span class="val" id="sd-r4v">10%</span></label><input type="range" id="sd-r4" min="-25" max="35" step="1" value="10"></div>
+          </div>
+          <div class="calc-output">
+            <div class="tri-out">
+              <div class="box"><div class="l">Mean</div><div class="v" id="sd-mean">10.40</div></div>
+              <div class="box"><div class="l">Variance</div><div class="v" id="sd-var">88.30</div></div>
+              <div class="box"><div class="l">Std dev</div><div class="v" id="sd-sd">9.40</div></div>
+            </div>
+            <div class="dev-row" id="sd-dev"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>The expected return of a portfolio is a weighted average</strong>
+          <p>For a portfolio, the expected return is the <strong>weighted average</strong> of the constituents' expected returns. Workbook example — A (weight 0.2, return 9%), B (0.1, 12%), C (0.3, 15%), D (0.4, 18%): the weighted returns 0.018 + 0.012 + 0.045 + 0.072 sum to <strong>0.147</strong>, i.e. <strong>14.7%</strong>. Risk, however, is <em>not</em> a simple weighted average — that is where correlation comes in (next section).</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — For the series 15%, 12%, 20%, −5%, 10% (mean 10.4, Σ squared deviations 353.20), the variance and SD are:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Variance 88.3, standard deviation 9.40 (dividing by n − 1 = 4)</button>
+          <button class="mini-opt" data-correct="false">Variance 353.2, standard deviation 18.8</button>
+          <button class="mini-opt" data-correct="false">Variance 70.6, standard deviation 8.40</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — 353.20 ÷ 4 = 88.3, and √88.3 ≈ 9.40. The sample variance divides the sum of squared deviations by n − 1." data-wrong-msg="Not quite — divide 353.20 by n − 1 = 4 to get 88.3; √88.3 ≈ 9.40."></div>
+      </div>
+    </section>
+
+    <!-- 14.5 Two-security portfolio risk -->
+    <section class="lesson-section" id="sec-14-5">
+      <span class="section-kicker">14.5</span>
+      <h2>Risk &amp; return of a two-security portfolio</h2>
+      <p>A portfolio's <strong>expected return</strong> is a weighted average — but its <strong>variance</strong> is not. The variance of a two-security portfolio has <strong>three terms</strong>: the weighted variance of each security (with the <em>weights squared</em>) plus a <strong>weighted covariance</strong> term that depends on the <strong>correlation</strong> between them:</p>
+      <div class="formula">σ²<sub>P</sub> = w<sub>A</sub>²σ<sub>A</sub>² + w<sub>B</sub>²σ<sub>B</sub>² + 2·w<sub>A</sub>·w<sub>B</sub>·ρ<sub>AB</sub>·σ<sub>A</sub>·σ<sub>B</sub></div>
+      <p>The correlation ρ is the whole game. At <strong>ρ = +1</strong> the securities move in lockstep and portfolio risk is just the weighted-average SD (no benefit). As ρ falls, the covariance term shrinks and portfolio risk drops <strong>below</strong> the weighted average — that is the mathematical face of diversification. The workbook example (two securities, each E(R) 15%, SD 5%, equal weights, ρ 0.5) gives a portfolio SD of <strong>4.33%</strong>. Drag the correlation and watch the portfolio point <span style="color:var(--gold-600);font-weight:700">P</span> move:</p>
+
+      <div class="calc" id="calc-2s">
+        <div class="calc-title"><span class="pill">Live</span> Two-security portfolio risk calculator</div>
+        <div class="calc-sub">Default reproduces the workbook: A and B each with E(R) 15% and SD 5%, weights 0.5/0.5 and correlation 0.5 → portfolio E(R) 15.0%, portfolio SD 4.33%. Set ρ = +1 to see risk = 5% (no benefit); set ρ = −1 to see risk collapse to 0%.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl"><label>Weight of A <span class="val" id="ts-wv">50%</span></label><input type="range" id="ts-w" min="0" max="100" step="5" value="50"></div>
+            <div class="ctrl"><label>Correlation ρ<sub>AB</sub> <span class="val" id="ts-rhov">0.50</span></label><input type="range" id="ts-rho" min="-1" max="1" step="0.1" value="0.5"></div>
+            <div class="ctrl"><label>E(R) of A <span class="val" id="ts-eav">15%</span></label><input type="range" id="ts-ea" min="0" max="30" step="1" value="15"></div>
+            <div class="ctrl"><label>SD of A <span class="val" id="ts-sav">5.0%</span></label><input type="range" id="ts-sa" min="0" max="12" step="0.5" value="5"></div>
+            <div class="ctrl"><label>E(R) of B <span class="val" id="ts-ebv">15%</span></label><input type="range" id="ts-eb" min="0" max="30" step="1" value="15"></div>
+            <div class="ctrl"><label>SD of B <span class="val" id="ts-sbv">5.0%</span></label><input type="range" id="ts-sb" min="0" max="12" step="0.5" value="5"></div>
+          </div>
+          <div class="calc-output">
+            <div class="plot-wrap">
+              <svg id="ts-plot" viewBox="0 0 320 220" width="100%" style="max-width:360px">
+                <line x1="40" y1="190" x2="305" y2="190" stroke="var(--border-strong)" stroke-width="1.2"/>
+                <line x1="40" y1="190" x2="40" y2="18" stroke="var(--border-strong)" stroke-width="1.2"/>
+                <text x="172" y="212" text-anchor="middle" style="font-size:9px;fill:var(--text-secondary)">Risk — standard deviation (%)</text>
+                <text x="12" y="104" text-anchor="middle" transform="rotate(-90 12 104)" style="font-size:9px;fill:var(--text-secondary)">Expected return (%)</text>
+                <polyline id="ts-curve" fill="none" stroke="var(--teal-500)" stroke-width="1.6" stroke-dasharray="3 3" points=""/>
+                <circle id="ts-a" cx="0" cy="0" r="4.5" fill="var(--navy-800)"/>
+                <text id="ts-a-l" x="0" y="0" style="font-size:9px;font-weight:800;fill:var(--text-primary)">A</text>
+                <circle id="ts-b" cx="0" cy="0" r="4.5" fill="var(--navy-800)"/>
+                <text id="ts-b-l" x="0" y="0" style="font-size:9px;font-weight:800;fill:var(--text-primary)">B</text>
+                <circle id="ts-p" cx="0" cy="0" r="6" fill="var(--gold-500)" stroke="#fff" stroke-width="1.5"/>
+                <text id="ts-p-l" x="0" y="0" style="font-size:9px;font-weight:800;fill:var(--gold-600)">P</text>
+              </svg>
+              <div class="plot-legend">
+                <span><i style="background:var(--navy-800)"></i>Securities A, B</span>
+                <span><i style="background:var(--gold-500)"></i>Portfolio P</span>
+                <span><i style="background:var(--teal-500)"></i>Combinations</span>
+              </div>
+            </div>
+            <div class="dual-out" style="margin-top:12px">
+              <div class="box"><div class="l">Portfolio E(R)</div><div class="v" id="ts-er">15.00%</div></div>
+              <div class="box"><div class="l">Portfolio SD</div><div class="v" id="ts-sd">4.33%</div></div>
+            </div>
+            <div><span class="verdict good" id="ts-verdict">Diversification benefit</span></div>
+            <div class="out-note" id="ts-note">With ρ = 0.50, portfolio SD 4.33% &lt; weighted-average SD 5.00% — risk reduced by diversification.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Two equally weighted securities each have SD 5%. When does combining them give <em>no</em> reduction in risk?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">When their correlation is +1.0 (they move in perfect lockstep)</button>
+          <button class="mini-opt" data-correct="false">When their correlation is −1.0</button>
+          <button class="mini-opt" data-correct="false">When their correlation is 0</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — at ρ = +1.0 the covariance term is maximal and the portfolio SD equals the weighted average of the individual SDs (here 5%), so there is no diversification benefit." data-wrong-msg="Not quite — at ρ = +1.0 there is no risk reduction; lower or negative correlations are what reduce risk."></div>
+      </div>
+    </section>
+
+    <!-- 14.6 Efficient Frontier -->
+    <section class="lesson-section" id="sec-14-6">
+      <span class="section-kicker">14.6</span>
+      <h2>The Efficient Frontier</h2>
+      <p>Plot every feasible portfolio with <strong>risk (standard deviation)</strong> on the horizontal axis and <strong>expected return</strong> on the vertical axis, and the combinations fill a region. Its <strong>upper-left boundary</strong> is the <strong>Efficient Frontier</strong>: the set of portfolios giving the <strong>highest expected return for each level of risk</strong> (equivalently, the lowest risk for each level of return). Any portfolio <em>below</em> the frontier is inefficient — you can do better on return, risk, or both.</p>
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="ef-chart" viewBox="0 0 460 300" width="100%" style="max-width:600px">
+            <!-- axes -->
+            <line x1="55" y1="255" x2="435" y2="255" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <line x1="55" y1="255" x2="55" y2="25" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <text x="245" y="285" text-anchor="middle" style="font-size:12px;fill:var(--text-secondary);font-weight:600">Risk (standard deviation) →</text>
+            <text x="22" y="140" text-anchor="middle" transform="rotate(-90 22 140)" style="font-size:12px;fill:var(--text-secondary);font-weight:600">Expected return →</text>
+            <!-- inefficient lower boundary (muted) -->
+            <path class="draw-line" id="ef-lower" d="M150 230 C 110 210, 95 180, 120 150" stroke="var(--border-strong)" stroke-width="2"/>
+            <!-- efficient frontier (gold) -->
+            <path class="draw-line long" id="ef-upper" d="M120 150 C 150 95, 250 60, 400 45" stroke="var(--gold-500)" stroke-width="3"/>
+            <!-- minimum variance point -->
+            <circle class="pop-el" id="ef-mvp" cx="120" cy="150" r="5.5" fill="var(--teal-500)"/>
+            <text class="fade-el" id="ef-mvp-l" x="128" y="146" style="font-size:10px;font-weight:700;fill:var(--text-primary)">Minimum-variance portfolio</text>
+            <!-- scattered inefficient portfolios -->
+            <g id="ef-dots"></g>
+            <!-- label -->
+            <text class="fade-el" id="ef-label" x="330" y="80" style="font-size:12px;font-weight:800;fill:var(--gold-600)">Efficient Frontier</text>
+          </svg>
+        </div>
+        <div class="caption">The gold curve is the <strong>Efficient Frontier</strong>. The teal dot is the <strong>minimum-variance portfolio</strong> (the leftmost feasible point). Grey dots are individual assets / inefficient portfolios sitting below the frontier — for each of them a frontier portfolio offers more return for the same risk.</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A portfolio lies <em>below</em> the efficient frontier. This means:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">It is inefficient — another portfolio offers more return for the same risk (or less risk for the same return)</button>
+          <button class="mini-opt" data-correct="false">It is the optimal portfolio</button>
+          <button class="mini-opt" data-correct="false">It is risk-free</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the efficient frontier is the upper-left boundary; anything below it is dominated by a frontier portfolio offering a better risk-return trade-off." data-wrong-msg="Not quite — below the frontier is inefficient; a frontier portfolio dominates it."></div>
+      </div>
+    </section>
+
+    <!-- 14.7 Optimization process -->
+    <section class="lesson-section" id="sec-14-7">
+      <span class="section-kicker">14.7</span>
+      <h2>The portfolio optimization process</h2>
+      <p>Portfolio optimization is the engine that <em>produces</em> the efficient frontier and the investor's optimal portfolio. It takes a set of <strong>inputs</strong>, runs an <strong>optimization</strong>, and yields two <strong>outputs</strong>:</p>
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="opt-flow" viewBox="0 0 480 260" width="100%" style="max-width:640px">
+            <!-- connectors -->
+            <path class="draw-line" id="opt-c1" d="M150 55 L205 120" stroke="var(--border-strong)" stroke-width="1.6"/>
+            <path class="draw-line" id="opt-c2" d="M150 100 L205 125" stroke="var(--border-strong)" stroke-width="1.6"/>
+            <path class="draw-line" id="opt-c3" d="M150 150 L205 132" stroke="var(--border-strong)" stroke-width="1.6"/>
+            <path class="draw-line" id="opt-c4" d="M150 195 L205 140" stroke="var(--border-strong)" stroke-width="1.6"/>
+            <path class="draw-line" id="opt-c5" d="M330 130 L390 80" stroke="var(--gold-500)" stroke-width="1.8"/>
+            <path class="draw-line" id="opt-c6" d="M330 130 L390 185" stroke="var(--gold-500)" stroke-width="1.8"/>
+            <!-- inputs -->
+            <g id="opt-in"></g>
+            <!-- optimizer -->
+            <g class="pop-el" id="opt-core">
+              <rect x="208" y="105" width="122" height="52" rx="10" fill="var(--navy-800)"/>
+              <text x="269" y="128" text-anchor="middle" style="font-size:11px;font-weight:800;fill:#fff">PORTFOLIO</text>
+              <text x="269" y="143" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--gold-500)">OPTIMIZATION</text>
+            </g>
+            <!-- outputs -->
+            <g id="opt-out"></g>
+          </svg>
+        </div>
+        <div class="caption"><strong>Inputs:</strong> expected returns of the securities in the universe · volatility &amp; correlation (risk-return) estimates · constraints on portfolio choice · investor objectives. <strong>→ Optimization →</strong> <strong>Outputs:</strong> the risk-return efficient frontier and the optimal portfolio.</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which pair are the <em>outputs</em> of the portfolio optimization process?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The efficient frontier and the optimal portfolio</button>
+          <button class="mini-opt" data-correct="false">Expected returns and correlation estimates</button>
+          <button class="mini-opt" data-correct="false">Constraints and investor objectives</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — expected returns, volatility & correlation estimates, constraints and objectives are the inputs; the efficient frontier and the optimal portfolio are the outputs." data-wrong-msg="Not quite — those are inputs. The outputs are the efficient frontier and the optimal portfolio."></div>
+      </div>
+    </section>
+
+    <!-- 14.8 Estimation issues -->
+    <section class="lesson-section" id="sec-14-8">
+      <span class="section-kicker">14.8</span>
+      <h2>Estimation issues</h2>
+      <p>MPT is only as good as the numbers fed into it. The expected returns, volatilities and correlations that drive the optimizer are <strong>estimates</strong> — usually drawn from <strong>historical data</strong> — and they carry error. Small errors in the inputs can shift the efficient frontier and the "optimal" portfolio, and past relationships may not hold in the future.</p>
+      <div class="pill-list">
+        <span>Expected returns are estimated</span>
+        <span>Volatilities are estimated</span>
+        <span>Correlations are estimated</span>
+        <span>Often based on historical data</span>
+        <span>Estimation error propagates</span>
+        <span>Past ≠ future</span>
+      </div>
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Garbage in, garbage out</strong>
+          <p>Because the optimizer's outputs (the efficient frontier and optimal portfolio) depend entirely on estimated inputs, an adviser must treat MPT results as <strong>indicative, not exact</strong>. Correlations in particular can change sharply — often rising toward 1 in a crisis, exactly when diversification is most needed.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — The main "estimation issue" in applying MPT is that:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Expected returns, volatilities and correlations are only estimates, and errors in them affect the optimised portfolio</button>
+          <button class="mini-opt" data-correct="false">The portfolio variance formula is unknown</button>
+          <button class="mini-opt" data-correct="false">Diversification cannot be quantified</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — MPT depends on estimated inputs (returns, volatilities, correlations), often from historical data that may not predict the future, so the outputs are subject to error." data-wrong-msg="Not quite — the issue is that the inputs are estimates carrying error, not that the formulas are unknown."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The definitions, formulas and worked numbers most likely to be tested — tap to reveal.</p>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:14px 0 6px">Core concepts</h3>
+      <div class="flip-grid" id="concept-cards"></div>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:22px 0 6px">Formulas &amp; numbers</h3>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch14";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 5", href: "../../index.html" },
+    { label: "Chapter 14", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // keep the meta-row question count honest
+  if (window.NISM_CH14_QUESTIONS) {
+    var mc = document.getElementById("meta-qcount");
+    if (mc) mc.textContent = window.NISM_CH14_QUESTIONS.length;
+  }
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:16px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // Assumptions
+  renderCards("assumptions-grid", [
+    { icon: "🎯", label: "Maximise return for given risk", body: "Investors want the highest return for a given level of risk. Given two assets with equal return, they select the one with lower risk. Each alternative is a probability distribution of expected returns over a holding period." },
+    { icon: "🧮", label: "Maximise expected utility", body: "Investors maximise one-period expected utility, choosing the action with the maximum expected utility and assigning utility scores to competing portfolios." },
+    { icon: "📉", label: "Diminishing marginal utility", body: "Utility curves show diminishing marginal utility of wealth — each additional rupee adds less to utility, though investors differ in how fast this decreases." },
+    { icon: "📊", label: "Risk = variability of returns", body: "Investors estimate the risk of a portfolio from the variability of the expected returns of its constituent assets." },
+    { icon: "⚖️", label: "Decide on return & risk only", body: "Decisions are based solely on expected return and risk, so utility is a function of expected return and the expected variance (or SD) of returns only." }
+  ]);
+
+  // Concept flip deck
+  renderFlip("concept-cards", [
+    { icon: "🔗", label: "Covariance / correlation", back: "Measures how two assets move together. It is the third term in the portfolio-variance formula and determines how much risk diversification can remove. MPT's key statistical innovation." },
+    { icon: "📐", label: "Variance / SD", back: "Variance of the rate of return is MPT's measure of risk; standard deviation is its square root. A larger value means returns are more dispersed — hence larger risk." },
+    { icon: "🎁", label: "Risk premium", back: "The extra expected return demanded as compensation for bearing risk. The greater the risk, the greater the risk premium an investor demands." },
+    { icon: "🎲", label: "Fair game", back: "A prospect with a zero risk premium. Risk-averse investors reject a fair game; risk-seeking investors will engage in one." },
+    { icon: "🛡️", label: "Certainty Equivalent Rate", back: "The rate a risk-free investment must offer to be equally attractive as a risky one. Highly risk-averse → CER below the risk-free rate (reject). Risk-neutral → CER = expected return." },
+    { icon: "🧺", label: "Diversification", back: "Spreading investments so that not all move together. MPT quantified its benefit: combining imperfectly correlated assets lowers portfolio risk below the weighted-average risk." }
+  ]);
+
+  // Risk-attitude matcher
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("risk-markets", "risk-cards", "risk-feedback", {
+    AV: "Risk-averse — rejects a fair game and demands a positive risk premium (larger for larger risk). Makes a downward adjustment to utility for risk. A highly risk-averse investor may assign a CER below the risk-free rate and reject the risky portfolio.",
+    NE: "Risk-neutral — evaluates opportunities solely on expected return, with no penalty for risk. The certainty equivalent rate equals the expected rate of return on the risky portfolio.",
+    SK: "Risk-seeking — will engage in a fair game and makes an upward adjustment to utility for taking on risk, the opposite of a risk-averse investor's downward adjustment."
+  });
+
+  // Revision deck (mono fronts)
+  renderFlip("revision-cards", [
+    { icon: "1952 · 1990", label: "Markowitz milestones", back: "Harry Markowitz published 'Portfolio Selection' in The Journal of Finance in 1952 — the foundation of MPT — and won the Nobel Prize in Economics in 1990." },
+    { icon: "Σ p·r", label: "Expected return", back: "E(R) = Σ(probability × return). Workbook: Stock A = 0.3(15%)+0.5(10%)+0.2(2%) = 9.9%; Stock B = 0.3(25%)+0.5(20%)+0.2(1%) = 17.7%." },
+    { icon: "÷ (n−1)", label: "Variance & SD", back: "Variance = Σ(R−R̄)² ÷ (n−1); SD = √variance. Workbook series 15,12,20,−5,10 → mean 10.4, Σ sq dev 353.20, variance 88.3, SD 9.40." },
+    { icon: "Σ w·r", label: "Portfolio return", back: "Weighted average of constituents' returns. Workbook: A 0.2×9% + B 0.1×12% + C 0.3×15% + D 0.4×18% = 0.147 = 14.7%." },
+    { icon: "3 terms", label: "Two-security variance", back: "σ²P = wA²σA² + wB²σB² + 2·wA·wB·ρ·σA·σB. Two weighted variances (weights squared) plus a weighted covariance term." },
+    { icon: "ρ = 0.5 → 4.33%", label: "Diversification effect", back: "Each SD 5%, equal weights: ρ=+1 → SD 5% (no benefit); ρ=0.5 → SD 4.33%; ρ=0 → SD 3.54%; ρ=−1 → SD 0%. Lower correlation cuts risk." },
+    { icon: "E(R) vs SD", label: "Efficient Frontier", back: "Upper-left boundary of feasible portfolios on an E(R)-vs-SD graph: highest return for each level of risk. Portfolios below it are inefficient." },
+    { icon: "In → Opt → Out", label: "Optimization", back: "Inputs: expected returns, volatility & correlation estimates, constraints, investor objectives. Outputs: the efficient frontier and the optimal portfolio." },
+    { icon: "Estimates", label: "Estimation issues", back: "Returns, volatilities and correlations are estimated (often from history) and carry error; small input errors shift the optimal portfolio, and past need not predict the future." }
+  ], "mono");
+
+  var fmt2 = function (n) { return n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+
+  // ---------- Calc 1: Expected return ----------
+  (function () {
+    var stockWrap = document.getElementById("er-stock");
+    var p = [document.getElementById("er-p0"), document.getElementById("er-p1"), document.getElementById("er-p2")];
+    var r = [document.getElementById("er-r0"), document.getElementById("er-r1"), document.getElementById("er-r2")];
+    var pv = [document.getElementById("er-p0v"), document.getElementById("er-p1v"), document.getElementById("er-p2v")];
+    var rv = [document.getElementById("er-r0v"), document.getElementById("er-r1v"), document.getElementById("er-r2v")];
+    var out = document.getElementById("er-out"), verdict = document.getElementById("er-verdict"), note = document.getElementById("er-note");
+    var returns = { A: [15, 10, 2], B: [25, 20, 1] };
+    var stock = "A";
+    var stateNames = ["Boom", "Normal", "Recession"];
+
+    function setReturnSliders() { for (var i = 0; i < 3; i++) { r[i].value = returns[stock][i]; } }
+    function render() {
+      var er = 0, sump = 0, parts = [];
+      for (var i = 0; i < 3; i++) {
+        var pi = +p[i].value, ri = +r[i].value;
+        returns[stock][i] = ri;
+        pv[i].textContent = pi.toFixed(2);
+        rv[i].textContent = ri + "%";
+        er += pi * ri; sump += pi;
+        parts.push(pi.toFixed(2) + "×" + ri + "%");
+      }
+      out.textContent = fmt2(er) + "%";
+      if (Math.abs(sump - 1) < 0.001) { verdict.className = "verdict good"; verdict.textContent = "Σ probabilities = 1.00"; }
+      else { verdict.className = "verdict warn"; verdict.textContent = "Σ probabilities = " + fmt2(sump) + " (should be 1.00)"; }
+      note.textContent = "E(R) = " + parts.join(" + ") + " = " + fmt2(er) + "%.";
+    }
+    stockWrap.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      stock = b.dataset.s;
+      Array.prototype.forEach.call(stockWrap.children, function (x) { x.classList.toggle("on", x === b); });
+      setReturnSliders(); render();
+    });
+    p.concat(r).forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // ---------- Calc 2: Variance & SD ----------
+  (function () {
+    var r = [], rv = [];
+    for (var i = 0; i < 5; i++) { r.push(document.getElementById("sd-r" + i)); rv.push(document.getElementById("sd-r" + i + "v")); }
+    var meanEl = document.getElementById("sd-mean"), varEl = document.getElementById("sd-var"),
+        sdEl = document.getElementById("sd-sd"), devEl = document.getElementById("sd-dev");
+
+    function render() {
+      var vals = r.map(function (x) { return +x.value; });
+      vals.forEach(function (v, i) { rv[i].textContent = (v < 0 ? "−" + Math.abs(v) : v) + "%"; });
+      var mean = vals.reduce(function (a, b) { return a + b; }, 0) / vals.length;
+      var ss = 0, devs = [];
+      vals.forEach(function (v) { var d = v - mean; ss += d * d; devs.push(d); });
+      var variance = ss / (vals.length - 1);
+      var sd = Math.sqrt(variance);
+      meanEl.textContent = fmt2(mean);
+      varEl.textContent = fmt2(variance);
+      sdEl.textContent = fmt2(sd);
+      devEl.innerHTML =
+        "Deviations (R − R̄): " + devs.map(function (d) { return fmt2(d); }).join(", ") + "<br>" +
+        "Squared: " + devs.map(function (d) { return fmt2(d * d); }).join(", ") + "<br>" +
+        "Σ squared = " + fmt2(ss) + " ÷ (n−1 = " + (vals.length - 1) + ") = " + fmt2(variance) + " → SD = √" + fmt2(variance) + " = " + fmt2(sd);
+    }
+    r.forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // ---------- Calc 3: Two-security portfolio risk + live plot ----------
+  (function () {
+    var wIn = document.getElementById("ts-w"), rhoIn = document.getElementById("ts-rho"),
+        eaIn = document.getElementById("ts-ea"), saIn = document.getElementById("ts-sa"),
+        ebIn = document.getElementById("ts-eb"), sbIn = document.getElementById("ts-sb");
+    var wV = document.getElementById("ts-wv"), rhoV = document.getElementById("ts-rhov"),
+        eaV = document.getElementById("ts-eav"), saV = document.getElementById("ts-sav"),
+        ebV = document.getElementById("ts-ebv"), sbV = document.getElementById("ts-sbv");
+    var erEl = document.getElementById("ts-er"), sdEl = document.getElementById("ts-sd"),
+        verdict = document.getElementById("ts-verdict"), note = document.getElementById("ts-note");
+    // plot elements
+    var aC = document.getElementById("ts-a"), aL = document.getElementById("ts-a-l"),
+        bC = document.getElementById("ts-b"), bL = document.getElementById("ts-b-l"),
+        pC = document.getElementById("ts-p"), pL = document.getElementById("ts-p-l"),
+        curve = document.getElementById("ts-curve");
+    // axis mapping: SD 0..12%  -> x 40..300 ; ER 0..30% -> y 190..25
+    var SDMAX = 12, ERMAX = 30;
+    function mapX(sd) { return 40 + (Math.max(0, Math.min(sd, SDMAX)) / SDMAX) * (300 - 40); }
+    function mapY(er) { return 190 - (Math.max(0, Math.min(er, ERMAX)) / ERMAX) * (190 - 25); }
+
+    function portSD(wA, sA, sB, rho) {
+      var wB = 1 - wA;
+      var v = wA * wA * sA * sA + wB * wB * sB * sB + 2 * wA * wB * rho * sA * sB;
+      return Math.sqrt(Math.max(v, 0));
+    }
+    function render() {
+      var wA = +wIn.value / 100, wB = 1 - wA, rho = +rhoIn.value,
+          eA = +eaIn.value, sA = +saIn.value, eB = +ebIn.value, sB = +sbIn.value;
+      wV.textContent = Math.round(wA * 100) + "%";
+      rhoV.textContent = fmt2(rho);
+      eaV.textContent = eA + "%"; saV.textContent = fmt2(sA) + "%";
+      ebV.textContent = eB + "%"; sbV.textContent = fmt2(sB) + "%";
+
+      var er = wA * eA + wB * eB;
+      var sd = portSD(wA, sA, sB, rho);
+      var wavg = wA * sA + wB * sB;   // weighted-average SD (the ρ=+1 case)
+      erEl.textContent = fmt2(er) + "%";
+      sdEl.textContent = fmt2(sd) + "%";
+
+      if (sd < wavg - 0.001) { verdict.className = "verdict good"; verdict.textContent = "Diversification benefit"; }
+      else { verdict.className = "verdict warn"; verdict.textContent = "No risk reduction (ρ = +1)"; }
+      note.textContent = "σ²P = " + fmt2(wA) + "²×" + fmt2(sA) + "² + " + fmt2(wB) + "²×" + fmt2(sB) +
+        "² + 2×" + fmt2(wA) + "×" + fmt2(wB) + "×" + fmt2(rho) + "×" + fmt2(sA) + "×" + fmt2(sB) +
+        " → SD " + fmt2(sd) + "% vs weighted-average " + fmt2(wavg) + "%.";
+
+      // plot points
+      aC.setAttribute("cx", mapX(sA)); aC.setAttribute("cy", mapY(eA));
+      aL.setAttribute("x", mapX(sA) + 7); aL.setAttribute("y", mapY(eA) + 3);
+      bC.setAttribute("cx", mapX(sB)); bC.setAttribute("cy", mapY(eB));
+      bL.setAttribute("x", mapX(sB) + 7); bL.setAttribute("y", mapY(eB) + 3);
+      pC.setAttribute("cx", mapX(sd)); pC.setAttribute("cy", mapY(er));
+      pL.setAttribute("x", mapX(sd) + 8); pL.setAttribute("y", mapY(er) + 3);
+
+      // combination curve over all weights t of A
+      var pts = [];
+      for (var t = 0; t <= 1.0001; t += 0.05) {
+        var s = portSD(t, sA, sB, rho);
+        var e = t * eA + (1 - t) * eB;
+        pts.push(mapX(s).toFixed(1) + "," + mapY(e).toFixed(1));
+      }
+      curve.setAttribute("points", pts.join(" "));
+    }
+    [wIn, rhoIn, eaIn, saIn, ebIn, sbIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // ---------- Efficient frontier scatter dots ----------
+  (function () {
+    var g = document.getElementById("ef-dots"); if (!g) return;
+    var dots = [
+      { x: 150, y: 205 }, { x: 200, y: 190 }, { x: 175, y: 165 },
+      { x: 240, y: 150 }, { x: 210, y: 130 }, { x: 300, y: 120 },
+      { x: 265, y: 100 }, { x: 340, y: 95 }, { x: 190, y: 220 }
+    ];
+    g.innerHTML = dots.map(function (d, i) {
+      return '<circle class="pop-el" id="ef-d' + i + '" cx="' + d.x + '" cy="' + d.y + '" r="3.4" fill="var(--border-strong)"/>';
+    }).join("");
+  })();
+
+  // ---------- Optimization flow nodes ----------
+  (function () {
+    var gi = document.getElementById("opt-in"), go = document.getElementById("opt-out"); if (!gi) return;
+    var inputs = [
+      { y: 40,  t1: "Expected returns", t2: "of the universe" },
+      { y: 88,  t1: "Volatility &", t2: "correlation estimates" },
+      { y: 136, t1: "Constraints", t2: "on portfolio choice" },
+      { y: 184, t1: "Investor", t2: "objectives" }
+    ];
+    gi.innerHTML = inputs.map(function (n, i) {
+      return '<g class="pop-el" id="opt-i' + i + '">' +
+        '<rect x="8" y="' + (n.y - 17) + '" width="140" height="34" rx="8" fill="var(--bg-surface-2)" stroke="var(--border-subtle)"/>' +
+        '<text x="78" y="' + (n.y - 2) + '" text-anchor="middle" style="font-size:8.5px;font-weight:700;fill:var(--text-primary)">' + n.t1 + '</text>' +
+        '<text x="78" y="' + (n.y + 9) + '" text-anchor="middle" style="font-size:7.5px;fill:var(--text-secondary)">' + n.t2 + '</text>' +
+      '</g>';
+    }).join("");
+    var outputs = [
+      { y: 62,  t1: "Efficient", t2: "Frontier",  gold: true },
+      { y: 168, t1: "Optimal", t2: "Portfolio",   gold: true }
+    ];
+    go.innerHTML = outputs.map(function (n, i) {
+      return '<g class="pop-el" id="opt-o' + i + '">' +
+        '<rect x="392" y="' + (n.y - 18) + '" width="80" height="36" rx="9" fill="color-mix(in srgb,var(--gold-500) 20%,var(--bg-app))" stroke="var(--gold-500)"/>' +
+        '<text x="432" y="' + (n.y - 2) + '" text-anchor="middle" style="font-size:8.5px;font-weight:800;fill:var(--gold-600)">' + n.t1 + '</text>' +
+        '<text x="432" y="' + (n.y + 9) + '" text-anchor="middle" style="font-size:8.5px;font-weight:800;fill:var(--gold-600)">' + n.t2 + '</text>' +
+      '</g>';
+    }).join("");
+  })();
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.35 }).observe(el);
+  }
+  // Efficient frontier
+  onReveal("#ef-chart", function (root) {
+    root.querySelector("#ef-lower").classList.add("go");
+    setTimeout(function () { root.querySelector("#ef-upper").classList.add("go"); }, 300);
+    setTimeout(function () { root.querySelector("#ef-mvp").classList.add("go"); root.querySelector("#ef-mvp-l").classList.add("go"); }, 900);
+    setTimeout(function () { root.querySelector("#ef-label").classList.add("go"); }, 1300);
+    var ds = root.querySelectorAll("#ef-dots > circle");
+    Array.prototype.forEach.call(ds, function (d, i) { setTimeout(function () { d.classList.add("go"); }, 700 + i * 90); });
+  }, 0.25);
+  // Optimization flow
+  onReveal("#opt-flow", function (root) {
+    var ins = root.querySelectorAll("#opt-in > g");
+    Array.prototype.forEach.call(ins, function (n, i) { setTimeout(function () { n.classList.add("go"); }, i * 160); });
+    ["#opt-c1", "#opt-c2", "#opt-c3", "#opt-c4"].forEach(function (s, i) { setTimeout(function () { root.querySelector(s).classList.add("go"); }, 500 + i * 120); });
+    setTimeout(function () { root.querySelector("#opt-core").classList.add("go"); }, 1100);
+    ["#opt-c5", "#opt-c6"].forEach(function (s, i) { setTimeout(function () { root.querySelector(s).classList.add("go"); }, 1500 + i * 150); });
+    var outs = root.querySelectorAll("#opt-out > g");
+    Array.prototype.forEach.call(outs, function (n, i) { setTimeout(function () { n.classList.add("go"); }, 1800 + i * 200); });
+  }, 0.25);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH14_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

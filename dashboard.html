@@ -41,12 +41,14 @@
   .stat-tile .stat-label { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); }
   .stat-tile .stat-caption { font-size: 0.76rem; color: var(--text-secondary); margin-top: -4px; }
   .stat-tile.accent-gold .stat-icon { background: color-mix(in srgb, var(--gold-500) 16%, transparent); color: var(--gold-600); }
-  .stat-tile.accent-teal .stat-icon { background: color-mix(in srgb, var(--teal-500) 16%, transparent); color: var(--teal-500); }
+  .stat-tile.accent-teal .stat-icon { background: color-mix(in srgb, var(--teal-500) 16%, transparent); color: var(--teal-text); }
   .stat-tile.accent-green .stat-icon { background: color-mix(in srgb, var(--green-500) 16%, transparent); color: var(--green-500); }
   .stat-tile.accent-red .stat-icon { background: color-mix(in srgb, var(--red-500) 16%, transparent); color: var(--red-500); }
   .stat-tile.accent-navy .stat-icon { background: color-mix(in srgb, var(--navy-600) 16%, transparent); color: var(--navy-600); }
-  :root[data-theme="dark"] .stat-tile.accent-navy .stat-icon,
-  @media (prefers-color-scheme: dark) { .stat-tile.accent-navy .stat-icon { color: #9db6ea; } }
+  @media (prefers-color-scheme: dark) {
+    .stat-tile.accent-navy .stat-icon { color: #9db6ea; }
+  }
+  :root[data-theme="dark"] .stat-tile.accent-navy .stat-icon { color: #9db6ea; }
 
   /* Target score editor */
   .target-edit-row { display:flex; align-items:center; gap:8px; }
@@ -68,8 +70,6 @@
     background: linear-gradient(120deg, var(--navy-900), var(--navy-800));
     color: #fff; border-radius: var(--radius-lg); flex-wrap: wrap;
   }
-  :root:not([data-theme="dark"]) .reco-card,
-  @media (prefers-color-scheme: light) { .reco-card { } }
   .reco-icon {
     width: 48px; height: 48px; border-radius: 12px; flex-shrink:0;
     background: rgba(212,175,55,0.18); color: var(--gold-400);
@@ -110,6 +110,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to main content</a>
+
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="index.html">
@@ -132,6 +134,8 @@
 <div class="container">
   <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
 </div>
+
+<main id="main" tabindex="-1">
 
 <section class="dash-hero">
   <div class="container">
@@ -170,6 +174,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <footer class="site-footer">
   Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.

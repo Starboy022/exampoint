@@ -400,7 +400,7 @@
   font-weight: 800;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--teal-500);
+  color: var(--teal-text);
   margin-bottom: 6px;
 }
 .quiz-scenario strong { color: var(--text-primary); }

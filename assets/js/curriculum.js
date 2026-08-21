@@ -57,7 +57,7 @@
                 title: "Evaluating the Financial Position of Clients",
                 summary: "Cash flow management, budgeting, net worth and contingency planning.",
                 path: p("books/xa/module-01-personal-financial-planning/chapter-03/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch04",
@@ -65,7 +65,7 @@
                 title: "Debt Management and Loans",
                 summary: "Leverage, loan structures, servicing calculations and responsible borrowing.",
                 path: p("books/xa/module-01-personal-financial-planning/chapter-04/index.html"),
-                status: "coming-soon"
+                status: "active"
               }
             ]
           },
@@ -81,7 +81,7 @@
                 title: "Introduction to the Indian Financial Markets",
                 summary: "The Indian economy, market regulators and market structure.",
                 path: p("books/xa/module-02-indian-financial-markets/chapter-05/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch06",
@@ -89,7 +89,7 @@
                 title: "Securities Market Segments",
                 summary: "Primary and secondary markets, and corporate actions.",
                 path: p("books/xa/module-02-indian-financial-markets/chapter-06/index.html"),
-                status: "coming-soon"
+                status: "active"
               }
             ]
           },
@@ -105,7 +105,7 @@
                 title: "Introduction to Investment",
                 summary: "Asset classes, channels and types of investment.",
                 path: p("books/xa/module-03-investment-products/chapter-07/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch08",
@@ -113,7 +113,7 @@
                 title: "Investing in Stocks",
                 summary: "Equity risk, research, valuation and technical analysis.",
                 path: p("books/xa/module-03-investment-products/chapter-08/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch09",
@@ -121,7 +121,7 @@
                 title: "Investing in Fixed Income Securities",
                 summary: "Bond pricing, yield measures, duration and debt markets.",
                 path: p("books/xa/module-03-investment-products/chapter-09/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch10",
@@ -129,7 +129,7 @@
                 title: "Understanding Derivatives",
                 summary: "Futures, options, swaps and derivative market structure.",
                 path: p("books/xa/module-03-investment-products/chapter-10/index.html"),
-                status: "coming-soon"
+                status: "active"
               }
             ]
           },
@@ -145,7 +145,7 @@
                 title: "Mutual Funds",
                 summary: "Structures, products, investment options and systematic transactions.",
                 path: p("books/xa/module-04-investment-through-managed-portfolio/chapter-11/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch12",
@@ -153,7 +153,7 @@
                 title: "Portfolio Manager",
                 summary: "PMS structures, registration, fees and performance disclosure.",
                 path: p("books/xa/module-04-investment-through-managed-portfolio/chapter-12/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch13",
@@ -161,7 +161,7 @@
                 title: "Overview of Alternative Investment Funds (AIFs)",
                 summary: "AIF categories, regulation and role in portfolios.",
                 path: p("books/xa/module-04-investment-through-managed-portfolio/chapter-13/index.html"),
-                status: "coming-soon"
+                status: "active"
               }
             ]
           },
@@ -177,7 +177,7 @@
                 title: "Introduction to Modern Portfolio Theory",
                 summary: "Risk-return, efficient frontier and portfolio optimization.",
                 path: p("books/xa/module-05-portfolio-construction-performance-monitoring-and-evaluation/chapter-14/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch15",

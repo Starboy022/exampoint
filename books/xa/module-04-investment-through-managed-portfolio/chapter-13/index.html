@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 13 — Alternative Investment Funds | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Alternative Investment Funds (AIFs) — traditional vs alternative investments and illiquidity, the evolution of AIFs in India, the SEBI (AIF) Regulations 2012 (privately pooled, corpus, minimum investment, continuing interest, listing, investment conditions, accredited investors), the three categories (I, II, III), the types of AIFs (VCF, angel, PE, debt, infrastructure, SME, hedge, social impact, special situations) and the role of alternatives in portfolio management. NISM Series-X-A, Module 4, Chapter 13." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive calculator ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.95rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .seg { display:inline-flex; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; flex-wrap:wrap; }
+  .seg button { border:none; background:var(--bg-app); font-size:0.76rem; font-weight:700; padding:7px 12px; cursor:pointer; color:var(--text-secondary); transition:all var(--dur-fast); }
+  .seg button.on { background:var(--navy-800); color:#fff; }
+  .seg-field .sl { display:block; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; text-align:center; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.9rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .verdict { display:inline-block; margin-top:8px; font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:4px 11px; border-radius:var(--radius-pill); }
+  .verdict.good { background:color-mix(in srgb,var(--green-500) 18%,var(--bg-app)); color:var(--green-500); }
+  .verdict.warn { background:color-mix(in srgb,var(--gold-500) 20%,var(--bg-app)); color:var(--gold-600); }
+  .dual-out { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dual-out .box { background:var(--bg-app); border-radius:var(--radius-md); padding:12px; }
+  .dual-out .box .l { font-size:0.66rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); }
+  .dual-out .box .v { font-family:var(--font-display); font-weight:800; font-size:1.15rem; color:var(--gold-600); }
+
+  /* ---- SVG animation helpers ---- */
+  .draw-line { fill:none; stroke-dasharray:700; stroke-dashoffset:700; }
+  .draw-line.go { animation: draw 1.8s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+  .pop-el { opacity:0; transform:scale(0.4); transform-origin:center; transition:opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring); }
+  .pop-el.go { opacity:1; transform:scale(1); }
+
+  /* ---- Matcher (shared) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.95rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 4 · Investment Through Managed Portfolio</span>
+      <span class="badge badge-gold">Chapter 13 of 20</span>
+    </div>
+    <h1>Overview of Alternative Investment Funds (AIFs)</h1>
+    <p class="lede"><strong>Alternative investments</strong> are everything <em>beyond</em> traditional stocks, bonds and mutual funds — private, off-market, and defined by their <strong>illiquidity</strong>. They exist for sophisticated investors (institutions and HNIs) willing to take higher risk for potentially higher, better <strong>risk-adjusted</strong> returns. This chapter covers how AIFs <strong>evolved</strong> in India, the <strong>SEBI (AIF) Regulations, 2012</strong> — privately pooled structure, corpus, minimum investment, continuing interest and listing rules — the <strong>three categories</strong> (I, II, III), the <strong>nine types</strong> of AIF (venture capital, angel, private equity, debt, infrastructure, SME, hedge, social impact and special situations funds), and the <strong>role</strong> of alternatives in a portfolio.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~26 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> <span id="meta-qcount">61</span> assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 1 live rules calculator</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 8 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:680px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Introduction to alternative investments</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Evolution and growth of AIFs in India</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> SEBI requirements on AIFs</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Categories of AIFs</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Types of AIFs</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Suitability and enablers for AIF products in India</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Current AIF market status</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Role of alternative investment in portfolio management</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-13-1">13.1 Introduction to alternatives</a></li>
+      <li><a href="#sec-13-2">13.2 Evolution &amp; growth in India</a></li>
+      <li><a href="#sec-13-3">13.3 SEBI requirements on AIFs</a></li>
+      <li><a href="#sec-13-4">13.4 Categories of AIFs</a></li>
+      <li><a href="#sec-13-5">13.5 Types of AIFs</a></li>
+      <li><a href="#sec-13-6">13.6 Role in portfolio management</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 13.1 Introduction -->
+    <section class="lesson-section" id="sec-13-1">
+      <span class="section-kicker">13.1</span>
+      <h2>Introduction to alternative investments</h2>
+      <p>There is no uniform global classification, so <strong>alternative investments</strong> are defined simply as investments <em>other than traditional</em> ones. The dividing line is <strong>liquidity</strong>: traditional investments are on-market and near-cash; alternatives are defined by their <strong>illiquidity</strong>.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>📈 Traditional investments</h4>
+          <ul>
+            <li>Financial securities — <strong>stocks and bonds</strong> (primary &amp; secondary markets)</li>
+            <li>General <strong>mutual fund units and ETFs</strong></li>
+            <li>On-market, <strong>liquid</strong> — exit via the market or open-ended redemption</li>
+            <li>Cater to <strong>general investors</strong> wanting better-than-savings returns</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🧩 Alternative investments</h4>
+          <ul>
+            <li>Everything <strong>beyond</strong> traditional categories</li>
+            <li>Essential feature: <strong>illiquidity</strong> (off-market or complex, no ready market)</li>
+            <li>Higher potential returns with <strong>higher risk</strong></li>
+            <li>For <strong>sophisticated investors</strong> — institutions &amp; HNIs — to improve <strong>risk-adjusted returns</strong></li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-secondary)">Internationally, AIF investors are largely <strong>institutional</strong> — pension funds, insurance companies, endowment funds, investment banks, family offices — alongside <strong>HNIs</strong>, fund of funds and AIF managers themselves.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — The <em>essential characteristic</em> that distinguishes alternative investments from traditional ones is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Illiquidity — they are not readily convertible into cash</button>
+          <button class="mini-opt" data-correct="false">A guaranteed fixed return</button>
+          <button class="mini-opt" data-correct="false">Daily liquidity through open-ended redemption</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — traditional investments share the feature of liquidity, while the essential characteristic of alternative investments is illiquidity: off-market or complex structures with no ready market." data-wrong-msg="Not quite — the defining feature of alternatives is illiquidity; liquidity is what marks traditional investments."></div>
+      </div>
+    </section>
+
+    <!-- 13.2 Evolution -->
+    <section class="lesson-section" id="sec-13-2">
+      <span class="section-kicker">13.2</span>
+      <h2>Evolution &amp; growth of AIFs in India</h2>
+      <p>India's alternatives story runs from 1980s venture capital to today's AIF framework. Scroll the timeline:</p>
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="evo-timeline" viewBox="0 0 480 210" width="100%" style="max-width:620px">
+            <path class="draw-line" id="evo-line" d="M28 105 L452 105" stroke="var(--gold-500)" stroke-width="2.4"/>
+            <g id="evo-nodes"></g>
+          </svg>
+        </div>
+        <div class="caption">From state-led venture capital in the 1980s, through the 1996 VCF Regulations and the 2000 tax reforms, the dotcom-era tech VCFs, the post-2001 private-equity expansion and the 2008 crisis, to the <strong>SEBI (AIF) Regulations, 2012</strong> that govern the space today.</div>
+      </div>
+      <div class="term-grid" id="evolution-grid"></div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Unfavourable tax laws for venture capital were reformed in 2000 following the recommendations of the:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">K.B. Chandrasekhar Committee</button>
+          <button class="mini-opt" data-correct="false">Narasimham Committee</button>
+          <button class="mini-opt" data-correct="false">Bimal Jalan Committee</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — tax laws were reformed in 2000 following the K.B. Chandrasekhar Committee's recommendations, after the 1996 SEBI (Venture Capital Fund) Regulations broadened the scope of VC." data-wrong-msg="Not quite — the 2000 tax reforms followed the K.B. Chandrasekhar Committee's recommendations."></div>
+      </div>
+    </section>
+
+    <!-- 13.3 SEBI requirements -->
+    <section class="lesson-section" id="sec-13-3">
+      <span class="section-kicker">13.3</span>
+      <h2>SEBI requirements on AIFs</h2>
+      <p>The <strong>SEBI (Alternative Investment Funds) Regulations, 2012</strong> define an AIF as primarily a <strong>privately pooled</strong> investment vehicle — pooled from <em>select</em> investors (institutions and HNIs), not the general public, for a defined investment policy. Tap the core concepts:</p>
+      <div class="flip-grid" id="concepts-grid"></div>
+
+      <div class="calc" id="calc-aif">
+        <div class="calc-title"><span class="pill">Live</span> AIF rules calculator</div>
+        <div class="calc-sub">Set the category, scheme corpus and investor type to see the key SEBI thresholds: the <strong>corpus check</strong> (≥ ₹20 crore), the <strong>minimum investment</strong> (₹1 crore, or ₹25 lakh for employees/directors and accredited investors), and the Manager/Sponsor's <strong>continuing interest</strong> — 2.5% of corpus or ₹5 crore (whichever is lower) for Category I/II, and 5% or ₹10 crore (whichever is lower) for Category III.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl seg-field">
+              <span class="sl">AIF category</span>
+              <div class="seg" id="aif-cat">
+                <button data-c="12" class="on">Category I / II</button>
+                <button data-c="3">Category III</button>
+              </div>
+            </div>
+            <div class="ctrl">
+              <label>Scheme corpus <span class="val" id="aif-corpus-val">₹100 cr</span></label>
+              <input type="range" id="aif-corpus-in" min="5" max="500" step="5" value="100">
+            </div>
+            <div class="ctrl seg-field">
+              <span class="sl">Investor type</span>
+              <div class="seg" id="aif-inv">
+                <button data-i="gen" class="on">General</button>
+                <button data-i="emp">Employee / Director</button>
+                <button data-i="acc">Accredited</button>
+              </div>
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Manager/Sponsor continuing interest (min)</div>
+            <div class="out-val" id="aif-out">₹2.50 cr</div>
+            <div><span class="verdict good" id="aif-verdict">Corpus OK (≥ ₹20 cr)</span></div>
+            <div class="dual-out" style="margin-top:10px">
+              <div class="box"><div class="l">Min investment</div><div class="v" id="aif-min">₹1 cr</div></div>
+              <div class="box"><div class="l">Max in one investee</div><div class="v" id="aif-conc">25%</div></div>
+            </div>
+            <div class="out-note" id="aif-note">Continuing interest = lower of 2.5% × ₹100 cr (₹2.5 cr) and ₹5 cr = ₹2.50 cr.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Investment conditions &amp; listing</strong>
+          <p>An AIF may raise funds from Indian, foreign or NRI investors, only by <strong>private placement</strong>, with no more than <strong>1,000 investors</strong> per scheme. Category I/II AIFs may invest at most <strong>25%</strong> of investable funds in one investee company; Category III at most <strong>10%</strong>. Investment in <strong>associates</strong> needs approval of <strong>75% of investors by value</strong>. Offshore investment follows RBI/SEBI conditions; un-deployed funds park in liquid assets. Units of a <strong>close-ended</strong> AIF may be listed only <strong>after final close</strong>, with a minimum tradable lot of <strong>₹1 crore</strong>.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>The accredited investor route — a ₹25 lakh ticket</strong>
+          <p>SEBI's <strong>accredited investor</strong> concept is <em>optional</em> — some AIFs use it to offer a <strong>₹25 lakh</strong> ticket instead of ₹1 crore. An <strong>individual</strong> qualifies with annual income ≥ <strong>₹2 crore</strong>, OR net worth ≥ <strong>₹7.5 crore</strong> (≥ ₹3.75 crore in financial assets), OR income ≥ ₹1 crore <em>and</em> net worth ≥ ₹5 crore (≥ ₹2.5 crore financial). <strong>Body corporates</strong> and non-family <strong>trusts</strong> need a net worth ≥ <strong>₹50 crore</strong>.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Each scheme of an AIF must have a corpus of at least, and cannot accept from an ordinary investor less than:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">₹20 crore corpus; ₹1 crore minimum investment</button>
+          <button class="mini-opt" data-correct="false">₹1 crore corpus; ₹25 lakh minimum investment</button>
+          <button class="mini-opt" data-correct="false">₹100 crore corpus; ₹5 crore minimum investment</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — each AIF scheme needs a corpus of at least ₹20 crore, and cannot accept an investment below ₹1 crore from an ordinary investor (₹25 lakh for employees/directors and accredited investors)." data-wrong-msg="Not quite — the corpus minimum is ₹20 crore and the ordinary-investor minimum investment is ₹1 crore."></div>
+      </div>
+    </section>
+
+    <!-- 13.4 Categories -->
+    <section class="lesson-section" id="sec-13-4">
+      <span class="section-kicker">13.4</span>
+      <h2>Categories of AIFs</h2>
+      <p>For registration and operational rules, all AIFs fall into <strong>three categories</strong>, distinguished chiefly by what they invest in, whether they get incentives, and whether they use leverage. Tap one:</p>
+      <div class="matcher" id="cat-matcher">
+        <h4>Three categories — tap one</h4>
+        <div class="hint">Watch for the leverage rule and the single-investee concentration limit.</div>
+        <div class="match-markets" id="cat-markets">
+          <button class="match-mkt" data-reg="C1">Category I</button>
+          <button class="match-mkt" data-reg="C2">Category II</button>
+          <button class="match-mkt" data-reg="C3">Category III</button>
+        </div>
+        <div class="match-regs" id="cat-cards">
+          <div class="reg-card" data-reg="C1"><div class="rn">Category I</div><div class="rd">Socially/economically desirable — VCF, angel, SME, social venture, infrastructure &amp; special situation funds · often incentivised · ≤25% per investee</div></div>
+          <div class="reg-card" data-reg="C2"><div class="rn">Category II</div><div class="rd">Not I or III · no leverage except day-to-day ops · private equity &amp; debt funds · no special incentives · ≤25% per investee</div></div>
+          <div class="reg-card" data-reg="C3"><div class="rn">Category III</div><div class="rd">Diverse/complex strategies · may use leverage incl. derivatives · hedge funds, short-term traders, often open-ended · ≤10% per investee</div></div>
+        </div>
+        <div class="match-feedback" id="cat-feedback"></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A fund using complex trading strategies and leverage through listed and unlisted derivatives is a:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Category III AIF</button>
+          <button class="mini-opt" data-correct="false">Category I AIF</button>
+          <button class="mini-opt" data-correct="false">Category II AIF</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — Category III AIFs employ diverse or complex trading strategies and may use leverage, including through listed and unlisted derivatives (the hedge-fund profile)." data-wrong-msg="Not quite — leverage and complex strategies (incl. derivatives) define a Category III AIF."></div>
+      </div>
+    </section>
+
+    <!-- 13.5 Types -->
+    <section class="lesson-section" id="sec-13-5">
+      <span class="section-kicker">13.5</span>
+      <h2>Types of AIFs</h2>
+      <p>The SEBI AIF Regulations name several fund types by strategy and asset. Tap each to see its definition:</p>
+      <div class="matcher" id="type-matcher">
+        <h4>Nine AIF types — tap one</h4>
+        <div class="hint">Note the stage (early vs later), the asset (equity vs debt), and the special IBC-linked types.</div>
+        <div class="match-markets" id="type-markets">
+          <button class="match-mkt" data-reg="VCF">Venture Capital</button>
+          <button class="match-mkt" data-reg="ANG">Angel</button>
+          <button class="match-mkt" data-reg="PE">Private Equity</button>
+          <button class="match-mkt" data-reg="DEBT">Debt</button>
+          <button class="match-mkt" data-reg="INFRA">Infrastructure</button>
+          <button class="match-mkt" data-reg="SME">SME</button>
+          <button class="match-mkt" data-reg="HEDGE">Hedge</button>
+          <button class="match-mkt" data-reg="SOC">Social Impact</button>
+          <button class="match-mkt" data-reg="SS">Special Situations</button>
+        </div>
+        <div class="match-regs" id="type-cards">
+          <div class="reg-card" data-reg="VCF"><div class="rn">Venture Capital (VCF)</div><div class="rd">Unlisted securities of start-ups / early-stage ventures (new products, tech, IP, business models) · includes angel funds · Category I</div></div>
+          <div class="reg-card" data-reg="ANG"><div class="rn">Angel</div><div class="rd">Sub-category of VCF (Category I) that raises from angel investors · individual: net tangible assets ≥ ₹2 cr (excl. residence) + experience; body corporate: net worth ≥ ₹10 cr</div></div>
+          <div class="reg-card" data-reg="PE"><div class="rn">Private Equity (PE)</div><div class="rd">Equity / equity-linked instruments of investee companies · later-stage financing of established models needing scale-up · Category II</div></div>
+          <div class="reg-card" data-reg="DEBT"><div class="rn">Debt</div><div class="rd">Debt / debt securities of listed or unlisted companies · incl. mezzanine, leveraged &amp; distressed debt · often a form of PE · Category II</div></div>
+          <div class="reg-card" data-reg="INFRA"><div class="rn">Infrastructure</div><div class="rd">Securities / SPVs operating, developing or holding infrastructure projects · high illiquidity &amp; long gestation · Category I</div></div>
+          <div class="reg-card" data-reg="SME"><div class="rn">SME</div><div class="rd">Unlisted SMEs, or SMEs listed / to be listed on an SME exchange or segment (MSME Act, 2006) · Category I</div></div>
+          <div class="reg-card" data-reg="HEDGE"><div class="rn">Hedge</div><div class="rd">Diverse/complex trading strategies · diverse-risk or complex products incl. listed &amp; unlisted derivatives · Category III</div></div>
+          <div class="reg-card" data-reg="SOC"><div class="rn">Social Impact</div><div class="rd">Social ventures/enterprises meeting social norms · charitable trusts, societies, Section 8 companies, microfinance institutions · Category I</div></div>
+          <div class="reg-card" data-reg="SS"><div class="rn">Special Situations</div><div class="rd">Invests in special-situation assets · may act as a resolution applicant under the IBC, 2016 · Category I</div></div>
+        </div>
+        <div class="match-feedback" id="type-feedback"></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Fund A backs an early-stage tech start-up; Fund B backs an established mid-sized firm needing capital to scale up. They are:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">A = Venture Capital Fund (early stage); B = Private Equity Fund (later stage)</button>
+          <button class="mini-opt" data-correct="false">Both hedge funds</button>
+          <button class="mini-opt" data-correct="false">A = Private Equity; B = Venture Capital</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — VCFs focus on early-stage start-ups with new business models, while PE funds do later-stage financing of established businesses that need scaling up." data-wrong-msg="Not quite — early-stage = Venture Capital (Fund A); later-stage scale-up = Private Equity (Fund B)."></div>
+      </div>
+    </section>
+
+    <!-- 13.6 Role -->
+    <section class="lesson-section" id="sec-13-6">
+      <span class="section-kicker">13.6</span>
+      <h2>Role of alternative investments in portfolio management</h2>
+      <p>Portfolio management must keep evolving to meet investors' return expectations. In the 21<sup>st</sup> century, generating returns from established models has grown harder — driven by:</p>
+      <div class="pill-list">
+        <span>Technological innovation</span>
+        <span>Environmental concerns</span>
+        <span>Regulatory challenges</span>
+        <span>Economic volatility</span>
+        <span>Geo-political issues</span>
+        <span>Changing customer needs</span>
+      </div>
+      <p>Expansionary monetary policy and <strong>zero or negative benchmark rates</strong> in developed economies pushed returns down there and drove a shift to <strong>emerging markets</strong> over the past two decades. Crucially, the rationale for alternatives is <strong>not just about returns</strong> — investors use them to improve <strong>risk-adjusted returns</strong> and for diversification beyond traditional assets.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A key driver pushing investors toward alternatives over the past two decades has been:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Falling returns in developed markets (zero/negative rates) prompting a shift to emerging markets</button>
+          <button class="mini-opt" data-correct="false">Rising rates guaranteeing high bond returns</button>
+          <button class="mini-opt" data-correct="false">A regulatory ban on traditional investments</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — expansionary policy and zero/negative rates in developed economies depressed returns there and shifted flows to emerging markets, while alternatives improve risk-adjusted returns." data-wrong-msg="Not quite — it was the fall in developed-market returns (zero/negative rates) and the shift to emerging markets."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The definitions, numbers and thresholds most likely to be tested — tap to reveal.</p>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch13";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 4", href: "../../index.html" },
+    { label: "Chapter 13", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // keep the meta-row question count honest
+  if (window.NISM_CH13_QUESTIONS) {
+    var mc = document.getElementById("meta-qcount");
+    if (mc) mc.textContent = window.NISM_CH13_QUESTIONS.length;
+  }
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:16px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // Evolution milestone cards
+  renderCards("evolution-grid", [
+    { icon: "🌱", label: "1980s — VC begins", body: "Alternative investing starts with venture capital financing, driven by state industrial development corporations, financial institutions and PSU banks." },
+    { icon: "📜", label: "1996 — VCF Regulations", body: "SEBI (Venture Capital Fund) Regulations broaden VC's scope, drop the 'untried technologies' focus and bring private investment in unlisted companies under institutional investment." },
+    { icon: "💻", label: "1997–2001 — Dotcom", body: "The dotcom boom sees tech-focused VCFs rise, modelled after Silicon Valley." },
+    { icon: "🧾", label: "2000 — Tax reforms", body: "Initially unfavourable tax laws are reformed following the K.B. Chandrasekhar Committee's recommendations." },
+    { icon: "🏭", label: "Post-2001 — PE expands", body: "Private equity spreads beyond IT into manufacturing, real estate, infrastructure and services; by 2007 into banking, logistics, e-commerce and project finance." },
+    { icon: "📉", label: "2008 — Global crisis", body: "The financial crisis disrupts PE growth — funds struggle to sustain investments and exit amid weak capital markets and taxation concerns." },
+    { icon: "⚖️", label: "2012 — AIF Regulations", body: "The SEBI (Alternative Investment Funds) Regulations, 2012 become the framework that governs AIFs in India today." }
+  ]);
+
+  // Core concept flip deck
+  renderFlip("concepts-grid", [
+    { icon: "🔒", label: "Privately pooled", back: "Funds pooled from select investors (institutions and HNIs), not the general public at large — from India or abroad — for a defined investment policy." },
+    { icon: "🏦", label: "Corpus ≥ ₹20 crore", back: "Each scheme of an AIF must have a corpus of at least ₹20 crore." },
+    { icon: "💵", label: "Min investment", back: "At least ₹1 crore per investor; ₹25 lakh for employees/directors of the AIF or Manager, and for accredited investors in AIFs that offer that facility." },
+    { icon: "🤝", label: "Continuing interest", back: "Manager/Sponsor 'skin in the game': not less than 2.5% of corpus or ₹5 cr (whichever is lower) for Cat I/II; 5% or ₹10 cr (whichever is lower) for Cat III. Actual investment, not fee waiver; disclosed to investors." },
+    { icon: "👥", label: "Private placement", back: "Funds raised only by private placement — no soliciting the public. No scheme may have more than 1,000 investors." }
+  ]);
+
+  // Category matcher
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("cat-markets", "cat-cards", "cat-feedback", {
+    C1: "Category I — invests in socially/economically desirable areas (start-ups, SMEs, social ventures, infrastructure); includes VCF, angel, SME, social venture, infrastructure and special situation funds; often incentivised; max 25% per investee.",
+    C2: "Category II — everything not in I or III; no leverage except for day-to-day operations; private equity and debt funds with no special incentives; max 25% per investee.",
+    C3: "Category III — diverse/complex trading strategies and leverage (incl. listed/unlisted derivatives); hedge funds and short-term traders, often open-ended; max 10% per investee."
+  });
+  wireMatcher("type-markets", "type-cards", "type-feedback", {
+    VCF: "Venture Capital Fund — invests primarily in unlisted securities of start-ups and early-stage ventures (new products, tech, IP, business models); includes angel funds; Category I.",
+    ANG: "Angel Fund — a sub-category of VCF (Category I) raising from angel investors. Individual angel: net tangible assets ≥ ₹2 cr (excl. residence) + early-stage/serial-entrepreneur/10-yr senior-management experience; body corporate: net worth ≥ ₹10 cr.",
+    PE: "Private Equity Fund — invests in equity/equity-linked instruments of investee companies; later-stage financing of established models needing scale-up (unlike early-stage VCFs); Category II.",
+    DEBT: "Debt Fund — invests primarily in debt/debt securities of listed or unlisted companies; includes mezzanine, leveraged and distressed debt; often classed as a form of private equity; Category II.",
+    INFRA: "Infrastructure Fund — invests in securities/SPVs operating, developing or holding infrastructure projects; high illiquidity, long gestation; dominated by sovereign wealth, multilateral and sector AIFs; Category I.",
+    SME: "SME Fund — invests in unlisted SMEs or SMEs listed/proposed to be listed on an SME exchange or segment; 'SME' per the MSME Development Act, 2006; Category I.",
+    HEDGE: "Hedge Fund — employs diverse/complex trading strategies and trades securities with diverse risks or complex products, including listed and unlisted derivatives; Category III.",
+    SOC: "Social Impact Fund — invests in social ventures/enterprises meeting social norms; may include charitable trusts, charitable societies, Section 8 companies or microfinance institutions; Category I.",
+    SS: "Special Situations Fund — invests in special-situation assets and may act as a resolution applicant under the Insolvency and Bankruptcy Code, 2016; Category I."
+  });
+
+  // Revision deck (mono fronts)
+  renderFlip("revision-cards", [
+    { icon: "AIF 2012", label: "Governing regulation", back: "AIFs are regulated under the SEBI (Alternative Investment Funds) Regulations, 2012 — a privately pooled vehicle for select investors, not the public." },
+    { icon: "Illiquid", label: "Defining feature", back: "Traditional investments = liquid, on-market. Alternatives = illiquid (off-market or complex, no ready market), for sophisticated investors (institutions, HNIs)." },
+    { icon: "₹20 cr", label: "Corpus", back: "Each AIF scheme must have a corpus of at least ₹20 crore. Funds raised only by private placement; max 1,000 investors per scheme." },
+    { icon: "₹1 cr / ₹25 L", label: "Minimum investment", back: "≥ ₹1 crore per investor; ₹25 lakh for employees/directors of the AIF or Manager, and for accredited investors under that optional facility." },
+    { icon: "2.5% / 5%", label: "Continuing interest", back: "Cat I/II: ≥ 2.5% of corpus or ₹5 cr, whichever lower. Cat III: ≥ 5% of corpus or ₹10 cr, whichever lower. Real investment, not fee waiver; disclosed to investors." },
+    { icon: "25% / 10% / 75%", label: "Investment limits", back: "Cat I/II ≤ 25% of investable funds in one investee; Cat III ≤ 10%. Investment in associates needs approval of 75% of investors by value." },
+    { icon: "₹1 cr lot", label: "Listing", back: "Units of a close-ended AIF may be listed only after final close, with a minimum tradable lot of ₹1 crore." },
+    { icon: "Accredited", label: "Accredited investor", back: "Optional route to a ₹25 lakh ticket. Individual: income ≥ ₹2 cr, OR net worth ≥ ₹7.5 cr (≥ ₹3.75 cr financial), OR income ≥ ₹1 cr + net worth ≥ ₹5 cr. Body corporate/trust: net worth ≥ ₹50 cr." },
+    { icon: "I · II · III", label: "Three categories", back: "I: socially/economically desirable (VCF, SME, social, infra, special situations) — often incentivised. II: PE & debt, no leverage beyond ops. III: hedge funds, complex strategies & leverage." },
+    { icon: "VCF vs PE", label: "Stage of financing", back: "VCF = early-stage start-ups (new models). PE = later-stage established businesses needing scale-up. Angel = sub-category of VCF. Debt often classed as a form of PE." }
+  ], "mono");
+
+  // ---------- AIF rules calculator ----------
+  var fmt2 = function (n) { return n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+
+  (function () {
+    var catWrap = document.getElementById("aif-cat"), invWrap = document.getElementById("aif-inv"),
+        corpusIn = document.getElementById("aif-corpus-in"), corpusVal = document.getElementById("aif-corpus-val");
+    var out = document.getElementById("aif-out"), verdict = document.getElementById("aif-verdict"),
+        minEl = document.getElementById("aif-min"), concEl = document.getElementById("aif-conc"), note = document.getElementById("aif-note");
+    var cat = "12", inv = "gen";
+
+    function render() {
+      var corpus = +corpusIn.value;                 // ₹ crore
+      corpusVal.textContent = "₹" + corpus + " cr";
+      var pct = cat === "3" ? 5 : 2.5;
+      var cap = cat === "3" ? 10 : 5;               // ₹ crore cap
+      var pctAmt = corpus * pct / 100;
+      var ci = Math.min(pctAmt, cap);
+      out.textContent = "₹" + fmt2(ci) + " cr";
+      // corpus validity
+      if (corpus >= 20) { verdict.className = "verdict good"; verdict.textContent = "Corpus OK (≥ ₹20 cr)"; }
+      else { verdict.className = "verdict warn"; verdict.textContent = "Below ₹20 cr minimum"; }
+      // min investment
+      minEl.textContent = (inv === "gen") ? "₹1 cr" : "₹25 lakh";
+      // concentration limit
+      concEl.textContent = (cat === "3") ? "10%" : "25%";
+      // note
+      var lowerTxt = (pctAmt <= cap)
+        ? (pct + "% × ₹" + corpus + " cr (₹" + fmt2(pctAmt) + " cr) is lower than the ₹" + cap + " cr cap")
+        : ("the ₹" + cap + " cr cap is lower than " + pct + "% × ₹" + corpus + " cr (₹" + fmt2(pctAmt) + " cr)");
+      note.textContent = "Continuing interest = lower of " + pct + "% of corpus and ₹" + cap + " cr → " + lowerTxt + " = ₹" + fmt2(ci) + " cr.";
+    }
+    catWrap.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      cat = b.dataset.c;
+      Array.prototype.forEach.call(catWrap.children, function (x) { x.classList.toggle("on", x === b); });
+      render();
+    });
+    invWrap.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      inv = b.dataset.i;
+      Array.prototype.forEach.call(invWrap.children, function (x) { x.classList.toggle("on", x === b); });
+      render();
+    });
+    corpusIn.addEventListener("input", render);
+    render();
+  })();
+
+  // ---------- Evolution timeline SVG ----------
+  (function () {
+    var g = document.getElementById("evo-nodes"); if (!g) return;
+    var nodes = [
+      { x: 40,  year: "1980s",     tag: "VC begins",    up: true },
+      { x: 100, year: "1996",      tag: "VCF Regs",     up: false },
+      { x: 168, year: "97–01",     tag: "Dotcom",       up: true },
+      { x: 228, year: "2000",      tag: "Tax reform",   up: false },
+      { x: 296, year: "01→",       tag: "PE expands",   up: true },
+      { x: 360, year: "2008",      tag: "Crisis",       up: false },
+      { x: 432, year: "2012",      tag: "AIF Regs",     up: true }
+    ];
+    g.innerHTML = nodes.map(function (n, i) {
+      var yLabel = n.up ? 62 : 148;         // text block y
+      var yTag = n.up ? 76 : 162;
+      var lineY1 = n.up ? 80 : 130;
+      var lineY2 = n.up ? 105 : 105;
+      return '<g class="pop-el" id="evo-n' + i + '">' +
+        '<line x1="' + n.x + '" y1="' + lineY1 + '" x2="' + n.x + '" y2="' + lineY2 + '" stroke="var(--border-strong)" stroke-width="1.2"/>' +
+        '<circle cx="' + n.x + '" cy="105" r="5.5" fill="' + (i === nodes.length - 1 ? "var(--gold-500)" : "var(--teal-500)") + '"/>' +
+        '<text x="' + n.x + '" y="' + yLabel + '" text-anchor="middle" style="font-size:10px;font-weight:800;fill:var(--text-primary)">' + n.year + '</text>' +
+        '<text x="' + n.x + '" y="' + yTag + '" text-anchor="middle" style="font-size:7.5px;fill:var(--text-secondary)">' + n.tag + '</text>' +
+      '</g>';
+    }).join("");
+  })();
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.35 }).observe(el);
+  }
+  onReveal("#evo-timeline", function (root) {
+    root.querySelector("#evo-line").classList.add("go");
+    var ns = root.querySelectorAll("#evo-nodes > g");
+    Array.prototype.forEach.call(ns, function (n, i) {
+      setTimeout(function () { n.classList.add("go"); }, 400 + i * 220);
+    });
+  }, 0.25);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH13_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

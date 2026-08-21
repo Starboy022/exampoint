@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 11 — Mutual Funds | NISM Learn</title>
+<meta name="description" content="Interactive lesson: what a mutual fund is and its structure, core concepts (units, net assets, NAV, cut-off timings, mark to market), scheme structures (open-ended, closed-end, interval, ETF), the SEBI regulatory framework, the full product menu (equity, debt, hybrid and other funds), investment options (IDCW vs growth), triggers, the investment process, systematic transactions (SIP, SWP, STP, DTP, value averaging) and direct vs regular plans. NISM Series-X-A, Module 4, Chapter 11." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive calculator ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.95rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .seg { display:inline-flex; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; }
+  .seg button { border:none; background:var(--bg-app); font-size:0.78rem; font-weight:700; padding:7px 14px; cursor:pointer; color:var(--text-secondary); transition:all var(--dur-fast); }
+  .seg button.on { background:var(--navy-800); color:#fff; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; text-align:center; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.9rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .calc-output .out-sub { font-size:0.82rem; color:var(--text-primary); margin-top:6px; }
+  .calc-output .out-sub b { color:var(--teal-text); font-family:var(--font-mono); }
+  .verdict { display:inline-block; margin-top:8px; font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:4px 11px; border-radius:var(--radius-pill); }
+  .verdict.good { background:color-mix(in srgb,var(--green-500) 18%,var(--bg-app)); color:var(--green-500); }
+  .verdict.warn { background:color-mix(in srgb,var(--gold-500) 20%,var(--bg-app)); color:var(--gold-600); }
+  .dual-out { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dual-out .box { background:var(--bg-app); border-radius:var(--radius-md); padding:12px; }
+  .dual-out .box .l { font-size:0.66rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); }
+  .dual-out .box .v { font-family:var(--font-display); font-weight:800; font-size:1.3rem; color:var(--gold-600); }
+
+  /* ---- SVG animation helpers ---- */
+  .draw-line { fill:none; stroke-dasharray:900; stroke-dashoffset:900; }
+  .draw-line.go { animation: draw 1.5s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+  .grow-bar { transform:scaleY(0); transform-origin:bottom; transition:transform var(--dur-slow) var(--ease-out); }
+  .grow-bar.go { transform:scaleY(1); }
+
+  /* ---- Matcher (shared) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.95rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Flow nodes ---- */
+  .flow { display:flex; align-items:stretch; gap:0; flex-wrap:wrap; justify-content:center; margin:20px 0; }
+  .flow-node { flex:1; min-width:120px; padding:14px 12px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); text-align:center; opacity:0; transform:translateY(10px); transition:all var(--dur-med) var(--ease-out); }
+  .flow-node.in { opacity:1; transform:translateY(0); }
+  .flow-node .fn-ic { font-size:22px; }
+  .flow-node .fn-t { font-weight:800; font-size:0.85rem; margin-top:4px; font-family:var(--font-display); }
+  .flow-node .fn-d { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .flow-arrow { display:flex; align-items:center; color:var(--gold-500); font-size:20px; padding:0 6px; }
+
+  /* ---- Pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+
+  /* ---- Relationship / mini table ---- */
+  .rel-table { width:100%; border-collapse:collapse; margin:18px 0; font-size:0.82rem; }
+  .rel-table th, .rel-table td { border:1px solid var(--border-subtle); padding:9px 11px; text-align:left; }
+  .rel-table th { background:var(--bg-surface-2); font-family:var(--font-display); font-size:0.78rem; }
+  .rel-table td.num { font-family:var(--font-mono); color:var(--gold-600); text-align:right; }
+  .rel-wrap { overflow-x:auto; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 4 · Investment Through Managed Portfolio</span>
+      <span class="badge badge-gold">Chapter 11 of 20</span>
+    </div>
+    <h1>Mutual Funds</h1>
+    <p class="lede">A mutual fund <strong>pools</strong> money from many investors and hands it to a professional manager to invest in an asset class of their choice. This chapter builds the mutual-fund toolkit: the <strong>structure</strong> (sponsor, trustees, AMC, R&amp;T agent, custodian), the core concepts — <strong>units, net assets, NAV, cut-off timings and mark-to-market</strong> — the <strong>scheme structures</strong> (open-ended, closed-end, interval, ETF), the full <strong>product menu</strong> (equity, debt, hybrid and other funds), <strong>investment options</strong> (IDCW vs growth), the <strong>investment process</strong>, and the <strong>systematic transactions</strong> — SIP, SWP, STP, DTP and value averaging — plus <strong>direct vs regular</strong> plans.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~36 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 102 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 3 live calculators</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 10 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:680px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Mutual funds and their features</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Concepts and terms related to mutual funds</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Open-ended, closed-end, interval schemes and ETFs</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Regulatory framework of mutual funds</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Mutual fund products</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Mutual fund investment options</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Triggers in mutual fund investment</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Process of investing in mutual funds</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Systematic transactions (SIP, SWP, STP, DTP)</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Investment modes — direct and regular plans</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-11-1">11.1 What a mutual fund is</a></li>
+      <li><a href="#sec-11-2">11.2 Concepts &amp; terms</a></li>
+      <li><a href="#sec-11-3">11.3 Scheme structures</a></li>
+      <li><a href="#sec-11-4">11.4 Regulatory framework</a></li>
+      <li><a href="#sec-11-5">11.5 Mutual fund products</a></li>
+      <li><a href="#sec-11-6">11.6 Investment options</a></li>
+      <li><a href="#sec-11-7">11.7 Triggers</a></li>
+      <li><a href="#sec-11-8">11.8 The investment process</a></li>
+      <li><a href="#sec-11-9">11.9 Systematic transactions</a></li>
+      <li><a href="#sec-11-10">11.10 Direct vs regular plans</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 11.1 What a mutual fund is -->
+    <section class="lesson-section" id="sec-11-1">
+      <span class="section-kicker">11.1</span>
+      <h2>What a mutual fund is</h2>
+      <p>A <strong>mutual fund</strong> is an investment product that lets investors get exposure to an asset class of their choice — <strong>equity, debt, gold or real estate</strong> — through a pooled, professionally managed vehicle, without having to invest directly in the markets. Several regulated entities make it work. Follow the chain:</p>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="mf-structure" viewBox="0 0 480 260" width="100%" style="max-width:560px">
+            <!-- connecting lines -->
+            <path class="draw-line" id="ms-l1" d="M110 70 L 240 70" stroke="var(--gold-500)" stroke-width="2"/>
+            <path class="draw-line" id="ms-l2" d="M300 92 L 300 130" stroke="var(--gold-500)" stroke-width="2"/>
+            <path class="draw-line" id="ms-l3" d="M240 160 L 130 190" stroke="var(--teal-500)" stroke-width="2"/>
+            <path class="draw-line" id="ms-l4" d="M360 160 L 400 190" stroke="var(--teal-500)" stroke-width="2"/>
+            <path class="draw-line" id="ms-l5" d="M300 178 L 300 210" stroke="var(--teal-500)" stroke-width="2"/>
+            <!-- Sponsor -->
+            <g class="fade-el" id="ms-sponsor">
+              <rect x="30" y="48" width="90" height="44" rx="8" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/>
+              <text x="75" y="66" text-anchor="middle" style="font-size:10px;font-weight:800;fill:var(--text-primary)">Sponsor</text>
+              <text x="75" y="80" text-anchor="middle" style="font-size:7.5px;fill:var(--text-secondary)">(promoter)</text>
+            </g>
+            <!-- Mutual Fund Trust -->
+            <g class="fade-el" id="ms-trust">
+              <rect x="240" y="48" width="120" height="44" rx="8" fill="var(--navy-800)"/>
+              <text x="300" y="66" text-anchor="middle" style="font-size:10px;font-weight:800;fill:#fff">Mutual Fund (Trust)</text>
+              <text x="300" y="80" text-anchor="middle" style="font-size:7.5px;fill:#cbd5e1">Trustees protect investors</text>
+            </g>
+            <!-- AMC -->
+            <g class="fade-el" id="ms-amc">
+              <rect x="235" y="130" width="130" height="46" rx="8" fill="var(--bg-surface-2)" stroke="var(--gold-500)" stroke-width="1.5"/>
+              <text x="300" y="150" text-anchor="middle" style="font-size:10px;font-weight:800;fill:var(--gold-600)">AMC</text>
+              <text x="300" y="164" text-anchor="middle" style="font-size:7.5px;fill:var(--text-secondary)">launches &amp; manages schemes</text>
+            </g>
+            <!-- R&T -->
+            <g class="fade-el" id="ms-rt">
+              <rect x="45" y="190" width="100" height="42" rx="8" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/>
+              <text x="95" y="208" text-anchor="middle" style="font-size:9px;font-weight:800;fill:var(--text-primary)">R&amp;T agent</text>
+              <text x="95" y="221" text-anchor="middle" style="font-size:7px;fill:var(--text-secondary)">investor records</text>
+            </g>
+            <!-- Custodian / banks -->
+            <g class="fade-el" id="ms-cust">
+              <rect x="355" y="190" width="100" height="42" rx="8" fill="var(--bg-surface-2)" stroke="var(--border-strong)"/>
+              <text x="405" y="208" text-anchor="middle" style="font-size:9px;font-weight:800;fill:var(--text-primary)">Custodian</text>
+              <text x="405" y="221" text-anchor="middle" style="font-size:7px;fill:var(--text-secondary)">safe-keeps assets</text>
+            </g>
+            <!-- Investors / portfolio -->
+            <g class="fade-el" id="ms-inv">
+              <rect x="235" y="210" width="130" height="42" rx="8" fill="color-mix(in srgb,var(--teal-500) 16%,var(--bg-app))" stroke="var(--teal-500)"/>
+              <text x="300" y="228" text-anchor="middle" style="font-size:9.5px;font-weight:800;fill:var(--teal-text)">Investors → Portfolio</text>
+              <text x="300" y="241" text-anchor="middle" style="font-size:7px;fill:var(--text-secondary)">own it in proportion to units</text>
+            </g>
+          </svg>
+        </div>
+        <div class="caption">The <strong>sponsor</strong> promotes the fund; <strong>trustees</strong> safeguard investors; the <strong>AMC</strong> launches and manages schemes (with SEBI and trustee approval); the <strong>R&amp;T agent</strong> keeps investor records and the <strong>custodian</strong> safe-keeps assets. The pooled portfolio is owned by the investors, in proportion to their units.</div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>NFO, SID and KIM</strong>
+          <p>A scheme first invites subscription through a <strong>New Fund Offer (NFO)</strong> via an offer document setting out the investment objective, asset pattern, strategy, costs and fees. The full <strong>Scheme Information Document (SID)</strong> and the abridged <strong>Key Information Memorandum (KIM)</strong> — attached to the application form — are on the AMC's website.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Who <em>owns</em> the portfolio of securities built from investors' pooled money?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The investors, in proportion to their contribution</button>
+          <button class="mini-opt" data-correct="false">The AMC that manages it</button>
+          <button class="mini-opt" data-correct="false">The sponsor who promoted the fund</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the portfolio is owned only by the investors who contributed the funds, in proportion to their contribution. No other entity has a claim to it." data-wrong-msg="Not quite — the portfolio belongs to the investors, in proportion to their contribution; the AMC only manages it."></div>
+      </div>
+    </section>
+
+    <!-- 11.2 Concepts & terms -->
+    <section class="lesson-section" id="sec-11-2">
+      <span class="section-kicker">11.2</span>
+      <h2>Concepts &amp; terms</h2>
+      <p>Five ideas run through every mutual fund calculation — tap each:</p>
+      <div class="flip-grid" id="concepts-grid"></div>
+
+      <div class="calc" id="calc-nav">
+        <div class="calc-title"><span class="pill">Live</span> NAV &amp; unit-value calculator</div>
+        <div class="calc-sub">The workbook's NUM Equity Fund: it collects ₹1,00,000 and allots 10,000 units, so NAV = ₹1,00,000 ÷ 10,000 = <strong>₹10</strong>. Move the sliders to see how <strong>NAV = Net assets ÷ Units outstanding</strong>, and what a holding of a given number of units is worth. Note a redemption or purchase <em>at NAV</em> never changes the NAV.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Net assets of the scheme <span class="val" id="nav-na-val">₹1,00,000</span></label>
+              <input type="range" id="nav-na-in" min="80000" max="150000" step="1000" value="100000">
+            </div>
+            <div class="ctrl">
+              <label>Units outstanding <span class="val" id="nav-u-val">10,000</span></label>
+              <input type="range" id="nav-u-in" min="8000" max="12000" step="100" value="10000">
+            </div>
+            <div class="ctrl">
+              <label>Your holding (units) <span class="val" id="nav-h-val">1,000</span></label>
+              <input type="range" id="nav-h-in" min="100" max="3000" step="100" value="1000">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Net Asset Value (per unit)</div>
+            <div class="out-val" id="nav-out">₹10.00</div>
+            <div class="out-sub">Your holding is worth <b id="nav-hold">₹10,000</b></div>
+            <div class="out-note" id="nav-note">NAV = ₹1,00,000 ÷ 10,000 = ₹10.00. A holding of 1,000 units × ₹10.00 = ₹10,000.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Why a redemption at NAV doesn't move the NAV</strong>
+          <p>When an investor redeems 1,000 units of NUM Fund at ₹12, net assets fall by ₹12,000 (to ₹1,08,000) <em>and</em> units fall by 1,000 (to 9,000) — so NAV = 1,08,000 ÷ 9,000 = ₹12, unchanged. The decrease in net assets is exactly offset by the decrease in units. The NAV only changes if units are allotted at a price <em>different</em> from NAV — which is why every transaction must be at NAV.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — NUM Fund's portfolio falls so net assets drop to ₹1,00,000 while 9,000 units are outstanding. The NAV is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">₹11.11 — a fall in net assets lowers the NAV</button>
+          <button class="mini-opt" data-correct="false">₹12 — unchanged</button>
+          <button class="mini-opt" data-correct="false">₹10 — back to the launch NAV</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — NAV = 1,00,000 ÷ 9,000 = ₹11.11. A fall in the value of the portfolio (net assets) leads to a fall in NAV." data-wrong-msg="Not quite — NAV = 1,00,000 ÷ 9,000 = ₹11.11. A fall in net assets lowers the NAV."></div>
+      </div>
+    </section>
+
+    <!-- 11.3 Scheme structures -->
+    <section class="lesson-section" id="sec-11-3">
+      <span class="section-kicker">11.3</span>
+      <h2>Scheme structures</h2>
+      <p>A scheme can be structured four ways. The key differences are <strong>whether units are continuously available</strong>, <strong>whether the unit capital is fixed</strong>, and <strong>where you exit</strong>. Tap one:</p>
+      <div class="matcher" id="struct-matcher">
+        <h4>Four structures — tap one</h4>
+        <div class="hint">Notice which run in perpetuity, which are listed, and where the exit route is.</div>
+        <div class="match-markets" id="struct-markets">
+          <button class="match-mkt" data-reg="OPEN">Open-ended</button>
+          <button class="match-mkt" data-reg="CLOSE">Closed-end</button>
+          <button class="match-mkt" data-reg="INT">Interval</button>
+          <button class="match-mkt" data-reg="ETF">ETF</button>
+        </div>
+        <div class="match-regs" id="struct-cards">
+          <div class="reg-card" data-reg="OPEN"><div class="rn">Open-ended</div><div class="rd">Buy/redeem continuously at NAV · perpetual · unit capital changes with every transaction</div></div>
+          <div class="reg-card" data-reg="CLOSE"><div class="rn">Closed-end</div><div class="rd">Units only in NFO · fixed tenor · exit by selling on the exchange (mandatorily listed) · unit capital fixed</div></div>
+          <div class="reg-card" data-reg="INT"><div class="rn">Interval</div><div class="rd">Closed-end that opens in windows (min 2 days, min 15-day gap) · listed on an exchange</div></div>
+          <div class="reg-card" data-reg="ETF"><div class="rn">ETF</div><div class="rd">Listed &amp; traded all day at multiple prices · investors trade with each other · tracks an index/commodity</div></div>
+        </div>
+        <div class="match-feedback" id="struct-feedback"></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An investor in a <em>closed-end</em> scheme who wants to exit before maturity must:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Sell the units to other investors on the stock exchange where the scheme is listed</button>
+          <button class="mini-opt" data-correct="false">Redeem directly with the AMC at NAV on any day</button>
+          <button class="mini-opt" data-correct="false">Wait until maturity with no interim exit at all</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — closed-end schemes are closed for transactions with the AMC after the NFO, so interim exit is by selling to other investors on the exchange, where the scheme is mandatorily listed." data-wrong-msg="Not quite — closed-end schemes don't allow AMC redemption in the interim; you exit by selling on the exchange where the scheme is listed."></div>
+      </div>
+    </section>
+
+    <!-- 11.4 Regulatory framework -->
+    <section class="lesson-section" id="sec-11-4">
+      <span class="section-kicker">11.4</span>
+      <h2>Regulatory framework</h2>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🏛️ SEBI — the primary regulator</h4>
+          <ul>
+            <li><strong>SEBI (Mutual Funds) Regulations, 1996</strong> govern setup, structure, schemes, portfolio, investor protection &amp; services</li>
+            <li>Prescribes investor <strong>service standards</strong> and turnaround times</li>
+            <li><strong>MF Lite</strong> regulations (31 Dec 2024) apply to funds running <strong>only passive</strong> schemes</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🤝 RBI &amp; AMFI</h4>
+          <ul>
+            <li><strong>RBI</strong> — foreign exchange transactions, international investments, foreign nationals &amp; the banking system's role</li>
+            <li><strong>AMFI</strong> — the industry body: recommends best practices &amp; represents the industry to the regulator</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — The industry body that recommends best practices and represents mutual funds to the regulator is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">AMFI</button>
+          <button class="mini-opt" data-correct="false">SEBI</button>
+          <button class="mini-opt" data-correct="false">RBI</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — AMFI (Association of Mutual Funds in India) is the industry body. SEBI is the statutory regulator; RBI covers FX and banking aspects." data-wrong-msg="Not quite — AMFI is the industry association. SEBI is the statutory regulator."></div>
+      </div>
+    </section>
+
+    <!-- 11.5 Products -->
+    <section class="lesson-section" id="sec-11-5">
+      <span class="section-kicker">11.5</span>
+      <h2>Mutual fund products</h2>
+      <p>SEBI categorises open-end products as <strong>equity, debt, hybrid, and other</strong> schemes, with generally <strong>one scheme per category</strong> per fund (exceptions: index funds/ETFs on different indices, FoFs with different underlyings, and sectoral/thematic funds).</p>
+
+      <h3 id="equity-caps" style="margin-top:18px">Equity funds — by market capitalisation</h3>
+      <p>AMFI ranks stocks by full market cap; SEBI's minimum allocations define each category. Tap a category:</p>
+      <div class="matcher" id="cap-matcher">
+        <h4>Market-cap categories — tap one</h4>
+        <div class="hint">The AMFI rank band and the minimum equity allocation are what SEBI tests.</div>
+        <div class="match-markets" id="cap-markets">
+          <button class="match-mkt" data-reg="LARGE">Large-cap</button>
+          <button class="match-mkt" data-reg="MID">Mid-cap</button>
+          <button class="match-mkt" data-reg="SMALL">Small-cap</button>
+          <button class="match-mkt" data-reg="MULTI">Multi-cap</button>
+          <button class="match-mkt" data-reg="FLEXI">Flexicap</button>
+        </div>
+        <div class="match-regs" id="cap-cards">
+          <div class="reg-card" data-reg="LARGE"><div class="rn">Large-cap</div><div class="rd">Rank 1–100 · min 80% in large-caps · blue-chips, stable</div></div>
+          <div class="reg-card" data-reg="MID"><div class="rn">Mid-cap</div><div class="rd">Rank 101–250 · min 65% in mid-caps · faster growth, higher risk</div></div>
+          <div class="reg-card" data-reg="SMALL"><div class="rn">Small-cap</div><div class="rd">Rank 251 onwards · min 65% in small-caps · highest risk &amp; potential gains</div></div>
+          <div class="reg-card" data-reg="MULTI"><div class="rn">Multi-cap</div><div class="rd">Min 75% equity · ≥25% each in large, mid &amp; small caps</div></div>
+          <div class="reg-card" data-reg="FLEXI"><div class="rn">Flexicap</div><div class="rd">No cap-wise limits (free to allocate) · min 65% in equities</div></div>
+        </div>
+        <div class="match-feedback" id="cap-feedback"></div>
+      </div>
+
+      <p style="font-size:0.85rem;color:var(--text-secondary)">Equity funds are also classified by <strong>strategy/style</strong>: passive vs active, diversified, <strong>Value</strong> (min 65% equity, undervalued stocks) vs <strong>Contra</strong> (an AMC may offer only one of the two), <strong>Dividend yield</strong>, <strong>Focused</strong> (max 30 stocks), sector/thematic (min 80% in the sector/theme), and <strong>ELSS</strong> (Section 80C benefit, min 80% equity, 3-year lock-in).</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A fund must hold at least 80% of assets in stocks of companies ranked 1–100 by market cap. It is a:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Large-cap fund</button>
+          <button class="mini-opt" data-correct="false">Mid-cap fund</button>
+          <button class="mini-opt" data-correct="false">Flexicap fund</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — large-cap companies are ranked 1–100 by full market cap, and a large-cap fund must invest at least 80% of assets in them." data-wrong-msg="Not quite — rank 1–100 with a minimum 80% allocation defines a large-cap fund."></div>
+      </div>
+
+      <h3 id="debt-duration" style="margin-top:24px">Debt funds — by Macaulay duration</h3>
+      <p>Debt funds are classified largely by the <strong>Macaulay duration</strong> of the portfolio (a measure of interest-rate sensitivity). Tap a category to see its band:</p>
+      <div class="matcher" id="dur-matcher">
+        <h4>Duration bands — tap one</h4>
+        <div class="hint">Longer duration → greater price sensitivity to interest-rate changes.</div>
+        <div class="match-markets" id="dur-markets">
+          <button class="match-mkt" data-reg="OVN">Overnight</button>
+          <button class="match-mkt" data-reg="LIQ">Liquid</button>
+          <button class="match-mkt" data-reg="USD">Ultra Short</button>
+          <button class="match-mkt" data-reg="LOW">Low Duration</button>
+          <button class="match-mkt" data-reg="SHORT">Short Duration</button>
+          <button class="match-mkt" data-reg="MED">Medium</button>
+          <button class="match-mkt" data-reg="MTL">Medium–Long</button>
+          <button class="match-mkt" data-reg="LONG">Long</button>
+        </div>
+        <div class="match-regs" id="dur-cards">
+          <div class="reg-card" data-reg="OVN"><div class="rn">Overnight</div><div class="rd">Maturity of 1 day</div></div>
+          <div class="reg-card" data-reg="LIQ"><div class="rn">Liquid</div><div class="rd">Maturity &lt; 91 days</div></div>
+          <div class="reg-card" data-reg="USD"><div class="rn">Ultra Short</div><div class="rd">Duration 3–6 months</div></div>
+          <div class="reg-card" data-reg="LOW"><div class="rn">Low Duration</div><div class="rd">Duration 6–12 months</div></div>
+          <div class="reg-card" data-reg="SHORT"><div class="rn">Short Duration</div><div class="rd">Duration 1–3 years</div></div>
+          <div class="reg-card" data-reg="MED"><div class="rn">Medium</div><div class="rd">Duration 3–4 years</div></div>
+          <div class="reg-card" data-reg="MTL"><div class="rn">Medium–Long</div><div class="rd">Duration 4–7 years</div></div>
+          <div class="reg-card" data-reg="LONG"><div class="rn">Long</div><div class="rd">Duration &gt; 7 years</div></div>
+        </div>
+        <div class="match-feedback" id="dur-feedback"></div>
+      </div>
+
+      <p style="font-size:0.85rem;color:var(--text-secondary)">Other debt categories go by <strong>credit/issuer</strong>: <strong>Corporate bond</strong> (≥80% in AA+ &amp; above), <strong>Credit Risk</strong> (≥65% in AA &amp; below), <strong>Banking &amp; PSU</strong> (≥80%), <strong>Gilt</strong> (≥80% G-secs), <strong>Floating rate</strong> (≥65% floaters), <strong>Dynamic bond</strong> (across durations), plus <strong>FMPs</strong> (closed-end, maturity-matched) and open-ended <strong>Target Maturity Funds</strong>.</p>
+
+      <h3 id="hybrid-other" style="margin-top:24px">Hybrid &amp; other funds</h3>
+      <div class="term-grid" id="hybrid-grid"></div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Capital Protection Fund — the ₹90 → ₹100 idea</strong>
+          <p>A closed-end hybrid invests, say, <strong>₹90 in debt for 3 years so it grows to ₹100</strong> at maturity (net of expenses), protecting the capital, while the remaining ₹10 goes into <strong>equity derivatives</strong> for upside. The debt leg guarantees the floor; the derivative leg supplies the potential gain.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An <em>Aggressive Hybrid</em> fund invests:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">65%–80% in equity and 20%–35% in debt</button>
+          <button class="mini-opt" data-correct="false">75%–90% in debt and 10%–25% in equity</button>
+          <button class="mini-opt" data-correct="false">10% minimum in each of three asset classes</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — an Aggressive Hybrid fund is predominantly equity: 65%–80% equity and 20%–35% debt. (Conservative Hybrid is the mirror: 75–90% debt, 10–25% equity.)" data-wrong-msg="Not quite — Aggressive Hybrid = 65–80% equity, 20–35% debt. The 75–90% debt figure is a Conservative Hybrid."></div>
+      </div>
+    </section>
+
+    <!-- 11.6 Investment options -->
+    <section class="lesson-section" id="sec-11-6">
+      <span class="section-kicker">11.6</span>
+      <h2>Investment options</h2>
+      <p>How the investor takes returns — and how they are taxed — depends on the <strong>option</strong> chosen for the scheme:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>📈 Growth option</h4>
+          <ul>
+            <li>Returns are <strong>retained</strong> in the scheme</li>
+            <li>They appreciate the <strong>NAV</strong> (and the value of the holding)</li>
+            <li>The investor realises the gain by <strong>redeeming</strong> units, any time</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>💸 Income Distribution cum Capital Withdrawal (IDCW)</h4>
+          <ul>
+            <li>Returns are <strong>paid out</strong> as periodic dividends (formerly the "dividend" option)</li>
+            <li>The <strong>NAV falls</strong> to the extent of the pay-out</li>
+            <li>The pay-out can include part of the investor's <strong>own capital</strong> — check the breakup</li>
+            <li>An IDCW <strong>re-investment</strong> variant buys more units instead of paying cash</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Under the IDCW option, when a dividend is paid out, the NAV:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Falls to the extent of the dividend paid from net assets</button>
+          <button class="mini-opt" data-correct="false">Rises by the dividend amount</button>
+          <button class="mini-opt" data-correct="false">Is unaffected</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — IDCW pays returns out of net assets, so the NAV falls to the extent of the pay-out. The amount can even include part of the investor's own capital." data-wrong-msg="Not quite — a pay-out reduces net assets, so the NAV falls to the extent of the dividend paid."></div>
+      </div>
+    </section>
+
+    <!-- 11.7 Triggers -->
+    <section class="lesson-section" id="sec-11-7">
+      <span class="section-kicker">11.7</span>
+      <h2>Triggers</h2>
+      <p>A <strong>trigger</strong> automates a sell or transfer when a pre-set condition is reached, so the investor need not track the investment continuously. Conditions can be:</p>
+      <div class="pill-list">
+        <span>A specified return over cost</span>
+        <span>A specific value</span>
+        <span>A NAV level</span>
+        <span>A specific date</span>
+        <span>An index level</span>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-secondary)">When the condition is hit, the fund acts automatically — redeeming or transferring units — letting the investor achieve their aim without constant monitoring.</p>
+    </section>
+
+    <!-- 11.8 The investment process -->
+    <section class="lesson-section" id="sec-11-8">
+      <span class="section-kicker">11.8</span>
+      <h2>The investment process</h2>
+      <p>A folio can have up to <strong>three holders</strong>. The R&amp;T agent creates the <strong>folio</strong> from the application form; quoting the folio number for later transactions avoids re-supplying personal data. The four transaction types:</p>
+      <div class="term-grid" id="process-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Applicable NAV, IAF and wound-up schemes</strong>
+          <p>The <strong>applicable NAV</strong> for a purchase depends on the type of scheme, the day and time of the application, and the availability of <strong>clear funds</strong>. The <strong>Instant Access Facility (IAF)</strong> credits liquid-fund redemptions the same day for resident individuals, capped at <strong>₹50,000 or 90%</strong> of the latest value, whichever is lower, per day per scheme. Since a May 2020 SEBI circular, schemes being <strong>wound up must be listed</strong> to give investors an interim exit.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A <em>switch</em> from one scheme to another of the same fund:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Involves a redemption, so exit loads and taxes apply</button>
+          <button class="mini-opt" data-correct="false">Is always free of exit load and tax</button>
+          <button class="mini-opt" data-correct="false">Can only be done between two different fund houses</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a switch redeems from the source and invests in the target scheme/option of the same fund; because a redemption occurs, exit loads and capital-gains tax apply." data-wrong-msg="Not quite — a switch involves a redemption from the source scheme, so exit loads and taxes apply."></div>
+      </div>
+    </section>
+
+    <!-- 11.9 Systematic transactions -->
+    <section class="lesson-section" id="sec-11-9">
+      <span class="section-kicker">11.9</span>
+      <h2>Systematic transactions</h2>
+      <p>Investors can <strong>automate</strong> investing, withdrawing and transferring. The headline benefit of an <strong>SIP</strong> is <strong>rupee cost averaging</strong> — a fixed sum buys more units when the price is low and fewer when high, so the average cost falls below the average price.</p>
+
+      <div class="calc" id="calc-sip">
+        <div class="calc-title"><span class="pill">Live</span> SIP rupee-cost-averaging simulator</div>
+        <div class="calc-sub">Invest the same amount every month across a rising-and-falling NAV path. Watch how the <strong>average cost per unit</strong> ends up <em>below</em> the simple average of the NAVs — the essence of rupee cost averaging. Bars show units bought each month (taller when the NAV is lower).</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Monthly investment <span class="val" id="sip-amt-val">₹10,000</span></label>
+              <input type="range" id="sip-amt-in" min="1000" max="25000" step="500" value="10000">
+            </div>
+            <div class="ctrl">
+              <label>NAV volatility <span class="val" id="sip-vol-val">Medium</span></label>
+              <input type="range" id="sip-vol-in" min="0" max="3" step="1" value="2">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Average cost per unit (6 months)</div>
+            <div class="out-val" id="sip-out">₹9.72</div>
+            <div><span class="verdict good" id="sip-verdict">Below the average NAV</span></div>
+            <div class="dual-out" style="margin-top:10px">
+              <div class="box"><div class="l">Total units</div><div class="v" id="sip-units">6,173</div></div>
+              <div class="box"><div class="l">Simple avg NAV</div><div class="v" id="sip-avgnav">₹10.00</div></div>
+            </div>
+            <div class="out-note" id="sip-note">₹60,000 invested over 6 months buys more units when NAV is low → average cost &lt; average NAV.</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:center;margin-top:8px">
+          <svg id="sip-chart" viewBox="0 0 460 200" width="100%" style="max-width:560px">
+            <line x1="40" y1="165" x2="450" y2="165" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <text x="245" y="192" text-anchor="middle" style="font-size:9.5px;font-weight:700;fill:var(--text-secondary)">Month (bar height = units bought; ◆ = NAV that month)</text>
+            <g id="sip-bars"></g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="term-grid" id="systematic-grid"></div>
+
+      <div class="calc" id="calc-va">
+        <div class="calc-title"><span class="pill">Live</span> Value averaging calculator</div>
+        <div class="calc-sub">The workbook's example: ₹10,000 invested in month 1, expected to grow ~1%/month to <strong>₹10,100</strong>. If the actual value is only ₹9,900, value averaging tops up by the ₹200 shortfall → it invests <strong>₹10,200</strong> in month 2. If instead the value is ₹10,400, it invests ₹300 <em>less</em> → <strong>₹9,700</strong>. It buys more when prices are down, less when up.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Base monthly amount <span class="val" id="va-base-val">₹10,000</span></label>
+              <input type="range" id="va-base-in" min="5000" max="20000" step="500" value="10000">
+            </div>
+            <div class="ctrl">
+              <label>Assumed growth rate / month <span class="val" id="va-g-val">1%</span></label>
+              <input type="range" id="va-g-in" min="0" max="3" step="0.5" value="1">
+            </div>
+            <div class="ctrl">
+              <label>Actual value of month-1 investment now <span class="val" id="va-av-val">₹9,900</span></label>
+              <input type="range" id="va-av-in" min="8000" max="12000" step="100" value="9900">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Month-2 investment</div>
+            <div class="out-val" id="va-out">₹10,200</div>
+            <div class="out-sub">Target value = <b id="va-target">₹10,100</b>; shortfall/excess = <b id="va-diff">₹200</b></div>
+            <div class="out-note" id="va-note">Invest base ₹10,000 + shortfall ₹200 = ₹10,200. Value averaging invests more when the market is down.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Sunita wants to move a built-up equity corpus <em>gradually</em> into a short-term debt fund of the same AMC as her goal nears. She should use a:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Systematic Transfer Plan (STP)</button>
+          <button class="mini-opt" data-correct="false">Systematic Investment Plan (SIP)</button>
+          <button class="mini-opt" data-correct="false">Systematic Withdrawal Plan (SWP)</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — an STP periodically redeems from a source scheme and invests in a target scheme of the same fund, avoiding the risk of the NAV being low on a single redemption date." data-wrong-msg="Not quite — moving gradually between two schemes of the same fund is a Systematic Transfer Plan (STP)."></div>
+      </div>
+    </section>
+
+    <!-- 11.10 Direct vs regular -->
+    <section class="lesson-section" id="sec-11-10">
+      <span class="section-kicker">11.10</span>
+      <h2>Direct vs regular plans</h2>
+      <p>Every scheme must offer a <strong>direct plan</strong>. Both plans hold the <strong>same portfolio</strong> — the difference is the expense ratio and whether a distributor is involved.</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🟢 Direct plan</h4>
+          <ul>
+            <li>Invest directly with the fund house / R&amp;T agent — <strong>no distributor</strong></li>
+            <li><strong>Lower expense ratio</strong> → higher NAV &amp; net return</li>
+            <li>A <strong>"do-it-yourself"</strong> route — investor transacts &amp; monitors alone</li>
+            <li>Suits knowledgeable investors comfortable transacting online</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🔵 Regular plan</h4>
+          <ul>
+            <li>Bought <strong>through a distributor</strong> who assists and services</li>
+            <li>Pays distribution commission → <strong>higher expense ratio</strong></li>
+            <li>Suits investors who need help with the process &amp; changes</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-secondary)">The <strong>investment adviser</strong> must ensure the investor understands the difference — cost is only one angle. The adviser assesses the investor's knowledge, time and ability to self-manage before recommending a plan, and can demonstrate how to transact directly.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Compared with a regular plan, a direct plan has a lower expense ratio because:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">There is no distributor, so no distribution commission is charged — though the portfolio is identical</button>
+          <button class="mini-opt" data-correct="false">It holds a cheaper, lower-quality portfolio</button>
+          <button class="mini-opt" data-correct="false">It is available only to institutions</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — both plans share the same portfolio; the direct plan simply omits distributor commission, giving a lower expense ratio and a larger net return." data-wrong-msg="Not quite — the portfolios are identical. The direct plan is cheaper because it carries no distributor commission."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The definitions, numbers and thresholds most likely to be tested — tap to reveal.</p>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch11";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 4", href: "../../index.html" },
+    { label: "Chapter 11", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:16px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // Core concepts
+  renderFlip("concepts-grid", [
+    { icon: "🧩", label: "Units", back: "Each investor's holding is expressed in units = amount invested ÷ price per unit. Each unit is one share of the fund; units can be allotted in decimals." },
+    { icon: "💰", label: "Net assets", back: "Current value of the portfolio + current assets (cash, receivables) − fees &amp; expenses. Belongs only to the unit holders. Rises on inflows/gains/income, falls on redemptions/losses/expenses." },
+    { icon: "📊", label: "NAV", back: "Net Asset Value = Net assets ÷ Units outstanding. All transactions are at the current NAV. Calculated every business day (liquid schemes: daily, incl. holidays)." },
+    { icon: "⏱️", label: "Cut-off timings", back: "A uniform standard so no investor gets preferential NAV treatment. The applicable NAV depends on when the request is received, provided clear funds hit the account by cut-off." },
+    { icon: "🎯", label: "Mark to market", back: "Valuing the portfolio daily at current market prices — the value realisable if liquidated. If a security is untraded/stale, SEBI's valuation method applies." }
+  ]);
+
+  // Hybrid & other funds term cards
+  renderCards("hybrid-grid", [
+    { icon: "🛡️", label: "Conservative Hybrid", body: "75%–90% debt, 10%–25% equity. Regular income focus; taxed as debt. Suits cautious investors wanting limited equity exposure." },
+    { icon: "⚖️", label: "Balanced / Aggressive Hybrid", body: "Balanced = 40–60% each. Aggressive = 65–80% equity, 20–35% debt. A fund may offer either Balanced or Aggressive, not both." },
+    { icon: "🔀", label: "Dynamic Asset Allocation", body: "Balanced Advantage: dynamically shifts equity vs debt; often uses short/contra equity positions but keeps >65% long equity for tax." },
+    { icon: "🧺", label: "Multi Asset Allocation", body: "≥3 asset classes, min 10% in each. Foreign securities are not a separate class. Manager tilts to the class expected to do well." },
+    { icon: "🥇", label: "Gold / Silver ETF", body: "Backed by 99.5% gold / 99.9% silver. Each unit = a weight of metal; may hold up to 20% in banks' gold deposit schemes. Custodian safe-keeps." },
+    { icon: "🧱", label: "FoF / Real Estate / Infra Debt", body: "FoF: ≥95% in underlying funds (extra cost). Real Estate MF: ≥75% net assets in physical + such securities, closed-end, listed. Infra Debt: min ₹1 cr, unit face ₹10 lakh, tenor ≥5 yrs." }
+  ]);
+
+  // Process term cards
+  renderCards("process-grid", [
+    { icon: "🆕", label: "Fresh / additional purchase", body: "First purchase in NFO or continuous offer opens the folio (name, PAN, bank, nominee). Additional purchases just quote the folio number." },
+    { icon: "↩️", label: "Redemption", body: "Realise units any time (full or part), by units or by rupee amount. NAV is adjusted for exit load. NRI proceeds route to NRO/NRE per source of funds." },
+    { icon: "🔁", label: "Switch", body: "Single transfer between schemes/options of the same fund. Inter-scheme or intra-scheme. Involves a redemption → exit loads &amp; taxes apply." },
+    { icon: "🌱", label: "Dividend reinvestment", body: "Declared dividend buys more units of the same scheme at the post-dividend NAV — automatic compounding, in two steps." }
+  ]);
+
+  // Systematic transactions term cards
+  renderCards("systematic-grid", [
+    { icon: "📆", label: "SIP", body: "Fixed sum at regular intervals → rupee cost averaging (more units when cheap). Can stop on written notice or cheque dishonour / insufficient funds." },
+    { icon: "🏧", label: "SWP", body: "Recurring redemptions at each date's NAV — a defined pay-out. Benefits from NAV volatility (fewer units redeemed when NAV is high). Exit load &amp; tax apply." },
+    { icon: "➡️", label: "STP", body: "Periodic redemption from a source scheme into a target scheme of the same fund — e.g. equity → short-term debt as a goal nears." },
+    { icon: "💵", label: "DTP", body: "Dividend Transfer Plan: the declared dividend is transferred to a different target scheme while the original investment stays intact." }
+  ]);
+
+  // Struct / cap / duration matchers
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("struct-markets", "struct-cards", "struct-feedback", {
+    OPEN: "Open-ended — continuous buy/redeem at NAV, runs in perpetuity, unit capital changes with every transaction.",
+    CLOSE: "Closed-end — units only in the NFO, fixed tenor; interim exit by selling on the exchange (mandatorily listed); unit capital is fixed.",
+    INT: "Interval — a closed-end variant that opens in specified windows (min 2 days, min 15-day gap), listed on an exchange.",
+    ETF: "ETF — listed and traded all day at multiple prices; investors trade with each other; tracks an index or commodity like gold."
+  });
+  wireMatcher("cap-markets", "cap-cards", "cap-feedback", {
+    LARGE: "Large-cap — companies ranked 1–100 by full market cap; at least 80% of assets in large-caps. Blue-chips, stable.",
+    MID: "Mid-cap — companies ranked 101–250; at least 65% in mid-caps. Faster growth potential but higher risk.",
+    SMALL: "Small-cap — companies ranked 251 onwards; at least 65% in small-caps. Highest risk and potential gains.",
+    MULTI: "Multi-cap — at least 75% in equity, with a minimum 25% each in large, mid and small caps.",
+    FLEXI: "Flexicap — no minimum limits across market caps (free to allocate); at least 65% of the corpus in equities."
+  });
+  wireMatcher("dur-markets", "dur-cards", "dur-feedback", {
+    OVN: "Overnight — securities maturing in 1 day.",
+    LIQ: "Liquid — securities with less than 91 days to maturity.",
+    USD: "Ultra Short Duration — portfolio Macaulay duration of 3 to 6 months.",
+    LOW: "Low Duration — portfolio Macaulay duration of 6 to 12 months.",
+    SHORT: "Short Duration — portfolio Macaulay duration of 1 to 3 years.",
+    MED: "Medium Duration — portfolio Macaulay duration of 3 to 4 years.",
+    MTL: "Medium to Long Duration — portfolio Macaulay duration of 4 to 7 years.",
+    LONG: "Long Duration — portfolio Macaulay duration greater than 7 years."
+  });
+
+  // Revision deck (mono fronts)
+  renderFlip("revision-cards", [
+    { icon: "NAV=NA/U", label: "NAV formula", back: "NAV = Net assets ÷ Units outstanding. NUM Fund: 1,00,000 ÷ 10,000 = ₹10. Transactions at NAV don't move the NAV; allotment away from NAV harms all investors." },
+    { icon: "Sponsor→AMC", label: "Structure", back: "Sponsor (promoter) sets up the fund; Trustees protect investors; AMC launches/manages schemes (SEBI + trustee approval); R&amp;T agent keeps records; custodian safe-keeps assets." },
+    { icon: "Open/Close", label: "Structures", back: "Open-ended: perpetual, buy/redeem at NAV. Closed-end: fixed tenor, listed, exit on exchange. Interval: opens in windows (min 2 days, 15-day gap). ETF: traded all day, multiple prices." },
+    { icon: "1-100/101-250", label: "Market caps", back: "Large-cap rank 1–100 (min 80%); Mid-cap 101–250 (min 65%); Small-cap 251+ (min 65%); Multi-cap min 75% equity, ≥25% each; Flexicap min 65% equity, no cap limits." },
+    { icon: "≤91d…>7y", label: "Debt duration bands", back: "Overnight 1 day; Liquid <91 days; Ultra Short 3–6m; Low 6–12m; Short 1–3y; Medium 3–4y; Medium-Long 4–7y; Long >7y." },
+    { icon: "65–80/20–35", label: "Hybrid allocations", back: "Conservative 75–90% debt; Balanced 40–60% each; Aggressive 65–80% equity, 20–35% debt; Multi Asset ≥3 classes, min 10% each; Equity Savings min 65% equity, min 10% debt." },
+    { icon: "80C·3yr", label: "ELSS", back: "Open-end equity fund; Section 80C deduction up to ₹1,50,000/yr (old regime); min 80% in equity; 3-year lock-in (no redeem/transfer/pledge)." },
+    { icon: "₹50k/90%", label: "IAF", back: "Instant Access Facility: same-day liquid-fund redemption for resident individuals, capped at ₹50,000 or 90% of latest value, whichever is lower, per day per scheme." },
+    { icon: "₹10L SIF", label: "New asset class", back: "Specialized Investment Fund (SIF): min ₹10 lakh, between MF (low ticket) and PMS (₹50 lakh). Life Cycle Funds: 5–30 yrs, multiples of 5, up to 6 active." },
+    { icon: "Direct<Regular", label: "Plans &amp; SIP", back: "Same portfolio; direct plan has no distributor → lower expense ratio → higher net return. SIP → rupee cost averaging: average cost falls below the average price." }
+  ], "mono");
+
+  // ---------- Calculators ----------
+  var fmt = function (n) { return n.toLocaleString("en-IN"); };
+  var fmt2 = function (n) { return n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+
+  // NAV & unit value
+  (function () {
+    var naIn = document.getElementById("nav-na-in"), uIn = document.getElementById("nav-u-in"), hIn = document.getElementById("nav-h-in");
+    var naVal = document.getElementById("nav-na-val"), uVal = document.getElementById("nav-u-val"), hVal = document.getElementById("nav-h-val");
+    var out = document.getElementById("nav-out"), hold = document.getElementById("nav-hold"), note = document.getElementById("nav-note");
+    function render() {
+      var na = +naIn.value, u = +uIn.value, h = +hIn.value;
+      naVal.textContent = "₹" + fmt(na); uVal.textContent = fmt(u); hVal.textContent = fmt(h);
+      var nav = na / u;
+      out.textContent = "₹" + fmt2(nav);
+      hold.textContent = "₹" + fmt(Math.round(h * nav));
+      note.textContent = "NAV = ₹" + fmt(na) + " ÷ " + fmt(u) + " = ₹" + fmt2(nav) + ". A holding of " + fmt(h) + " units × ₹" + fmt2(nav) + " = ₹" + fmt(Math.round(h * nav)) + ".";
+    }
+    [naIn, uIn, hIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // SIP rupee cost averaging
+  (function () {
+    var amtIn = document.getElementById("sip-amt-in"), volIn = document.getElementById("sip-vol-in");
+    var amtVal = document.getElementById("sip-amt-val"), volVal = document.getElementById("sip-vol-val");
+    var out = document.getElementById("sip-out"), verdict = document.getElementById("sip-verdict"),
+        unitsEl = document.getElementById("sip-units"), avgnavEl = document.getElementById("sip-avgnav"), note = document.getElementById("sip-note");
+    var barsG = document.getElementById("sip-bars");
+    var volLabels = ["None", "Low", "Medium", "High"];
+    // base NAV path (dips then recovers) — scaled by volatility
+    var basePath = [0, -2, -3.5, -1.5, 1, 2.5]; // deviations around ₹10
+    var drawn = false;
+    function navPath(volLevel) {
+      var scale = [0, 0.5, 1, 1.6][volLevel];
+      return basePath.map(function (d) { return +(10 + d * scale).toFixed(2); });
+    }
+    function render(animate) {
+      var amt = +amtIn.value, vol = +volIn.value;
+      amtVal.textContent = "₹" + fmt(amt); volVal.textContent = volLabels[vol];
+      var navs = navPath(vol);
+      var totalUnits = 0, totalNav = 0;
+      var perMonthUnits = navs.map(function (nav) { var u = amt / nav; totalUnits += u; totalNav += nav; return u; });
+      var avgCost = (amt * navs.length) / totalUnits;
+      var avgNav = totalNav / navs.length;
+      out.textContent = "₹" + fmt2(avgCost);
+      unitsEl.textContent = fmt(Math.round(totalUnits));
+      avgnavEl.textContent = "₹" + fmt2(avgNav);
+      if (avgCost < avgNav - 0.001) { verdict.className = "verdict good"; verdict.textContent = "Below the average NAV ✓"; }
+      else { verdict.className = "verdict warn"; verdict.textContent = "Flat NAV → no averaging gain"; }
+      note.textContent = "₹" + fmt(amt * navs.length) + " invested over " + navs.length + " months buys " + fmt(Math.round(totalUnits)) + " units. Average cost ₹" + fmt2(avgCost) + " vs average NAV ₹" + fmt2(avgNav) + ".";
+      // bars
+      var maxU = Math.max.apply(null, perMonthUnits);
+      var x0 = 55, gap = 66, w = 34, baseY = 165, maxH = 120;
+      var html = "";
+      perMonthUnits.forEach(function (u, i) {
+        var h = maxU > 0 ? (u / maxU) * maxH : 0;
+        var x = x0 + i * gap, y = baseY - h;
+        html += '<rect class="grow-bar' + (drawn ? " go" : "") + '" x="' + x + '" y="' + y.toFixed(1) + '" width="' + w + '" height="' + h.toFixed(1) + '" rx="3" fill="var(--teal-500)" opacity="0.85"/>';
+        html += '<text x="' + (x + w / 2) + '" y="' + (baseY - h - 6).toFixed(1) + '" text-anchor="middle" style="font-size:8px;font-weight:700;fill:var(--teal-text)">₹' + navs[i].toFixed(1) + '</text>';
+        html += '<polygon points="' + (x + w / 2) + ',' + (baseY - h - 15).toFixed(1) + ' ' + (x + w / 2 - 4) + ',' + (baseY - h - 11).toFixed(1) + ' ' + (x + w / 2 + 4) + ',' + (baseY - h - 11).toFixed(1) + '" fill="var(--gold-500)"/>';
+        html += '<text x="' + (x + w / 2) + '" y="178" text-anchor="middle" style="font-size:8px;fill:var(--text-secondary)">M' + (i + 1) + '</text>';
+      });
+      barsG.innerHTML = html;
+      if (animate && !drawn) { drawn = true; requestAnimationFrame(function () { Array.prototype.forEach.call(barsG.querySelectorAll(".grow-bar"), function (b) { b.classList.add("go"); }); }); }
+    }
+    [amtIn, volIn].forEach(function (el) { el.addEventListener("input", function () { render(false); }); });
+    render(false);
+    window.__sipReveal = function () { render(true); };
+  })();
+
+  // Value averaging
+  (function () {
+    var baseIn = document.getElementById("va-base-in"), gIn = document.getElementById("va-g-in"), avIn = document.getElementById("va-av-in");
+    var baseVal = document.getElementById("va-base-val"), gVal = document.getElementById("va-g-val"), avVal = document.getElementById("va-av-val");
+    var out = document.getElementById("va-out"), target = document.getElementById("va-target"), diff = document.getElementById("va-diff"), note = document.getElementById("va-note");
+    function render() {
+      var base = +baseIn.value, g = +gIn.value, av = +avIn.value;
+      baseVal.textContent = "₹" + fmt(base); gVal.textContent = g + "%"; avVal.textContent = "₹" + fmt(av);
+      var tgt = Math.round(base * (1 + g / 100));
+      var d = tgt - av; // shortfall (+) means invest more
+      var invest = base + d;
+      target.textContent = "₹" + fmt(tgt);
+      diff.textContent = (d >= 0 ? "₹" + fmt(d) + " short" : "₹" + fmt(-d) + " excess");
+      out.textContent = "₹" + fmt(invest);
+      out.style.color = d >= 0 ? "var(--gold-600)" : "var(--teal-text)";
+      note.textContent = "Invest base ₹" + fmt(base) + (d >= 0 ? " + shortfall ₹" + fmt(d) + " = ₹" + fmt(invest) + ". Value averaging invests more when the market is down." : " − excess ₹" + fmt(-d) + " = ₹" + fmt(invest) + ". Value averaging invests less when the market is up.");
+    }
+    [baseIn, gIn, avIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.35 }).observe(el);
+  }
+  onReveal("#mf-structure", function (root) {
+    ["#ms-l1", "#ms-l2", "#ms-l3", "#ms-l4", "#ms-l5"].forEach(function (s) { root.querySelector(s).classList.add("go"); });
+    ["#ms-sponsor", "#ms-trust", "#ms-amc", "#ms-rt", "#ms-cust", "#ms-inv"].forEach(function (s, i) {
+      setTimeout(function () { root.querySelector(s).classList.add("go"); }, 200 + i * 160);
+    });
+  }, 0.3);
+  onReveal("#sip-chart", function () { if (window.__sipReveal) window.__sipReveal(); }, 0.3);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH11_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

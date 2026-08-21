@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 7 — Introduction to Investment | NISM Learn</title>
+<meta name="description" content="Interactive lesson: the asset classes an investor can access — equity (incl. preference shares & DVRs), fixed income (G-Secs, corporate debt, credit ratings), commodities, real estate, structured products, distressed securities and more — and the channels for investing: direct, RIAs and managed portfolios (MF/AIF/PMS/CIS). NISM Series-X-A, Module 3, Chapter 7." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Taxonomy tree SVG ---- */
+  .tax-line { stroke-width:2; fill:none; stroke-dasharray:180; stroke-dashoffset:180; }
+  .tax-line.go { animation: tax-draw .9s var(--ease-out) forwards; }
+  @keyframes tax-draw { to { stroke-dashoffset:0; } }
+  .tax-node { opacity:0; transform:translateY(8px); transition: all var(--dur-med) var(--ease-out); }
+  .tax-node.in { opacity:1; transform:translateY(0); }
+
+  /* ---- Interactive: preference-share configurator ---- */
+  .configr { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:22px; margin:22px 0; }
+  .configr-title { font-family:var(--font-display); font-weight:800; font-size:0.94rem; display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+  .configr-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .configr-sub { font-size:0.82rem; color:var(--text-secondary); margin-bottom:16px; }
+  .configr-row { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  .seg { display:inline-flex; border:1px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; }
+  .seg button { padding:8px 14px; font-size:0.8rem; font-weight:700; background:var(--bg-app); border:none; cursor:pointer; color:var(--text-secondary); transition: all var(--dur-fast); }
+  .seg button.active { background:var(--navy-800); color:#fff; }
+  .configr-out { background:var(--bg-surface-2); border-radius:var(--radius-md); padding:16px 18px; font-size:0.88rem; }
+  .configr-out .name { font-family:var(--font-display); font-weight:800; color:var(--gold-600); font-size:1.02rem; margin-bottom:4px; }
+
+  /* ---- Interactive: credit-rating explorer ---- */
+  .rating-explorer { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:22px; margin:22px 0; }
+  .rating-ladder { display:flex; flex-wrap:wrap; gap:6px; margin:14px 0 18px; }
+  .rating-chip { flex:1; min-width:52px; text-align:center; padding:10px 4px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-app); cursor:pointer; font-family:var(--font-display); font-weight:800; font-size:0.95rem; transition:all var(--dur-fast); }
+  .rating-chip:hover { border-color:var(--gold-500); }
+  .rating-chip.active { color:#fff; transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .rating-chip small { display:block; font-size:0.56rem; font-weight:700; letter-spacing:.03em; margin-top:2px; text-transform:uppercase; opacity:.85; }
+  .rating-out { background:var(--bg-surface-2); border-radius:var(--radius-md); padding:16px 18px; }
+  .rating-out .grade-hd { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .rating-out .grade-hd .g { font-family:var(--font-display); font-weight:800; font-size:1.3rem; }
+  .rating-out .grade-hd .tag { font-size:0.62rem; text-transform:uppercase; letter-spacing:.06em; font-weight:800; padding:3px 9px; border-radius:var(--radius-pill); }
+  .tag.inv { background:color-mix(in srgb,var(--green-500) 20%,var(--bg-app)); color:var(--green-500); }
+  .tag.junk { background:color-mix(in srgb,var(--red-500) 18%,var(--bg-app)); color:var(--red-500); }
+  .rating-out p { font-size:0.85rem; margin:6px 0 0; color:var(--text-secondary); }
+  .risk-meter { height:9px; border-radius:5px; background:linear-gradient(90deg,var(--green-500),#e0a92b,var(--red-500)); position:relative; margin:14px 0 4px; }
+  .risk-meter .knob { position:absolute; top:50%; width:16px; height:16px; border-radius:50%; background:#fff; border:2.5px solid var(--navy-800); transform:translate(-50%,-50%); transition:left var(--dur-med) var(--ease-spring); }
+  .risk-scale { display:flex; justify-content:space-between; font-size:0.66rem; color:var(--text-secondary); }
+
+  /* ---- Matcher (shared) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.95rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Comparison table ---- */
+  .cmp-table { width:100%; border-collapse:collapse; margin:16px 0 6px; font-size:0.84rem; }
+  .cmp-table th, .cmp-table td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--border-subtle); vertical-align:top; }
+  .cmp-table th { font-size:0.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); font-weight:700; }
+  .cmp-table td:first-child { font-weight:700; color:var(--text-primary); }
+  .cmp-table tbody tr:hover { background:var(--bg-surface-2); }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 3 · Investment Products</span>
+      <span class="badge badge-gold">Chapter 7 of 10</span>
+    </div>
+    <h1>Introduction to Investment</h1>
+    <p class="lede">The full menu of what an investor can own — <strong>equity</strong> (including preference shares and DVRs), <strong>fixed income</strong> (G-Secs, corporate debt and credit ratings), <strong>commodities</strong>, <strong>real estate</strong>, <strong>structured products</strong>, <strong>distressed securities</strong> and more — and the three <strong>channels</strong> for putting money to work: direct, through an RIA, or through managed portfolios (MF, AIF, PMS, CIS).</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~24 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 52 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 3 interactive tools</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 8 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:660px">
+      <strong style="font-family:var(--font-display)">Learning objectives — know about</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Types of investment</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Equity</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Fixed income</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Commodities</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Real estate</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Structured products</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Distressed securities &amp; other opportunities</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The channels for making investments</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-7-1">7.1 Types of investment</a></li>
+      <li><a href="#sec-7-2">7.2 Equity</a></li>
+      <li><a href="#sec-7-3">7.3 Fixed income</a></li>
+      <li><a href="#sec-7-3-rating">Ratings &amp; credit spread</a></li>
+      <li><a href="#sec-7-4">7.4 Commodities</a></li>
+      <li><a href="#sec-7-5">7.5 Real estate</a></li>
+      <li><a href="#sec-7-6">7.6 Structured products</a></li>
+      <li><a href="#sec-7-7">7.7 Distressed securities</a></li>
+      <li><a href="#sec-7-8">7.8 Other opportunities</a></li>
+      <li><a href="#sec-7-9">7.9 Channels for investing</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 7.1 Types of investment -->
+    <section class="lesson-section" id="sec-7-1">
+      <span class="section-kicker">7.1</span>
+      <h2>Types of investment</h2>
+      <p>There are many investment opportunities. At the broadest level, investments split into <strong>non-financial</strong> and <strong>financial</strong>. Non-financial investments are physical assets — <strong>real estate, gold, commodities</strong>. Financial investments are an <strong>exchange of cash flows for a period of time</strong>: financial instruments are essentially <strong>claims on future cash flows</strong>.</p>
+      <p>Financial instruments can be sliced three ways:</p>
+      <ul>
+        <li>By <strong>claim on cash flows</strong> → <strong>debt</strong> vs <strong>equity</strong> (the two generic types).</li>
+        <li>By <strong>market</strong> where they trade → <strong>public</strong> vs <strong>private</strong> markets.</li>
+        <li>By <strong>maturity profile</strong> → <strong>capital market</strong> (long-term) vs <strong>money market</strong> (short-term).</li>
+      </ul>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="tax-tree" viewBox="0 0 520 300" width="100%" style="max-width:600px">
+            <!-- root -->
+            <g class="tax-node" data-i="0">
+              <rect x="200" y="10" width="120" height="40" rx="10" fill="var(--navy-800)"/>
+              <text x="260" y="35" text-anchor="middle" style="font-size:12px;font-weight:800;fill:#fff">Investments</text>
+            </g>
+            <!-- level 1 lines -->
+            <path class="tax-line" d="M240 50 L120 84" stroke="var(--gold-500)"/>
+            <path class="tax-line" d="M280 50 L400 84" stroke="var(--teal-500)"/>
+            <!-- level 1 nodes -->
+            <g class="tax-node" data-i="1">
+              <rect x="40" y="84" width="160" height="42" rx="9" fill="var(--bg-surface-2)" stroke="var(--gold-500)"/>
+              <text x="120" y="103" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--gold-600)">Non-financial</text>
+              <text x="120" y="118" text-anchor="middle" style="font-size:8.5px;fill:var(--text-secondary)">real estate · gold · commodities</text>
+            </g>
+            <g class="tax-node" data-i="2">
+              <rect x="320" y="84" width="160" height="42" rx="9" fill="var(--bg-surface-2)" stroke="var(--teal-500)"/>
+              <text x="400" y="103" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--teal-text)">Financial</text>
+              <text x="400" y="118" text-anchor="middle" style="font-size:8.5px;fill:var(--text-secondary)">claims on future cash flows</text>
+            </g>
+            <!-- level 2 lines from financial -->
+            <path class="tax-line" d="M360 126 L150 176" stroke="var(--border-strong)"/>
+            <path class="tax-line" d="M390 126 L300 176" stroke="var(--border-strong)"/>
+            <path class="tax-line" d="M430 126 L440 176" stroke="var(--border-strong)"/>
+            <!-- level 2 nodes -->
+            <g class="tax-node" data-i="3">
+              <rect x="40" y="176" width="180" height="52" rx="9" fill="var(--bg-app)" stroke="var(--border-subtle)"/>
+              <text x="130" y="195" text-anchor="middle" style="font-size:9.5px;font-weight:800;fill:var(--text-secondary)">By claim on cash flow</text>
+              <text x="130" y="213" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--text-primary)">Debt · Equity</text>
+            </g>
+            <g class="tax-node" data-i="4">
+              <rect x="235" y="176" width="150" height="52" rx="9" fill="var(--bg-app)" stroke="var(--border-subtle)"/>
+              <text x="310" y="195" text-anchor="middle" style="font-size:9.5px;font-weight:800;fill:var(--text-secondary)">By market</text>
+              <text x="310" y="213" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--text-primary)">Public · Private</text>
+            </g>
+            <g class="tax-node" data-i="5">
+              <rect x="400" y="176" width="90" height="52" rx="9" fill="var(--bg-app)" stroke="var(--border-subtle)"/>
+              <text x="445" y="192" text-anchor="middle" style="font-size:9px;font-weight:800;fill:var(--text-secondary)">By maturity</text>
+              <text x="445" y="207" text-anchor="middle" style="font-size:9.5px;font-weight:800;fill:var(--text-primary)">Capital ·</text>
+              <text x="445" y="220" text-anchor="middle" style="font-size:9.5px;font-weight:800;fill:var(--text-primary)">Money mkt</text>
+            </g>
+            <text x="260" y="270" text-anchor="middle" style="font-size:9.5px;fill:var(--text-secondary)">Three independent ways to classify the same financial instrument</text>
+          </svg>
+        </div>
+        <div class="caption">The same financial instrument can be classified three different ways at once — by its claim (debt/equity), by its market (public/private) and by its maturity (capital/money market).</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which pair is a classification of financial instruments by <em>maturity profile</em>?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Debt vs equity</button>
+          <button class="mini-opt" data-correct="true">Capital market vs money market</button>
+          <button class="mini-opt" data-correct="false">Public vs private markets</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — capital market (long-term) vs money market (short-term) classifies by maturity. Debt/equity is by claim on cash flows; public/private is by market." data-wrong-msg="Not quite — by maturity it's capital market vs money market. Debt/equity classifies by claim; public/private by market."></div>
+      </div>
+    </section>
+
+    <!-- 7.2 Equity -->
+    <section class="lesson-section" id="sec-7-2">
+      <span class="section-kicker">7.2</span>
+      <h2>Equity</h2>
+      <p>Equity shares represent <strong>ownership</strong> in a company, giving holders <strong>profit-sharing and voting rights</strong>. Shareholders are <strong>residual claimants</strong> — they receive profits only after all other obligations are met. Returns come through <strong>dividends and capital appreciation</strong>. Over the long term, equities provide <strong>time diversification</strong> benefits, smoothing risk fluctuations and improving risk-adjusted returns.</p>
+
+      <h3 id="pref-shares" style="margin-top:22px">Preference shares — the hybrid security</h3>
+      <p>In addition to equity shares, companies may issue <strong>preference shares</strong>. They rank <strong>above</strong> equity shares for dividends and for the distribution of net assets on liquidation, but generally carry <strong>no voting rights</strong> (unless stated otherwise). Because they mix a fixed dividend (debt-like) with equity features (they can be perpetual), they are called <strong>hybrid or blended securities</strong>. Preference shares come in combinations:</p>
+      <div class="flip-grid" id="pref-grid"></div>
+
+      <div class="configr" id="pref-config">
+        <div class="configr-title"><span class="pill">Interactive</span> Preference-share configurator</div>
+        <div class="configr-sub">Toggle the three features and see what kind of preference share you have built and how each holder is treated.</div>
+        <div class="configr-row">
+          <div class="seg" id="cfg-cum">
+            <button data-v="cum" class="active">Cumulative</button>
+            <button data-v="noncum">Non-cumulative</button>
+          </div>
+          <div class="seg" id="cfg-part">
+            <button data-v="part" class="active">Participating</button>
+            <button data-v="nonpart">Non-participating</button>
+          </div>
+          <div class="seg" id="cfg-conv">
+            <button data-v="conv" class="active">Convertible</button>
+            <button data-v="nonconv">Non-convertible</button>
+          </div>
+        </div>
+        <div class="configr-out" id="cfg-out"></div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>DVRs in India — Tata Motors, 2008</strong>
+          <p>Governance normally follows <strong>'one share, one vote'</strong>. Shares with <strong>Differential Voting Rights (DVRs)</strong> may carry superior or inferior voting rights, or differential dividends. Common in the West, DVRs have seen limited adoption in India despite being permitted since <strong>2000</strong>. <strong>Tata Motors</strong> was among the first to issue DVRs in <strong>2008</strong> — <strong>1/10th</strong> the voting rights but a <strong>5% higher dividend</strong>. Pantaloons Retail, Gujarat NRE Coke and Jain Irrigation Systems also issued DVRs.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — On a company's cumulative preference shares, a year's dividend is not paid because of low profits. What happens to it?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">It accumulates and must be paid in full later, before any equity dividend</button>
+          <button class="mini-opt" data-correct="false">It is permanently forgone by the holder</button>
+          <button class="mini-opt" data-correct="false">It is converted into equity shares automatically</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — in cumulative preference shares, unpaid dividends accumulate to be paid in full at a later time. Only in non-cumulative shares is an omitted dividend lost." data-wrong-msg="Not quite — cumulative means the unpaid dividend accumulates and is paid later. It is only forgone in non-cumulative preference shares."></div>
+      </div>
+    </section>
+
+    <!-- 7.3 Fixed income -->
+    <section class="lesson-section" id="sec-7-3">
+      <span class="section-kicker">7.3</span>
+      <h2>Fixed income</h2>
+      <p>Debt instruments (also called <strong>fixed income</strong> instruments) are contracts containing a promise to pay a <strong>stream of cash flows</strong> over the term of the contract. A debt contract can be <strong>transferable</strong> (sellable to another investor) or <strong>non-transferable</strong>. It sets the borrower's financial requirements and restrictions, and the holder's rights if the borrower defaults. Debt is issued by companies, municipalities, states and sovereign governments. By issuer, it splits into <strong>government</strong> and <strong>corporate</strong> debt — and <strong>government securities are the largest component</strong> of the debt market in India and worldwide.</p>
+
+      <div class="flip-grid" id="gsec-corp-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Gilt-edged and the credit spread</strong>
+          <p>A <strong>G-Sec</strong> is a tradeable instrument issued by the Central or State Government. Short-term ones (maturity &lt; 1 year) are <strong>treasury bills</strong>; long-term ones (&gt; 1 year) are <strong>bonds / dated securities</strong>. The <em>Central</em> Government issues both; <em>States</em> issue only bonds — the <strong>State Government Securities (SGSs)</strong>. G-Secs carry practically no default risk, hence <strong>risk-free gilt-edged</strong>. Corporate paper pays higher rates to compensate for default risk; the yield gap over a same-maturity G-Sec is the <strong>credit spread</strong> — a risk premium that widens with the probability of default.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which instrument is issued ONLY by the Central Government, never by the States?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Treasury bills</button>
+          <button class="mini-opt" data-correct="false">Dated securities / bonds</button>
+          <button class="mini-opt" data-correct="false">Corporate debentures</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the Central Government issues both treasury bills and bonds; State Governments issue only bonds (SGSs), never treasury bills." data-wrong-msg="Not quite — States issue bonds too (SGSs). Only the Central Government issues treasury bills."></div>
+      </div>
+    </section>
+
+    <!-- 7.3 ratings -->
+    <section class="lesson-section" id="sec-7-3-rating">
+      <span class="section-kicker">7.3 · Table 7.1</span>
+      <h2>Credit ratings: investment grade vs high yield</h2>
+      <p>The probability of default is captured by <strong>ratings</strong> from agencies registered with SEBI. Higher rating = lower default risk. The market convention: <strong>BBB and above = investment grade</strong>; <strong>below BBB = high yield / junk</strong>. Many institutional investors are prohibited from holding junk bonds. Tap a grade to explore:</p>
+
+      <div class="rating-explorer" id="rating-explorer">
+        <div class="rating-ladder" id="rating-ladder"></div>
+        <div class="rating-out" id="rating-out"></div>
+        <div class="risk-meter"><div class="knob" id="risk-knob" style="left:5%"></div></div>
+        <div class="risk-scale"><span>Lowest credit risk</span><span>Highest credit risk</span></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A bond rated <strong>BBB</strong> is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The lowest rung of investment grade — moderate safety, moderate credit risk</button>
+          <button class="mini-opt" data-correct="false">A junk bond, since it is not AAA</button>
+          <button class="mini-opt" data-correct="false">Already in default</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — BBB (moderate safety) is the lowest investment-grade rating. Anything below BBB is high yield / junk." data-wrong-msg="Not quite — BBB is investment grade (moderate safety), the boundary above junk. Below BBB is high yield."></div>
+      </div>
+    </section>
+
+    <!-- 7.4 Commodities -->
+    <section class="lesson-section" id="sec-7-4">
+      <span class="section-kicker">7.4</span>
+      <h2>Commodities</h2>
+      <p>Commodities split into <strong>soft</strong> (grown — corn, wheat, soybean, sugar) and <strong>hard</strong> (mined — gold, silver, oil, copper, aluminium). <strong>Soft commodities are perishable</strong>, so they show high price volatility and higher business-cycle risk (prices track the demand and supply of the end products); <strong>weather prediction</strong> matters. Both types have historically shown <strong>low correlation</strong> with stocks and bonds, so they add <strong>diversification</strong> to a portfolio. <strong>Gold</strong> — a reserve asset for centuries — has become the <strong>safe-haven</strong> asset thanks to its global acceptability, attractive in times of uncertainty and geopolitical crisis. Crucially, <strong>commodities generate no current income</strong>: the investor counts only on capital appreciation.</p>
+
+      <div class="flip-grid" id="commodity-grid"></div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Why low correlation matters</strong>
+          <p>The benefit of diversification rests on <strong>correlation</strong> — a measure of how two investments move together. The <em>lower</em> the correlation between investments, the <em>higher</em> the diversification benefit (i.e. the greater the reduction in risk). Because soft commodities and gold move differently from equities and bonds, adding a slice of them can lower a portfolio's overall risk. Exposure to soft commodities is often taken through <strong>derivative contracts</strong> (forwards, futures) — so the risks must be understood.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — What is a defining limitation of investing in commodities like gold?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">They generate no current income — return depends only on capital appreciation</button>
+          <button class="mini-opt" data-correct="false">They pay a guaranteed fixed coupon</button>
+          <button class="mini-opt" data-correct="false">They are perfectly correlated with equities</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — unlike most financial investments, commodities do not generate any current income; the investor counts only on capital appreciation." data-wrong-msg="Not quite — commodities generate no current income; the whole return must come from capital appreciation."></div>
+      </div>
+    </section>
+
+    <!-- 7.5 Real estate -->
+    <section class="lesson-section" id="sec-7-5">
+      <span class="section-kicker">7.5</span>
+      <h2>Real estate</h2>
+      <p>Real estate is a significant asset class and a driver of economic growth. It offers <strong>diversification</strong>, has historically been a good <strong>inflation hedge</strong>, and can be held for <strong>capital appreciation</strong> or <strong>regular rental income</strong>. It is usually a <strong>long-term</strong> investment, classified into <strong>commercial</strong> and <strong>residential</strong> (and further by tier I/II/III cities). Direct property involves <strong>large commitments</strong> — so <strong>real estate funds</strong> and <strong>Real Estate Investment Trusts (REITs)</strong> let investors take exposure with smaller outflows.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which is a way to get real-estate exposure with a smaller commitment than buying property outright?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">A Real Estate Investment Trust (REIT) or real estate fund</button>
+          <button class="mini-opt" data-correct="false">A treasury bill</button>
+          <button class="mini-opt" data-correct="false">A convertible preference share</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — REITs and real estate funds enable exposure to real estate with smaller outflow commitments than direct property." data-wrong-msg="Not quite — REITs (and real estate funds) are the smaller-outflow route into real estate."></div>
+      </div>
+    </section>
+
+    <!-- 7.6 Structured products -->
+    <section class="lesson-section" id="sec-7-6">
+      <span class="section-kicker">7.6</span>
+      <h2>Structured products</h2>
+      <p>Structured products are <strong>customized, sophisticated</strong> investments giving risk-adjusted exposure to traditional assets or to assets otherwise hard to obtain. They <strong>use derivatives heavily</strong> to build the desired risk exposure, often linked to equity indices, sector indices, a themed basket of stocks, currencies, interest rates or commodities. Terms can be customized (short or long), they need <strong>larger denominations</strong>, and may offer <strong>protection from 0% to 100%</strong> and/or attractive yields. But performance depends on the underlying strategy and market conditions — so they <strong>must not be treated as capital-protection or guaranteed/assured-return products</strong>. Their most common form is the <strong>Market Linked Debenture (MLD)</strong>.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which statement about structured products is correct?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">They must not be treated as capital-protection or assured-return products, despite any protection feature</button>
+          <button class="mini-opt" data-correct="false">They always guarantee 100% of capital back</button>
+          <button class="mini-opt" data-correct="false">They avoid derivatives entirely</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — protection can range from 0% to 100%, but performance depends on the underlying strategy and market conditions; they are not capital-protection or assured-return products. Their common form is the MLD." data-wrong-msg="Not quite — structured products may offer 0–100% protection but are not guaranteed/assured-return products; they use derivatives heavily. The common form is the MLD."></div>
+      </div>
+    </section>
+
+    <!-- 7.7 Distressed securities -->
+    <section class="lesson-section" id="sec-7-7">
+      <span class="section-kicker">7.7</span>
+      <h2>Distressed securities</h2>
+      <p>Distressed securities are the equity and debt of companies in <strong>financial distress or near bankruptcy</strong>. They may be available at <strong>huge discounts</strong>, but valuing them needs <strong>higher skill and greater experience</strong> than regular securities. Also called <strong>'fallen angels'</strong>, many funds and institutional investors are <strong>prohibited from holding</strong> them because of the high risk. They are a popular segment among <strong>hedge fund managers</strong> (with deep valuation and credit-analysis skills), and <strong>PMS and AIF</strong> products exist on distressed securities. Only evolved investors with the appetite and understanding should consider them, for risk diversification.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — 'Fallen angels' is another name for:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Distressed securities</button>
+          <button class="mini-opt" data-correct="false">Gilt-edged government securities</button>
+          <button class="mini-opt" data-correct="false">Blue-chip large-cap stocks</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — distressed securities (of companies in financial distress) are also called 'fallen angels'; many institutions are barred from holding them." data-wrong-msg="Not quite — 'fallen angels' refers to distressed securities, not gilt-edged G-Secs or blue chips."></div>
+      </div>
+    </section>
+
+    <!-- 7.8 Other opportunities -->
+    <section class="lesson-section" id="sec-7-8">
+      <span class="section-kicker">7.8</span>
+      <h2>Other investment opportunities</h2>
+      <p><strong>Art, paintings and rare collectibles</strong> are emerging as long-term investments, generating moderate long-term returns with <strong>low correlation</strong> to equities and bonds (a diversification benefit). But they are <strong>big-ticket</strong>, each work is <strong>unique</strong> (not a standard product), the market is <strong>unregulated</strong> and <strong>illiquid</strong>, they generate <strong>no income</strong> (only capital appreciation), and demand <strong>specialized knowledge</strong> because of high information asymmetry and adverse selection. Art and painting funds exist for indirect exposure.</p>
+      <p>Investors can also invest <strong>abroad</strong> under the <strong>Liberalised Remittance Scheme (LRS)</strong> — up to <strong>USD 250,000 per year</strong> — for geographical and currency diversification and new choices.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>LRS — USD 250,000 a year</strong>
+          <p>The Liberalised Remittance Scheme lets a resident individual invest up to <strong>USD 250,000</strong> abroad every year. It opens up <strong>geographical and currency diversification</strong> and several new choices for investors.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — What is the annual per-individual limit under the Liberalised Remittance Scheme (LRS)?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">USD 250,000</button>
+          <button class="mini-opt" data-correct="false">USD 25,000</button>
+          <button class="mini-opt" data-correct="false">USD 1,000,000</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — under LRS an individual can invest up to USD 250,000 abroad every year." data-wrong-msg="Not quite — the LRS limit is USD 250,000 per individual per year."></div>
+      </div>
+    </section>
+
+    <!-- 7.9 Channels -->
+    <section class="lesson-section" id="sec-7-9">
+      <span class="section-kicker">7.9</span>
+      <h2>Channels for making investments</h2>
+      <p>Investors can access any of these opportunities in one of two ways: <strong>directly</strong>, or <strong>through an intermediary</strong> offering managed-portfolio solutions.</p>
+
+      <div class="flow" id="channel-flow"></div>
+
+      <h3 id="ria-role" style="margin-top:22px">The role of the RIA</h3>
+      <p>Investors can take advice from a <strong>SEBI Registered Investment Adviser (RIA)</strong>. Under the <strong>SEBI (Investment Advisers) Regulations, 2013</strong>, only qualified professionals licensed by SEBI as RIAs can act as <strong>'advisers'</strong>. After this regulation, mutual fund distributors, share brokers and insurance agents — who earlier acted as advisers — can <strong>no longer claim the title</strong>. RIAs are paid <strong>fees by the investors</strong> who hire them and are accountable <strong>only to those investors</strong>. They follow a strict code of conduct, advise in the investor's <strong>best interest</strong>, and must <strong>disclose conflicts of interest</strong>. They do risk profiling, assess needs and financial health, build <strong>financial plans</strong>, and instil discipline — helping investors build an optimum portfolio and make rational decisions.</p>
+
+      <h3 id="managed" style="margin-top:22px">Managed portfolios</h3>
+      <p>Alternatively, investors can invest through <strong>professionally managed</strong> vehicles that pool money and invest in a variety of securities on their behalf — <strong>indirect</strong> investing that buys professional expertise at much lower cost. The examples in India:</p>
+      <div class="pill-list">
+        <span>Mutual Funds (MFs)</span><span>Alternative Investment Funds (AIFs)</span><span>Portfolio Managers (PMs)</span><span>Collective Investment Schemes (CISs)</span>
+      </div>
+
+      <h3 id="mf-aif-pms" style="margin-top:22px">MF vs AIF vs PMS</h3>
+      <p>All three are SEBI-regulated managed portfolios providing indirect investing — but the regulation differs by whom they serve. Tap a vehicle to compare, then see the summary table:</p>
+
+      <div class="matcher" id="vehicle-matcher">
+        <h4>Match the vehicle to its defining trait — tap a vehicle</h4>
+        <div class="hint">MFs serve retail (high-touch); AIF &amp; PMS serve HNIs/institutions (light-touch).</div>
+        <div class="match-markets" id="veh-markets">
+          <button class="match-mkt" data-reg="MF">Mutual Fund</button>
+          <button class="match-mkt" data-reg="AIF">Alternative Investment Fund</button>
+          <button class="match-mkt" data-reg="PMS">Portfolio Management Service</button>
+        </div>
+        <div class="match-regs" id="veh-cards">
+          <div class="reg-card" data-reg="MF"><div class="rn">Retail · high-touch</div><div class="rd">Most stringently regulated; caters to retail investors; more investment restrictions</div></div>
+          <div class="reg-card" data-reg="AIF"><div class="rn">₹1 crore minimum</div><div class="rd">Light-touch; HNIs/institutions; "rich man's mutual fund"</div></div>
+          <div class="reg-card" data-reg="PMS"><div class="rn">₹50 lakh minimum</div><div class="rd">Light-touch; HNIs/institutions; fewer restrictions than MFs</div></div>
+        </div>
+        <div class="match-feedback" id="veh-feedback"></div>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="cmp-table">
+          <thead><tr><th>Feature</th><th>Mutual Funds</th><th>AIF</th><th>PMS</th></tr></thead>
+          <tbody>
+            <tr><td>Primary investor</td><td>Retail</td><td>HNI / institutional</td><td>HNI / institutional</td></tr>
+            <tr><td>Minimum investment</td><td>Very low (retail-friendly)</td><td>₹1 crore</td><td>₹50 lakh</td></tr>
+            <tr><td>Regulation intensity</td><td>High-touch (most stringent)</td><td>Light-touch</td><td>Light-touch</td></tr>
+            <tr><td>Investment restrictions</td><td>Most restrictive</td><td>Relatively fewer</td><td>Relatively fewer</td></tr>
+            <tr><td>Nickname</td><td>—</td><td colspan="2">"Rich man's mutual fund"</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Why are PMS and AIFs regulated with a lighter touch than mutual funds?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Their HNI/institutional investors are expected to understand complex strategies and risks</button>
+          <button class="mini-opt" data-correct="false">They are not registered with SEBI</button>
+          <button class="mini-opt" data-correct="false">They manage far less money than mutual funds</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — MFs are high-touch because they serve retail investors; PMS and AIFs serve HNIs/institutions expected to understand complex strategies and risks, so regulation is lighter with fewer restrictions." data-wrong-msg="Not quite — all three are SEBI-regulated. PMS/AIFs are light-touch because their HNI/institutional investors are expected to understand complex strategies and risks."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The numbers, names and definitions most likely to be tested — tap to reveal.</p>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch07";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 3", href: "../../index.html" },
+    { label: "Chapter 7", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:18px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+
+  // Preference share types
+  renderFlip("pref-grid", [
+    { icon: "📥", label: "Cumulative", back: "Unpaid dividends accumulate and must be paid in full at a later time — before any equity dividend. In non-cumulative shares an omitted dividend is simply lost." },
+    { icon: "➕", label: "Participating", back: "Holder gets the specified (usually fixed) dividend PLUS an additional dividend based on pre-specified conditions, and can have liquidation preferences. Non-participating pays only the fixed dividend." },
+    { icon: "🔄", label: "Convertible", back: "Entitles the holder to convert the preference shares into a specified number of equity shares. Combined with equity + debt traits, this is why preference shares are 'hybrid/blended' securities." },
+    { icon: "🏅", label: "Ranking & voting", back: "Rank ABOVE equity for dividends and for distribution of net assets on liquidation. Generally carry NO voting rights unless stated otherwise. Can be perpetual, like equity." }
+  ]);
+
+  // G-Sec vs corporate
+  renderFlip("gsec-corp-grid", [
+    { icon: "🏛️", label: "Government securities (G-Secs)", back: "Tradeable instruments issued by Central/State Governments. Central issues treasury bills (< 1 yr) AND dated securities/bonds (> 1 yr); States issue only bonds (SGSs). Practically no default risk — 'risk-free gilt-edged'. The largest component of the debt market." },
+    { icon: "🏢", label: "Corporate debt", back: "Issued by non-government entities to fund projects. Many are listed, but a bigger component is unlisted. Pay higher rates than G-Secs to compensate for default risk. The yield gap over a same-maturity G-Sec is the credit spread (risk premium)." }
+  ]);
+
+  // Commodities
+  renderFlip("commodity-grid", [
+    { icon: "🌾", label: "Soft commodities", back: "Grown — corn, wheat, soybean, soybean oil, sugar; used as inputs in producing other goods. Perishable → high volatility and business-cycle risk. Weather prediction matters. Exposure often via forwards/futures." },
+    { icon: "⛏️", label: "Hard commodities", back: "Mined — gold, silver, oil, copper, aluminium. Prices set by global demand and supply. Gold & silver have been investment avenues for centuries as reserve assets." },
+    { icon: "🛡️", label: "Gold — safe haven", back: "Global acceptability gives gold 'safe-haven' status — attractive in economic uncertainty and geopolitical crisis. Historically shows diversification benefits." },
+    { icon: "🚫", label: "No current income", back: "Unlike most financial investments, commodities generate no current income; the investor counts only on capital appreciation. Low correlation to stocks/bonds gives diversification." }
+  ]);
+
+  // Channels flow
+  (function () {
+    var el = document.getElementById("channel-flow"); if (!el) return;
+    var nodes = [
+      { ic: "🧑‍💼", t: "Direct", d: "Buy securities from issuers, or gold/silver from dealers; brokers, depositories & advisers assist for fees" },
+      { ic: "🧭", t: "Via an RIA", d: "SEBI-licensed adviser (2013 regs); fee-paid by investors; builds financial plans in the investor's best interest" },
+      { ic: "📦", t: "Managed portfolios", d: "Pooled, professionally managed vehicles — MF, AIF, PMS, CIS — indirect investing at lower cost" }
+    ];
+    el.innerHTML = nodes.map(function (n, i) {
+      var arrow = i < nodes.length - 1 ? '<div class="flow-arrow">→</div>' : '';
+      return '<div class="flow-node"><div class="fn-ic">' + n.ic + '</div><div class="fn-t">' + n.t + '</div><div class="fn-d">' + n.d + '</div></div>' + arrow;
+    }).join("");
+  })();
+
+  // Revision deck
+  renderFlip("revision-cards", [
+    { icon: "Debt · Equity", label: "Two generic types", back: "By claim on cash flows, financial instruments are debt or equity. Other classifications: public vs private market; capital vs money market (by maturity)." },
+    { icon: "BBB", label: "Investment-grade line", back: "BBB and above = investment grade; below BBB = high yield / junk. Many institutions are barred from junk bonds." },
+    { icon: "AAA → D", label: "Rating scale", back: "AAA highest safety (lowest risk) → AA → A → BBB → BB → B → C → D (default). Higher rating = lower default risk." },
+    { icon: "T-Bill", label: "Central only", back: "Treasury bills (maturity < 1 yr) are issued only by the Central Government. States issue only bonds (SGSs). G-Secs are risk-free gilt-edged." },
+    { icon: "1/10 · +5%", label: "Tata Motors DVR", back: "Tata Motors (2008) was among the first DVRs in India: 1/10th voting rights and a 5% higher dividend. DVRs permitted in India since 2000." },
+    { icon: "Credit spread", label: "Risk premium", back: "Yield on a corporate security minus a same-maturity G-Sec. It is the risk premium for default risk; wider spread = higher default probability." },
+    { icon: "MLD", label: "Structured product", back: "Market Linked Debenture — the most common structured product. Uses derivatives; 0–100% protection possible; NOT capital-protection/assured-return." },
+    { icon: "Fallen angels", label: "Distressed securities", back: "Securities of companies in financial distress/near bankruptcy; deep discounts but high skill needed. Popular with hedge funds; many institutions barred." },
+    { icon: "$250,000", label: "LRS limit", back: "Under the Liberalised Remittance Scheme, an individual can invest up to USD 250,000 abroad per year — geographical & currency diversification." },
+    { icon: "₹1cr · ₹50L", label: "AIF vs PMS minimum", back: "AIF minimum ₹1 crore; PMS minimum ₹50 lakh. Both light-touch, for HNIs/institutions — the 'rich man's mutual fund'. MFs are high-touch for retail." }
+  ], "mono");
+
+  // ---------- Interactive: preference-share configurator ----------
+  (function () {
+    var state = { cum: "cum", part: "part", conv: "conv" };
+    var out = document.getElementById("cfg-out");
+    function wire(groupId, key) {
+      var g = document.getElementById(groupId);
+      g.addEventListener("click", function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        state[key] = b.dataset.v;
+        Array.prototype.forEach.call(g.children, function (x) { x.classList.remove("active"); });
+        b.classList.add("active");
+        render();
+      });
+    }
+    function render() {
+      var parts = [];
+      parts.push(state.cum === "cum"
+        ? "<b>Cumulative:</b> a skipped dividend accumulates and is paid in full later, before any equity dividend."
+        : "<b>Non-cumulative:</b> a skipped or omitted dividend is lost — it does not carry forward.");
+      parts.push(state.part === "part"
+        ? "<b>Participating:</b> gets the fixed dividend PLUS an extra dividend on pre-specified conditions, and may have liquidation preferences."
+        : "<b>Non-participating:</b> receives only the usually-fixed dividend, not tied to the company's earnings.");
+      parts.push(state.conv === "conv"
+        ? "<b>Convertible:</b> can be converted into a specified number of equity shares."
+        : "<b>Non-convertible:</b> stays a preference share; no conversion into equity.");
+      var name = (state.cum === "cum" ? "Cumulative" : "Non-cumulative") + " " +
+                 (state.part === "part" ? "participating" : "non-participating") + " " +
+                 (state.conv === "conv" ? "convertible" : "non-convertible") + " preference share";
+      out.innerHTML = '<div class="name">' + name + '</div>' +
+        '<div style="font-size:0.82rem;color:var(--text-secondary)">A hybrid/blended security — ranks above equity for dividends &amp; liquidation, usually with no voting rights.</div>' +
+        '<ul style="margin:10px 0 0;padding-left:18px;display:grid;gap:5px">' +
+        parts.map(function (p) { return '<li style="font-size:0.82rem">' + p + '</li>'; }).join("") + '</ul>';
+    }
+    wire("cfg-cum", "cum"); wire("cfg-part", "part"); wire("cfg-conv", "conv");
+    render();
+  })();
+
+  // ---------- Interactive: credit-rating explorer ----------
+  (function () {
+    var grades = [
+      { g: "AAA", t: "Highest safety", inv: true, risk: 5, color: "#1a9e5f", desc: "Highest degree of safety regarding timely servicing of financial obligations. Lowest credit risk." },
+      { g: "AA", t: "High safety", inv: true, risk: 16, color: "#3aa856", desc: "High degree of safety regarding timely servicing of obligations. Very low credit risk." },
+      { g: "A", t: "Adequate safety", inv: true, risk: 30, color: "#77aa3a", desc: "Adequate degree of safety regarding timely servicing of obligations. Low credit risk." },
+      { g: "BBB", t: "Moderate safety", inv: true, risk: 46, color: "#c99a24", desc: "Moderate degree of safety regarding timely servicing of obligations. Moderate credit risk. The lowest rung of investment grade." },
+      { g: "BB", t: "Moderate risk", inv: false, risk: 62, color: "#e08a2b", desc: "Moderate risk of default regarding timely servicing of obligations. Below investment grade — high yield / junk." },
+      { g: "B", t: "High risk", inv: false, risk: 76, color: "#e2662a", desc: "High risk of default regarding timely servicing of obligations. High yield / junk." },
+      { g: "C", t: "Very high risk", inv: false, risk: 89, color: "#d94628", desc: "Very high risk of default regarding timely servicing of obligations." },
+      { g: "D", t: "Default", inv: false, risk: 98, color: "#c62828", desc: "In default, or expected to be in default soon." }
+    ];
+    var ladder = document.getElementById("rating-ladder"),
+        out = document.getElementById("rating-out"),
+        knob = document.getElementById("risk-knob");
+    ladder.innerHTML = grades.map(function (x, i) {
+      return '<div class="rating-chip" data-i="' + i + '"><span>' + x.g + '</span><small>' + x.t + '</small></div>';
+    }).join("");
+    function select(i) {
+      var x = grades[i];
+      Array.prototype.forEach.call(ladder.children, function (c, j) {
+        var on = j === i;
+        c.classList.toggle("active", on);
+        c.style.background = on ? x.color : "";
+        c.style.borderColor = on ? x.color : "";
+      });
+      out.innerHTML = '<div class="grade-hd"><span class="g" style="color:' + x.color + '">' + x.g + '</span>' +
+        '<span class="tag ' + (x.inv ? "inv" : "junk") + '">' + (x.inv ? "Investment grade" : "High yield / junk") + '</span></div>' +
+        '<p>' + x.desc + '</p>';
+      knob.style.left = x.risk + "%";
+      knob.style.borderColor = x.color;
+    }
+    ladder.addEventListener("click", function (e) {
+      var c = e.target.closest(".rating-chip"); if (!c) return;
+      select(+c.dataset.i);
+    });
+    select(0);
+  })();
+
+  // ---------- Matcher ----------
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("veh-markets", "veh-cards", "veh-feedback", {
+    MF: "Mutual Funds — cater to retail investors, so they are the most stringently regulated (high-touch) with the most investment restrictions.",
+    AIF: "AIFs — minimum ₹1 crore; light-touch regulation for HNIs/institutions; a 'rich man's mutual fund'.",
+    PMS: "PMS — minimum ₹50 lakh; light-touch regulation for HNIs/institutions; fewer restrictions than mutual funds."
+  });
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.35 }).observe(el);
+  }
+  onReveal("#tax-tree", function (root) {
+    root.querySelectorAll(".tax-line").forEach(function (l, i) {
+      setTimeout(function () { l.classList.add("go"); }, 200 + i * 140);
+    });
+    root.querySelectorAll(".tax-node").forEach(function (n, i) {
+      setTimeout(function () { n.classList.add("in"); }, i * 160);
+    });
+  }, 0.3);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH07_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

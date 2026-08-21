@@ -43,6 +43,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to main content</a>
+
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="../../index.html">
@@ -67,6 +69,8 @@
   <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
 </div>
 
+<main id="main" tabindex="-1">
+
 <section class="book-hero">
   <div class="container">
     <div class="top-row">
@@ -90,6 +94,8 @@
     <div id="modules-list"></div>
   </div>
 </section>
+
+</main>
 
 <footer class="site-footer">
   Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
@@ -158,22 +164,31 @@
 
     return (
       '<div class="accordion-item' + (mi === 0 ? " open" : "") + '" id="mod-' + m.id + '">' +
-        '<button class="accordion-header" data-target="mod-' + m.id + '">' +
+        '<button class="accordion-header" data-target="mod-' + m.id + '" aria-expanded="' + (mi === 0 ? "true" : "false") + '" aria-controls="panel-' + m.id + '">' +
           '<div class="module-title-row">' +
             '<div class="module-badge">M' + m.number + '</div>' +
             '<div><div class="name">' + m.title + '</div><div class="sub">' + m.chapters.length + ' chapters · ' + m.marks + ' marks</div></div>' +
           '</div>' +
           '<div class="module-progress-mini"><span>' + mstats.done + '/' + mstats.total + '</span><div class="progress-track"><div class="progress-fill" style="width:' + (mstats.total? (mstats.done/mstats.total*100):0) + '%"></div></div></div>' +
-          '<svg class="accordion-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+          '<svg class="accordion-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
         '</button>' +
-        '<div class="accordion-panel"><div class="accordion-panel-inner">' + chaptersHtml + '</div></div>' +
+        '<div class="accordion-panel" id="panel-' + m.id + '"' + (mi === 0 ? "" : " inert") + '><div class="accordion-panel-inner">' + chaptersHtml + '</div></div>' +
       '</div>'
     );
   }).join("");
 
   listEl.querySelectorAll(".accordion-header").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      document.getElementById(btn.dataset.target).classList.toggle("open");
+      var item = document.getElementById(btn.dataset.target);
+      var isOpen = item.classList.toggle("open");
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      var panel = item.querySelector(".accordion-panel");
+      if (panel) {
+        // `inert` keeps the collapsed panel's chapter links out of the tab
+        // order (they're visually clipped) while preserving the CSS animation.
+        if (isOpen) panel.removeAttribute("inert");
+        else panel.setAttribute("inert", "");
+      }
     });
   });
 </script>

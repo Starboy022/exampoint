@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 8 — Investing in Stocks | NISM Learn</title>
+<meta name="description" content="Interactive lesson: equity as an investment, diversification (cross-sectional vs time-series), the six risks of equity, equity research (buy-side/sell-side, fundamental EIC analysis, the business cycle & industry life cycle, SWOT), valuation (DCF, asset-based and relative multiples — P/E, P/B, PEG, EVA, MVA, EV/EBITDA, yields) and technical analysis. NISM Series-X-A, Module 3, Chapter 8." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive calculator ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.95rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; text-align:center; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.9rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .calc-output .out-sub { font-size:0.82rem; color:var(--text-primary); margin-top:6px; }
+  .calc-output .out-sub b { color:var(--teal-text); font-family:var(--font-mono); }
+  .verdict { display:inline-block; margin-top:8px; font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:4px 11px; border-radius:var(--radius-pill); }
+  .verdict.under { background:color-mix(in srgb,var(--green-500) 18%,var(--bg-app)); color:var(--green-500); }
+  .verdict.over { background:color-mix(in srgb,var(--red-500) 16%,var(--bg-app)); color:var(--red-500); }
+  .verdict.fair { background:color-mix(in srgb,var(--gold-500) 20%,var(--bg-app)); color:var(--gold-600); }
+  .dual-out { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dual-out .box { background:var(--bg-app); border-radius:var(--radius-md); padding:12px; }
+  .dual-out .box .l { font-size:0.66rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); }
+  .dual-out .box .v { font-family:var(--font-display); font-weight:800; font-size:1.35rem; color:var(--gold-600); }
+
+  /* ---- Diversification / life-cycle SVG ---- */
+  .draw-line { fill:none; stroke-dasharray:600; stroke-dashoffset:600; }
+  .draw-line.go { animation: draw 1.4s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+
+  /* ---- Matcher (shared) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.95rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Flow nodes ---- */
+  .flow { display:flex; align-items:stretch; gap:0; flex-wrap:wrap; justify-content:center; margin:20px 0; }
+  .flow-node { flex:1; min-width:120px; padding:14px 12px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); text-align:center; opacity:0; transform:translateY(10px); transition:all var(--dur-med) var(--ease-out); }
+  .flow-node.in { opacity:1; transform:translateY(0); }
+  .flow-node .fn-ic { font-size:22px; }
+  .flow-node .fn-t { font-weight:800; font-size:0.85rem; margin-top:4px; font-family:var(--font-display); }
+  .flow-node .fn-d { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .flow-arrow { display:flex; align-items:center; color:var(--gold-500); font-size:20px; padding:0 6px; }
+
+  /* ---- Pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 3 · Investment Products</span>
+      <span class="badge badge-gold">Chapter 8 of 10</span>
+    </div>
+    <h1>Investing in Stocks</h1>
+    <p class="lede">Equity is the ownership slice of a company — a <strong>residual claim</strong> with no promise of return. This chapter builds the toolkit: how to <strong>diversify</strong> equity risk, the <strong>six risks</strong> you carry, and how professionals <strong>research and value</strong> stocks — from the <strong>EIC</strong> fundamental framework and the business cycle to <strong>DCF, asset-based and relative valuation</strong> (P/E, P/B, PEG, EVA, MVA, EV/EBITDA, yields) — and finally <strong>technical analysis</strong>.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~34 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 63 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 3 live calculators</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 8 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:660px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Understand equity as an investment</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Diversification of risk — cross-sectional vs time-series</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Risks of equity investments</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Overview of the equity market</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Equity research and stock selection</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Combining relative valuation and DCF models</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Technical analysis</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Qualitative evaluation of stocks</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-8-1">8.1 Equity as an investment</a></li>
+      <li><a href="#sec-8-2">8.2 Diversifying equity risk</a></li>
+      <li><a href="#sec-8-3">8.3 Risks of equity</a></li>
+      <li><a href="#sec-8-4">8.4 Overview of the market</a></li>
+      <li><a href="#sec-8-5">8.5 Equity research</a></li>
+      <li><a href="#sec-8-5-fa">Fundamental analysis &amp; EIC</a></li>
+      <li><a href="#sec-8-5-cycle">Business cycle &amp; life cycle</a></li>
+      <li><a href="#sec-8-5-val">Intrinsic value: DCF &amp; assets</a></li>
+      <li><a href="#sec-8-5-rel">Relative valuation &amp; ratios</a></li>
+      <li><a href="#sec-8-6">8.6 Combining the models</a></li>
+      <li><a href="#sec-8-7">8.7 Technical analysis</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 8.1 Equity as an investment -->
+    <section class="lesson-section" id="sec-8-1">
+      <span class="section-kicker">8.1</span>
+      <h2>Equity as an investment</h2>
+      <p>Seekers of capital issue two broad types of securities: <strong>equity</strong> (ownership) and <strong>debt</strong> (a lender's rights). Equity investors — <strong>shareholders</strong> — hold a <strong>residual claim</strong>: a claim on the company's <em>net assets</em> (assets after all liabilities are paid). Because they are owners, not lenders, the company is <strong>not contractually obligated</strong> to repay their money or to make periodic payments like interest.</p>
+      <p>Shareholders get <strong>voting rights</strong> and, with a sizable stake, a say in management. They look for <strong>capital appreciation and dividend income</strong> — but neither is assured: dividends depend on profitability, appreciation on market conditions. Since all <strong>residual benefits</strong> flow to equity, its expected return should exceed debt's.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🟢 Equity</h4>
+          <ul>
+            <li>Ownership + voting rights</li>
+            <li>Residual claim on net assets</li>
+            <li>No obligation to repay or pay periodic sums</li>
+            <li>Returns: dividends + capital appreciation (neither assured)</li>
+            <li>Higher risk, higher expected return</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🔵 Debt</h4>
+          <ul>
+            <li>Lender's rights, no ownership</li>
+            <li>Contractual periodic interest + repayment</li>
+            <li>Ranks ahead of equity</li>
+            <li>Returns: lower but stable</li>
+            <li>Lower risk, lower return</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — What does 'residual claim' mean for an equity shareholder?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">A claim on the company's net assets — what's left after all liabilities are paid</button>
+          <button class="mini-opt" data-correct="false">A guaranteed first claim ahead of lenders</button>
+          <button class="mini-opt" data-correct="false">A contractual right to fixed interest</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — shareholders are owners with a residual claim on net assets (assets after all liabilities). There's no contractual repayment or interest." data-wrong-msg="Not quite — equity is a residual claim: shareholders rank last, receiving net assets only after all liabilities are met."></div>
+      </div>
+    </section>
+
+    <!-- 8.2 Diversification -->
+    <section class="lesson-section" id="sec-8-2">
+      <span class="section-kicker">8.2</span>
+      <h2>Diversifying equity risk: cross-sectional vs time-series</h2>
+      <p>Diversification tames the risk that is specific to individual companies and sectors. It works two ways:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>↔️ Cross-sectional</h4>
+          <ul>
+            <li>Spread across many stocks and sectors <strong>at one point in time</strong></li>
+            <li>Cancels out company- and sector-specific (idiosyncratic) shocks</li>
+            <li>Cannot remove market risk — that's common to all</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>↕️ Time-series (time)</h4>
+          <ul>
+            <li>Spread the holding <strong>across time</strong> — stay invested for the long term</li>
+            <li>Long horizons <strong>reduce the fluctuation of risk</strong></li>
+            <li>Improves risk-adjusted returns for equities</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="div-curve" viewBox="0 0 460 260" width="100%" style="max-width:560px">
+            <!-- axes -->
+            <line x1="55" y1="20" x2="55" y2="210" stroke="var(--border-strong)" stroke-width="1.5"/>
+            <line x1="55" y1="210" x2="430" y2="210" stroke="var(--border-strong)" stroke-width="1.5"/>
+            <text x="20" y="115" text-anchor="middle" transform="rotate(-90 20 115)" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Portfolio risk</text>
+            <text x="242" y="238" text-anchor="middle" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Number of stocks held →</text>
+            <!-- market-risk floor -->
+            <line class="fade-el" id="mkt-floor" x1="55" y1="160" x2="430" y2="160" stroke="var(--red-500)" stroke-width="1.4" stroke-dasharray="5 4"/>
+            <text class="fade-el" id="mkt-floor-lbl" x="425" y="152" text-anchor="end" style="font-size:9px;font-weight:800;fill:var(--red-500)">Market risk (undiversifiable)</text>
+            <!-- total-risk curve: high at few stocks, decays toward floor -->
+            <path class="draw-line" id="risk-path" d="M70 55 C 120 90, 150 135, 200 150 S 320 159, 430 160" stroke="var(--teal-500)" stroke-width="2.6"/>
+            <!-- diversifiable bracket -->
+            <text class="fade-el" id="div-lbl" x="120" y="42" style="font-size:9px;font-weight:800;fill:var(--teal-text)">Diversifiable (idiosyncratic) risk ↓ as you add stocks</text>
+          </svg>
+        </div>
+        <div class="caption">Adding more stocks (cross-sectional diversification) drives out company- and sector-specific risk, but the curve flattens at the <strong>market-risk floor</strong> — the part that can't be diversified away, only hedged.</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Holding equities for the long term to smooth out the fluctuation of risk is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Cross-sectional diversification</button>
+          <button class="mini-opt" data-correct="true">Time (time-series) diversification</button>
+          <button class="mini-opt" data-correct="false">Hedging market risk with beta</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — spreading a holding across time (staying invested long term) is time diversification; spreading across many stocks at once is cross-sectional." data-wrong-msg="Not quite — that's time (time-series) diversification. Cross-sectional means spreading across many stocks/sectors at one point in time."></div>
+      </div>
+    </section>
+
+    <!-- 8.3 Risks -->
+    <section class="lesson-section" id="sec-8-3">
+      <span class="section-kicker">8.3</span>
+      <h2>The six risks of equity investments</h2>
+      <p>Only <strong>market risk</strong> hits every listed asset and can't be diversified away (only hedged); the next two are idiosyncratic and <strong>can</strong> be diversified. Tap each:</p>
+      <div class="flip-grid" id="risk-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Impact cost = the price of illiquidity</strong>
+          <p>Liquidity risk is measured by <strong>impact cost</strong>: the percentage price movement a given order size (say ₹1 lakh) causes, from the average of the best bid and offer in the order book. It's computed for both buy and sell sides. <strong>Thinly-traded stocks have high impact cost</strong> — one large trade moves the price a lot; a <strong>lower impact cost means a more liquid stock</strong>. Market risk, by contrast, is proxied by <strong>beta</strong>.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A single ₹1 lakh order moves a stock's price by 4%, while a blue chip barely moves. The thin stock has:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">High impact cost — it is less liquid</button>
+          <button class="mini-opt" data-correct="false">Low impact cost — it is more liquid</button>
+          <button class="mini-opt" data-correct="false">High beta but no liquidity issue</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a large price move from one order means high impact cost and low liquidity. Lower impact cost = more liquid." data-wrong-msg="Not quite — a big price move from one order is high impact cost, signalling low liquidity."></div>
+      </div>
+    </section>
+
+    <!-- 8.4 Overview -->
+    <section class="lesson-section" id="sec-8-4">
+      <span class="section-kicker">8.4</span>
+      <h2>Overview of the equity market</h2>
+      <p>Equity securities are ownership claims on a company's net assets. The market offers a range of <strong>risk-return-liquidity</strong> profiles across <strong>listed</strong> and <strong>unlisted</strong> space. Listed equity is <strong>relatively more liquid</strong>; listed companies must abide by <strong>listing norms</strong>, making the space <strong>more regulated with better disclosures</strong>. A thorough understanding of the market is needed to allocate optimally to this asset class.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Versus unlisted equity, listed equity is generally:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">More liquid, more regulated, with better disclosures</button>
+          <button class="mini-opt" data-correct="false">Less liquid and less regulated</button>
+          <button class="mini-opt" data-correct="false">Free of market risk</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — listed companies abide by listing norms, so the space is more regulated with better disclosures and greater liquidity." data-wrong-msg="Not quite — listed equity is more liquid and more regulated, with better disclosures, than unlisted equity."></div>
+      </div>
+    </section>
+
+    <!-- 8.5 Equity research -->
+    <section class="lesson-section" id="sec-8-5">
+      <span class="section-kicker">8.5</span>
+      <h2>Equity research and stock selection</h2>
+      <p>With thousands of stocks to choose from, research narrows the field to those matching an investor's <strong>risk-return-liquidity</strong> needs. Equity research analyses a company's financial and non-financial information, its sector, competitors and the economy — to estimate the stock's <strong>intrinsic value</strong>, then compare it with the market price and decide <strong>buy / hold / sell</strong>.</p>
+
+      <h3 id="buy-sell" style="margin-top:20px">Buy-side vs sell-side research</h3>
+      <div class="flip-grid" id="side-grid"></div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which analysts generate recommendations mainly for their own firm's fund managers and are paid to be accurate?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Buy-side analysts</button>
+          <button class="mini-opt" data-correct="false">Sell-side analysts</button>
+          <button class="mini-opt" data-correct="false">Exchange officials</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — buy-side analysts work for fund managers, produce recommendations for internal use, and are paid for accurate investment calls. Sell-side publishes broad guidance with price targets." data-wrong-msg="Not quite — that's buy-side research (internal, accuracy-focused). Sell-side publishes reports with buy/hold/sell calls and price targets."></div>
+      </div>
+    </section>
+
+    <!-- Fundamental analysis & EIC -->
+    <section class="lesson-section" id="sec-8-5-fa">
+      <span class="section-kicker">8.5.2</span>
+      <h2>Fundamental analysis &amp; the EIC framework</h2>
+      <p>Fundamental analysis estimates <strong>intrinsic value</strong> from the fundamentals that drive it — future earnings/cash flows, interest rates and risk variables. <strong>Buy if market price is below intrinsic value</strong> (net of transaction cost); don't buy, or sell, if above. Fundamentalists believe price eventually converges to intrinsic value. It proceeds through <strong>Economy → Industry → Company (EIC)</strong> analysis, in one of two directions:</p>
+
+      <div class="flow" id="eic-flow"></div>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>⬇️ Top-down</h4>
+          <ul>
+            <li>Start at the <strong>macro economy</strong></li>
+            <li>Pick attractive <strong>industries</strong></li>
+            <li>Zero in on <strong>companies</strong></li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>⬆️ Bottom-up</h4>
+          <ul>
+            <li>Start at <strong>company-specific</strong> factors</li>
+            <li>Move up to the <strong>industry</strong></li>
+            <li>Then the <strong>macro</strong> factors affecting it</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Scanning the macro economy first, then choosing industries, then companies, is the:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Top-down approach</button>
+          <button class="mini-opt" data-correct="false">Bottom-up approach</button>
+          <button class="mini-opt" data-correct="false">Technical approach</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — economy → industry → company is top-down. Company → industry → economy is bottom-up. Both use the EIC framework." data-wrong-msg="Not quite — starting from the macro economy down to companies is top-down; the reverse is bottom-up."></div>
+      </div>
+    </section>
+
+    <!-- Business cycle & life cycle -->
+    <section class="lesson-section" id="sec-8-5-cycle">
+      <span class="section-kicker">8.5.3</span>
+      <h2>Economy, the business cycle &amp; the industry life cycle</h2>
+      <p>The macro-economic forecast should estimate <strong>GDP, inflation, interest rates and unemployment</strong>. The stock market is a <strong>leading economic indicator</strong> — prices reflect expectations of <em>future</em> activity, so the market tends to turn before the economy does (though sentiment and flows can make it run ahead or lag). Interest-rate moves hit sectors unevenly: <strong>banks/financials are the most interest-sensitive</strong>; <strong>pharma</strong> is less affected.</p>
+
+      <h3 id="sector-rotation" style="margin-top:18px">Sectors and the business cycle</h3>
+      <p>Different sectors shine at different phases. Tap a phase to see which sectors lead:</p>
+      <div class="matcher" id="cycle-matcher">
+        <h4>Which sectors lead this phase? — tap a phase</h4>
+        <div class="hint">Cyclicals for recovery, cost-passers at the inflationary peak, defensives in recession.</div>
+        <div class="match-markets" id="cycle-markets">
+          <button class="match-mkt" data-reg="RECOVERY">Early recovery</button>
+          <button class="match-mkt" data-reg="PEAK">Peak (rising inflation)</button>
+          <button class="match-mkt" data-reg="RECESSION">Recession</button>
+        </div>
+        <div class="match-regs" id="cycle-cards">
+          <div class="reg-card" data-reg="RECOVERY"><div class="rn">Cyclicals</div><div class="rd">Consumer durables — cars, PCs, refrigerators, tractors; high operating/financial leverage pays off</div></div>
+          <div class="reg-card" data-reg="PEAK"><div class="rn">Cost-passers</div><div class="rd">Basic materials — oil &amp; metals; can raise prices, widen margins as inflation rises</div></div>
+          <div class="reg-card" data-reg="RECESSION"><div class="rn">Defensives</div><div class="rd">Consumer staples — pharma, FMCG; people keep buying necessities</div></div>
+        </div>
+        <div class="match-feedback" id="cycle-feedback"></div>
+      </div>
+
+      <h3 id="life-cycle" style="margin-top:20px">The industry life cycle</h3>
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="lifecycle" viewBox="0 0 480 240" width="100%" style="max-width:560px">
+            <line x1="45" y1="20" x2="45" y2="200" stroke="var(--border-strong)" stroke-width="1.5"/>
+            <line x1="45" y1="200" x2="455" y2="200" stroke="var(--border-strong)" stroke-width="1.5"/>
+            <text x="18" y="110" text-anchor="middle" transform="rotate(-90 18 110)" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Sales / growth</text>
+            <text x="250" y="228" text-anchor="middle" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Time →</text>
+            <!-- stage dividers -->
+            <line class="fade-el lc-div" x1="150" y1="30" x2="150" y2="200" stroke="var(--border-subtle)" stroke-dasharray="3 3"/>
+            <line class="fade-el lc-div" x1="270" y1="30" x2="270" y2="200" stroke="var(--border-subtle)" stroke-dasharray="3 3"/>
+            <line class="fade-el lc-div" x1="370" y1="30" x2="370" y2="200" stroke="var(--border-subtle)" stroke-dasharray="3 3"/>
+            <!-- S-curve then decline -->
+            <path class="draw-line" id="lc-path" d="M55 190 C 110 185, 130 150, 150 130 C 200 82, 240 55, 270 52 C 320 48, 350 55, 370 62 C 410 76, 435 120, 450 150" stroke="var(--gold-500)" stroke-width="2.8"/>
+            <text class="fade-el lc-lbl" x="97" y="185" text-anchor="middle" style="font-size:9px;font-weight:800;fill:var(--text-primary)">Introduction</text>
+            <text class="fade-el lc-lbl" x="210" y="185" text-anchor="middle" style="font-size:9px;font-weight:800;fill:var(--text-primary)">Growth</text>
+            <text class="fade-el lc-lbl" x="320" y="185" text-anchor="middle" style="font-size:9px;font-weight:800;fill:var(--text-primary)">Maturity</text>
+            <text class="fade-el lc-lbl" x="412" y="185" text-anchor="middle" style="font-size:9px;font-weight:800;fill:var(--text-primary)">Decline</text>
+          </svg>
+        </div>
+        <div class="caption">Analysts read where an industry sits — <strong>introduction, growth, maturity, decline</strong> — as an input to intrinsic value.</div>
+      </div>
+
+      <h3 id="company-swot" style="margin-top:20px">Company analysis &amp; SWOT</h3>
+      <p>Company analysis usually starts with <strong>financial statement analysis</strong> (P&amp;L, balance sheet, cash flow) and <strong>ratios</strong> — read alongside industry trends and historical averages. <strong>SWOT</strong> then maps the firm: <strong>Strengths/Weaknesses are internal</strong> (competitive advantages/disadvantages); <strong>Opportunities/Threats are external</strong> (a favourable tax change is an opportunity; stringent regulation, a big competitor or changing technology is a threat). Firms compete via a <strong>defensive</strong> strategy (deflect competitive forces) or an <strong>offensive</strong> one (use strengths to shape them).</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>A good company ≠ a good investment</strong>
+          <p>The stock of a great company — superior management, strong sales and earnings growth — can trade <em>far above</em> its intrinsic value, making it a poor investment. Always compare value to price. <strong>Price is a Fact but Value is an Opinion.</strong></p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — In SWOT, stringent new government regulation on a firm is a:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Threat (external factor)</button>
+          <button class="mini-opt" data-correct="false">Weakness (internal factor)</button>
+          <button class="mini-opt" data-correct="false">Strength (internal factor)</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — threats are adverse external factors (regulation, a big competitor, changing technology). Weaknesses are internal." data-wrong-msg="Not quite — external adverse factors like regulation are threats; weaknesses are internal to the firm."></div>
+      </div>
+    </section>
+
+    <!-- Intrinsic value: DCF & assets -->
+    <section class="lesson-section" id="sec-8-5-val">
+      <span class="section-kicker">8.5.4</span>
+      <h2>Estimating intrinsic value: DCF &amp; asset-based</h2>
+      <p>Once economy, industry and company are analysed, the analyst estimates <strong>intrinsic value</strong> — an educated estimate, since inputs are uncertain, so valuation is <strong>art as well as science</strong>. Three popular approaches:</p>
+      <div class="flip-grid" id="val-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Why cash flows, not profits?</strong>
+          <p>DCF needs three things: the <strong>stream of future cash flows</strong>, their <strong>timing</strong>, and the investor's <strong>expected rate of return</strong> (the discount rate). Profits look like the natural inflow — but <strong>profits are accounting estimates, not facts</strong>: accrual accounting allows valid adjustments with no cash moving. So business profits and cash returns aren't directly comparable, which is why analysts estimate <em>cash flows</em> from profit figures.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Asset-based valuation is MOST suitable for:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Asset-heavy firms carried near fair value — financial institutions, real estate, gold/gems/jewellery</button>
+          <button class="mini-opt" data-correct="false">Early-stage tech firms with mostly intangible value</button>
+          <button class="mini-opt" data-correct="false">Any firm, since it captures future cash flows</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — asset-based valuation suits asset-heavy businesses whose assets sit near fair value; its weakness is ignoring future profits/cash flows and R&D-driven value creation." data-wrong-msg="Not quite — it fits asset-heavy firms (financials, real estate, gold/gems). It ignores future cash flows, so it's poor for innovation-driven firms."></div>
+      </div>
+    </section>
+
+    <!-- Relative valuation & ratios -->
+    <section class="lesson-section" id="sec-8-5-rel">
+      <span class="section-kicker">8.5.5</span>
+      <h2>Relative valuation &amp; the ratio toolkit</h2>
+      <p>Relative valuation standardises a company's financials into <strong>multiples</strong> (of earnings, cash flow, book value or sales) and compares them with similar companies, the industry or the market. The most common is the <strong>P/E ratio</strong>.</p>
+
+      <div class="calc" id="calc-pe">
+        <div class="calc-title"><span class="pill">Live</span> P/E ratio &amp; relative-valuation verdict</div>
+        <div class="calc-sub">The workbook's example: a stock at ₹100 with an EPS of ₹5 has a P/E of 20×. Compare it to the industry P/E to judge whether it's under-, over- or fairly valued (e.g. a firm P/E of 18 vs an industry 22 = undervalued). Use the latest 12-month EPS, not one quarter.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Stock price <span class="val" id="pe-pr-val">₹100</span></label>
+              <input type="range" id="pe-pr-in" min="10" max="1000" step="5" value="100">
+            </div>
+            <div class="ctrl">
+              <label>EPS (last 12 months) <span class="val" id="pe-eps-val">₹5</span></label>
+              <input type="range" id="pe-eps-in" min="1" max="100" step="1" value="5">
+            </div>
+            <div class="ctrl">
+              <label>Industry / market P/E <span class="val" id="pe-ind-val">22×</span></label>
+              <input type="range" id="pe-ind-in" min="5" max="50" step="1" value="22">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Stock P/E</div>
+            <div class="out-val" id="pe-out">20×</div>
+            <div class="out-sub">Investors pay <b id="pe-perre">₹20</b> per ₹1 of earnings</div>
+            <div><span class="verdict under" id="pe-verdict">Undervalued</span></div>
+            <div class="out-note" id="pe-note">The stock's P/E (20×) is below the industry P/E (22×) — relatively undervalued.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-yield">
+        <div class="calc-title"><span class="pill">Live</span> Dividend yield &amp; earnings yield</div>
+        <div class="calc-sub">The workbook's examples: a ₹40 stock paying a ₹2 dividend yields 5%; a ₹25 stock with ₹2.5 EPS has a 10% earnings yield. Earnings yield is the inverse of the P/E.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Market price <span class="val" id="y-pr-val">₹40</span></label>
+              <input type="range" id="y-pr-in" min="10" max="500" step="5" value="40">
+            </div>
+            <div class="ctrl">
+              <label>Dividend per share <span class="val" id="y-dps-val">₹2</span></label>
+              <input type="range" id="y-dps-in" min="0" max="40" step="0.5" value="2">
+            </div>
+            <div class="ctrl">
+              <label>EPS <span class="val" id="y-eps-val">₹4</span></label>
+              <input type="range" id="y-eps-in" min="0.5" max="60" step="0.5" value="4">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="dual-out">
+              <div class="box"><div class="l">Dividend yield</div><div class="v" id="y-dy">5.0%</div></div>
+              <div class="box"><div class="l">Earnings yield</div><div class="v" id="y-ey">10.0%</div></div>
+            </div>
+            <div class="out-sub" style="margin-top:10px">Implied P/E <b id="y-pe">10.0×</b> — earnings yield is its inverse</div>
+            <div class="out-note">Dividend yield = DPS ÷ price. Earnings yield = EPS ÷ price = 1 ÷ (P/E).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-ev">
+        <div class="calc-title"><span class="pill">Live</span> Enterprise Value &amp; EV/EBITDA</div>
+        <div class="calc-sub">EV = market cap of equity + market value of debt − excess cash. It's what an acquirer effectively pays (you don't pay cash to acquire cash). EV/EBITDA suits capital-intensive firms not yet profitable at PAT/EBIT level.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Equity market cap <span class="val" id="ev-eq-val">₹800 cr</span></label>
+              <input type="range" id="ev-eq-in" min="100" max="3000" step="50" value="800">
+            </div>
+            <div class="ctrl">
+              <label>Market value of debt <span class="val" id="ev-dt-val">₹300 cr</span></label>
+              <input type="range" id="ev-dt-in" min="0" max="2000" step="50" value="300">
+            </div>
+            <div class="ctrl">
+              <label>Excess cash <span class="val" id="ev-cash-val">₹100 cr</span></label>
+              <input type="range" id="ev-cash-in" min="0" max="1000" step="25" value="100">
+            </div>
+            <div class="ctrl">
+              <label>EBITDA <span class="val" id="ev-eb-val">₹125 cr</span></label>
+              <input type="range" id="ev-eb-in" min="10" max="600" step="5" value="125">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Enterprise Value</div>
+            <div class="out-val" id="ev-out">₹1,000 cr</div>
+            <div class="out-sub">EV / EBITDA <b id="ev-mult">8.0×</b></div>
+            <div class="out-note">EV = 800 + 300 − 100 = ₹1,000 cr. Divided by ₹125 cr EBITDA = 8.0×.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="ratio-cards" style="margin-top:20px">The wider ratio toolkit</h3>
+      <div class="term-grid" id="ratio-grid"></div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A company trades at ₹40 and pays a ₹2 dividend per share. Its dividend yield is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">2%</button>
+          <button class="mini-opt" data-correct="true">5%</button>
+          <button class="mini-opt" data-correct="false">20%</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — dividend yield = (2 ÷ 40) × 100 = 5%." data-wrong-msg="Not quite — dividend yield = DPS ÷ price × 100 = (2 ÷ 40) × 100 = 5%."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which ratio accounts for BOTH equity and debt, making it more comprehensive than Price/Sales?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">EV/Sales</button>
+          <button class="mini-opt" data-correct="false">Dividend yield</button>
+          <button class="mini-opt" data-correct="false">P/B ratio</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — EV/Sales uses enterprise value, which includes debt as well as equity, unlike P/S which ignores the capital structure." data-wrong-msg="Not quite — EV/Sales is more comprehensive than P/S because EV captures both equity and debt."></div>
+      </div>
+    </section>
+
+    <!-- 8.6 Combining -->
+    <section class="lesson-section" id="sec-8-6">
+      <span class="section-kicker">8.6</span>
+      <h2>Combining relative valuation and DCF</h2>
+      <p>DCF estimates intrinsic value directly, driven by the <strong>growth rate of cash flows</strong> and the <strong>discount rate</strong>. Relative multiples compare the price to value-relevant variables (earnings, cash flow, book value, sales). A deeper look shows <strong>multiples are a simplified version of DCF</strong> — both embed the same fundamental drivers of value. The P/E, for instance, rests on the same idea that an asset's value is the present value of its future returns.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — The chapter's view on multiples vs DCF is that:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Multiples are a simplified version of DCF; both incorporate the same fundamental value drivers</button>
+          <button class="mini-opt" data-correct="false">They are unrelated and contradict each other</button>
+          <button class="mini-opt" data-correct="false">DCF ignores growth and the discount rate</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — multiples are essentially a compressed DCF; both capture the fundamental drivers of business value." data-wrong-msg="Not quite — multiples are a simplified form of DCF; both rest on the same fundamental drivers."></div>
+      </div>
+    </section>
+
+    <!-- 8.7 Technical -->
+    <section class="lesson-section" id="sec-8-7">
+      <span class="section-kicker">8.7</span>
+      <h2>Technical analysis</h2>
+      <p>Technical analysis assumes <strong>all price-affecting information is already in the price</strong> — so technicians (chartists) ignore fundamentals and instead study patterns in <strong>historical price and volume</strong> to forecast direction and magnitude. Three elements matter: <strong>past prices</strong> (trend &amp; direction), the <strong>volume</strong> behind moves (strength of the trend), and the <strong>time span</strong> observed.</p>
+
+      <h3 id="ta-assumptions" style="margin-top:18px">Assumptions</h3>
+      <div class="pill-list">
+        <span>Price = interaction of supply &amp; demand</span><span>Supply/demand driven by rational + irrational factors</span><span>Adjustments aren't instantaneous — prices move in trends</span><span>Trends persist for appreciable periods</span><span>Trends change as supply/demand shifts</span><span>Shifts are detectable in market action</span>
+      </div>
+
+      <h3 id="ta-vs-fa" style="margin-top:18px">Technical vs fundamental</h3>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>📊 Fundamental</h4>
+          <ul>
+            <li>Computes intrinsic value, compares to price</li>
+            <li>Believes price converges to value over time</li>
+            <li>For long-term investing</li>
+            <li>Needs extensive data collection</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>📈 Technical</h4>
+          <ul>
+            <li>Ignores intrinsic value; studies price/volume history</li>
+            <li>Forecasts future price moves &amp; timing</li>
+            <li>For short-term trading</li>
+            <li>Not heavily dependent on accounting statements — saves data-gathering time</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-secondary)">The saying: <em>"identify a stock through fundamental analysis and do the timing through technical analysis."</em> Even so, investors are encouraged to be long-term investors, not traders.</p>
+
+      <h3 id="ta-indicators" style="margin-top:18px">Rules &amp; indicators</h3>
+      <p>Popular tools include <strong>trend-line analysis</strong>, <strong>moving averages</strong> and <strong>Bollinger-Band analysis</strong>. In trend-line analysis, a technician trades the channel — <strong>buy near the trough</strong> (support) of a rising channel, <strong>sell near the peak</strong>.</p>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="trend-chart" viewBox="0 0 480 240" width="100%" style="max-width:560px">
+            <line x1="40" y1="15" x2="40" y2="200" stroke="var(--border-strong)" stroke-width="1.5"/>
+            <line x1="40" y1="200" x2="460" y2="200" stroke="var(--border-strong)" stroke-width="1.5"/>
+            <text x="16" y="105" text-anchor="middle" transform="rotate(-90 16 105)" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Stock price</text>
+            <text x="250" y="228" text-anchor="middle" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Time →</text>
+            <!-- rising channel guide lines -->
+            <line class="fade-el tc-guide" x1="55" y1="185" x2="440" y2="70" stroke="var(--teal-500)" stroke-width="1.2" stroke-dasharray="4 4"/>
+            <line class="fade-el tc-guide" x1="55" y1="150" x2="440" y2="35" stroke="var(--teal-500)" stroke-width="1.2" stroke-dasharray="4 4"/>
+            <!-- price zig-zag rising -->
+            <path class="draw-line" id="tc-path" d="M55 170 L100 150 L140 165 L185 118 L225 138 L270 92 L310 112 L355 66 L400 88 L440 52" stroke="var(--gold-500)" stroke-width="2.4"/>
+            <!-- buy points (troughs) -->
+            <g class="fade-el tc-mark"><circle cx="140" cy="165" r="6" fill="none" stroke="var(--green-500)" stroke-width="2"/><text x="140" y="185" text-anchor="middle" style="font-size:8.5px;font-weight:800;fill:var(--green-500)">Buy</text></g>
+            <g class="fade-el tc-mark"><circle cx="310" cy="112" r="6" fill="none" stroke="var(--green-500)" stroke-width="2"/><text x="310" y="132" text-anchor="middle" style="font-size:8.5px;font-weight:800;fill:var(--green-500)">Buy</text></g>
+            <!-- sell points (peaks) -->
+            <g class="fade-el tc-mark"><circle cx="270" cy="92" r="6" fill="none" stroke="var(--red-500)" stroke-width="2"/><text x="270" y="80" text-anchor="middle" style="font-size:8.5px;font-weight:800;fill:var(--red-500)">Sell</text></g>
+            <g class="fade-el tc-mark"><circle cx="440" cy="52" r="6" fill="none" stroke="var(--red-500)" stroke-width="2"/><text x="435" y="42" text-anchor="end" style="font-size:8.5px;font-weight:800;fill:var(--red-500)">Sell</text></g>
+          </svg>
+        </div>
+        <div class="caption">A <strong>rising trend channel</strong>: the technician ideally buys near the troughs (support) and sells near the peaks (resistance).</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Technical analysis is described as best suited to:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Short-term trading and timing, not necessarily long-term investing</button>
+          <button class="mini-opt" data-correct="false">Estimating a company's intrinsic value</button>
+          <button class="mini-opt" data-correct="false">Long-term buy-and-hold investing only</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — technical analysis studies price/volume patterns for short-term trading and timing; it doesn't assess intrinsic value. Investors are still encouraged to be long-term, not traders." data-wrong-msg="Not quite — technical analysis is used for short-term trading and timing, not for estimating intrinsic value."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The formulas, definitions and numbers most likely to be tested — tap to reveal.</p>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch08";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 3", href: "../../index.html" },
+    { label: "Chapter 8", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:17px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // Risks
+  renderFlip("risk-grid", [
+    { icon: "🌊", label: "Market risk", back: "Price swings from market-wide dynamics affecting ALL listed assets, whatever the sector (degree varies). Beta is its proxy. Cannot be diversified away — only hedged." },
+    { icon: "🏭", label: "Sector-specific risk", back: "Factors hitting one sector but not others (e.g. tourism curbs hurting airlines/hospitality). 'Idiosyncratic' risk — diversifiable by investing across different sectors." },
+    { icon: "🏢", label: "Company-specific risk", back: "Factors affecting a single firm (a corporate debacle while peers survive). Non-market — diversifiable by holding different companies." },
+    { icon: "🤝", label: "Transactional risk", back: "The counterparty fails to pay or deliver shares. Mitigated by transacting through the stock exchange, with its robust risk-mitigation procedures." },
+    { icon: "💧", label: "Liquidity risk", back: "Not finding a buyer/seller. Measured by impact cost — the % price move a given order size causes from the mid of best bid/offer. Thin stocks = high impact cost." },
+    { icon: "💱", label: "Currency risk", back: "Once markets open to international investors, exchange-rate volatility matters. FPIs move in/out with home interest rates or sharp currency moves, pressuring the market." }
+  ]);
+
+  // Buy-side vs sell-side
+  renderFlip("side-grid", [
+    { icon: "📤", label: "Sell-side research", back: "Works for investment-banking/broking/advisory firms. Publishes research reports with buy/hold/sell recommendations and price targets. Paid for providing useful information; broad sector guidance is expected more than exact price predictions." },
+    { icon: "📥", label: "Buy-side research", back: "Works for fund managers (mutual/hedge/pension funds, PMs) that trade for their own or clients' accounts. Recommendations are for internal use by the firm's managers. Must be more accurate — paid for investment recommendations." }
+  ]);
+
+  // EIC flow
+  (function () {
+    var el = document.getElementById("eic-flow"); if (!el) return;
+    var nodes = [
+      { ic: "🌍", t: "Economy", d: "GDP, inflation, interest rates, unemployment; monetary & fiscal policy. The market is a leading indicator." },
+      { ic: "🏭", t: "Industry", d: "Relation to the business cycle (cyclical vs defensive) and stage in the industry life cycle." },
+      { ic: "🏢", t: "Company", d: "Financial statements & ratios, SWOT, competitive strategy → intrinsic value." }
+    ];
+    el.innerHTML = nodes.map(function (n, i) {
+      var arrow = i < nodes.length - 1 ? '<div class="flow-arrow">→</div>' : '';
+      return '<div class="flow-node"><div class="fn-ic">' + n.ic + '</div><div class="fn-t">' + n.t + '</div><div class="fn-d">' + n.d + '</div></div>' + arrow;
+    }).join("");
+  })();
+
+  // Valuation approaches
+  renderFlip("val-grid", [
+    { icon: "💵", label: "Discounted Cash Flow (DCF)", back: "The most appropriate approach when three things are known: the stream of future cash flows, their timing, and the expected rate of return (discount rate). Then present value is simple maths. Depends on the cash-flow growth rate and the discount rate." },
+    { icon: "🏗️", label: "Asset-based", back: "Value of firm = adjusted current market value of net tangible + intangible + financial + net current assets. Value of equity = firm value − outsider liabilities. Suits asset-heavy firms (financials, real estate, gold/gems). Ignores future profits & R&D-driven value." },
+    { icon: "📐", label: "Relative (multiples)", back: "Standardise financials into multiples of earnings, cash flow, book value or sales; apply peers'/industry multiples to the target. Compares an entity to similar entities to judge over/undervaluation." }
+  ]);
+
+  // Ratio toolkit cards
+  renderCards("ratio-grid", [
+    { icon: "📊", label: "P/E ratio", body: "Price ÷ EPS (latest 12 months). Trailing uses last 4 quarters' EPS; forward uses next 4 quarters' expected EPS; current uses recent annual EPS. Compare to market/industry/peer P/E." },
+    { icon: "📚", label: "P/B ratio", body: "Market price per share ÷ shareholders' equity (book value) per share. Very popular for banks and financial-services firms." },
+    { icon: "🚀", label: "PEG ratio", body: "P/E ÷ earnings growth. Scales the P/E by the company's growth rate." },
+    { icon: "💰", label: "EVA", body: "Economic profit = net after-tax operating profit − (invested capital × % cost of capital). Measures true economic profit produced." },
+    { icon: "📈", label: "MVA", body: "Current market value of the firm − original capital contributed. Positive = value added (must beat investors' opportunity cost); negative = value destroyed." },
+    { icon: "🏢", label: "EV & EV/EBITDA", body: "EV = equity market cap + market value of debt − excess cash. EV/EBITDA suits capital-intensive firms not yet profitable at PAT/EBIT but cash-surplus at EBITDA." },
+    { icon: "🧾", label: "EV/Sales", body: "EV ÷ annual sales. More comprehensive than P/S because EV includes both equity and debt. Best for highly capital-intensive firms." },
+    { icon: "💸", label: "Dividend & earnings yield", body: "Dividend yield = DPS ÷ price × 100. Earnings yield = EPS ÷ price × 100 — the inverse of the P/E." }
+  ]);
+
+  // Revision deck
+  renderFlip("revision-cards", [
+    { icon: "P ÷ EPS", label: "P/E ratio", back: "₹100 price ÷ ₹5 EPS = 20×. A P/E of 10 means paying ₹10 per ₹1 of earnings. Use latest 12-month EPS. Forward P/E uses next 4 quarters' expected EPS." },
+    { icon: "DPS ÷ P", label: "Dividend yield", back: "₹2 dividend ÷ ₹40 price = 5%. Shows the dividend return for a buyer at the current market price." },
+    { icon: "EPS ÷ P", label: "Earnings yield", back: "₹2.5 EPS ÷ ₹25 price = 10%. It is the inverse of the P/E ratio (1 ÷ P/E)." },
+    { icon: "Beta", label: "Market-risk proxy", back: "Beta proxies market (systematic) risk — undiversifiable, only hedgeable. Sector & company risks are idiosyncratic and diversifiable." },
+    { icon: "Impact cost", label: "Liquidity measure", back: "The % price move a given order size causes from the mid of the best bid/offer. High impact cost = thinly traded, less liquid." },
+    { icon: "EIC", label: "Fundamental framework", back: "Economy → Industry → Company. Top-down starts at the economy; bottom-up starts at the company. The market is a leading economic indicator." },
+    { icon: "DCF ×3", label: "DCF inputs", back: "Needs the stream of future cash flows, their timing, and the expected rate of return (discount rate). Profits are estimates — cash flows are what matter." },
+    { icon: "EV", label: "Enterprise Value", back: "Equity market cap + market value of debt − excess cash. EV/EBITDA is useful for capital-intensive firms not yet profitable at PAT/EBIT." },
+    { icon: "Price=Fact", label: "Value = Opinion", back: "Price is observable in the market; value is the analyst's evaluation. A good company can still be a bad investment if it trades above intrinsic value." },
+    { icon: "Buy trough", label: "Trend channel", back: "In a rising trend channel, buy near the trough (support) and sell near the peak (resistance). Technicals for timing; fundamentals to pick." }
+  ], "mono");
+
+  // ---------- Matcher ----------
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("cycle-markets", "cycle-cards", "cycle-feedback", {
+    RECOVERY: "Early recovery — cyclical sectors (consumer durables) lead; high operating & financial leverage pays off in good times.",
+    PEAK: "At the inflationary peak, industries that can pass on cost increases — basic materials like oil & metals — protect or widen margins.",
+    RECESSION: "In recession, defensive consumer staples (pharma, FMCG) outperform — people still buy necessities."
+  });
+
+  // ---------- Calculators ----------
+  var fmt = function (n) { return n.toLocaleString("en-IN"); };
+
+  // P/E
+  (function () {
+    var prIn = document.getElementById("pe-pr-in"), epsIn = document.getElementById("pe-eps-in"), indIn = document.getElementById("pe-ind-in");
+    var prVal = document.getElementById("pe-pr-val"), epsVal = document.getElementById("pe-eps-val"), indVal = document.getElementById("pe-ind-val");
+    var out = document.getElementById("pe-out"), perre = document.getElementById("pe-perre"), verdict = document.getElementById("pe-verdict"), note = document.getElementById("pe-note");
+    function render() {
+      var pr = +prIn.value, eps = +epsIn.value, ind = +indIn.value;
+      prVal.textContent = "₹" + fmt(pr); epsVal.textContent = "₹" + eps; indVal.textContent = ind + "×";
+      var pe = pr / eps;
+      out.textContent = pe.toFixed(1) + "×";
+      perre.textContent = "₹" + pe.toFixed(1);
+      var diff = pe - ind, cls, txt, msg;
+      if (Math.abs(diff) <= 1) { cls = "fair"; txt = "Fairly valued"; msg = "The stock's P/E (" + pe.toFixed(1) + "×) is about in line with the industry P/E (" + ind + "×) — fairly valued."; }
+      else if (diff < 0) { cls = "under"; txt = "Undervalued"; msg = "The stock's P/E (" + pe.toFixed(1) + "×) is below the industry P/E (" + ind + "×) — relatively undervalued."; }
+      else { cls = "over"; txt = "Overvalued"; msg = "The stock's P/E (" + pe.toFixed(1) + "×) is above the industry P/E (" + ind + "×) — relatively overvalued."; }
+      verdict.className = "verdict " + cls; verdict.textContent = txt; note.textContent = msg;
+    }
+    [prIn, epsIn, indIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // Yields
+  (function () {
+    var prIn = document.getElementById("y-pr-in"), dpsIn = document.getElementById("y-dps-in"), epsIn = document.getElementById("y-eps-in");
+    var prVal = document.getElementById("y-pr-val"), dpsVal = document.getElementById("y-dps-val"), epsVal = document.getElementById("y-eps-val");
+    var dy = document.getElementById("y-dy"), ey = document.getElementById("y-ey"), peEl = document.getElementById("y-pe");
+    function render() {
+      var pr = +prIn.value, dps = +dpsIn.value, eps = +epsIn.value;
+      prVal.textContent = "₹" + fmt(pr); dpsVal.textContent = "₹" + dps; epsVal.textContent = "₹" + eps;
+      var dyv = dps / pr * 100, eyv = eps / pr * 100, pe = pr / eps;
+      dy.textContent = dyv.toFixed(1) + "%"; ey.textContent = eyv.toFixed(1) + "%"; peEl.textContent = pe.toFixed(1) + "×";
+    }
+    [prIn, dpsIn, epsIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // EV / EBITDA
+  (function () {
+    var eqIn = document.getElementById("ev-eq-in"), dtIn = document.getElementById("ev-dt-in"), cashIn = document.getElementById("ev-cash-in"), ebIn = document.getElementById("ev-eb-in");
+    var eqVal = document.getElementById("ev-eq-val"), dtVal = document.getElementById("ev-dt-val"), cashVal = document.getElementById("ev-cash-val"), ebVal = document.getElementById("ev-eb-val");
+    var out = document.getElementById("ev-out"), mult = document.getElementById("ev-mult");
+    function render() {
+      var eq = +eqIn.value, dt = +dtIn.value, cash = +cashIn.value, eb = +ebIn.value;
+      eqVal.textContent = "₹" + fmt(eq) + " cr"; dtVal.textContent = "₹" + fmt(dt) + " cr"; cashVal.textContent = "₹" + fmt(cash) + " cr"; ebVal.textContent = "₹" + fmt(eb) + " cr";
+      var ev = eq + dt - cash;
+      out.textContent = "₹" + fmt(ev) + " cr";
+      mult.textContent = (ev / eb).toFixed(1) + "×";
+    }
+    [eqIn, dtIn, cashIn, ebIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.35 }).observe(el);
+  }
+  onReveal("#div-curve", function (root) {
+    root.querySelector("#risk-path").classList.add("go");
+    ["#mkt-floor", "#mkt-floor-lbl", "#div-lbl"].forEach(function (s, i) {
+      setTimeout(function () { root.querySelector(s).classList.add("go"); }, 700 + i * 250);
+    });
+  }, 0.3);
+  onReveal("#lifecycle", function (root) {
+    root.querySelector("#lc-path").classList.add("go");
+    root.querySelectorAll(".fade-el").forEach(function (n, i) { setTimeout(function () { n.classList.add("go"); }, 500 + i * 120); });
+  }, 0.3);
+  onReveal("#trend-chart", function (root) {
+    root.querySelector("#tc-path").classList.add("go");
+    root.querySelectorAll(".fade-el").forEach(function (n, i) { setTimeout(function () { n.classList.add("go"); }, 600 + i * 150); });
+  }, 0.3);
+  onReveal("#eic-flow", function (root) {
+    root.querySelectorAll(".flow-node").forEach(function (n, i) { setTimeout(function () { n.classList.add("in"); }, i * 200); });
+  }, 0.3);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH08_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

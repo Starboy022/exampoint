@@ -53,5 +53,6 @@ Aim for a healthy share of scenario questions (Ch.2 had ~18 of 37). Use realisti
 
 ## Progress tracking
 
-- **Written (`status:"active"`):** M1 Ch.1 (Intro to Personal Financial Planning), M1 Ch.2 (Time Value of Money).
-- **Remaining:** all other chapters are `"coming-soon"` stubs in `curriculum.js` with correct titles/paths — build following this standard, then flip status.
+- **Written (`status:"active"`):** all of Module 1 — Ch.1 (Intro to Personal Financial Planning), Ch.2 (Time Value of Money), Ch.3 (Evaluating the Financial Position of Clients), Ch.4 (Debt Management and Loans); all of Module 2 — Ch.5 (Introduction to the Indian Financial Markets), Ch.6 (Securities Market Segments).
+- **Remaining:** Modules 3–6 chapters (Ch.7–20) are `"coming-soon"` stubs in `curriculum.js` with correct titles/paths — build following this standard, then flip status. Next up is Module 3 Ch.7 (Introduction to Investment).
+- **Note for fact-heavy chapters with no maths (like Ch.5):** the "live calculator" requirement is satisfied by other interactive elements — tap-to-match widgets, animated regulator/structure SVGs, staggered-reveal flow diagrams — since there are no worked calculations. Keep the meta-row honest (e.g. "N learning objectives" instead of "N calculators").

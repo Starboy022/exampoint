@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 10 — Understanding Derivatives | NISM Learn</title>
+<meta name="description" content="Interactive lesson: what derivatives are, the underlying concepts (zero-sum game, settlement, margining, open interest), the four products (forwards, futures, options, swaps), OTC vs exchange-traded market structure, the three purposes (hedging, speculation, arbitrage), benefits &amp; risks, equity/currency/commodity derivatives, futures pricing (cost of carry), spot-future arbitrage and option payoffs. NISM Series-X-A, Module 3, Chapter 10." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive calculator ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.95rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .seg { display:inline-flex; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; }
+  .seg button { border:none; background:var(--bg-app); font-size:0.78rem; font-weight:700; padding:7px 14px; cursor:pointer; color:var(--text-secondary); transition:all var(--dur-fast); }
+  .seg button.on { background:var(--navy-800); color:#fff; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; text-align:center; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.9rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .calc-output .out-sub { font-size:0.82rem; color:var(--text-primary); margin-top:6px; }
+  .calc-output .out-sub b { color:var(--teal-text); font-family:var(--font-mono); }
+  .verdict { display:inline-block; margin-top:8px; font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:4px 11px; border-radius:var(--radius-pill); }
+  .verdict.itm { background:color-mix(in srgb,var(--green-500) 18%,var(--bg-app)); color:var(--green-500); }
+  .verdict.otm { background:color-mix(in srgb,var(--red-500) 16%,var(--bg-app)); color:var(--red-500); }
+  .verdict.atm { background:color-mix(in srgb,var(--gold-500) 20%,var(--bg-app)); color:var(--gold-600); }
+  .dual-out { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dual-out .box { background:var(--bg-app); border-radius:var(--radius-md); padding:12px; }
+  .dual-out .box .l { font-size:0.66rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); }
+  .dual-out .box .v { font-family:var(--font-display); font-weight:800; font-size:1.3rem; color:var(--gold-600); }
+  .toggle-row { display:flex; flex-wrap:wrap; gap:16px; margin-bottom:4px; }
+  .toggle-row .tg { display:flex; flex-direction:column; gap:6px; }
+  .toggle-row .tg > span { font-size:0.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); font-weight:700; }
+
+  /* ---- SVG animation helpers ---- */
+  .draw-line { fill:none; stroke-dasharray:900; stroke-dashoffset:900; }
+  .draw-line.go { animation: draw 1.5s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+
+  /* ---- Matcher (shared) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.95rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Flow nodes ---- */
+  .flow { display:flex; align-items:stretch; gap:0; flex-wrap:wrap; justify-content:center; margin:20px 0; }
+  .flow-node { flex:1; min-width:120px; padding:14px 12px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); text-align:center; opacity:0; transform:translateY(10px); transition:all var(--dur-med) var(--ease-out); }
+  .flow-node.in { opacity:1; transform:translateY(0); }
+  .flow-node .fn-ic { font-size:22px; }
+  .flow-node .fn-t { font-weight:800; font-size:0.85rem; margin-top:4px; font-family:var(--font-display); }
+  .flow-node .fn-d { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .flow-arrow { display:flex; align-items:center; color:var(--gold-500); font-size:20px; padding:0 6px; }
+
+  /* ---- Pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 3 · Investment Products</span>
+      <span class="badge badge-gold">Chapter 10 of 10</span>
+    </div>
+    <h1>Understanding Derivatives</h1>
+    <p class="lede">A derivative's value is <strong>borrowed</strong> — derived from an underlying asset. This chapter builds the derivatives toolkit: the <strong>underlying concepts</strong> (zero-sum game, settlement, margins, open interest), the four products — <strong>forwards, futures, options and swaps</strong> — the <strong>OTC vs exchange-traded</strong> divide, the three purposes (<strong>hedging, speculation, arbitrage</strong>), the <strong>equity, currency and commodity</strong> segments, and the mechanics that matter: <strong>futures pricing (cost of carry), spot-future arbitrage</strong> and <strong>option payoffs</strong>.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~32 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 65 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 3 live calculators</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 8 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:680px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Basics of derivatives</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Underlying concepts in derivatives</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Types of derivative products</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Structure of derivative markets</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Purpose of derivatives</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Benefits, costs and risks of derivatives</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Equity, currency and commodity derivatives</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Derivative markets, products and strategies</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-10-1">10.1 Basics of derivatives</a></li>
+      <li><a href="#sec-10-2">10.2 Underlying concepts</a></li>
+      <li><a href="#sec-10-3">10.3 Types of products</a></li>
+      <li><a href="#sec-10-3-opt">Options in depth</a></li>
+      <li><a href="#sec-10-4">10.4 Market structure</a></li>
+      <li><a href="#sec-10-5">10.5 Purpose of derivatives</a></li>
+      <li><a href="#sec-10-6">10.6 Benefits &amp; risks</a></li>
+      <li><a href="#sec-10-7">10.7 Equity, currency &amp; commodity</a></li>
+      <li><a href="#sec-10-8">10.8 Pricing &amp; strategies</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 10.1 Basics -->
+    <section class="lesson-section" id="sec-10-1">
+      <span class="section-kicker">10.1</span>
+      <h2>Basics of derivatives</h2>
+      <p>A <strong>derivative</strong> is a contract whose value is <strong>derived from the value of some other asset</strong> — the <strong>underlying</strong>. Underlyings span metals (gold, silver), energy (oil, coal, gas), agri commodities (wheat, coffee) and financial assets (shares, bonds). The derivative itself has no independent value; it simply tracks something else.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>The two legal definitions</strong>
+          <p>Under the <strong>SC(R)A, 1956</strong>, a derivative includes a security derived from a debt instrument/share/loan and a contract deriving value from the prices (or index of prices) of underlying securities — and derivatives are <strong>securities</strong>, so their trading is governed by the SC(R)A. Separately, <strong>Section 45U(a) of the RBI Act, 1934</strong> defines a derivative (settled at a future date) whose value derives from a change in <strong>interest rate, FX rate, credit rating/index or price of securities</strong> — covering interest-rate swaps, forward-rate agreements and currency options.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A derivative's value is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Derived from the value of an underlying asset</button>
+          <button class="mini-opt" data-correct="false">Fixed by the issuer, independent of any other asset</button>
+          <button class="mini-opt" data-correct="false">Always equal to a bank deposit rate</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a derivative derives its value from an underlying asset (a commodity, currency or financial asset). It has no independent value of its own." data-wrong-msg="Not quite — a derivative's value is derived from the value of some other asset, the underlying."></div>
+      </div>
+    </section>
+
+    <!-- 10.2 Underlying concepts -->
+    <section class="lesson-section" id="sec-10-2">
+      <span class="section-kicker">10.2</span>
+      <h2>Underlying concepts</h2>
+      <p>Four ideas recur across every derivative — tap each:</p>
+      <div class="flip-grid" id="concepts-grid"></div>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="zsum" viewBox="0 0 460 240" width="100%" style="max-width:540px">
+            <line x1="55" y1="120" x2="435" y2="120" stroke="var(--border-strong)" stroke-width="1.5"/>
+            <line x1="55" y1="25" x2="55" y2="215" stroke="var(--border-strong)" stroke-width="1.2"/>
+            <text x="245" y="234" text-anchor="middle" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Price of underlying at maturity →</text>
+            <text x="30" y="118" text-anchor="middle" transform="rotate(-90 30 118)" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Profit / Loss</text>
+            <!-- buyer (long) payoff: rises -->
+            <path class="draw-line" id="zs-buyer" d="M70 190 L 420 50" stroke="var(--green-500)" stroke-width="2.6"/>
+            <!-- seller (short) payoff: mirror, falls -->
+            <path class="draw-line" id="zs-seller" d="M70 50 L 420 190" stroke="var(--red-500)" stroke-width="2.6"/>
+            <text class="fade-el" id="zs-b-lbl" x="424" y="48" text-anchor="end" style="font-size:9px;font-weight:800;fill:var(--green-500)">Buyer (long) +</text>
+            <text class="fade-el" id="zs-s-lbl" x="424" y="200" text-anchor="end" style="font-size:9px;font-weight:800;fill:var(--red-500)">Seller (short) −</text>
+          </svg>
+        </div>
+        <div class="caption">A futures contract is a <strong>zero-sum game</strong>: the buyer's gain is exactly the seller's loss (and vice-versa), so their net position sums to zero — assuming no taxes and no transaction costs.</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Open interest is a measure of:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The flow of money into a market (outstanding, unsettled contracts) — not trading volume</button>
+          <button class="mini-opt" data-correct="false">The day's total trading volume</button>
+          <button class="mini-opt" data-correct="false">The interest rate charged on margin loans</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — open interest is the total outstanding (unsettled) contracts, a measure of money flow. Rising OI = new money in; falling OI = money leaving. It is not trading volume." data-wrong-msg="Not quite — open interest counts outstanding unsettled contracts (money flow), which is different from trading volume."></div>
+      </div>
+    </section>
+
+    <!-- 10.3 Types of products -->
+    <section class="lesson-section" id="sec-10-3">
+      <span class="section-kicker">10.3</span>
+      <h2>Types of derivative products</h2>
+      <p>Four products dominate — <strong>Forwards, Futures, Options and Swaps</strong>. Tap one to see its defining traits:</p>
+      <div class="matcher" id="prod-matcher">
+        <h4>The four products — tap one</h4>
+        <div class="hint">Notice which are OTC vs exchange-traded, and which carry an obligation vs a right.</div>
+        <div class="match-markets" id="prod-markets">
+          <button class="match-mkt" data-reg="FWD">Forwards</button>
+          <button class="match-mkt" data-reg="FUT">Futures</button>
+          <button class="match-mkt" data-reg="OPT">Options</button>
+          <button class="match-mkt" data-reg="SWP">Swaps</button>
+        </div>
+        <div class="match-regs" id="prod-cards">
+          <div class="reg-card" data-reg="FWD"><div class="rn">Forwards</div><div class="rd">Bilateral OTC · customised terms · obligation on both · liquidity &amp; counterparty risk</div></div>
+          <div class="reg-card" data-reg="FUT"><div class="rn">Futures</div><div class="rd">Standardised, exchange-traded · clearing house as counterparty · margins both sides · obligation on both</div></div>
+          <div class="reg-card" data-reg="OPT"><div class="rn">Options</div><div class="rd">Right (not obligation) for the buyer; obligation for the writer · buyer pays a premium · Call / Put</div></div>
+          <div class="reg-card" data-reg="SWP"><div class="rn">Swaps</div><div class="rd">Exchange of cash flows on future dates · interest-rate &amp; currency · notional principal never exchanged · OTC</div></div>
+        </div>
+        <div class="match-feedback" id="prod-feedback"></div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Cash vs forward: the goldsmith example</strong>
+          <p>On 9 Mar 2018 gold's spot price is <strong>₹30,425</strong>/10g — pay and take delivery today, and it's a <strong>cash-market</strong> deal at the spot price. Agree instead to pay <strong>₹30,450</strong> and take delivery after 1 month, with nothing changing hands today, and it's a <strong>forward</strong>: you are <strong>long forward</strong>, the goldsmith is <strong>short forward</strong>, and both are obliged to honour it whatever gold does. Futures then take this forward idea and <strong>standardise it onto an exchange</strong>, with a clearing house guaranteeing settlement.</p>
+        </div>
+      </div>
+
+      <h3 id="fwd-limits" style="margin-top:20px">Why forwards fall short</h3>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>💧 Liquidity risk</h4>
+          <ul>
+            <li>Tailor-made terms → other participants uninterested</li>
+            <li>Not listed or traded on exchanges</li>
+            <li>Hard to access or exit</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🤝 Counterparty (default) risk</h4>
+          <ul>
+            <li>A party may default if it has an incentive to</li>
+            <li>Rice at ₹20/kg: if the market hits ₹30, the seller may walk; at ₹15, the buyer may walk</li>
+            <li>Also called default or credit risk</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-secondary)">Plus a lack of transparency and settlement complications — all solved by moving contracts onto a centralised platform, which is exactly what <strong>futures</strong> do.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Futures differ from forwards chiefly because futures are:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Standardised and exchange-traded, with a clearing house as counterparty to both sides</button>
+          <button class="mini-opt" data-correct="false">Customised bilateral OTC contracts</button>
+          <button class="mini-opt" data-correct="false">A right, not an obligation, for both parties</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — futures are standardised forwards traded on an exchange; the exchange (via a clearing house) is counterparty to both, guaranteeing settlement. Both parties are obligated and post margins." data-wrong-msg="Not quite — futures are standardised, exchange-traded contracts with a clearing house as counterparty; forwards are the customised OTC ones."></div>
+      </div>
+    </section>
+
+    <!-- Options in depth -->
+    <section class="lesson-section" id="sec-10-3-opt">
+      <span class="section-kicker">10.3.3</span>
+      <h2>Options in depth: rights, moneyness &amp; payoffs</h2>
+      <p>An <strong>option</strong> gives its <strong>buyer</strong> (holder / long) the <strong>right, but not the obligation</strong>, to buy or sell the underlying at a stated <strong>strike</strong> price, for a <strong>premium</strong>. The <strong>writer</strong> (seller / short) has the <strong>obligation</strong> but no right. A <strong>Call</strong> is a right to <strong>buy</strong>; a <strong>Put</strong> is a right to <strong>sell</strong>.</p>
+
+      <div class="term-grid" id="moneyness-grid"></div>
+
+      <div class="calc" id="calc-opt">
+        <div class="calc-title"><span class="pill">Live</span> Option payoff explorer</div>
+        <div class="calc-sub">Pick Call/Put and Long/Short, then set the strike, premium and the underlying's price at expiry. The chart redraws the <strong>asymmetric payoff</strong>, and the panel shows the payoff, moneyness (ITM/ATM/OTM), and the max loss/profit. Note how a long option's loss is capped at the premium, while a writer's loss is theoretically unlimited.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="toggle-row">
+              <div class="tg"><span>Type</span>
+                <div class="seg" id="opt-type"><button data-v="call" class="on">Call</button><button data-v="put">Put</button></div>
+              </div>
+              <div class="tg"><span>Position</span>
+                <div class="seg" id="opt-pos"><button data-v="long" class="on">Long (buy)</button><button data-v="short">Short (write)</button></div>
+              </div>
+            </div>
+            <div class="ctrl">
+              <label>Strike price <span class="val" id="opt-k-val">₹500</span></label>
+              <input type="range" id="opt-k-in" min="100" max="900" step="10" value="500">
+            </div>
+            <div class="ctrl">
+              <label>Premium <span class="val" id="opt-p-val">₹20</span></label>
+              <input type="range" id="opt-p-in" min="1" max="120" step="1" value="20">
+            </div>
+            <div class="ctrl">
+              <label>Underlying price at expiry <span class="val" id="opt-s-val">₹560</span></label>
+              <input type="range" id="opt-s-in" min="100" max="900" step="10" value="560">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Payoff at expiry (per unit)</div>
+            <div class="out-val" id="opt-out">+₹40</div>
+            <div><span class="verdict itm" id="opt-verdict">In-the-money</span></div>
+            <div class="dual-out" style="margin-top:10px">
+              <div class="box"><div class="l">Max loss</div><div class="v" id="opt-maxloss">₹20</div></div>
+              <div class="box"><div class="l">Max profit</div><div class="v" id="opt-maxprofit">Unlimited</div></div>
+            </div>
+            <div class="out-note" id="opt-note">Long call: buy at ₹500, worth ₹560 → intrinsic ₹60 − premium ₹20 = +₹40.</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:center;margin-top:6px">
+          <svg id="opt-chart" viewBox="0 0 460 250" width="100%" style="max-width:560px">
+            <line id="oc-zero" x1="45" y1="130" x2="445" y2="130" stroke="var(--border-strong)" stroke-width="1.4"/>
+            <line x1="45" y1="20" x2="45" y2="235" stroke="var(--border-strong)" stroke-width="1.2"/>
+            <text x="245" y="247" text-anchor="middle" style="font-size:9.5px;font-weight:700;fill:var(--text-secondary)">Underlying price at expiry →</text>
+            <text x="22" y="128" text-anchor="middle" transform="rotate(-90 22 128)" style="font-size:9.5px;font-weight:700;fill:var(--text-secondary)">Profit / Loss</text>
+            <line id="oc-strike" x1="245" y1="20" x2="245" y2="235" stroke="var(--gold-500)" stroke-width="1" stroke-dasharray="4 4"/>
+            <text id="oc-strike-lbl" x="245" y="16" text-anchor="middle" style="font-size:8.5px;font-weight:700;fill:var(--gold-600)">strike</text>
+            <path class="draw-line" id="oc-path" d="" stroke="var(--teal-500)" stroke-width="2.8"/>
+            <circle id="oc-dot" r="5" fill="var(--navy-800)" stroke="#fff" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A call option has a strike of ₹500 while the underlying trades at ₹560. This call is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">In-the-money (price above strike)</button>
+          <button class="mini-opt" data-correct="false">Out-of-the-money</button>
+          <button class="mini-opt" data-correct="false">At-the-money</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — for a call, price (₹560) above strike (₹500) is In-the-money, with positive intrinsic value. ATM = price equals strike; OTM (call) = price below strike." data-wrong-msg="Not quite — for a call, price above strike is In-the-money. Only ITM options have positive intrinsic value."></div>
+      </div>
+    </section>
+
+    <!-- 10.4 Market structure -->
+    <section class="lesson-section" id="sec-10-4">
+      <span class="section-kicker">10.4</span>
+      <h2>Structure of derivative markets</h2>
+      <p>A derivative market forms when players wanting to manage price risk come together. In India, derivative products are available on <strong>indices, stocks, interest rates and commodities</strong> — plus OTC forward markets for agri commodities and OTC swap markets for interest rates. Two structures exist:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🤝 OTC markets</h4>
+          <ul>
+            <li>Terms mutually agreed between counterparties</li>
+            <li><strong>Non-standard</strong>; depend on counterparty trust</li>
+            <li>Prevalent among institutions comfortable with each other</li>
+            <li><strong>Forwards</strong> are OTC derivatives</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🏛️ Exchange-traded markets</h4>
+          <ul>
+            <li><strong>Standard</strong> contracts defined by an exchange</li>
+            <li>Settled through a <strong>clearing house</strong></li>
+            <li>Buyers/sellers post margins → anonymous parties can trade</li>
+            <li><strong>Futures</strong> are exchange-traded derivatives</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which pairing is correct?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Forwards = OTC; Futures = exchange-traded</button>
+          <button class="mini-opt" data-correct="false">Forwards = exchange-traded; Futures = OTC</button>
+          <button class="mini-opt" data-correct="false">Both are exchange-traded</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — forwards are OTC (non-standard, trust-based); futures are exchange-traded (standardised, cleared through a clearing house with margins)." data-wrong-msg="Not quite — forwards are OTC and futures are exchange-traded."></div>
+      </div>
+    </section>
+
+    <!-- 10.5 Purpose -->
+    <section class="lesson-section" id="sec-10-5">
+      <span class="section-kicker">10.5</span>
+      <h2>Purpose of derivatives</h2>
+      <p>Derivatives are a <strong>risk-management</strong> tool, used for three purposes — tap each:</p>
+      <div class="flip-grid" id="purpose-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>The law of one price</strong>
+          <p>Two identical assets can't trade at different prices in two markets — arbitrageurs buy in the cheaper market and sell in the costlier one, and their very trades close the gap (demand lifts the cheap market, supply pushes down the dear one). Prices can differ only to the extent of <strong>transaction costs</strong> — transport, storage, insurance, interest and the like.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Buying a stock's futures purely on a view that its price will rise, with no underlying holding, is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Speculation</button>
+          <button class="mini-opt" data-correct="false">Hedging</button>
+          <button class="mini-opt" data-correct="false">Arbitrage</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a speculative trade is not backed by an underlying existing investment; it implements a view about future prices. Hedging protects an existing holding; arbitrage exploits price gaps." data-wrong-msg="Not quite — trading purely on a price view without an underlying holding is speculation."></div>
+      </div>
+    </section>
+
+    <!-- 10.6 Benefits & risks -->
+    <section class="lesson-section" id="sec-10-6">
+      <span class="section-kicker">10.6</span>
+      <h2>Benefits, costs and risks</h2>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>✅ Benefits</h4>
+          <ul>
+            <li>Enable <strong>hedging</strong> &amp; better risk management (symmetrical + asymmetrical payoffs)</li>
+            <li>Enhance <strong>liquidity</strong> of underlying markets; reduce trading costs</li>
+            <li>Increase participation, information dissemination &amp; <strong>price discovery</strong></li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>⚠️ Risks (leveraged instruments)</h4>
+          <ul>
+            <li><strong>Counterparty</strong> (default), <strong>price</strong> (adverse move)</li>
+            <li><strong>Liquidity</strong> (can't exit), <strong>legal/regulatory</strong> (enforceability)</li>
+            <li><strong>Operational</strong> (fraud, poor documentation/execution)</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-secondary)">Derivatives may be unsuitable for those with limited resources, experience or low risk tolerance. Participants should read the <strong>Model Risk Disclosure Document</strong> (issued by exchange members) before trading the cash or F&amp;O segments.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Because derivatives are leveraged, the workbook advises participants to:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Read the Model Risk Disclosure Document before trading</button>
+          <button class="mini-opt" data-correct="false">Trade only with borrowed funds</button>
+          <button class="mini-opt" data-correct="false">Ignore risk disclosures — profits are guaranteed</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the Model Risk Disclosure Document, issued by exchange members, carries key information on trading the Equities and F&O segments; participants should read it before trading." data-wrong-msg="Not quite — participants are advised to carefully read the Model Risk Disclosure Document before trading."></div>
+      </div>
+    </section>
+
+    <!-- 10.7 Equity, currency & commodity -->
+    <section class="lesson-section" id="sec-10-7">
+      <span class="section-kicker">10.7</span>
+      <h2>Equity, currency &amp; commodity derivatives</h2>
+      <p>The basic concept is identical across underlyings — only the underlying changes. When it's a <strong>commodity</strong> (oil, wheat) it's a <strong>commodity derivative</strong>; when it's an <strong>exchange rate</strong> it's a <strong>currency derivative</strong>. Both futures and options exist on each.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🌾 Commodity derivatives</h4>
+          <ul>
+            <li>Standardised futures: quantity, quality, delivery date &amp; place, permissible price moves</li>
+            <li>Enable farmers/traders/processors to hedge price volatility</li>
+            <li>Four categories: <strong>Bullion, Metals, Energy, Agriculture</strong></li>
+            <li>Exchanges: MCX, NCDEX, ICEX, NSE, BSE (SEBI-registered)</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>💱 Currency derivatives</h4>
+          <ul>
+            <li>Every FX trade is a <strong>currency pair</strong> — buy one, sell another</li>
+            <li>Underlying = an exchange rate</li>
+            <li>Pairs: <strong>USD, EUR, GBP, JPY</strong> (vs Rupee)</li>
+            <li>Cross-currency F&amp;O: EUR-USD, GBP-USD, USD-JPY</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>The biscuit-maker's wheat hedge</strong>
+          <p>A biscuit manufacturer needing 10 tonnes of wheat for future use can <strong>buy wheat futures</strong> on a commodity exchange instead of the spot market. The standardised contract assures delivery of the physical commodity at the <strong>originally contracted price</strong> on a specified future date — whatever the price prevailing then.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Currency derivatives in India are available on which four pairs (vs the Rupee)?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">USD, EUR, GBP and JPY</button>
+          <button class="mini-opt" data-correct="false">USD, CHF, CAD and CNY</button>
+          <button class="mini-opt" data-correct="false">Only USD and EUR</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the four pairs are USD, EUR, GBP and JPY (vs the Rupee). Cross-currency F&O on EUR-USD, GBP-USD and USD-JPY are also available." data-wrong-msg="Not quite — the four currency pairs are USD, EUR, GBP and JPY against the Rupee."></div>
+      </div>
+    </section>
+
+    <!-- 10.8 Pricing & strategies -->
+    <section class="lesson-section" id="sec-10-8">
+      <span class="section-kicker">10.8</span>
+      <h2>Derivative markets, products &amp; strategies</h2>
+      <p>Derivative trading was introduced in India in <strong>June 2000</strong>; India's equity derivative markets are now among the largest in the world. A futures contract is priced on the <strong>cost-of-carry</strong> principle: <strong>F = S + carry cost</strong>. The gap is the interest on the money for the period, so no arbitrage profit exists between spot and futures.</p>
+
+      <div class="calc" id="calc-fut">
+        <div class="calc-title"><span class="pill">Live</span> Futures price (cost of carry)</div>
+        <div class="calc-sub">The workbook's example: a stock at ₹100 spot, with a ₹20 carry cost (interest) for the 20-day period, gives a futures price of <strong>₹120</strong> — so F = S + carry cost = 100 + 20. The gap is the <strong>basis</strong>. Carry cost is a market-driven rate, not a fixed risk-free rate.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Spot price (S) <span class="val" id="fp-s-val">₹100</span></label>
+              <input type="range" id="fp-s-in" min="50" max="1000" step="5" value="100">
+            </div>
+            <div class="ctrl">
+              <label>Carry cost (interest for the period) <span class="val" id="fp-c-val">₹20</span></label>
+              <input type="range" id="fp-c-in" min="0" max="120" step="1" value="20">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Futures price (F = S + carry)</div>
+            <div class="out-val" id="fp-out">₹120</div>
+            <div class="out-sub">Basis (F − S) = <b id="fp-basis">₹20</b></div>
+            <div class="out-note">On the settlement day, carry cost is zero and F = S — this is spot-future convergence.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-arb">
+        <div class="calc-title"><span class="pill">Live</span> Spot-future arbitrage (annualised)</div>
+        <div class="calc-sub">The workbook's example (3 Mar 2017): stock XYZ is ₹3,984 in cash and ₹4,032 in futures (delivery 30 Mar, i.e. 27 days). Buy cash, sell futures, lock the ₹48 gap → annualised return = (48 ÷ 3,984) × (365 ÷ 27) = <strong>16.29% p.a.</strong> Spot-future convergence closes both legs at the same price on settlement, so the profit is locked in.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Cash-market price <span class="val" id="ar-cash-val">₹3,984</span></label>
+              <input type="range" id="ar-cash-in" min="500" max="6000" step="1" value="3984">
+            </div>
+            <div class="ctrl">
+              <label>Futures price <span class="val" id="ar-fut-val">₹4,032</span></label>
+              <input type="range" id="ar-fut-in" min="500" max="6200" step="1" value="4032">
+            </div>
+            <div class="ctrl">
+              <label>Days to settlement <span class="val" id="ar-days-val">27</span></label>
+              <input type="range" id="ar-days-in" min="1" max="90" step="1" value="27">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Annualised arbitrage return</div>
+            <div class="out-val" id="ar-out">16.29%</div>
+            <div class="out-sub">Price gap = <b id="ar-gap">₹48</b> per share</div>
+            <div class="out-note" id="ar-note">(48 ÷ 3,984) × (365 ÷ 27) ≈ 16.29% p.a. Buy cheap (cash), sell dear (futures).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="conv-chart" viewBox="0 0 480 240" width="100%" style="max-width:560px">
+            <line x1="45" y1="20" x2="45" y2="200" stroke="var(--border-strong)" stroke-width="1.5"/>
+            <line x1="45" y1="200" x2="455" y2="200" stroke="var(--border-strong)" stroke-width="1.5"/>
+            <text x="20" y="110" text-anchor="middle" transform="rotate(-90 20 110)" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Price</text>
+            <text x="250" y="228" text-anchor="middle" style="font-size:10px;font-weight:700;fill:var(--text-secondary)">Time → settlement</text>
+            <line class="fade-el conv-guide" x1="415" y1="30" x2="415" y2="200" stroke="var(--border-subtle)" stroke-dasharray="3 3"/>
+            <text class="fade-el conv-guide" x="415" y="26" text-anchor="middle" style="font-size:8.5px;font-weight:700;fill:var(--text-secondary)">expiry</text>
+            <!-- futures line (higher, drifts down to converge) -->
+            <path class="draw-line" id="conv-fut" d="M60 70 C 180 82, 320 100, 415 120" stroke="var(--gold-500)" stroke-width="2.6"/>
+            <!-- spot line (lower, drifts up to converge) -->
+            <path class="draw-line" id="conv-spot" d="M60 150 C 180 145, 320 132, 415 120" stroke="var(--teal-500)" stroke-width="2.6"/>
+            <circle class="fade-el" id="conv-dot" cx="415" cy="120" r="5" fill="var(--green-500)" stroke="#fff" stroke-width="1.5"/>
+            <text class="fade-el" id="conv-f-lbl" x="70" y="62" style="font-size:9px;font-weight:800;fill:var(--gold-600)">Futures</text>
+            <text class="fade-el" id="conv-s-lbl" x="70" y="166" style="font-size:9px;font-weight:800;fill:var(--teal-text)">Spot</text>
+            <text class="fade-el" id="conv-c-lbl" x="410" y="112" text-anchor="end" style="font-size:8.5px;font-weight:800;fill:var(--green-500)">converge</text>
+          </svg>
+        </div>
+        <div class="caption"><strong>Spot-future convergence:</strong> the basis (F − S) shrinks over the contract's life until, on expiry, the spot and futures prices are identical and the carry cost is zero.</div>
+      </div>
+
+      <h3 id="opt-payoffs" style="margin-top:20px">Option payoffs: long vs short</h3>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>📈 Long on option (buyer)</h4>
+          <ul>
+            <li>Has the <strong>right</strong> to exercise</li>
+            <li>Potential loss <strong>limited to the premium paid</strong></li>
+            <li>Profit depends on the underlying's price at exercise/expiry</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>📉 Short on option (writer)</h4>
+          <ul>
+            <li>Has the <strong>obligation</strong>, no right</li>
+            <li>Max profit = the <strong>premium received</strong></li>
+            <li>Potential loss is <strong>theoretically unlimited</strong></li>
+            <li>India: mostly <strong>European</strong> options (exercised on expiry)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A stock is ₹100 spot; its 20-day futures are ₹120, and the carry cost of holding for 20 days is exactly ₹20. The arbitrage profit is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Zero — the ₹20 gap exactly equals the carry cost (120 = 100 + 20)</button>
+          <button class="mini-opt" data-correct="false">₹20 riskless profit</button>
+          <button class="mini-opt" data-correct="false">₹120 profit</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — F = S + carry cost, so 120 = 100 + 20. Since borrowing to buy spot and sell futures costs exactly ₹20, there is no arbitrage profit." data-wrong-msg="Not quite — the ₹20 gap equals the carry cost, so there's no arbitrage profit: 120 = 100 + 20."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The definitions, numbers and formulas most likely to be tested — tap to reveal.</p>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch10";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 3", href: "../../index.html" },
+    { label: "Chapter 10", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:16px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // Underlying concepts
+  renderFlip("concepts-grid", [
+    { icon: "⚖️", label: "Zero-sum game", back: "Buyer and seller hold opposing views; on maturity only one profits, but their combined net position is always zero — assuming no taxes and no transaction costs." },
+    { icon: "📦", label: "Settlement mechanism", back: "SEBI mandates physical settlement (delivery of the stock) for all stock derivatives; index derivatives are cash-settled (exchange of price differentials, no physical delivery)." },
+    { icon: "🏦", label: "Margining process", back: "Collateral deposited before a trade. Initial margin = SPAN + ELM (both mandatory), sized to cover 99% of losses; higher volatility → higher margin. Option buyers also pay a premium margin = premium × quantity." },
+    { icon: "📊", label: "Open interest", back: "Total outstanding (unsettled) contracts — a measure of money flow, NOT trading volume. Rising OI = new money entering; falling OI = money leaving the market." }
+  ]);
+
+  // Moneyness / value cards
+  renderCards("moneyness-grid", [
+    { icon: "🟢", label: "In-The-Money (ITM)", body: "For a call, underlying price > strike (for a put, price < strike). Exercising is profitable; ITM options have positive intrinsic value." },
+    { icon: "🟡", label: "At-The-Money (ATM)", body: "Underlying price ≈ strike price. No gain from exercising; intrinsic value is zero." },
+    { icon: "🔴", label: "Out-of-The-Money (OTM)", body: "For a call, underlying price < strike (for a put, price > strike). Exercising would create a loss; intrinsic value is zero." },
+    { icon: "💠", label: "Intrinsic vs time value", body: "Intrinsic value = excess of current price over strike. Time value = the extra a buyer pays over intrinsic value, betting the option gains before maturity." }
+  ]);
+
+  // Purpose
+  renderFlip("purpose-grid", [
+    { icon: "🛡️", label: "Hedging", back: "When an investor holds an asset/portfolio with a desired value or objective, she uses derivatives to protect that value from future price movements." },
+    { icon: "🎯", label: "Speculation", back: "A trade NOT backed by an underlying holding — it implements a view about future prices. E.g. buying futures expecting a rise. The speculator bears the cost of managing margins." },
+    { icon: "🔀", label: "Arbitrage", back: "Exploiting a price difference for the same asset across two markets (law of one price). Arbitrageurs buy cheap and sell dear; their trades close the gap. Profits differ only by transaction costs." }
+  ]);
+
+  // Product matcher
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("prod-markets", "prod-cards", "prod-feedback", {
+    FWD: "Forwards — bilateral OTC contracts with customised terms; both parties are obliged. They carry liquidity and counterparty (default) risk.",
+    FUT: "Futures — standardised, exchange-traded forwards; the clearing house is counterparty to both, margins are posted by both, and both are obliged.",
+    OPT: "Options — the buyer has a right (not obligation) for a premium; the writer has the obligation. Calls give a right to buy, puts a right to sell.",
+    SWP: "Swaps — an exchange of cash flows on future dates (interest-rate & currency). The notional principal is never exchanged, only the interest on it."
+  });
+
+  // Revision deck (mono fronts)
+  renderFlip("revision-cards", [
+    { icon: "V = f(U)", label: "Derivative", back: "A contract whose value is derived from an underlying (commodity, currency or financial asset). Under SC(R)A 1956 derivatives are securities; RBI Act s.45U(a) covers interest-rate/FX/credit derivatives." },
+    { icon: "F,F,O,S", label: "Four products", back: "Forwards (OTC), Futures (exchange-traded), Options (right vs obligation), Swaps (cash-flow exchange). Forwards → futures solves illiquidity, counterparty risk, opacity and settlement issues." },
+    { icon: "Right≠Oblig", label: "Options", back: "Buyer = right, no obligation, pays premium. Writer = obligation, no right. Call = right to buy; Put = right to sell. ITM/ATM/OTM by price vs strike. India: mostly European." },
+    { icon: "F = S + c", label: "Futures pricing", back: "Cost of carry: F = S + carry cost. Example 120 = 100 + 20 (interest for 20 days). Basis = F − S. On expiry, spot-future convergence → F = S, carry = 0." },
+    { icon: "16.29%", label: "Spot-future arbitrage", back: "XYZ cash ₹3,984, futures ₹4,032, 27 days: (48 ÷ 3,984) × (365 ÷ 27) = 16.29% p.a. Buy cash, sell futures; convergence locks the profit." },
+    { icon: "Loss=Prem", label: "Long option payoff", back: "Buyer's loss is limited to the premium paid; profit depends on the underlying at expiry. Payoff is asymmetric." },
+    { icon: "Loss=∞", label: "Short option payoff", back: "Writer's max profit = premium received; potential loss is theoretically unlimited. Assignment risk any time applies to American options only." },
+    { icon: "SPAN+ELM", label: "Margins", back: "Initial margin = SPAN + ELM (both mandatory), covers 99% of losses; higher volatility → higher margin. Premium margin (option buyers) = premium × quantity." },
+    { icon: "OTC/Exch", label: "Market structure", back: "Forwards = OTC (non-standard, trust-based). Futures = exchange-traded (standard, cleared, margined). Zero-sum game assumes no taxes/transaction costs." },
+    { icon: "$€£¥", label: "Segments", back: "Commodities: Bullion, Metals, Energy, Agriculture (MCX/NCDEX/ICEX/NSE/BSE). Currency pairs: USD, EUR, GBP, JPY. Derivatives launched in India June 2000." }
+  ], "mono");
+
+  // ---------- Calculators ----------
+  var fmt = function (n) { return n.toLocaleString("en-IN"); };
+
+  // Option payoff explorer
+  (function () {
+    var typeBox = document.getElementById("opt-type"), posBox = document.getElementById("opt-pos");
+    var kIn = document.getElementById("opt-k-in"), pIn = document.getElementById("opt-p-in"), sIn = document.getElementById("opt-s-in");
+    var kVal = document.getElementById("opt-k-val"), pVal = document.getElementById("opt-p-val"), sVal = document.getElementById("opt-s-val");
+    var out = document.getElementById("opt-out"), verdict = document.getElementById("opt-verdict"), note = document.getElementById("opt-note");
+    var maxLoss = document.getElementById("opt-maxloss"), maxProfit = document.getElementById("opt-maxprofit");
+    var path = document.getElementById("oc-path"), dot = document.getElementById("oc-dot"),
+        strikeLine = document.getElementById("oc-strike"), strikeLbl = document.getElementById("oc-strike-lbl");
+    var type = "call", pos = "long", drawn = false;
+    // chart geometry
+    var X0 = 45, X1 = 445, Y0 = 130; // Y0 = zero-profit line
+    function payoff(S, K, prem) {
+      var intrinsic = type === "call" ? Math.max(S - K, 0) : Math.max(K - S, 0);
+      return pos === "long" ? intrinsic - prem : prem - intrinsic;
+    }
+    function render() {
+      var K = +kIn.value, prem = +pIn.value, S = +sIn.value;
+      kVal.textContent = "₹" + fmt(K); pVal.textContent = "₹" + prem; sVal.textContent = "₹" + fmt(S);
+      // domain of underlying prices for the chart
+      var lo = Math.max(0, K - 300), hi = K + 300;
+      // build payoff samples & find range
+      var xs = [], ys = [], i, S2, pay;
+      for (i = 0; i <= 60; i++) { S2 = lo + (hi - lo) * i / 60; xs.push(S2); ys.push(payoff(S2, K, prem)); }
+      var maxAbs = Math.max(20, Math.max.apply(null, ys.map(Math.abs)));
+      var sx = function (v) { return X0 + (v - lo) / (hi - lo) * (X1 - X0); };
+      var sy = function (v) { return Y0 - (v / maxAbs) * 95; };
+      var d = "";
+      for (i = 0; i < xs.length; i++) { d += (i ? " L" : "M") + sx(xs[i]).toFixed(1) + " " + sy(ys[i]).toFixed(1); }
+      path.setAttribute("d", d);
+      // strike marker
+      strikeLine.setAttribute("x1", sx(K).toFixed(1)); strikeLine.setAttribute("x2", sx(K).toFixed(1));
+      strikeLbl.setAttribute("x", sx(K).toFixed(1));
+      // current point dot
+      var cx = sx(Math.max(lo, Math.min(hi, S))), cy = sy(payoff(S, K, prem));
+      dot.setAttribute("cx", cx.toFixed(1)); dot.setAttribute("cy", cy.toFixed(1));
+      // numeric outputs
+      pay = payoff(S, K, prem);
+      out.textContent = (pay >= 0 ? "+₹" : "−₹") + fmt(Math.abs(pay));
+      out.style.color = pay >= 0 ? "var(--green-500)" : "var(--red-500)";
+      // moneyness (relative to underlying, independent of position)
+      var itmCall = type === "call" && S > K, itmPut = type === "put" && S < K;
+      var atm = S === K;
+      var cls, txt;
+      if (atm) { cls = "atm"; txt = "At-the-money"; }
+      else if (itmCall || itmPut) { cls = "itm"; txt = "In-the-money"; }
+      else { cls = "otm"; txt = "Out-of-the-money"; }
+      verdict.className = "verdict " + cls; verdict.textContent = txt;
+      // max loss / profit
+      if (pos === "long") {
+        maxLoss.textContent = "₹" + prem;
+        maxProfit.textContent = type === "call" ? "Unlimited" : "₹" + fmt(Math.max(0, K - prem));
+      } else {
+        maxProfit.textContent = "₹" + prem;
+        maxLoss.textContent = type === "call" ? "Unlimited" : "₹" + fmt(Math.max(0, K - prem));
+      }
+      // note
+      var intrinsic = type === "call" ? Math.max(S - K, 0) : Math.max(K - S, 0);
+      var lbl = (pos === "long" ? "Long " : "Short ") + type;
+      note.textContent = lbl + ": intrinsic value ₹" + fmt(intrinsic) + (pos === "long" ? " − premium ₹" + prem : " vs premium received ₹" + prem) + " → payoff " + (pay >= 0 ? "+₹" : "−₹") + fmt(Math.abs(pay)) + ".";
+    }
+    [kIn, pIn, sIn].forEach(function (el) { el.addEventListener("input", render); });
+    typeBox.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; type = b.dataset.v; Array.prototype.forEach.call(typeBox.children, function (x) { x.classList.remove("on"); }); b.classList.add("on"); render(); });
+    posBox.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; pos = b.dataset.v; Array.prototype.forEach.call(posBox.children, function (x) { x.classList.remove("on"); }); b.classList.add("on"); render(); });
+    render();
+    window.__optRender = function () { if (!drawn) { drawn = true; path.classList.add("go"); } };
+  })();
+
+  // Futures price (cost of carry)
+  (function () {
+    var sIn = document.getElementById("fp-s-in"), cIn = document.getElementById("fp-c-in");
+    var sVal = document.getElementById("fp-s-val"), cVal = document.getElementById("fp-c-val");
+    var out = document.getElementById("fp-out"), basis = document.getElementById("fp-basis");
+    function render() {
+      var s = +sIn.value, c = +cIn.value;
+      sVal.textContent = "₹" + fmt(s); cVal.textContent = "₹" + fmt(c);
+      out.textContent = "₹" + fmt(s + c);
+      basis.textContent = "₹" + fmt(c);
+    }
+    [sIn, cIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // Spot-future arbitrage
+  (function () {
+    var cashIn = document.getElementById("ar-cash-in"), futIn = document.getElementById("ar-fut-in"), daysIn = document.getElementById("ar-days-in");
+    var cashVal = document.getElementById("ar-cash-val"), futVal = document.getElementById("ar-fut-val"), daysVal = document.getElementById("ar-days-val");
+    var out = document.getElementById("ar-out"), gap = document.getElementById("ar-gap"), note = document.getElementById("ar-note");
+    function render() {
+      var cash = +cashIn.value, fut = +futIn.value, days = +daysIn.value;
+      cashVal.textContent = "₹" + fmt(cash); futVal.textContent = "₹" + fmt(fut); daysVal.textContent = days;
+      var diff = fut - cash;
+      var ann = (diff / cash) * (365 / days) * 100;
+      gap.textContent = "₹" + fmt(diff);
+      out.textContent = ann.toFixed(2) + "%";
+      out.style.color = ann >= 0 ? "var(--gold-600)" : "var(--red-500)";
+      note.textContent = "(" + fmt(diff) + " ÷ " + fmt(cash) + ") × (365 ÷ " + days + ") ≈ " + ann.toFixed(2) + "% p.a. " + (diff >= 0 ? "Buy cash, sell futures." : "Futures below cash — reverse the legs.");
+    }
+    [cashIn, futIn, daysIn].forEach(function (el) { el.addEventListener("input", render); });
+    render();
+  })();
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.35 }).observe(el);
+  }
+  onReveal("#zsum", function (root) {
+    root.querySelector("#zs-buyer").classList.add("go");
+    root.querySelector("#zs-seller").classList.add("go");
+    ["#zs-b-lbl", "#zs-s-lbl"].forEach(function (s, i) { setTimeout(function () { root.querySelector(s).classList.add("go"); }, 900 + i * 150); });
+  }, 0.3);
+  onReveal("#opt-chart", function () { if (window.__optRender) window.__optRender(); }, 0.3);
+  onReveal("#conv-chart", function (root) {
+    root.querySelector("#conv-fut").classList.add("go");
+    root.querySelector("#conv-spot").classList.add("go");
+    root.querySelectorAll(".fade-el").forEach(function (n, i) { setTimeout(function () { n.classList.add("go"); }, 700 + i * 130); });
+  }, 0.3);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH10_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

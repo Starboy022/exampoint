@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 3 — Evaluating the Financial Position of Clients | NISM Learn</title>
+<meta name="description" content="Interactive lesson: cash flow management, household budgeting, personal balance sheets, net worth, contingency planning and the ten personal finance ratios. NISM Series-X-A, Module 1, Chapter 3." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Cash-flow timeline diagram ---- */
+  .cf-line { stroke: var(--border-subtle); stroke-width: 2; }
+  .cf-lbl { font-size: 10px; fill: var(--text-secondary); }
+  .cf-coin { transform-box: fill-box; transform-origin: center; }
+  .cf-bracket { stroke: var(--red-500); stroke-width: 2.2; fill:none; stroke-dasharray: 140; stroke-dashoffset: 140; }
+  .cf-bracket.go { animation: draw-bracket 1s var(--ease-out) forwards; }
+  @keyframes draw-bracket { to { stroke-dashoffset: 0; } }
+  .cf-amt { font-family: var(--font-display); font-weight: 800; font-size: 14px; }
+
+  /* ---- Formula chips ---- */
+  .formula {
+    font-family: var(--font-mono);
+    background: var(--bg-surface-2);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    font-size: 1.02rem;
+    display: inline-block;
+    margin: 6px 0 4px;
+    color: var(--text-primary);
+  }
+  .formula .var { color: var(--gold-600); font-weight: 700; }
+  .formula-legend { list-style:none; padding:0; margin: 10px 0 0; display:grid; gap:4px; font-size:0.84rem; color: var(--text-secondary); }
+  .formula-legend b { color: var(--text-primary); font-family: var(--font-mono); }
+
+  /* ---- Interactive calculator ---- */
+  .calc {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-sm);
+    padding: 22px 22px 20px;
+    margin: 22px 0;
+  }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.15fr 0.85fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 13px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.95rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .seg { display:inline-flex; border:1px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; }
+  .seg button { padding:7px 13px; font-size:0.78rem; font-weight:700; background:var(--bg-app); border:none; cursor:pointer; color:var(--text-secondary); transition: all var(--dur-fast); }
+  .seg button.active { background:var(--navy-800); color:#fff; }
+  .calc-output {
+    background: var(--bg-surface-2);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    text-align:center;
+  }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.7rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-val.sm { font-size:1.25rem; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+  .calc-bar-track { height:10px; border-radius:var(--radius-pill); background:var(--bg-app); overflow:hidden; margin-top:14px; }
+  .calc-bar-fill { height:100%; border-radius:var(--radius-pill); background:linear-gradient(90deg,var(--teal-500),var(--gold-500)); width:0%; transition: width var(--dur-slow) var(--ease-out); }
+  .calc-bar-fill.warn { background:linear-gradient(90deg,var(--gold-500),var(--red-500)); }
+  .out-row { display:flex; justify-content:space-between; font-size:0.82rem; padding:5px 0; border-bottom:1px dashed var(--border-subtle); }
+  .out-row:last-child { border-bottom:none; }
+  .out-row b { font-family:var(--font-mono); color:var(--text-primary); }
+  .badge-static { display:inline-flex; align-items:center; gap:6px; font-size:0.78rem; padding:6px 10px; border-radius:var(--radius-sm); background:var(--bg-app); margin:3px 6px 3px 0; }
+  .badge-static .dot { width:7px; height:7px; border-radius:50%; background:var(--ink-300); flex-shrink:0; }
+
+  /* ---- Comparison / live bars ---- */
+  .barset { display:flex; flex-direction:column; gap:14px; margin: 18px 0 6px; }
+  .barrow .bar-head { display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px; }
+  .barrow .bar-head .nm { font-weight:600; }
+  .barrow .bar-head .amt { font-family:var(--font-mono); font-weight:700; }
+  .bar-track { height:24px; border-radius:var(--radius-sm); background:var(--bg-surface-2); overflow:hidden; }
+  .bar-fill { height:100%; width:0%; border-radius:var(--radius-sm); transition: width 1.1s var(--ease-out); }
+  .bar-fill.c1 { background: var(--ink-300); }
+  .bar-fill.c2 { background: var(--teal-500); }
+  .bar-fill.c3 { background: var(--gold-500); }
+  .bar-fill.c4 { background: var(--red-500); }
+
+  /* ---- Parameter / expense-type cards ---- */
+  .param-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin:20px 0; }
+  .param-card { padding:16px; }
+  .param-card .ic { font-size:22px; }
+  .param-card h4 { margin:8px 0 6px; font-size:0.95rem; }
+  .param-card p { font-size:0.82rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Personal balance sheet table ---- */
+  .bs-table { width:100%; border-collapse:collapse; font-size:0.88rem; margin: 16px 0; }
+  .bs-table th, .bs-table td { border:1px solid var(--border-subtle); padding:8px 12px; text-align:right; }
+  .bs-table th:first-child, .bs-table td:first-child { text-align:left; }
+  .bs-table thead th { background:var(--bg-surface-2); font-family:var(--font-display); }
+  .bs-table tr.total td { font-weight:800; background:var(--bg-surface-2); }
+  .bs-table tr.nw td { font-weight:800; color:var(--gold-600); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 1 · Personal Financial Planning</span>
+      <span class="badge badge-gold">Chapter 3 of 4</span>
+    </div>
+    <h1>Evaluating the Financial Position of Clients</h1>
+    <p class="lede">How an adviser turns a household's income and expenses into a working budget, a personal balance sheet, an emergency-fund plan and a numeric read on financial health — the ten personal finance ratios. Every worked example from the workbook is reproduced as a live calculator.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~28 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 46 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 8 live calculators</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:640px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Cash flow management in personal finance</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Preparing a household budget — cash inflows &amp; outflows</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Budgeting, forecasting and monitoring for savings</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Creating a personal balance sheet and net worth</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Creating a budget and savings plan</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Contingency planning — insurance, emergency fund, dual income</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Evaluating a client's financial position with personal finance ratios</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-3-1">3.1 Cash flow management</a></li>
+      <li><a href="#sec-3-2">3.2 Household budget</a></li>
+      <li><a href="#sec-3-3">3.3 Cash inflows &amp; outflows</a></li>
+      <li><a href="#sec-3-4">3.4 Budgeting &amp; forecasting</a></li>
+      <li><a href="#sec-3-5">3.5 Monitoring budgets</a></li>
+      <li><a href="#sec-3-6">3.6 Balance sheet &amp; net worth</a></li>
+      <li><a href="#sec-3-7">3.7 Budget &amp; savings plan</a></li>
+      <li><a href="#sec-3-8">3.8 Contingency planning</a></li>
+      <li><a href="#sec-3-9">3.9 Personal finance ratios</a></li>
+      <li><a href="#sec-cards">Ratio flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 3.1 -->
+    <section class="lesson-section" id="sec-3-1">
+      <span class="section-kicker">3.1</span>
+      <h2>Importance of cash flow management in personal finance</h2>
+      <p>Personal finance is about looking at the sources of income and expenses of a household and ensuring there is a surplus — savings — that can be allocated to investments to meet future goals. The starting point of the whole process is <strong>cash flow</strong>: the time and amount of income earned, set against the time and amount spent as expense.</p>
+      <p>Timing matters as much as amount. A salaried individual receives a monthly income and has monthly expenses like electricity, telephone and household staff wages — income and expense are naturally synchronised. But even a slight mismatch — income arriving at irregular intervals against evenly spread expenses — forces a household into debt, which comes at the cost of interest, eating further into savings.</p>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="cf-timeline" viewBox="0 0 460 190" width="100%" style="max-width:520px">
+            <line class="cf-line" x1="40" y1="60" x2="430" y2="60"/>
+            <line class="cf-line" x1="40" y1="130" x2="430" y2="130"/>
+            <text class="cf-lbl" x="40" y="42" text-anchor="start">Expected income</text>
+            <text class="cf-lbl" x="40" y="112" text-anchor="start">Actual cash received</text>
+            <g class="cf-coin">
+              <circle cx="80" cy="60" r="24" fill="var(--gold-500)"/>
+              <text x="80" y="65" text-anchor="middle" class="cf-amt" fill="var(--navy-950)">₹50k</text>
+            </g>
+            <g class="cf-coin">
+              <circle cx="80" cy="130" r="20" fill="var(--teal-500)"/>
+              <text x="80" y="135" text-anchor="middle" class="cf-amt" fill="#fff">₹35k</text>
+            </g>
+            <path class="cf-bracket" id="cf-bracket" d="M118 60 C 160 60, 160 130, 118 130"/>
+            <text class="cf-lbl" id="cf-gap-lbl" x="172" y="99" text-anchor="start" style="fill:var(--red-500);font-weight:700">₹15,000 reimbursement not yet claimed</text>
+          </svg>
+        </div>
+        <div class="caption">Sunita earns ₹50,000 a month, but ₹15,000 of that is reimbursements she must claim separately. In a month she forgets to claim them, the actual cash in hand is only ₹35,000 — enough to throw a budget built on ₹50,000 into a cash crunch.</div>
+      </div>
+
+      <p>Cash flow mismanagement is not just a spreadsheet problem — sustained tension over money disrupts a household's peace and, over time, can affect health. Good cash flow management gives a sense of control and empowerment: funds are available as and when required, and the household runs smoothly.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Why cash flow comes first</strong>
+          <p>Cash flow management is the starting point of the entire personal finance process. Every later step — budgeting, saving, investing, insuring, retiring — assumes that income and expenses are already under control.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Why can even a "paper surplus" household still face a cash crunch?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Because savings and cash flow are always identical concepts</button>
+          <button class="mini-opt" data-correct="true">Because the actual cash received or spent can differ in timing and amount from the income/expense figures on paper</button>
+          <button class="mini-opt" data-correct="false">Because banks charge a fee for surplus balances</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the income and expense figures must be backed by actual cash. A pending reimbursement or an early cluster of expenses can create a real shortfall even when the budget looks fine on paper." data-wrong-msg="Not quite — cash management is about ensuring the paper income/expense figures are actually backed by cash in hand at the right time; a mismatch here causes the crunch."></div>
+      </div>
+    </section>
+
+    <!-- 3.2 -->
+    <section class="lesson-section" id="sec-3-2">
+      <span class="section-kicker">3.2</span>
+      <h2>Preparing a household budget</h2>
+      <p>An investment adviser plays an important role in helping a household understand its budget. Preparing one starts with listing every head of income — some regular (salary), some irregular (investment income) — and every head of expense.</p>
+      <p>Expenses fall into three buckets:</p>
+      <div class="flip-grid" id="expense-type-grid"></div>
+
+      <p style="margin-top:24px">Total expenses subtracted from total income gives the household's savings. There is also a subtler distinction: the <strong>monthly surplus in hand</strong> is calculated <em>after</em> mandatory deductions such as PF and NPS contributions — these are then added back to arrive at the actual <strong>savings</strong>, since they still belong to the individual.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — the ABC family's monthly budget</strong>
+          <p>Mr. A earns ₹65,000 (₹50,000 salary + ₹15,000 investment income) and Ms. B earns ₹72,000 (₹60,000 salary + ₹12,000 investment income) — total income ₹1,37,000. Mandatory expenses (PF ₹9,000 + tax ₹12,000 + loan repayment ₹12,000 = ₹33,000), essential living expenses (₹64,000) and discretionary expenses (₹15,000) add up to total expenses of ₹1,12,000. ₹18,000 goes into investments. That leaves a monthly surplus in hand of ₹7,000 — and once the PF contribution is added back, total savings of ₹34,000, a <strong>savings ratio of 24.8%</strong>.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-budget">
+        <div class="calc-title"><span class="pill">Live</span> Household budget builder</div>
+        <div class="calc-sub">Reproduces the ABC family's Table 3.1 as the default — then change any figure.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Total household income <span class="val" data-out="bud-income">₹1,37,000</span></label>
+              <input type="range" id="bud-income-in" min="50000" max="300000" step="1000" value="137000">
+            </div>
+            <div class="ctrl">
+              <label>PF contribution <span class="val" data-out="bud-pf">₹9,000</span></label>
+              <input type="range" id="bud-pf-in" min="0" max="30000" step="500" value="9000">
+            </div>
+            <div class="ctrl">
+              <label>Tax <span class="val" data-out="bud-tax">₹12,000</span></label>
+              <input type="range" id="bud-tax-in" min="0" max="40000" step="500" value="12000">
+            </div>
+            <div class="ctrl">
+              <label>Loan repayment <span class="val" data-out="bud-loan">₹12,000</span></label>
+              <input type="range" id="bud-loan-in" min="0" max="40000" step="500" value="12000">
+            </div>
+            <div class="ctrl">
+              <label>Essential living expenses <span class="val" data-out="bud-ess">₹64,000</span></label>
+              <input type="range" id="bud-ess-in" min="20000" max="150000" step="1000" value="64000">
+            </div>
+            <div class="ctrl">
+              <label>Discretionary expenses <span class="val" data-out="bud-disc">₹15,000</span></label>
+              <input type="range" id="bud-disc-in" min="0" max="50000" step="500" value="15000">
+            </div>
+            <div class="ctrl">
+              <label>Investments made <span class="val" data-out="bud-inv">₹18,000</span></label>
+              <input type="range" id="bud-inv-in" min="0" max="50000" step="500" value="18000">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Savings ratio</div>
+            <div class="out-val" id="bud-ratio">24.8%</div>
+            <div class="calc-bar-track"><div class="calc-bar-fill" id="bud-bar"></div></div>
+            <div class="out-row"><span>Total expenses</span><b id="bud-totexp">₹1,12,000</b></div>
+            <div class="out-row"><span>Monthly surplus in hand</span><b id="bud-surplus">₹7,000</b></div>
+            <div class="out-row"><span>Savings (surplus + PF)</span><b id="bud-savings">₹34,000</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — In the household budget method, why is the PF contribution added back when calculating savings, even though it was deducted as a mandatory expense?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">It is a government error that advisers must correct</button>
+          <button class="mini-opt" data-correct="true">PF still belongs to the individual — it is savings, not spending, so it is added back after the "monthly surplus in hand" is computed</button>
+          <button class="mini-opt" data-correct="false">PF is never actually deducted from the total expenses</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — PF (and similarly NPS) contributions reduce cash in hand but remain the individual's money, so total savings = monthly surplus in hand + these contributions." data-wrong-msg="Not quite — PF money still belongs to the individual and accumulates in their account, so it is added back to the monthly surplus in hand to arrive at total savings."></div>
+      </div>
+    </section>
+
+    <!-- 3.3 -->
+    <section class="lesson-section" id="sec-3-3">
+      <span class="section-kicker">3.3</span>
+      <h2>Cash inflows and outflows</h2>
+      <h3 id="sec-3-3-1">3.3.1 Cash management</h3>
+      <p>A budget can show a healthy surplus on paper, yet the household can still face a cash crunch — the income and expense figures must be backed by <em>actual cash</em>. Sunita's case (above) shows the inflow side of this problem: components of salary like reimbursements may not be claimed every month, so actual cash received can fall short of the income figure used in the budget.</p>
+      <p>The expense side has an equivalent risk: if too many expenses cluster at the start of the month, the cash balance can run low for the rest of the month, leaving little room for anything unplanned. The practical fix is to always keep a surplus buffer in the bank, or set aside a small separate fund purely to smooth short-term cash mismatches — distinct from a full emergency fund, which exists to handle a loss of income, not a timing hiccup.</p>
+
+      <h3 id="sec-3-3-2" style="margin-top:28px">3.3.2 Income and expenditure statement</h3>
+      <p>An income and expenditure statement records the actual income earned and actual expenses incurred over a specific period — a month or a year — so the real figures can be compared against the budget. It differs subtly from a pure cash statement: an item is recorded in the period it <em>pertains to</em>, even if the cash moves later.</p>
+      <div class="param-grid">
+        <div class="card param-card"><div class="ic">💼</div><h4>Salary received next month</h4><p>Income is booked in the earlier period it relates to, even though the amount lands in the bank a day or two into the next month.</p></div>
+        <div class="card param-card"><div class="ic">💳</div><h4>Credit card spend</h4><p>The expense is booked in the period the purchase was made — not the later period when the credit-card bill is actually paid.</p></div>
+      </div>
+      <p>The statement shows the extent of surplus or savings generated and highlights exactly where the money is going — an essential input for the next step, effective control through budgeting.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Rohan buys a laptop on his credit card in March; the bill is due (and paid) in April. In which month's income &amp; expenditure statement does the expense appear?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">March — the month the expense was actually incurred</button>
+          <button class="mini-opt" data-correct="false">April — the month the cash actually left his account</button>
+          <button class="mini-opt" data-correct="false">It is split evenly between March and April</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the income &amp; expenditure statement books items in the period they pertain to, regardless of when the cash actually moves." data-wrong-msg="Not quite — the expense is booked in March, the month it was actually incurred, even though payment happens later in April."></div>
+      </div>
+    </section>
+
+    <!-- 3.4 -->
+    <section class="lesson-section" id="sec-3-4">
+      <span class="section-kicker">3.4</span>
+      <h2>Budgeting and forecasting</h2>
+      <p>Income must be adequate to meet current expenses <em>and</em> build the assets that fund future needs. Prudent financial management requires a defined, targeted level of savings — meeting goals cannot be left to whatever happens to be left over. A budget is what lets a household plan income and expenses so the available money is used in the best possible way.</p>
+
+      <h3 style="margin-top:26px">Steps to making a budget</h3>
+      <ul>
+        <li><strong>1.</strong> List and total the regular, definite incomes receivable in the period.</li>
+        <li><strong>2.</strong> List and deduct mandatory expenses from total income — what's left is disposable income.</li>
+        <li><strong>3.</strong> Identify essential living expenses and deduct them from disposable income.</li>
+        <li><strong>4.</strong> List discretionary expenses and deduct them to arrive at savings.</li>
+      </ul>
+      <p>If savings look inadequate once this is done, income usually cannot be expanded much further — the focus has to shift to managing expenses. High mandatory expenses often trace back to loan-repayment pressure, where a debt-rationalisation exercise can help. Discretionary and, to some extent, living expenses are where a household can cut back or postpone spending without compromising required savings.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Forecasting — six things to keep in mind</strong>
+          <p>Forecasting is predicting how the future will play out, on a specific basis, taking evolving conditions into account. It rests on assumptions that can change, often benefits from expert input since no one person sees every factor, and improves with the forecaster's experience. The forecast then feeds the budget — and is checked against what actually happens so deviations can be corrected.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A household finds its mandatory expenses are consistently too high relative to income. What should the adviser look at first?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Increasing discretionary spending to compensate</button>
+          <button class="mini-opt" data-correct="true">Whether loan-repayment pressure is driving up mandatory expenses, and whether a debt-rationalisation exercise can help</button>
+          <button class="mini-opt" data-correct="false">Reducing the household's income figure in the budget</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — high mandatory expenses are often loan-driven; a debt-rationalisation exercise with a financial planner can ease the burden." data-wrong-msg="Not quite — the workbook points to loan-repayment pressure as the usual cause of high mandatory expenses, addressed through debt rationalisation."></div>
+      </div>
+    </section>
+
+    <!-- 3.5 -->
+    <section class="lesson-section" id="sec-3-5">
+      <span class="section-kicker">3.5</span>
+      <h2>Monitoring budgets and provision for savings</h2>
+      <p>Preparing a budget is not the end of the process — <strong>monitoring</strong> it is just as vital. Monitoring means recording the actual income and expenses that arose and comparing them to the plan. It is unlikely every line item will match exactly; the size of the variance is itself a signal of how robust the original budgeting was.</p>
+      <p>Where an item consistently misses its target, the planning is off track and needs correcting going forward — either raise the budgeted figure, or change behaviour to bring the actual figure back in line.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — the conveyance overshoot</strong>
+          <p>A household budgets ₹4,000 a month for conveyance, but the actual average comes to ₹6,000 for several months running. The consistent miss signals that either the budget figure needs raising, or the mode of conveyance needs to change to bring cost back down.</p>
+        </div>
+      </div>
+
+      <p>The ultimate objective of budgeting is a genuine surplus — income exceeding expenses — because every further step in financial planning depends on savings being generated. If the gap between actual and desired savings is small, closing it is easy. A large gap needs a step-by-step approach:</p>
+      <ul>
+        <li>Set an achievable target rise in the savings rate, e.g. 10%.</li>
+        <li>Once achieved, set the next target — a constant, ongoing effort.</li>
+        <li>Eliminate wasteful spending and cut discretionary expenses.</li>
+        <li>Divert lump-sum or windfall receipts directly into savings.</li>
+        <li>Do not commit a higher income to new spending — leave it free to raise the savings rate.</li>
+      </ul>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A household's actual conveyance spend consistently exceeds the budgeted figure by a wide margin every month. What does this indicate?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The budget figure is off-track and needs correcting — either raise the allocation or reduce the actual spend</button>
+          <button class="mini-opt" data-correct="false">Monitoring should be stopped since the budget has failed</button>
+          <button class="mini-opt" data-correct="false">Nothing — small monthly variances are always irrelevant</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a consistent, repeated miss (not a one-off variance) is exactly what monitoring is designed to catch, so the budget or the behaviour can be corrected." data-wrong-msg="Not quite — a persistent overshoot signals the planning needs correction: either the budget figure is raised, or spending behaviour changes."></div>
+      </div>
+    </section>
+
+    <!-- 3.6 -->
+    <section class="lesson-section" id="sec-3-6">
+      <span class="section-kicker">3.6</span>
+      <h2>Creating a personal balance sheet and net worth</h2>
+      <p>A personal balance sheet brings together every asset and liability at a single point in time. Assets include physical assets (property, car) and financial assets (equity, debt, mutual funds), plus cash, bank balances and receivables. Liabilities include every loan and outstanding payment, including short-term debt like credit card dues. The difference between the two is the <strong>net worth</strong> of the individual or household — and a higher net worth always indicates a stronger financial position.</p>
+
+      <div class="param-grid">
+        <div class="card param-card"><div class="ic">🏠</div><h4>Physical assets</h4><p>Real estate, gold, precious metals. Natural inflation hedge, but illiquid, lightly regulated, and need specific skills to buy, manage and sell.</p></div>
+        <div class="card param-card"><div class="ic">📄</div><h4>Financial assets</h4><p>Bank deposits, equity, debt, mutual funds. Standardised, regulated, often more liquid, and can be invested in small units.</p></div>
+      </div>
+      <p>Loans taken to buy <em>appreciating</em> assets add to long-term wealth; loans taken to buy financial assets (leveraging) are riskier because of the higher volatility in such asset prices. Assets acquired purely from savings, without any liability, add the most to a household's financial strength.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — Lakshmi's personal balance sheet</strong>
+          <p>Lakshmi owns a house (₹18,12,000) and a car (₹3,25,000), and holds mutual funds (₹8,40,000), PPF (₹3,20,000), shares (₹2,80,000) and cash &amp; bank (₹45,000) — total assets ₹36,22,000. Against this she has a housing loan of ₹12,02,000 and credit card dues of ₹5,000 — total liabilities ₹12,07,000. Her <strong>net worth</strong> is ₹36,22,000 − ₹12,07,000 = <strong>₹24,15,000</strong>.</p>
+        </div>
+      </div>
+
+      <table class="bs-table">
+        <thead><tr><th>Liabilities</th><th>Amount</th><th>Assets</th><th>Amount</th></tr></thead>
+        <tbody>
+          <tr class="nw"><td>Net worth</td><td>24,15,000</td><td>House</td><td>18,12,000</td></tr>
+          <tr><td>Housing loan</td><td>12,02,000</td><td>Car</td><td>3,25,000</td></tr>
+          <tr><td>Credit card dues</td><td>5,000</td><td>Mutual Funds</td><td>8,40,000</td></tr>
+          <tr><td></td><td></td><td>PPF</td><td>3,20,000</td></tr>
+          <tr><td></td><td></td><td>Shares</td><td>2,80,000</td></tr>
+          <tr><td></td><td></td><td>Cash &amp; Bank</td><td>45,000</td></tr>
+          <tr class="total"><td>Total</td><td>36,22,000</td><td>Total</td><td>36,22,000</td></tr>
+        </tbody>
+      </table>
+
+      <div class="diagram-frame">
+        <div class="barset" id="nw-bars">
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">Total assets</span><span class="amt" data-count="3622000">₹0</span></div>
+            <div class="bar-track"><div class="bar-fill c3" data-w="100"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">Total liabilities</span><span class="amt" data-count="1207000">₹0</span></div>
+            <div class="bar-track"><div class="bar-fill c1" data-w="33"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">Net worth</span><span class="amt" data-count="2415000">₹0</span></div>
+            <div class="bar-track"><div class="bar-fill c2" data-w="67"></div></div>
+          </div>
+        </div>
+        <div class="caption">Net worth is tracked over time, not just as a snapshot — the goal is to see it rise as assets grow and liabilities are paid down.</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Why does the workbook say investors should focus on net worth rather than total assets?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Total assets are illegal to disclose to a client</button>
+          <button class="mini-opt" data-correct="true">A large total-assets figure can be misleading if most of it was acquired through outstanding loans — net worth nets out what is actually owned free and clear</button>
+          <button class="mini-opt" data-correct="false">Total assets and net worth are always numerically identical</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a strong asset position means little if most assets are still encumbered by loans; net worth (assets − liabilities) is the more relevant figure." data-wrong-msg="Not quite — assets acquired mostly through loans inflate total assets without reflecting real wealth, which is why net worth is the more meaningful number."></div>
+      </div>
+    </section>
+
+    <!-- 3.7 -->
+    <section class="lesson-section" id="sec-3-7">
+      <span class="section-kicker">3.7</span>
+      <h2>Creating a budget and savings plan</h2>
+      <p>Building a budget and savings plan step by step ensures nothing important is missed:</p>
+      <ul>
+        <li><strong>a.</strong> Gather all details of income and expense sources first — the budget is only as good as this base information.</li>
+        <li><strong>b.</strong> Double-check that no head of income or expense has been missed — wider coverage makes a better budget.</li>
+        <li><strong>c.</strong> Base figures on actual past expenses, or the likely change if circumstances have shifted.</li>
+        <li><strong>d.</strong> Adjust figures for the time period — e.g. a seasonal spike in vegetable prices, or a month with family birthdays needing more discretionary allocation.</li>
+        <li><strong>e.</strong> Build in a contingency figure so the budget stays robust when something unexpected happens.</li>
+        <li><strong>f.</strong> Set the required savings figure based on goals, and achieve it by curtailing expenses within limits.</li>
+        <li><strong>g.</strong> Allocate the savings amount before it can be spent elsewhere — a direct, automatic transfer to investments each month works best.</li>
+      </ul>
+      <p>Making the savings transfer a fixed line item in the budget — rather than "whatever is left over" — is what ensures the goal is actually met.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — What is the recommended way to make sure a household's planned savings actually happen each month?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Save whatever amount is left over at the end of the month, if any</button>
+          <button class="mini-opt" data-correct="true">Treat the savings amount as a fixed figure in the budget, transferred to investments automatically before it can be spent elsewhere</button>
+          <button class="mini-opt" data-correct="false">Review savings once a year and adjust retroactively</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — allocating savings first, via a direct automatic transfer, is what makes the savings plan actually stick." data-wrong-msg="Not quite — savings should be a fixed, allocated figure transferred out automatically, not whatever happens to remain after spending."></div>
+      </div>
+    </section>
+
+    <!-- 3.8 -->
+    <section class="lesson-section" id="sec-3-8">
+      <span class="section-kicker">3.8</span>
+      <h2>Contingency planning</h2>
+      <p>Investment advisers must prepare clients for the contingencies that can derail an otherwise sound financial plan:</p>
+
+      <div class="flip-grid" id="contingency-grid"></div>
+
+      <h3 style="margin-top:30px">The emergency fund</h3>
+      <p>An emergency fund should be the <strong>first goal</strong> a household saves towards — protection against a loss or reduction of income. It should cover roughly <strong>six months</strong> of expenses and be held in liquid assets for easy access. If income security is high, it can be held in a <strong>laddered</strong> way: around three months' worth in fully liquid assets, and the rest in less-liquid assets that earn a better return. If used, it should be replenished as soon as possible, and its adequacy reviewed annually or whenever a large new expense (such as an EMI) is added.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Sizing the fund</strong>
+          <p>If regular monthly expenses are ₹79,000 and loan servicing adds ₹12,000, total monthly outgo is ₹91,000. Covering six months of that outgo means an emergency fund target of ₹91,000 × 6 = <strong>₹5,46,000</strong>.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-ef">
+        <div class="calc-title"><span class="pill">Live</span> Emergency-fund sizer</div>
+        <div class="calc-sub">Default reproduces the ₹79,000 + ₹12,000 monthly-outgo example. Toggle laddering to see the liquid vs. less-liquid split.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Monthly expenses (incl. loan servicing) <span class="val" data-out="ef-exp">₹91,000</span></label>
+              <input type="range" id="ef-exp-in" min="10000" max="300000" step="1000" value="91000">
+            </div>
+            <div class="ctrl">
+              <label>Months to cover <span class="val" data-out="ef-months">6</span></label>
+              <input type="range" id="ef-months-in" min="3" max="12" step="1" value="6">
+            </div>
+            <div class="ctrl">
+              <label style="margin-bottom:8px">Income security</label>
+              <div class="seg" id="ef-seg">
+                <button data-mode="laddered" class="active">High (ladder it)</button>
+                <button data-mode="full">Low (keep it all liquid)</button>
+              </div>
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Total emergency fund target</div>
+            <div class="out-val" id="ef-target">₹5,46,000</div>
+            <div class="out-row"><span>Held fully liquid</span><b id="ef-liquid">₹2,73,000</b></div>
+            <div class="out-row"><span>Held in less-liquid, higher-yield assets</span><b id="ef-illiquid">₹2,73,000</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Priya has high income security (a government job) and wants to ladder her emergency fund. How should she structure it?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Keep about 3 months' expenses in fully liquid assets, and the rest of the 6-month target in less-liquid assets that earn a better return</button>
+          <button class="mini-opt" data-correct="false">Keep the entire 6-month target in a single fixed deposit locked for 5 years</button>
+          <button class="mini-opt" data-correct="false">Skip the emergency fund entirely since her job is secure</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — laddering suits high income security: roughly 3 months fully liquid, the rest in less-liquid, better-yielding assets." data-wrong-msg="Not quite — laddering means splitting the fund: ~3 months in fully liquid assets, the remainder in less-liquid assets for better returns."></div>
+      </div>
+    </section>
+
+    <!-- 3.9 -->
+    <section class="lesson-section" id="sec-3-9">
+      <span class="section-kicker">3.9</span>
+      <h2>Evaluating the financial position of clients — personal finance ratios</h2>
+      <p>Just as analysts use ratios to assess companies, investment advisers use <strong>personal finance ratios</strong> to give a numerical snapshot of a client's financial position — calculated from income, expenses, savings and investment data, and reviewed periodically (typically annually) to track trends and flag areas needing action.</p>
+
+      <h3 id="sec-3-9-1" style="margin-top:26px">3.9.1 Savings ratio &amp; expense ratio</h3>
+      <div class="formula">Savings Ratio = <span class="var">Savings per year</span> / <span class="var">Annual Income</span></div>
+      <p>Savings is not limited to a savings-account balance — it includes money invested in FDs, mutual funds, shares, debentures, PPF, NSCs, post-office deposits, real estate, gold and more, plus amounts like an employer's PF contribution that accrue to the individual without passing through their hands immediately.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — XYZ's payslip</strong>
+          <p>XYZ's gross salary is ₹10,000 (including the employer's ₹500 PF contribution); net take-home is ₹9,000 after the employee's own ₹500 PF deduction. Interest income is ₹200; monthly expenses are ₹7,000. Total income = ₹10,000 + ₹200 = ₹10,200. Savings = (₹9,000 + ₹200 + ₹500 + ₹500) − ₹7,000 = ₹3,200. <strong>Savings ratio = ₹3,200 ÷ ₹10,200 = 31.4%.</strong></p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-se">
+        <div class="calc-title"><span class="pill">Live</span> Savings &amp; expense ratio</div>
+        <div class="calc-sub">Reproduces XYZ's payslip. Expense Ratio = 1 − Savings Ratio.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Gross salary (incl. employer PF) <span class="val" data-out="se-gross">₹10,000</span></label>
+              <input type="range" id="se-gross-in" min="5000" max="100000" step="500" value="10000">
+            </div>
+            <div class="ctrl">
+              <label>Employer's PF contribution <span class="val" data-out="se-erpf">₹500</span></label>
+              <input type="range" id="se-erpf-in" min="0" max="5000" step="100" value="500">
+            </div>
+            <div class="ctrl">
+              <label>Employee's PF contribution <span class="val" data-out="se-eepf">₹500</span></label>
+              <input type="range" id="se-eepf-in" min="0" max="5000" step="100" value="500">
+            </div>
+            <div class="ctrl">
+              <label>Interest income <span class="val" data-out="se-int">₹200</span></label>
+              <input type="range" id="se-int-in" min="0" max="5000" step="50" value="200">
+            </div>
+            <div class="ctrl">
+              <label>Monthly expenses <span class="val" data-out="se-exp">₹7,000</span></label>
+              <input type="range" id="se-exp-in" min="1000" max="90000" step="500" value="7000">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Savings ratio</div>
+            <div class="out-val" id="se-sratio">31.4%</div>
+            <div class="calc-bar-track"><div class="calc-bar-fill" id="se-bar"></div></div>
+            <div class="out-row"><span>Total income</span><b id="se-income">₹10,200</b></div>
+            <div class="out-row"><span>Savings</span><b id="se-savings">₹3,200</b></div>
+            <div class="out-row"><span>Expense ratio</span><b id="se-eratio">68.6%</b></div>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:18px">A related, longer-horizon measure is the <strong>Savings to Income ratio</strong> — accumulated savings relative to annual income — which gauges preparedness for long-term goals like retirement. It naturally rises with age as income grows and expenses stabilise; a suitable ratio in the early 40s is <strong>at least 3× annual income</strong>.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>GGN's accumulated savings-to-income ratio</strong>
+          <p>Annual salary ₹12,00,000; accumulated investments (PF balance, deposits, MF units, PPF, NSC) ₹15,00,000. Ratio = 15,00,000 ÷ 12,00,000 = <strong>1.25</strong>. Note: a self-occupied home is typically excluded when computing this figure.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-asi">
+        <div class="calc-title"><span class="pill">Live</span> Accumulated savings-to-income ratio</div>
+        <div class="calc-sub">Reproduces GGN's figures — Ratio = Total Savings ÷ Annual Income</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Annual salary <span class="val" data-out="asi-salary">₹12,00,000</span></label>
+              <input type="range" id="asi-salary-in" min="300000" max="5000000" step="50000" value="1200000">
+            </div>
+            <div class="ctrl">
+              <label>Accumulated investments <span class="val" data-out="asi-inv">₹15,00,000</span></label>
+              <input type="range" id="asi-inv-in" min="0" max="10000000" step="50000" value="1500000">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Savings-to-income ratio</div>
+            <div class="out-val" id="asi-ratio">1.25×</div>
+            <div class="out-note">A ratio of at least 3× is a suitable benchmark by the early 40s.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Why is the employer's PF contribution included when computing XYZ's savings, even though it never touched XYZ's bank account?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Because it still belongs to XYZ and accumulates in their PF account — it counts as savings even though it wasn't received in hand</button>
+          <button class="mini-opt" data-correct="false">Because employer contributions are always taxed as income, so they must be added</button>
+          <button class="mini-opt" data-correct="false">It shouldn't be included — this is a workbook error</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — savings are not limited to money received in hand; amounts that accrue to the individual, like an employer's PF contribution, are part of savings for the year." data-wrong-msg="Not quite — savings includes amounts that belong to the individual even if not received directly, such as employer PF contributions."></div>
+      </div>
+
+      <h3 id="sec-3-9-2" style="margin-top:32px">3.9.2 &amp; 3.9.3 Total Assets and Total Liabilities</h3>
+      <p><strong>Total assets</strong> are the current value of everything the individual has accumulated — shares, debentures, mutual funds, real estate, gold, PF, superannuation and more. A conservative approach excludes personal jewellery, the family's self-occupied residence, and other personal-use assets like a car when estimating assets actually available to meet financial goals.</p>
+      <p><strong>Total liabilities</strong> are every loan and form of credit taken, whether from institutions (banks, NBFCs) or personal sources (friends, relatives) — long-term and secured (a mortgage) or short-term and unsecured (credit card dues, personal loans, which tend to be more expensive). Greater liability means greater future repayment pressure on income.</p>
+
+      <h3 id="sec-3-9-4" style="margin-top:28px">3.9.4 – 3.9.6 Leverage, Net Worth &amp; Solvency Ratio</h3>
+      <div class="formula">Leverage Ratio = <span class="var">Total Liabilities</span> / <span class="var">Total Assets</span></div>
+      <div class="formula" style="margin-left:8px">Solvency Ratio = <span class="var">Net Worth</span> / <span class="var">Total Assets</span> = 1 − Leverage Ratio</div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — an investor's leverage</strong>
+          <p>Real estate ₹50L + investments &amp; bank balances ₹10L + PF ₹5L = total assets ₹65L. Outstanding home loan ₹10L + credit card dues ₹2L + a friend's loan ₹1L = total liabilities ₹13L. <strong>Leverage ratio = 13/65 = 20%. Net worth = ₹52L. Solvency ratio = 52/65 = 80%.</strong></p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-leverage">
+        <div class="calc-title"><span class="pill">Live</span> Leverage, net worth &amp; solvency</div>
+        <div class="calc-sub">Reproduces the investor's ₹65L / ₹13L example. A leverage ratio above 100% means assets can't cover liabilities.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Real estate <span class="val" data-out="lv-re">₹50,00,000</span></label>
+              <input type="range" id="lv-re-in" min="0" max="20000000" step="100000" value="5000000">
+            </div>
+            <div class="ctrl">
+              <label>Investments &amp; bank balances <span class="val" data-out="lv-inv">₹10,00,000</span></label>
+              <input type="range" id="lv-inv-in" min="0" max="5000000" step="50000" value="1000000">
+            </div>
+            <div class="ctrl">
+              <label>Provident fund <span class="val" data-out="lv-pf">₹5,00,000</span></label>
+              <input type="range" id="lv-pf-in" min="0" max="5000000" step="50000" value="500000">
+            </div>
+            <div class="ctrl">
+              <label>Outstanding home loan <span class="val" data-out="lv-loan">₹10,00,000</span></label>
+              <input type="range" id="lv-loan-in" min="0" max="10000000" step="50000" value="1000000">
+            </div>
+            <div class="ctrl">
+              <label>Credit card dues <span class="val" data-out="lv-cc">₹2,00,000</span></label>
+              <input type="range" id="lv-cc-in" min="0" max="1000000" step="10000" value="200000">
+            </div>
+            <div class="ctrl">
+              <label>Other loans <span class="val" data-out="lv-oth">₹1,00,000</span></label>
+              <input type="range" id="lv-oth-in" min="0" max="1000000" step="10000" value="100000">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Net worth</div>
+            <div class="out-val" id="lv-networth">₹52,00,000</div>
+            <div class="out-row"><span>Total assets</span><b id="lv-assets">₹65,00,000</b></div>
+            <div class="out-row"><span>Total liabilities</span><b id="lv-liab">₹13,00,000</b></div>
+            <div class="barset" style="margin-top:12px">
+              <div class="barrow"><div class="bar-head"><span class="nm">Leverage ratio</span><span class="amt" id="lv-leverage-lbl">20%</span></div><div class="bar-track"><div class="bar-fill c4" id="lv-leverage-bar" style="width:20%"></div></div></div>
+              <div class="barrow"><div class="bar-head"><span class="nm">Solvency ratio</span><span class="amt" id="lv-solvency-lbl">80%</span></div><div class="bar-track"><div class="bar-fill c2" id="lv-solvency-bar" style="width:80%"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Reading the leverage ratio</strong>
+          <p>Higher leverage means more risk. A ratio greater than 1 (100%) means assets are inadequate to cover liabilities — the individual is technically insolvent. Leverage is naturally high right after a large debt-funded purchase like real estate, and moderates over time as the asset appreciates. A critical benchmark: net worth should always be positive.</p>
+        </div>
+      </div>
+
+      <h3 id="sec-3-9-7" style="margin-top:30px">3.9.7 &amp; 3.9.8 Liquid Assets and Liquidity Ratio</h3>
+      <p><strong>Liquid assets</strong> can be converted to cash quickly to meet expenses or emergencies — savings bank balances, fixed deposits maturing within 6 months, and liquid mutual funds. Assets like real estate or closed-end fund units take time to sell at fair value. Shares and open-end equity or debt schemes can technically be sold fast, but their value fluctuates too much in the short term to be treated as reliably liquid for this purpose.</p>
+      <div class="formula">Liquidity Ratio = <span class="var">Liquid Assets</span> / <span class="var">Monthly Expenses</span></div>
+      <p>A ratio of at least <strong>4 to 6</strong> indicates comfort — the household could cover 4–6 months of expenses purely from liquid assets, even with a complete loss of income.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — NFG's liquidity</strong>
+          <p>Monthly expenses (incl. loan repayments) ₹1.5 lakh. Of NFG's holdings, only the savings bank account (₹7L), short-term FDs (₹2L) and a liquid mutual fund (₹4L) count as liquid — ₹13L total. Equity shares, long-term FDs, other open-end schemes and closed-end fund units are excluded. <strong>Liquidity ratio = 13 ÷ 1.5 = 8.66</strong> — a comfortable position.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-liquidity">
+        <div class="calc-title"><span class="pill">Live</span> Liquidity ratio</div>
+        <div class="calc-sub">Only savings bank, short-term FD and liquid mutual fund count towards liquid assets.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Monthly expenses (incl. EMIs) <span class="val" data-out="lq-exp">₹1,50,000</span></label>
+              <input type="range" id="lq-exp-in" min="10000" max="500000" step="5000" value="150000">
+            </div>
+            <div class="ctrl">
+              <label>Savings bank account <span class="val" data-out="lq-sb">₹7,00,000</span></label>
+              <input type="range" id="lq-sb-in" min="0" max="3000000" step="50000" value="700000">
+            </div>
+            <div class="ctrl">
+              <label>Short-term FD (≤ 6 months) <span class="val" data-out="lq-fd">₹2,00,000</span></label>
+              <input type="range" id="lq-fd-in" min="0" max="3000000" step="50000" value="200000">
+            </div>
+            <div class="ctrl">
+              <label>Liquid mutual fund <span class="val" data-out="lq-mf">₹4,00,000</span></label>
+              <input type="range" id="lq-mf-in" min="0" max="3000000" step="50000" value="400000">
+            </div>
+            <div>
+              <label style="font-size:0.82rem;font-weight:600;display:block;margin-bottom:6px">Also on the books — NOT counted as liquid</label>
+              <span class="badge-static"><span class="dot"></span>Equity shares ₹3,00,000</span>
+              <span class="badge-static"><span class="dot"></span>Long-term FD ₹6,00,000</span>
+              <span class="badge-static"><span class="dot"></span>Other open-end MF ₹5,00,000</span>
+              <span class="badge-static"><span class="dot"></span>Closed-end MF ₹12,00,000</span>
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Liquidity ratio</div>
+            <div class="out-val" id="lq-ratio">8.66</div>
+            <div class="out-row"><span>Liquid assets</span><b id="lq-liquid">₹13,00,000</b></div>
+            <div class="out-note" id="lq-note">Comfortable — well above the 4–6 benchmark.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Why are open-end equity mutual fund units NOT treated as "liquid" for the liquidity ratio, even though they can be redeemed within a day or two?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Because SEBI legally classifies them as illiquid instruments</button>
+          <button class="mini-opt" data-correct="true">Because their value fluctuates significantly in the short term, making them unsuitable for reliably meeting an urgent cash need</button>
+          <button class="mini-opt" data-correct="false">Because mutual funds cannot be sold without 30 days' notice</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — speed of redemption alone isn't enough; equity (and open-end debt) schemes have significant valuation risk, so they're excluded from liquid assets for this ratio." data-wrong-msg="Not quite — the issue isn't redemption speed but valuation volatility: equity-oriented schemes can be redeemed fast but at an uncertain value, so they're excluded."></div>
+      </div>
+
+      <h3 id="sec-3-9-9" style="margin-top:30px">3.9.9 Financial Assets Ratio</h3>
+      <div class="formula">Financial Assets Ratio = <span class="var">Financial Assets</span> / <span class="var">Total Assets</span> × 100</div>
+      <p>Financial assets (shares, debentures, bank deposits, PPF, mutual funds) offer greater liquidity, flexibility and ease of small, frequent investing than physical assets (gold, precious metals, diamonds, real estate). A higher financial-assets ratio is preferred especially when goals are near and income or funds will soon be needed.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — PQR's asset mix</strong>
+          <p>Shares ₹5L + FDs ₹10L + mutual funds ₹12L = financial assets ₹27L. Land ₹9L + gold ₹14L = physical assets ₹23L. Total ₹50L. <strong>Financial assets ratio = 27/50 × 100 = 54%.</strong></p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-fa">
+        <div class="calc-title"><span class="pill">Live</span> Financial assets ratio</div>
+        <div class="calc-sub">Reproduces PQR's holdings — shares, FDs and mutual funds are financial; land and gold are physical.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Shares <span class="val" data-out="fa-shares">₹5,00,000</span></label>
+              <input type="range" id="fa-shares-in" min="0" max="5000000" step="50000" value="500000">
+            </div>
+            <div class="ctrl">
+              <label>Fixed deposits <span class="val" data-out="fa-fd">₹10,00,000</span></label>
+              <input type="range" id="fa-fd-in" min="0" max="5000000" step="50000" value="1000000">
+            </div>
+            <div class="ctrl">
+              <label>Mutual funds <span class="val" data-out="fa-mf">₹12,00,000</span></label>
+              <input type="range" id="fa-mf-in" min="0" max="5000000" step="50000" value="1200000">
+            </div>
+            <div class="ctrl">
+              <label>Land <span class="val" data-out="fa-land">₹9,00,000</span></label>
+              <input type="range" id="fa-land-in" min="0" max="5000000" step="50000" value="900000">
+            </div>
+            <div class="ctrl">
+              <label>Gold <span class="val" data-out="fa-gold">₹14,00,000</span></label>
+              <input type="range" id="fa-gold-in" min="0" max="5000000" step="50000" value="1400000">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Financial assets ratio</div>
+            <div class="out-val" id="fa-ratio">54%</div>
+            <div class="barset" style="margin-top:10px">
+              <div class="barrow"><div class="bar-head"><span class="nm">Financial</span><span class="amt" id="fa-fin-lbl">₹27,00,000</span></div><div class="bar-track"><div class="bar-fill c2" id="fa-fin-bar" style="width:54%"></div></div></div>
+              <div class="barrow"><div class="bar-head"><span class="nm">Physical</span><span class="amt" id="fa-phy-lbl">₹23,00,000</span></div><div class="bar-track"><div class="bar-fill c1" id="fa-phy-bar" style="width:46%"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="sec-3-9-10" style="margin-top:30px">3.9.10 Debt to Income Ratio</h3>
+      <div class="formula">Debt to Income Ratio = <span class="var">Monthly Debt Servicing</span> / <span class="var">Monthly Income</span></div>
+      <p>Unlike the leverage ratio (which measures debt used to acquire assets), this measures whether current income can comfortably service <em>all</em> debt obligations — principal and interest combined. Lenders use it to judge eligibility for additional loans.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example</strong>
+          <p>Monthly income ₹1.5 lakh; loan commitments ₹60,000 a month. <strong>Debt to income ratio = 60,000 ÷ 1,50,000 = 40%</strong> — right at the excessive threshold.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-di">
+        <div class="calc-title"><span class="pill">Live</span> Debt-to-income ratio</div>
+        <div class="calc-sub">A ratio above 35–40% is seen as excessive.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Monthly income <span class="val" data-out="di-income">₹1,50,000</span></label>
+              <input type="range" id="di-income-in" min="20000" max="500000" step="5000" value="150000">
+            </div>
+            <div class="ctrl">
+              <label>Monthly debt servicing <span class="val" data-out="di-debt">₹60,000</span></label>
+              <input type="range" id="di-debt-in" min="0" max="300000" step="1000" value="60000">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Debt-to-income ratio</div>
+            <div class="out-val" id="di-ratio">40%</div>
+            <div class="calc-bar-track"><div class="calc-bar-fill" id="di-bar" style="width:40%"></div></div>
+            <div class="out-note" id="di-note">Right at the excessive threshold — little room for an emergency or income drop.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A client's debt-to-income ratio is 45%. What does this imply?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">A large share of income is committed to debt servicing — this is above the 35–40% threshold considered excessive, leaving little room for regular expenses, savings, or income shocks</button>
+          <button class="mini-opt" data-correct="false">The client is highly solvent and has no financial risk</button>
+          <button class="mini-opt" data-correct="false">The ratio has no bearing on the client's ability to get new loans</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a ratio above 35–40% is seen as excessive; it strains the ability to meet regular expenses and save, and makes emergency borrowing harder." data-wrong-msg="Not quite — 45% exceeds the 35–40% threshold considered excessive, straining the household's ability to meet other expenses, save, and borrow if needed."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Personal finance ratio flashcards</h2>
+      <p>Every ratio from section 3.9 on one card each — tap to reveal the formula and benchmark. A fast last-minute revision pass.</p>
+      <div class="flip-grid" id="ratio-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch03";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 1", href: "../../index.html" },
+    { label: "Chapter 3", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---------- Formatting helpers ----------
+  function inr(n, dp) {
+    var v = (dp ? n.toFixed(dp) : Math.round(n));
+    return "₹" + Number(v).toLocaleString("en-IN", dp ? { minimumFractionDigits: dp, maximumFractionDigits: dp } : {});
+  }
+  function setText(id, txt) { var el = document.getElementById(id); if (el) el.textContent = txt; }
+  function outVal(key, txt) { var el = document.querySelector('[data-out="' + key + '"]'); if (el) el.textContent = txt; }
+
+  // ---------- Count-up animation ----------
+  function animateCount(el, target, duration, formatter) {
+    if (window.NismNav && window.NismNav.prefersReducedMotion()) {
+      el.textContent = formatter(target);
+      return;
+    }
+    var start = performance.now();
+    function tick(now) {
+      var p = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = formatter(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // =====================================================================
+  // 3.2  Household budget builder
+  // =====================================================================
+  (function () {
+    var income = document.getElementById("bud-income-in"),
+        pf = document.getElementById("bud-pf-in"),
+        tax = document.getElementById("bud-tax-in"),
+        loan = document.getElementById("bud-loan-in"),
+        ess = document.getElementById("bud-ess-in"),
+        disc = document.getElementById("bud-disc-in"),
+        inv = document.getElementById("bud-inv-in");
+    function update() {
+      var INC = +income.value, PF = +pf.value, TAX = +tax.value, LOAN = +loan.value,
+          ESS = +ess.value, DISC = +disc.value, INV = +inv.value;
+      var mandatory = PF + TAX + LOAN;
+      var totalExp = mandatory + ESS + DISC;
+      var surplus = INC - (totalExp + INV);
+      var savings = PF + INV + surplus;
+      var ratio = INC > 0 ? (savings / INC) * 100 : 0;
+
+      outVal("bud-income", inr(INC)); outVal("bud-pf", inr(PF)); outVal("bud-tax", inr(TAX));
+      outVal("bud-loan", inr(LOAN)); outVal("bud-ess", inr(ESS)); outVal("bud-disc", inr(DISC)); outVal("bud-inv", inr(INV));
+
+      setText("bud-ratio", ratio.toFixed(1) + "%");
+      setText("bud-totexp", inr(totalExp));
+      setText("bud-surplus", inr(surplus));
+      setText("bud-savings", inr(savings));
+      document.getElementById("bud-bar").style.width = Math.max(0, Math.min(100, ratio)) + "%";
+    }
+    [income, pf, tax, loan, ess, disc, inv].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 3.8  Emergency fund sizer
+  // =====================================================================
+  (function () {
+    var exp = document.getElementById("ef-exp-in"),
+        months = document.getElementById("ef-months-in"),
+        seg = document.getElementById("ef-seg"),
+        mode = "laddered";
+    function update() {
+      var EXP = +exp.value, M = +months.value;
+      var target = EXP * M;
+      var liquid, illiquid;
+      if (mode === "laddered") {
+        liquid = EXP * Math.min(3, M);
+        illiquid = target - liquid;
+      } else {
+        liquid = target;
+        illiquid = 0;
+      }
+      outVal("ef-exp", inr(EXP)); outVal("ef-months", M);
+      setText("ef-target", inr(target));
+      setText("ef-liquid", inr(liquid));
+      setText("ef-illiquid", inr(illiquid));
+    }
+    seg.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      mode = b.dataset.mode;
+      Array.prototype.forEach.call(seg.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      update();
+    });
+    [exp, months].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 3.9.1  Savings & Expense ratio
+  // =====================================================================
+  (function () {
+    var gross = document.getElementById("se-gross-in"),
+        erpf = document.getElementById("se-erpf-in"),
+        eepf = document.getElementById("se-eepf-in"),
+        intr = document.getElementById("se-int-in"),
+        exp = document.getElementById("se-exp-in");
+    function update() {
+      var G = +gross.value, ERPF = +erpf.value, EEPF = +eepf.value, INT = +intr.value, EXP = +exp.value;
+      var netTakeHome = G - ERPF - EEPF;
+      var totalIncome = G + INT;
+      var savings = netTakeHome + INT + ERPF + EEPF - EXP;
+      var sratio = totalIncome > 0 ? (savings / totalIncome) * 100 : 0;
+      var eratio = 100 - sratio;
+
+      outVal("se-gross", inr(G)); outVal("se-erpf", inr(ERPF)); outVal("se-eepf", inr(EEPF));
+      outVal("se-int", inr(INT)); outVal("se-exp", inr(EXP));
+      setText("se-sratio", sratio.toFixed(1) + "%");
+      setText("se-eratio", eratio.toFixed(1) + "%");
+      setText("se-income", inr(totalIncome));
+      setText("se-savings", inr(savings));
+      document.getElementById("se-bar").style.width = Math.max(0, Math.min(100, sratio)) + "%";
+    }
+    [gross, erpf, eepf, intr, exp].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 3.9.1  Accumulated savings-to-income ratio
+  // =====================================================================
+  (function () {
+    var salary = document.getElementById("asi-salary-in"),
+        invv = document.getElementById("asi-inv-in");
+    function update() {
+      var S = +salary.value, I = +invv.value;
+      outVal("asi-salary", inr(S)); outVal("asi-inv", inr(I));
+      setText("asi-ratio", (S > 0 ? (I / S) : 0).toFixed(2) + "×");
+    }
+    [salary, invv].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 3.9.4-6  Leverage, Net worth & Solvency
+  // =====================================================================
+  (function () {
+    var re = document.getElementById("lv-re-in"),
+        invv = document.getElementById("lv-inv-in"),
+        pf = document.getElementById("lv-pf-in"),
+        loan = document.getElementById("lv-loan-in"),
+        cc = document.getElementById("lv-cc-in"),
+        oth = document.getElementById("lv-oth-in");
+    function update() {
+      var RE = +re.value, INV = +invv.value, PF = +pf.value, LOAN = +loan.value, CC = +cc.value, OTH = +oth.value;
+      var assets = RE + INV + PF;
+      var liab = LOAN + CC + OTH;
+      var networth = assets - liab;
+      var leverage = assets > 0 ? (liab / assets) * 100 : 0;
+      var solvency = 100 - leverage;
+
+      outVal("lv-re", inr(RE)); outVal("lv-inv", inr(INV)); outVal("lv-pf", inr(PF));
+      outVal("lv-loan", inr(LOAN)); outVal("lv-cc", inr(CC)); outVal("lv-oth", inr(OTH));
+      setText("lv-networth", inr(networth));
+      setText("lv-assets", inr(assets));
+      setText("lv-liab", inr(liab));
+      setText("lv-leverage-lbl", leverage.toFixed(1) + "%");
+      setText("lv-solvency-lbl", solvency.toFixed(1) + "%");
+      document.getElementById("lv-leverage-bar").style.width = Math.max(0, Math.min(100, leverage)) + "%";
+      document.getElementById("lv-solvency-bar").style.width = Math.max(0, Math.min(100, solvency)) + "%";
+    }
+    [re, invv, pf, loan, cc, oth].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 3.9.7-8  Liquidity ratio
+  // =====================================================================
+  (function () {
+    var exp = document.getElementById("lq-exp-in"),
+        sb = document.getElementById("lq-sb-in"),
+        fd = document.getElementById("lq-fd-in"),
+        mf = document.getElementById("lq-mf-in");
+    function update() {
+      var EXP = +exp.value, SB = +sb.value, FD = +fd.value, MF = +mf.value;
+      var liquid = SB + FD + MF;
+      var ratio = EXP > 0 ? liquid / EXP : 0;
+      outVal("lq-exp", inr(EXP)); outVal("lq-sb", inr(SB)); outVal("lq-fd", inr(FD)); outVal("lq-mf", inr(MF));
+      setText("lq-ratio", ratio.toFixed(2));
+      setText("lq-liquid", inr(liquid));
+      var note = ratio >= 4 ? "Comfortable — at or above the 4–6 benchmark." :
+                 ratio >= 2 ? "Below the comfort zone — consider building up liquid assets." :
+                 "Tight — a loss of income would quickly strain this household.";
+      setText("lq-note", note);
+    }
+    [exp, sb, fd, mf].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 3.9.9  Financial assets ratio
+  // =====================================================================
+  (function () {
+    var shares = document.getElementById("fa-shares-in"),
+        fd = document.getElementById("fa-fd-in"),
+        mf = document.getElementById("fa-mf-in"),
+        land = document.getElementById("fa-land-in"),
+        gold = document.getElementById("fa-gold-in");
+    function update() {
+      var SH = +shares.value, FD = +fd.value, MF = +mf.value, LAND = +land.value, GOLD = +gold.value;
+      var financial = SH + FD + MF;
+      var physical = LAND + GOLD;
+      var total = financial + physical;
+      var ratio = total > 0 ? (financial / total) * 100 : 0;
+
+      outVal("fa-shares", inr(SH)); outVal("fa-fd", inr(FD)); outVal("fa-mf", inr(MF));
+      outVal("fa-land", inr(LAND)); outVal("fa-gold", inr(GOLD));
+      setText("fa-ratio", ratio.toFixed(1) + "%");
+      setText("fa-fin-lbl", inr(financial));
+      setText("fa-phy-lbl", inr(physical));
+      document.getElementById("fa-fin-bar").style.width = Math.max(0, Math.min(100, ratio)) + "%";
+      document.getElementById("fa-phy-bar").style.width = Math.max(0, Math.min(100, 100 - ratio)) + "%";
+    }
+    [shares, fd, mf, land, gold].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 3.9.10  Debt-to-income ratio
+  // =====================================================================
+  (function () {
+    var income = document.getElementById("di-income-in"),
+        debt = document.getElementById("di-debt-in");
+    function update() {
+      var INC = +income.value, DEBT = +debt.value;
+      var ratio = INC > 0 ? (DEBT / INC) * 100 : 0;
+      outVal("di-income", inr(INC)); outVal("di-debt", inr(DEBT));
+      setText("di-ratio", ratio.toFixed(1) + "%");
+      var bar = document.getElementById("di-bar");
+      bar.style.width = Math.max(0, Math.min(100, ratio)) + "%";
+      bar.classList.toggle("warn", ratio > 35);
+      var note = ratio > 40 ? "Excessive — well above the 35–40% threshold, straining the ability to save or borrow further." :
+                 ratio > 35 ? "At the edge of the excessive zone — little room for an income shock." :
+                 "Comfortable — well within the 35–40% threshold.";
+      setText("di-note", note);
+    }
+    [income, debt].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // Expense-type flip cards (3.2)
+  // =====================================================================
+  var expenseTypes = [
+    { icon: "🔒", label: "Mandatory expenses", back: "Compulsory outflows that cannot be avoided — taxes, PF/NPS contributions, EMIs and loan repayments." },
+    { icon: "🏠", label: "Essential living expenses", back: "Necessary for daily life — groceries, rent, education fees, transport, utilities, telephone and internet." },
+    { icon: "🎬", label: "Discretionary expenses", back: "Not essential and the first to cut when savings need a boost — entertainment, lifestyle spends, non-essential travel." }
+  ];
+  document.getElementById("expense-type-grid").innerHTML = expenseTypes.map(function (it) {
+    return '<div class="flip-card"><div class="flip-card-inner">' +
+      '<div class="flip-face flip-front"><div style="font-size:26px">' + it.icon + '</div><div class="label">' + it.label + '</div><div class="hint">Tap to expand</div></div>' +
+      '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+    '</div></div>';
+  }).join("");
+
+  // =====================================================================
+  // Contingency-planning flip cards (3.8)
+  // =====================================================================
+  var contingencies = [
+    { icon: "🛡️", label: "Dual-income protection", back: "A family dependent on two incomes needs protection if either earner is lost — life insurance mitigates this risk." },
+    { icon: "🏥", label: "Healthcare costs", back: "Medical insurance addresses the financial risk of sudden, large healthcare expenses." },
+    { icon: "💼", label: "Job-loss risk", back: "Dual income offers a natural hedge — if one partner loses their job, the other's income keeps some cash flowing." },
+    { icon: "🐷", label: "Emergency fund", back: "The first goal to save towards — ~6 months of expenses held in liquid assets, laddered if income security is high." },
+    { icon: "💔", label: "Separation risk", back: "Pre-nuptial agreements detail how finances are handled on separation — common in developed countries, but their legality in India is not established." },
+    { icon: "🤝", label: "Holding pattern", back: "Advisers should ensure a healthy distribution of assets and liabilities between spouses — first/joint holder roles can be reversed across investments." },
+    { icon: "🏦", label: "Joint accounts", back: "Keeping each partner's salary account distinct (with the other as joint holder), used only for investing or transferring to a shared expense account, aids monitoring and tax record-keeping." },
+    { icon: "🏡", label: "Joint home loan", back: "When a housing loan is taken for a property, partners can be joint owners of the property as well as joint borrowers on the loan." }
+  ];
+  document.getElementById("contingency-grid").innerHTML = contingencies.map(function (it) {
+    return '<div class="flip-card"><div class="flip-card-inner">' +
+      '<div class="flip-face flip-front"><div style="font-size:26px">' + it.icon + '</div><div class="label">' + it.label + '</div><div class="hint">Tap to expand</div></div>' +
+      '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+    '</div></div>';
+  }).join("");
+
+  // =====================================================================
+  // Ratio flashcards (3.9 summary deck)
+  // =====================================================================
+  var ratioCards = [
+    { l: "SR", label: "Savings Ratio", back: "Savings per year ÷ Annual Income. Includes PF/employer contributions, not just bank savings." },
+    { l: "ER", label: "Expense Ratio", back: "Annual Recurring Expenses ÷ Annual Income = 1 − Savings Ratio. Excludes one-off, non-recurring expenses." },
+    { l: "STI", label: "Savings-to-Income Ratio", back: "Total accumulated savings ÷ Annual Income. Measures long-term goal preparedness — aim for 3× by the early 40s." },
+    { l: "LR", label: "Leverage Ratio", back: "Total Liabilities ÷ Total Assets. Higher = riskier; a ratio > 1 means assets can't cover liabilities." },
+    { l: "NW", label: "Net Worth", back: "Total Assets − Total Liabilities. The single most relevant measure of financial strength — should always be positive." },
+    { l: "SolR", label: "Solvency Ratio", back: "Net Worth ÷ Total Assets = 1 − Leverage Ratio. Higher is stronger for the same asset base." },
+    { l: "LA", label: "Liquid Assets", back: "Cash, savings balances, FDs maturing within 6 months and liquid funds — assets quickly convertible to cash without much value risk." },
+    { l: "LiqR", label: "Liquidity Ratio", back: "Liquid Assets ÷ Monthly Expenses. A ratio of 4–6 is a comfortable cushion against income loss." },
+    { l: "FAR", label: "Financial Assets Ratio", back: "Financial Assets ÷ Total Assets × 100. Higher is preferred when goals are near and liquidity/income is needed soon." },
+    { l: "DTI", label: "Debt-to-Income Ratio", back: "Monthly Debt Servicing ÷ Monthly Income. Above 35–40% is considered excessive by lenders and advisers alike." }
+  ];
+  document.getElementById("ratio-cards").innerHTML = ratioCards.map(function (it) {
+    return '<div class="flip-card"><div class="flip-card-inner">' +
+      '<div class="flip-face flip-front"><div style="font-size:22px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.l + '</div><div class="label">' + it.label + '</div><div class="hint">Tap for the formula</div></div>' +
+      '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+    '</div></div>';
+  }).join("");
+
+  // =====================================================================
+  // Scroll-triggered animations (cash-flow bracket, net-worth bars)
+  // =====================================================================
+  function onReveal(selector, cb, threshold) {
+    var el = document.querySelector(selector);
+    if (!el) return;
+    var obs = new IntersectionObserver(function (entries, o) {
+      entries.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: threshold || 0.35 });
+    obs.observe(el);
+  }
+
+  onReveal("#cf-bracket", function () { document.getElementById("cf-bracket").classList.add("go"); }, 0.5);
+
+  function animateBarSet(container) {
+    container.querySelectorAll(".bar-fill").forEach(function (bar) {
+      requestAnimationFrame(function () { bar.style.width = bar.dataset.w + "%"; });
+    });
+    container.querySelectorAll(".amt[data-count]").forEach(function (el) {
+      animateCount(el, parseInt(el.dataset.count, 10), 1300, function (v) { return inr(v); });
+    });
+  }
+  onReveal("#nw-bars", animateBarSet, 0.4);
+
+  // =====================================================================
+  // Quiz
+  // =====================================================================
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH03_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  // ---- Page-wide interaction wiring ----
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

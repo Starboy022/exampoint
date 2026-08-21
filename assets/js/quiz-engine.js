@@ -16,9 +16,9 @@
 (function () {
   var ICONS = {
     check:
-      '<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     cross:
-      '<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+      '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M7 7l6 6M13 7l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
   };
   var LETTERS = ["A", "B", "C", "D", "E", "F"];
 
@@ -83,9 +83,9 @@
         "</div>" +
         '<div class="quiz-card">' +
           (item.scenario ? '<div class="quiz-scenario"><span class="quiz-scenario-tag">Scenario</span>' + item.scenario + "</div>" : "") +
-          '<div class="quiz-question">' + item.q + "</div>" +
+          '<div class="quiz-question" id="quiz-q" tabindex="-1">' + item.q + "</div>" +
           '<div class="quiz-options" id="quiz-options"></div>' +
-          '<div class="quiz-explain" id="quiz-explain"></div>' +
+          '<div class="quiz-explain" id="quiz-explain" aria-live="polite"></div>' +
           '<div class="quiz-nav-row"><button class="btn btn-primary" id="quiz-next-btn" disabled>' +
             (current === total - 1 ? "See results" : "Next question") +
           "</button></div>" +
@@ -109,6 +109,11 @@
           renderResults();
         }
       });
+
+      // Move focus to the new question so keyboard/screen-reader users land on
+      // it instead of being dropped back to the top of the document.
+      var qEl = container.querySelector("#quiz-q");
+      if (qEl) qEl.focus();
 
       function selectAnswer(i) {
         if (answers[current] !== null) return; // already answered
@@ -161,8 +166,8 @@
       }).join("");
 
       container.innerHTML =
-        '<div class="quiz-results reveal">' +
-          '<div class="result-ring" style="--pct:' + pct + '"><div><div class="big">' + pct + "%</div><div class=\"small\">" + score + " / " + total + "</div></div></div>" +
+        '<div class="quiz-results reveal" tabindex="-1" aria-label="Assessment complete. You scored ' + pct + ' percent, ' + score + ' out of ' + total + ' correct.">' +
+          '<div class="result-ring" style="--pct:' + pct + '" aria-hidden="true"><div><div class="big">' + pct + "%</div><div class=\"small\">" + score + " / " + total + "</div></div></div>" +
           '<div class="result-verdict">' + verdict + "</div>" +
           '<div class="result-sub">' + sub + "</div>" +
           '<div class="result-actions">' +
@@ -180,6 +185,10 @@
         current = 0;
         renderQuestion();
       });
+
+      // Move focus to the results so the outcome is announced, not lost.
+      var resultsEl = container.querySelector(".quiz-results");
+      if (resultsEl) resultsEl.focus();
 
       if (typeof config.onComplete === "function") {
         config.onComplete(score, total, timeMs);

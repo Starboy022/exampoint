@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 5 — Introduction to the Indian Financial Markets | NISM Learn</title>
+<meta name="description" content="Interactive lesson: the Indian economy, financial-market structure, the four regulators (RBI, SEBI, IRDAI, PFRDA), banking, money, forex and securities-market intermediaries. NISM Series-X-A, Module 2, Chapter 5." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Regulator map SVG ---- */
+  .reg-line { stroke: var(--border-subtle); stroke-width: 2; stroke-dasharray: 240; stroke-dashoffset: 240; }
+  .reg-line.go { animation: reg-draw 1s var(--ease-out) forwards; }
+  @keyframes reg-draw { to { stroke-dashoffset: 0; } }
+  .reg-node { cursor: pointer; }
+  .reg-node circle { transition: r var(--dur-fast) var(--ease-spring); }
+  .reg-node:hover circle.dot { r: 34; }
+  .reg-node text.t { font-size: 12px; font-weight: 800; fill: #fff; }
+  .reg-node text.s { font-size: 8.5px; font-weight: 600; fill: rgba(255,255,255,.85); }
+  .reg-center circle { fill: var(--navy-900); }
+  .reg-center text { fill:#fff; }
+
+  /* ---- Interactive matcher ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:center; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:1rem; }
+  .reg-card .rd { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Structure tree / depository flow ---- */
+  .flow { display:flex; align-items:stretch; gap:0; flex-wrap:wrap; justify-content:center; margin:20px 0; }
+  .flow-node { flex:1; min-width:120px; padding:14px 12px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); text-align:center; opacity:0; transform:translateY(10px); transition:all var(--dur-med) var(--ease-out); }
+  .flow-node.in { opacity:1; transform:translateY(0); }
+  .flow-node .fn-ic { font-size:22px; }
+  .flow-node .fn-t { font-weight:800; font-size:0.85rem; margin-top:4px; font-family:var(--font-display); }
+  .flow-node .fn-d { font-size:0.72rem; color:var(--text-secondary); margin-top:3px; }
+  .flow-arrow { display:flex; align-items:center; color:var(--gold-500); font-size:20px; padding:0 6px; }
+
+  /* ---- Currency pair widget ---- */
+  .fx-wrap { display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; margin:16px 0; }
+  .fx-cur { padding:14px 20px; border-radius:var(--radius-md); border:1.5px solid var(--border-subtle); text-align:center; cursor:pointer; transition:all var(--dur-fast); background:var(--bg-surface); }
+  .fx-cur .code { font-family:var(--font-display); font-weight:800; font-size:1.3rem; }
+  .fx-cur .role { font-size:0.72rem; color:var(--text-secondary); margin-top:2px; height:1em; }
+  .fx-cur.base { border-color:var(--gold-500); }
+  .fx-cur.quote { border-color:var(--teal-500); }
+  .fx-slash { font-size:1.6rem; font-weight:800; color:var(--text-secondary); }
+
+  /* ---- Instruments pill list ---- */
+  .pill-list { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+  .pill-list span { padding:7px 13px; border-radius:var(--radius-pill); background:var(--bg-surface-2); border:1px solid var(--border-subtle); font-size:0.82rem; font-weight:600; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 2 · Indian Financial Markets</span>
+      <span class="badge badge-gold">Chapter 5 of 6</span>
+    </div>
+    <h1>Introduction to the Indian Financial Markets</h1>
+    <p class="lede">How money moves through India's economy — the markets that channel savings into investment, the four regulators that police them (RBI, SEBI, IRDAI, PFRDA), and the web of banks, exchanges, depositories and intermediaries that make it all work.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~24 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 42 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 5 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:640px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Overview of the Indian economy</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The Indian financial markets and their key features</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The role of the regulators of financial markets</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The structure of financial markets in India</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The role of the participants in the Indian financial markets</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-5-1">5.1 The Indian economy</a></li>
+      <li><a href="#sec-5-2">5.2 The financial markets</a></li>
+      <li><a href="#sec-5-3">5.3 The regulators</a></li>
+      <li><a href="#sec-5-3-gov">Govt bodies &amp; SROs</a></li>
+      <li><a href="#sec-5-4-1">5.4.1 Banking system</a></li>
+      <li><a href="#sec-5-4-money">Money &amp; forex markets</a></li>
+      <li><a href="#sec-5-4-2">5.4.2 Securities market</a></li>
+      <li><a href="#sec-5-4-3">5.4.3 Insurance (IRDAI)</a></li>
+      <li><a href="#sec-5-4-4">5.4.4 Pension (PFRDA)</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 5.1 -->
+    <section class="lesson-section" id="sec-5-1">
+      <span class="section-kicker">5.1</span>
+      <h2>The Indian economy</h2>
+      <p>The Indian economy has evolved from being agriculture-based to one dominated by <strong>services and manufacturing</strong>, which together contribute about three-fourths of GDP. Sustained growth depends on a robust financial system that gives the economy access to resources.</p>
+      <p>Financial markets keep the wheels of the economy turning, each in its own way:</p>
+      <div class="term-grid" id="econ-grid"></div>
+      <p>Well-regulated, developed markets are essential for sustained growth.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which two sectors now dominate India's GDP (about three-fourths of it)?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Agriculture and mining</button>
+          <button class="mini-opt" data-correct="true">Services and manufacturing</button>
+          <button class="mini-opt" data-correct="false">Tourism and fisheries</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the economy has shifted from agriculture to services and manufacturing, which together make up roughly three-fourths of GDP." data-wrong-msg="Not quite — services and manufacturing now dominate, contributing about three-fourths of GDP."></div>
+      </div>
+    </section>
+
+    <!-- 5.2 -->
+    <section class="lesson-section" id="sec-5-2">
+      <span class="section-kicker">5.2</span>
+      <h2>The Indian financial markets</h2>
+      <p>Financial markets allocate resources efficiently by <strong>channelling surplus funds from lenders/investors to borrowers/businesses</strong>. Intermediaries — banks, mutual funds, insurers — grease this process. Markets aggregate funds, provide liquidity, and spread information so participants can make informed decisions.</p>
+
+      <h3 id="sec-5-2-cat" style="margin-top:26px">Two ways to slice the market</h3>
+      <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))" id="market-slice-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>By maturity vs by newness</strong>
+          <p>Two independent cuts: by <em>maturity</em> — <strong>money markets</strong> (short-term, &lt; 1 year) vs <strong>capital markets</strong> (long-term debt &amp; equity); and by <em>newness</em> — <strong>primary market</strong> (new securities issued) vs <strong>secondary market</strong> (existing securities traded between investors). Beyond these, commodities, forex, insurance and pension markets round out the system.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An investor buys already-listed shares of a company from another investor on the exchange. This trade happens in the:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Primary market</button>
+          <button class="mini-opt" data-correct="true">Secondary market</button>
+          <button class="mini-opt" data-correct="false">Money market</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — trading existing securities between investors happens in the secondary market. New securities are issued in the primary market." data-wrong-msg="Not quite — buying existing securities from another investor is the secondary market. The primary market is where new securities are first issued."></div>
+      </div>
+    </section>
+
+    <!-- 5.3 -->
+    <section class="lesson-section" id="sec-5-3">
+      <span class="section-kicker">5.3</span>
+      <h2>Regulators of the financial markets</h2>
+      <p>Regulation exists to <strong>safeguard investors</strong> — ensuring they can make informed decisions on a fair understanding of the markets. India runs a <strong>sectoral</strong> model: a different regulator for each slice of the financial system, with the Central Government exercising oversight and the <strong>FSDC</strong> (Financial Stability and Development Council) monitoring overall stability, sector development and financial inclusion.</p>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="reg-map" viewBox="0 0 460 300" width="100%" style="max-width:540px">
+            <g>
+              <line class="reg-line" x1="230" y1="70" x2="70" y2="180" style="animation-delay:.05s"/>
+              <line class="reg-line" x1="230" y1="70" x2="177" y2="180" style="animation-delay:.15s"/>
+              <line class="reg-line" x1="230" y1="70" x2="283" y2="180" style="animation-delay:.25s"/>
+              <line class="reg-line" x1="230" y1="70" x2="390" y2="180" style="animation-delay:.35s"/>
+            </g>
+            <g class="reg-center">
+              <rect x="150" y="30" width="160" height="46" rx="12"/>
+              <text x="230" y="50" text-anchor="middle" style="font-size:11px;font-weight:800">Central Govt · Ministry of Finance</text>
+              <text x="230" y="66" text-anchor="middle" style="font-size:8.5px;fill:rgba(255,255,255,.8)">FSDC monitors overall stability</text>
+            </g>
+            <a href="#sec-5-4-1"><g class="reg-node" transform="translate(70,205)">
+              <circle class="dot" r="30" fill="#2b5299"/><text class="t" y="-2" text-anchor="middle">RBI</text><text class="s" y="12" text-anchor="middle">Banks</text>
+            </g></a>
+            <a href="#sec-5-4-2"><g class="reg-node" transform="translate(177,205)">
+              <circle class="dot" r="30" fill="#d4af37"/><text class="t" y="-2" text-anchor="middle">SEBI</text><text class="s" y="12" text-anchor="middle">Securities</text>
+            </g></a>
+            <a href="#sec-5-4-3"><g class="reg-node" transform="translate(283,205)">
+              <circle class="dot" r="30" fill="#e5534b"/><text class="t" y="-2" text-anchor="middle">IRDAI</text><text class="s" y="12" text-anchor="middle">Insurance</text>
+            </g></a>
+            <a href="#sec-5-4-4"><g class="reg-node" transform="translate(390,205)">
+              <circle class="dot" r="30" fill="#2fb6a9"/><text class="t" y="-2" text-anchor="middle">PFRDA</text><text class="s" y="12" text-anchor="middle">Pension</text>
+            </g></a>
+          </svg>
+        </div>
+        <div class="caption">India's sectoral regulatory model — click a regulator to jump to its market. Note: SEBI regulates <em>both</em> securities and commodity markets.</div>
+      </div>
+
+      <div class="matcher" id="reg-matcher">
+        <h4>Who regulates what? — tap a market</h4>
+        <div class="hint">Tap a market below and watch its regulator light up.</div>
+        <div class="match-markets" id="match-markets">
+          <button class="match-mkt" data-reg="RBI">Commercial banks</button>
+          <button class="match-mkt" data-reg="SEBI">Stock &amp; commodity markets</button>
+          <button class="match-mkt" data-reg="IRDAI">Insurance companies</button>
+          <button class="match-mkt" data-reg="PFRDA">Pension / NPS</button>
+        </div>
+        <div class="match-regs" id="match-regs">
+          <div class="reg-card" data-reg="RBI"><div class="rn">RBI</div><div class="rd">Reserve Bank of India</div></div>
+          <div class="reg-card" data-reg="SEBI"><div class="rn">SEBI</div><div class="rd">Securities &amp; Exchange Board</div></div>
+          <div class="reg-card" data-reg="IRDAI"><div class="rn">IRDAI</div><div class="rd">Insurance Regulatory &amp; Dev. Authority</div></div>
+          <div class="reg-card" data-reg="PFRDA"><div class="rn">PFRDA</div><div class="rd">Pension Fund Regulatory &amp; Dev. Authority</div></div>
+        </div>
+        <div class="match-feedback" id="match-feedback"></div>
+      </div>
+
+      <h3 id="sec-5-3-detail" style="margin-top:28px">The four financial-sector regulators</h3>
+      <p>Tap each card for the statute it flows from and its core mandate.</p>
+      <div class="flip-grid" id="regulator-grid"></div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A client wants to complain about how a life-insurance policy's surrender value was calculated. Which regulator's domain is this?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">SEBI</button>
+          <button class="mini-opt" data-correct="false">RBI</button>
+          <button class="mini-opt" data-correct="true">IRDAI</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — IRDAI regulates insurance, including terms like sum assured, surrender value, claims and nomination." data-wrong-msg="Not quite — insurance (including surrender value and claim terms) falls under IRDAI, not SEBI or RBI."></div>
+      </div>
+    </section>
+
+    <!-- Govt bodies & SRO -->
+    <section class="lesson-section" id="sec-5-3-gov">
+      <span class="section-kicker">5.3.1–5.3.8</span>
+      <h2>Government bodies and self-regulation</h2>
+      <p>Above the sectoral regulators sit government ministries. The <strong>Ministry of Finance</strong> runs five departments; two are exam-critical — the <strong>Department of Economic Affairs</strong> (the nodal agency for macroeconomic policy and the <em>capital market</em>, incl. stock exchanges) and the <strong>Department of Financial Services</strong> (public-sector banks, insurance and pension reforms). Tap to explore the five.</p>
+      <div class="flip-grid" id="mof-grid"></div>
+
+      <div class="term-grid" id="gov-grid" style="margin-top:22px"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Self-Regulatory Organisations (SROs)</strong>
+          <p>Under SEBI (SRO) Regulations, 2004, an SRO is an organisation of intermediaries representing a segment of the securities market, recognised by SEBI — but <em>a stock exchange is explicitly excluded</em>. An SRO must follow SEBI's directions, act in investors' best interest, can inspect and audit its members, and must report any member violation to SEBI. SEBI also nominates directors on the SRO's board.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Within the Ministry of Finance, which department is the nodal agency for the capital market and stock exchanges?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Department of Economic Affairs</button>
+          <button class="mini-opt" data-correct="false">Department of Revenue</button>
+          <button class="mini-opt" data-correct="false">Department of Expenditure</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the Department of Economic Affairs formulates macroeconomic policy and covers the functioning of the capital market including stock exchanges." data-wrong-msg="Not quite — it's the Department of Economic Affairs. Revenue handles taxes; Expenditure handles financial rules and state borrowings."></div>
+      </div>
+    </section>
+
+    <!-- 5.4.1 Banking -->
+    <section class="lesson-section" id="sec-5-4-1">
+      <span class="section-kicker">5.4.1</span>
+      <h2>The banking system</h2>
+      <p>Banking is the core of the financial structure. Banks perform <strong>financial intermediation</strong> — pooling savings from households, governments and businesses, and lending to productive activity after a credit evaluation — and provide a secure settlement system (cheques, electronic payments). Many also distribute third-party products (mutual funds, insurance, PMS). The <strong>RBI</strong> is the regulator and monetary authority; it supervises through the <strong>Board for Financial Supervision (BFS)</strong>.</p>
+
+      <p>The banking landscape has several categories — tap to compare:</p>
+      <div class="flip-grid" id="bank-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Payment banks — the key limits</strong>
+          <p>Payment banks promote financial inclusion but are tightly boxed in: they accept demand deposits <strong>up to ₹1,00,000</strong>, can issue ATM/debit cards <strong>but not credit cards</strong>, and offer payments/remittances — but <strong>cannot lend</strong> at all.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — How do NBFCs differ from banks?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">NBFCs can issue cheques and accept demand deposits</button>
+          <button class="mini-opt" data-correct="true">NBFCs cannot accept demand deposits, cannot issue cheques, and lack DICGC deposit insurance</button>
+          <button class="mini-opt" data-correct="false">NBFCs are regulated by SEBI, not RBI</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — NBFCs do bank-like lending but cannot take demand deposits, cannot issue cheques, and have no DICGC deposit insurance. They fill lending gaps banks won't reach." data-wrong-msg="Not quite — NBFCs cannot accept demand deposits or issue cheques, and lack DICGC deposit insurance, though they do lending similar to banks."></div>
+      </div>
+    </section>
+
+    <!-- Money & forex -->
+    <section class="lesson-section" id="sec-5-4-money">
+      <span class="section-kicker">5.4.1</span>
+      <h2>Money market, forex &amp; credit infrastructure</h2>
+
+      <h3 id="money-mkt">Money market</h3>
+      <p>The money market trades instruments with <strong>maturities under one year</strong>. It's highly liquid and effectively a <em>wholesale</em> market for institutions; the RBI intervenes here to pursue its policy objectives. The main instruments:</p>
+      <div class="pill-list">
+        <span>Call (overnight) money</span><span>Short-notice money (≤14 days)</span><span>Commercial Paper (CP)</span><span>Certificates of Deposit (CDs)</span><span>Commercial bills</span><span>Treasury Bills</span>
+      </div>
+      <p>Call &amp; short-notice money and Treasury Bills are the most significant segments; banks, financial institutions and <strong>Primary Dealers</strong> are the major players.</p>
+
+      <h3 id="forex-mkt" style="margin-top:28px">Foreign exchange market</h3>
+      <p>Forex is the relative value of one currency against another, quoted as a <strong>currency pair</strong>. The first currency is the <strong>base</strong>; the second is the <strong>quoting</strong> currency. Tap the currencies to reveal their roles:</p>
+      <div class="fx-wrap">
+        <div class="fx-cur base" id="fx-base"><div class="code">USD</div><div class="role" id="fx-base-role"></div></div>
+        <div class="fx-slash">/</div>
+        <div class="fx-cur quote" id="fx-quote"><div class="code">INR</div><div class="role" id="fx-quote-role"></div></div>
+      </div>
+      <p>India's forex market has a spot market (with interbank and merchant segments), a forward market, and exchange-traded currency derivatives. In the interbank segment banks make a market with two-way quotes; in the merchant segment merchants are <em>price takers</em>. <strong>FBIL</strong> (Financial Benchmark India Pvt. Ltd.) publishes daily reference rates for major pairs (USD/INR, EUR/INR, GBP/INR, JPY/INR) on Mumbai business days.</p>
+
+      <h3 id="credit-infra" style="margin-top:28px">Credit information &amp; account aggregators</h3>
+      <div class="term-grid" id="credit-grid"></div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — In the currency pair USD/INR, which is the base currency?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">USD — the first currency in the pair is the base</button>
+          <button class="mini-opt" data-correct="false">INR — the second currency is always the base</button>
+          <button class="mini-opt" data-correct="false">Neither — both are quoting currencies</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the first currency (USD) is the base; the second (INR) is the quoting currency." data-wrong-msg="Not quite — the first currency in the pair (USD) is the base; INR is the quoting currency."></div>
+      </div>
+    </section>
+
+    <!-- 5.4.2 Securities -->
+    <section class="lesson-section" id="sec-5-4-2">
+      <span class="section-kicker">5.4.2</span>
+      <h2>The securities market under SEBI</h2>
+      <p>"Securities" is defined in <strong>Section 2(h) of the Securities Contracts (Regulation) Act, 1956 (SCRA)</strong> — it includes shares, scrips, stocks, bonds, debentures and other marketable securities; derivatives; collective-investment-scheme units; security receipts; mutual-fund units; government securities; and other instruments the Central Government notifies (e.g. electronic gold receipts, zero-coupon zero-principal instruments). It <em>excludes</em> unit-linked insurance policies combining life cover and investment.</p>
+      <p>The securities market has a <strong>primary market</strong> (capital raising via new issues) and a <strong>secondary market</strong> (liquidity and price discovery). A whole ecosystem of intermediaries makes trading safe and smooth — tap each to learn its job:</p>
+      <div class="flip-grid" id="intermediary-grid"></div>
+
+      <h3 id="depo-flow-heading" style="margin-top:30px">How a demat holding is structured</h3>
+      <p>For a security to trade in the secondary market it must be held in <strong>dematerialised (electronic) form</strong>. The chain from issuer to investor:</p>
+      <div class="diagram-frame">
+        <div class="flow" id="depo-flow">
+          <div class="flow-node"><div class="fn-ic">🏢</div><div class="fn-t">Issuer</div><div class="fn-d">Admits securities to the depository</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><div class="fn-ic">🗄️</div><div class="fn-t">Depository</div><div class="fn-d">NSDL / CDSL — holds securities electronically</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><div class="fn-ic">🧑‍💼</div><div class="fn-t">Depository Participant</div><div class="fn-d">Agent of the depository; opens investor accounts</div></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node"><div class="fn-ic">👤</div><div class="fn-t">Investor</div><div class="fn-d">Holds demat securities, trades via a broker</div></div>
+        </div>
+        <div class="caption">Depositories (NSDL, CDSL) hold securities as electronic entries; DPs act as their agents and maintain investor accounts. Custodians play this role for institutional investors.</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A depository participant (DP) is best described as:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">A regulator that licenses stock exchanges</button>
+          <button class="mini-opt" data-correct="true">An agent of the depository that opens and maintains investors' demat accounts</button>
+          <button class="mini-opt" data-correct="false">A company that issues its own securities</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — DPs act as agents of the depositories (NSDL/CDSL), opening and maintaining investor demat accounts. Brokers and banks often offer DP services." data-wrong-msg="Not quite — a DP is an agent of the depository that opens and maintains investors' demat accounts; it is not a regulator or an issuer."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which of these is defined as a "security" under SCRA?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">A unit-linked insurance policy combining life cover and investment</button>
+          <button class="mini-opt" data-correct="true">Government securities and mutual-fund units</button>
+          <button class="mini-opt" data-correct="false">A fixed deposit receipt from a bank</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — SCRA's definition includes government securities and mutual-fund units. ULIPs are specifically excluded." data-wrong-msg="Not quite — SCRA includes government securities and mutual-fund units; ULIPs are explicitly excluded from the definition."></div>
+      </div>
+    </section>
+
+    <!-- 5.4.3 Insurance -->
+    <section class="lesson-section" id="sec-5-4-3">
+      <span class="section-kicker">5.4.3</span>
+      <h2>Insurance market under IRDAI</h2>
+      <p>IRDAI regulates the insurance market, split into <strong>life</strong> and <strong>general (non-life)</strong> insurance. The life segment was opened to private players in <strong>2001</strong>. Life products fall into three broad buckets:</p>
+      <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))" id="insurance-grid"></div>
+
+      <p style="margin-top:20px"><strong>General insurance</strong> covers motor, health, travel, fire and personal accident. Products reach customers through multiple channels — <strong>agency, bancassurance, direct, broking and corporate agency</strong>. Key intermediaries: <em>brokers</em> (sell any company's policies, paid brokerage), <em>individual agents</em> (IRDAI-certified; typically one life + one general + one standalone health insurer), <em>corporate agents</em> (e.g. banks), <em>surveyors &amp; loss assessors</em> (assess general-insurance claims), and <em>third-party administrators</em> (process health claims).</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A pure risk-protection product with no maturity benefit, paying the sum assured only if the insured event (death) occurs, is:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">An endowment policy</button>
+          <button class="mini-opt" data-correct="true">Term insurance</button>
+          <button class="mini-opt" data-correct="false">A ULIP</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — term insurance is pure risk cover with no maturity benefit. Endowment policies add maturity/savings; ULIPs add market-linked investment." data-wrong-msg="Not quite — that's term insurance (pure protection, no maturity benefit). Endowments and ULIPs include a savings/investment element."></div>
+      </div>
+    </section>
+
+    <!-- 5.4.4 Pension -->
+    <section class="lesson-section" id="sec-5-4-4">
+      <span class="section-kicker">5.4.4</span>
+      <h2>Pension market under PFRDA</h2>
+      <p>PFRDA regulates the pension market, centred on the <strong>National Pension System (NPS)</strong>. Two forces drive the sector: a growing elderly population and a large unorganised workforce outside formal retirement cover. India's government pension has shifted from a <strong>defined-benefit</strong> model (fixed pension by rank, no employee contribution) to a <strong>defined-contribution</strong> model (employee + employer contribute; the pension depends on the accumulated fund).</p>
+      <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))" id="pension-grid"></div>
+      <p style="margin-top:18px">Private-sector retirement is largely covered by the <strong>Employee Provident Fund</strong> (EPFO), with contributions from both sides; part of the employer's contribution funds the Employee Pension Scheme. Some firms add superannuation or privately sponsored plans. The <strong>NPS</strong> itself is a <em>voluntary, defined-contribution</em> scheme open to government employees and the general public, offering a menu of fund managers and investment choices.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — The shift in India's government pension from "defined benefit" to "defined contribution" means:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Every retiree of a rank gets the same fixed pension with no contribution</button>
+          <button class="mini-opt" data-correct="true">Employee and employer both contribute, and the pension depends on the fund accumulated</button>
+          <button class="mini-opt" data-correct="false">The government guarantees a fixed 8% return</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — under defined contribution, both sides contribute and the eventual pension depends on the accumulated corpus and its returns. Defined benefit was the old fixed-pension model." data-wrong-msg="Not quite — defined contribution means employee + employer contribute and the pension depends on the fund built up. The fixed-pension-by-rank model was defined benefit."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The regulator-and-statute pairings and the intermediary roles most likely to be tested — tap to reveal.</p>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch05";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 2", href: "../../index.html" },
+    { label: "Chapter 5", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:20px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // 5.1 economy roles
+  renderCards("econ-grid", [
+    { icon: "🏦", label: "Banks", body: "Provide credit to corporates and individuals, and a channel for savings." },
+    { icon: "📈", label: "Securities markets", body: "Let businesses raise funds through equity and debt offerings." },
+    { icon: "💱", label: "Foreign exchange", body: "Affect import costs and enable global investment while mitigating currency risk." },
+    { icon: "🌾", label: "Commodity markets", body: "Help manage price volatility for producers and consumers." },
+    { icon: "🛡️", label: "Insurance", body: "Protects against financial shocks and promotes savings and investment." }
+  ]);
+
+  // 5.2 market slices
+  renderFlip("market-slice-grid", [
+    { icon: "⏱️", label: "Money vs Capital market", back: "By maturity: money markets handle short-term (< 1 year) lending/borrowing; capital markets provide long-term funding via debt and equity." },
+    { icon: "🆕", label: "Primary vs Secondary", back: "By newness: the primary market issues new securities (capital raising); the secondary market trades existing securities between investors (liquidity + price discovery)." }
+  ]);
+
+  // 5.3 regulators
+  renderFlip("regulator-grid", [
+    { icon: "🏛️", label: "RBI", back: "Central bank under the RBI Act. Formulates monetary policy (price stability with growth), regulates & supervises banks and payment systems, manages forex, issues currency, and is banker to government and to banks." },
+    { icon: "📊", label: "SEBI", back: "Statutory body under the SEBI Act, 1992. Protects investors and develops & regulates the securities market — and also regulates commodity derivatives. Registers intermediaries and prohibits fraud & insider trading." },
+    { icon: "🛡️", label: "IRDAI", back: "Regulator under the IRDA Act, 1999. Licenses insurers, sets capital/net-worth norms, clears products, licenses intermediaries and protects policyholders." },
+    { icon: "👴", label: "PFRDA", back: "Regulator under the PFRDA Act, 2013. Regulates the NPS and other pension schemes, registers fund managers/custodians/CRA/trustee banks, and protects subscribers." }
+  ]);
+
+  // MoF departments
+  renderFlip("mof-grid", [
+    { icon: "📉", label: "Economic Affairs", back: "Nodal agency for macroeconomic policy (monetary & fiscal) and the functioning of the capital market, including stock exchanges." },
+    { icon: "💰", label: "Expenditure", back: "Administers financial rules & regulations, service conditions of central staff, and matters like financial assistance to states and state borrowings." },
+    { icon: "🧾", label: "Revenue", back: "Controls direct and indirect taxes through the CBDT and the Central Board of Excise and Customs." },
+    { icon: "🏦", label: "Financial Services", back: "Administers policy for public-sector banks, term-lending institutions, life & general insurance, and pension reforms." },
+    { icon: "📤", label: "Investment & Public Asset Mgmt", back: "Oversees disinvestment of central-government equity in CPSUs and the financial policy for using disinvestment proceeds." }
+  ]);
+
+  // Other govt bodies
+  renderCards("gov-grid", [
+    { icon: "🏢", label: "Ministry of Corporate Affairs", body: "Administers the Companies Act 2013/1956, LLP Act 2008 and Competition Act 2002; oversees ICAI, ICSI and ICMAI." },
+    { icon: "📇", label: "Registrar of Companies (RoC)", body: "Appointed under the Companies Act to register companies and ensure they comply with the law." },
+    { icon: "⚖️", label: "FSDC", body: "Government-established council that monitors financial stability, sector development and financial inclusion." }
+  ]);
+
+  // Bank types
+  renderFlip("bank-grid", [
+    { icon: "🏦", label: "Commercial banks", back: "Scheduled (public sector, private, foreign, regional rural banks) or non-scheduled (local area banks). Core deposit-taking and lending." },
+    { icon: "🤝", label: "Co-operative credit institutions", back: "Urban co-operative banks and state/district-level co-operative banks — largely serving rural-area needs." },
+    { icon: "📲", label: "Payment banks", back: "Financial-inclusion banks: demand deposits up to ₹1,00,000, ATM/debit (not credit) cards, payments & remittances — but NO lending." },
+    { icon: "🌱", label: "Small Finance Banks", back: "Provide savings and credit to small businesses, marginal farmers, micro & small industries and the unorganised sector." },
+    { icon: "💳", label: "NBFCs", back: "Do loans, leasing, hire purchase, insurance or chit business. Cannot take demand deposits, cannot issue cheques, no DICGC insurance. Fill gaps banks won't reach." },
+    { icon: "🏠", label: "Housing Finance Companies", back: "Primarily lend for property/real-estate purchase. Regulation moved from the National Housing Bank to the RBI." }
+  ]);
+
+  // Credit infra / AA
+  renderCards("credit-grid", [
+    { icon: "📊", label: "Credit Information Companies", body: "CIBIL, Experian, Equifax, CRIF High Mark — governed by the CIC (Regulation) Act, 2005. RBI mandates one Free Full Credit Report a year to each individual." },
+    { icon: "🔗", label: "Account Aggregators", body: "RBI-licensed entities that consolidate a customer's financial data and share it with third parties — only with the customer's express, revocable consent. Eases digital lending." }
+  ]);
+
+  // Securities intermediaries
+  renderFlip("intermediary-grid", [
+    { icon: "🏛️", label: "Stock exchanges", back: "NSE & BSE enable electronic trading via anonymous order matching at market-driven prices, and oversee clearing & settlement." },
+    { icon: "🛡️", label: "Clearing corporations", back: "Ensure confirmation, settlement and delivery of trades, with risk-management systems so one member's default doesn't threaten the system." },
+    { icon: "🗄️", label: "Depositories", back: "NSDL & CDSL hold securities electronically (demat). A security must be dematerialised to trade in the secondary market." },
+    { icon: "🧑‍💼", label: "Depository participants", back: "Agents of the depositories who open and maintain investors' demat accounts and help deliver/receive securities. Brokers & banks offer DP services." },
+    { icon: "🏦", label: "Custodians", back: "Work with institutional investors: hold securities, manage cash, settle trades, collect benefits/rights and keep records. Usually large banks." },
+    { icon: "📞", label: "Stock brokers", back: "Registered trading members of exchanges; all secondary-market trades must go through them. Provide research/execution and earn commission." },
+    { icon: "🏢", label: "Investment banks", back: "Advise companies/governments on capital needs and arrange fundraising — expansions, project finance, M&A, valuation." },
+    { icon: "📦", label: "Mutual funds", back: "Pool money from many investors and deploy it per a mandate across equity, debt, commodity and international markets — a key intermediary for small investors." },
+    { icon: "🧭", label: "Investment advisers", back: "Guide clients toward goals via a suitable portfolio, considering risk appetite — helping those who can't navigate complex products." },
+    { icon: "💼", label: "AIFs", back: "Privately pool money and invest per a defined policy for sophisticated investors — a growing segment." },
+    { icon: "🆔", label: "KYC Registration Agencies", back: "Maintain investor KYC records centrally (CKYC for individuals; KRA via CVL, CAMS, NDML) so documents aren't re-submitted each time." },
+    { icon: "⭐", label: "Credit rating agencies", back: "Assess an issuer's financial position and assign a standardised rating so investors can gauge default risk — vital for debt securities." },
+    { icon: "🗂️", label: "AMCs & Portfolio Managers", back: "AMCs offer units (pooled money → a mutual-fund portfolio). Portfolio managers do NOT pool or issue securities — they manage a portfolio on the investor's behalf. Both charge fees." },
+    { icon: "✉️", label: "Registrar & Transfer Agents", back: "Backroom work: pay dividends, enable e-voting, and (for mutual funds) process transactions and update investor details." }
+  ]);
+
+  // Insurance products
+  renderFlip("insurance-grid", [
+    { icon: "🕒", label: "Traditional products", back: "Term (pure protection, no maturity benefit), endowment, whole life. Most have maturity benefits and a small savings component." },
+    { icon: "📈", label: "Variable & unit-linked", back: "Combine risk protection with investment: part of the premium buys cover, the rest is invested for index/portfolio-linked returns (ULIPs)." },
+    { icon: "🚗", label: "General insurance", back: "Non-life cover: motor, health, travel, fire, personal accident. Claims assessed by surveyors/loss assessors; health claims via TPAs." }
+  ]);
+
+  // Pension
+  renderFlip("pension-grid", [
+    { icon: "📉", label: "Defined benefit (old)", back: "Every retiree of a rank got the same fixed pension, with no contribution from the employee. The old government model." },
+    { icon: "📈", label: "Defined contribution (new)", back: "Employee and employer both contribute; the pension depends on the accumulated fund. The basis of the NPS." },
+    { icon: "🏦", label: "EPF / EPFO", back: "Private-sector retirement via the Employee Provident Fund (employee + employer contribute); part of the employer share funds the Employee Pension Scheme." },
+    { icon: "🧾", label: "NPS", back: "Voluntary, defined-contribution scheme for government employees and the public, with a menu of fund managers and investment choices." }
+  ]);
+
+  // Revision deck
+  renderFlip("revision-cards", [
+    { icon: "RBI", label: "Banks", back: "Reserve Bank of India regulates commercial banks & the payment system; monetary authority; supervises via the Board for Financial Supervision." },
+    { icon: "SEBI", label: "Securities + Commodities", back: "SEBI Act, 1992. Regulates securities AND commodity markets; protects investors; registers intermediaries; bars fraud & insider trading." },
+    { icon: "IRDAI", label: "Insurance", back: "IRDA Act, 1999. Licenses insurers, clears products, sets terms (sum assured, surrender value, claims), protects policyholders." },
+    { icon: "PFRDA", label: "Pension", back: "PFRDA Act, 2013. Regulates the NPS and other pension schemes; registers fund managers, custodians, CRA and trustee banks." },
+    { icon: "SCRA", label: "Defines 'securities'", back: "Section 2(h), Securities Contracts (Regulation) Act, 1956 — shares, bonds, derivatives, CIS & MF units, G-secs, etc. Excludes ULIPs." },
+    { icon: "2", label: "Two depositories", back: "NSDL and CDSL hold securities in demat form; DPs act as their agents to maintain investor accounts." },
+    { icon: "SRO", label: "Excludes exchanges", back: "Under SEBI (SRO) Regulations, 2004, an SRO represents a market segment recognised by SEBI — but a stock exchange is explicitly excluded." }
+  ], "mono");
+
+  // ---------- Interactive: regulator matcher ----------
+  (function () {
+    var markets = document.getElementById("match-markets"),
+        regsWrap = document.getElementById("match-regs"),
+        fb = document.getElementById("match-feedback");
+    var notes = {
+      RBI: "RBI regulates commercial banks and the monetary system.",
+      SEBI: "SEBI regulates the securities market — and commodity derivatives too.",
+      IRDAI: "IRDAI regulates insurance companies and protects policyholders.",
+      PFRDA: "PFRDA regulates the pension sector, including the NPS."
+    };
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(regsWrap.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  })();
+
+  // ---------- Interactive: currency pair ----------
+  (function () {
+    var base = document.getElementById("fx-base"), quote = document.getElementById("fx-quote");
+    var br = document.getElementById("fx-base-role"), qr = document.getElementById("fx-quote-role");
+    function reveal() { br.textContent = "Base currency"; qr.textContent = "Quoting currency"; }
+    base.addEventListener("click", reveal); quote.addEventListener("click", reveal);
+  })();
+
+  // ---------- Scroll reveals ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.35 }).observe(el);
+  }
+  onReveal("#reg-map", function () {
+    document.querySelectorAll("#reg-map .reg-line").forEach(function (l) { l.classList.add("go"); });
+  }, 0.4);
+  onReveal("#depo-flow", function (c) {
+    var nodes = c.querySelectorAll(".flow-node");
+    nodes.forEach(function (n, i) { setTimeout(function () { n.classList.add("in"); }, i * 220); });
+  }, 0.4);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH05_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

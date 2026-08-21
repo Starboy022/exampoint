@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 4 — Debt Management and Loans | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Debt Management and Loans — DTI, leverage, credit score, secured vs unsecured loans, EMI &amp; amortisation, restructuring, and debt-payoff strategies. NISM Series-X-A, Module 1, Chapter 4." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Formula chips ---- */
+  .formula {
+    font-family: var(--font-mono);
+    background: var(--bg-surface-2);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    font-size: 1.02rem;
+    display: inline-block;
+    margin: 6px 0 4px;
+    color: var(--text-primary);
+  }
+  .formula .var { color: var(--gold-600); font-weight: 700; }
+
+  /* ---- Interactive calculator ---- */
+  .calc {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-sm);
+    padding: 22px 22px 20px;
+    margin: 22px 0;
+  }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  .ctrl label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; font-size:0.95rem; }
+  .ctrl input[type=range]{ width:100%; accent-color: var(--gold-500); height: 4px; }
+  .seg { display:inline-flex; flex-wrap:wrap; border:1px solid var(--border-subtle); border-radius:var(--radius-pill); overflow:hidden; }
+  .seg button { padding:7px 13px; font-size:0.8rem; font-weight:700; background:var(--bg-app); border:none; cursor:pointer; color:var(--text-secondary); transition: all var(--dur-fast); }
+  .seg button.active { background:var(--navy-800); color:#fff; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; text-align:center; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.9rem; color:var(--gold-600); margin: 4px 0 2px; line-height:1.1; }
+  .calc-output .out-note { font-size:0.78rem; color:var(--text-secondary); margin-top:8px; }
+
+  /* split principal/interest bar in output */
+  .split-bar { display:flex; height:22px; border-radius:var(--radius-sm); overflow:hidden; margin-top:14px; font-size:0.68rem; font-weight:700; }
+  .split-bar .p { background: var(--teal-500); color:#fff; display:flex; align-items:center; justify-content:center; transition:width var(--dur-slow) var(--ease-out); }
+  .split-bar .i { background: var(--red-500); color:#fff; display:flex; align-items:center; justify-content:center; transition:width var(--dur-slow) var(--ease-out); }
+
+  /* ---- DTI meter ---- */
+  .dti-meter { height:16px; border-radius:var(--radius-pill); background:linear-gradient(90deg,var(--green-500) 0%,var(--green-500) 33%,var(--gold-500) 33%,var(--gold-500) 50%,var(--red-500) 50%,var(--red-500) 100%); position:relative; margin:16px 0 6px; }
+  .dti-needle { position:absolute; top:-6px; width:3px; height:28px; background:var(--text-primary); border-radius:2px; transition:left var(--dur-slow) var(--ease-spring); transform:translateX(-50%); }
+  .dti-scale { display:flex; justify-content:space-between; font-size:0.68rem; color:var(--text-secondary); }
+
+  /* ---- Comparison bars ---- */
+  .barset { display:flex; flex-direction:column; gap:14px; margin: 18px 0 6px; }
+  .barrow .bar-head { display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px; }
+  .barrow .bar-head .nm { font-weight:600; }
+  .barrow .bar-head .amt { font-family:var(--font-mono); font-weight:700; }
+  .bar-track { height:26px; border-radius:var(--radius-sm); background:var(--bg-surface-2); overflow:hidden; display:flex; }
+  .bar-seg { height:100%; width:0%; transition: width 1.1s var(--ease-out); }
+  .bar-seg.principal { background: var(--teal-500); }
+  .bar-seg.interest { background: var(--red-500); }
+
+  /* ---- Credit score gauge ---- */
+  .gauge-wrap { display:flex; flex-direction:column; align-items:center; }
+  .gauge-arc { fill:none; stroke-width:16; stroke-linecap:round; }
+  .gauge-needle { transition: transform 1.4s var(--ease-spring); transform-origin:150px 150px; }
+  .gauge-val { font-family:var(--font-display); font-weight:800; font-size:34px; fill:var(--text-primary); }
+  .gauge-tag { font-size:12px; fill:var(--text-secondary); }
+
+  /* ---- Strategy visualiser ---- */
+  .debt-chips { display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+  .debt-chip { display:flex; align-items:center; gap:12px; padding:12px 16px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); transition: transform var(--dur-med) var(--ease-spring), border-color var(--dur-fast); }
+  .debt-chip .order { width:26px; height:26px; border-radius:50%; background:var(--navy-800); color:#fff; font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .debt-chip .nm { font-weight:700; font-size:0.9rem; }
+  .debt-chip .meta { font-size:0.78rem; color:var(--text-secondary); }
+  .debt-chip.lead { border-color:var(--gold-500); box-shadow:var(--shadow-gold); }
+  .debt-chip .spacer { flex:1; }
+
+  /* ---- Term / type card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+  .crit-list { list-style:none; padding:0; margin:18px 0; display:grid; gap:10px; }
+  .crit-list li { display:flex; gap:12px; padding:14px 16px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); font-size:0.88rem; }
+  .crit-list .k { font-family:var(--font-display); font-weight:800; color:var(--gold-600); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 1 · Personal Financial Planning</span>
+      <span class="badge badge-gold">Chapter 4 of 4</span>
+    </div>
+    <h1>Debt Management and Loans</h1>
+    <p class="lede">When debt helps and when it hurts — how to size it against income, read a credit score, tell secured from unsecured, compute EMIs and their interest/principal split, restructure a stressed loan, and clear debt faster with the avalanche, snowball and blizzard methods. Every calculation has a live tool.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~26 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 44 assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 6 live calculators</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:640px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The need for debt and its role in cash-flow management</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Leverage, debt counselling and debt-servicing calculations</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Secured vs unsecured loans, loan terms and types of borrowing</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Loan calculations, restructuring and amortisation with varying rates</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> EMI-vs-tenure choices, invest-vs-repay, and strategies to clear debt faster</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-4-1">4.1 Why debt?</a></li>
+      <li><a href="#sec-4-2">4.2 Debt &amp; cash flow (DTI)</a></li>
+      <li><a href="#sec-4-3">4.3 Leverage &amp; counselling</a></li>
+      <li><a href="#sec-4-4">4.4 Credit score</a></li>
+      <li><a href="#sec-4-6">4.6 Secured vs unsecured</a></li>
+      <li><a href="#sec-4-7">4.7 Loan terms</a></li>
+      <li><a href="#sec-4-8">4.8 Types of borrowing</a></li>
+      <li><a href="#sec-4-9">4.9 Loan &amp; EMI calculations</a></li>
+      <li><a href="#sec-4-10">4.10 Loan restructuring</a></li>
+      <li><a href="#sec-4-11">4.11 Amortisation &amp; rates</a></li>
+      <li><a href="#sec-4-12">4.12 Evaluating loans</a></li>
+      <li><a href="#sec-4-13">4.13 EMI vs tenure</a></li>
+      <li><a href="#sec-4-14">4.14 Invest or repay?</a></li>
+      <li><a href="#sec-4-15">4.15 Clearing debt faster</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 4.1 -->
+    <section class="lesson-section" id="sec-4-1">
+      <span class="section-kicker">4.1</span>
+      <h2>The purpose or need of debt</h2>
+      <p>Debt finances goals when self-funding is inadequate. Even if income exceeds expenses, few big-ticket assets can be bought outright — most people cannot buy a house without a loan; waiting until they had saved the full price could push the purchase to near-retirement. Lenders protect themselves by taking a charge, security, pledge or mortgage over the asset — a home loan secured this way is a <strong>mortgage</strong>.</p>
+      <p><strong>Debt is not inherently bad</strong> — it must be seen in perspective, according to what it funds. Debt to acquire a house is not bad. Using borrowed funds instead of own funds — <strong>leverage</strong> — can even raise the return on an investment (the Modigliani–Miller idea).</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Education loan vs. raiding retirement savings</strong>
+          <p>To fund a child's education, an <em>education loan</em> can beat drawing down a retirement account. Future income repays the loan easily, while the existing corpus keeps compounding untouched. Preserving the compounding effect of existing investments is the whole point.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Under what circumstances does the workbook say debt is acceptable or even beneficial?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Only when the borrower has no savings at all</button>
+          <button class="mini-opt" data-correct="true">When it funds an appreciating/income-generating asset, or lets existing investments keep compounding</button>
+          <button class="mini-opt" data-correct="false">Whenever the interest rate is above 20%</button>
+        </div>
+        <div class="feedback" data-correct-msg="Right — debt is judged by what it funds. For an appreciating asset, or to preserve compounding on existing investments, it can be beneficial." data-wrong-msg="Not quite — debt is fine when it funds an appreciating asset or preserves the compounding of existing investments; it's judged by purpose, not by the borrower having zero savings."></div>
+      </div>
+    </section>
+
+    <!-- 4.2 -->
+    <section class="lesson-section" id="sec-4-2">
+      <span class="section-kicker">4.2</span>
+      <h2>Debt in cash-flow management — the DTI ratio</h2>
+      <p>Some debt is good, but <em>how much</em> depends on the household. The key gauge is the <strong>debt-to-income (DTI) ratio</strong> — the share of income going to debt servicing. There is no single "optimal" DTI, but lenders agree <strong>lower is better</strong>, and each sets its own ceiling for loan approval.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example</strong>
+          <p>An employee earns ₹15,000/month and pays ₹7,500 in debt servicing. DTI = 7,500 ÷ 15,000 = <strong>50%</strong> — far too high. With half the income gone to debt, little is left for regular expenses, emergencies or investing. A low DTI also leaves room to borrow more in a crisis.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-dti">
+        <div class="calc-title"><span class="pill">Live</span> Debt-to-income (DTI) meter</div>
+        <div class="calc-sub">DTI = total monthly debt servicing ÷ monthly income. Under ~35% is comfortable; 50% is a red flag.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Monthly income <span class="val" data-out="dti-inc">₹15,000</span></label>
+              <input type="range" id="dti-inc-in" min="10000" max="200000" step="1000" value="15000">
+            </div>
+            <div class="ctrl">
+              <label>Monthly debt servicing <span class="val" data-out="dti-debt">₹7,500</span></label>
+              <input type="range" id="dti-debt-in" min="0" max="100000" step="500" value="7500">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Debt-to-income ratio</div>
+            <div class="out-val" id="dti-out">50%</div>
+            <div class="dti-meter"><div class="dti-needle" id="dti-needle" style="left:50%"></div></div>
+            <div class="dti-scale"><span>0%</span><span>35%</span><span>50%+</span></div>
+            <div class="out-note" id="dti-note">Too high — little left for expenses, emergencies or investing.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="sec-4-2-1" style="margin-top:30px">4.2.1 Consumption vs. investment expenditure</h3>
+      <p><strong>Consumption expenditure</strong> creates no income-generating asset once spent — a restaurant meal, clothes, a salon visit. <strong>Investment expenditure</strong> creates an asset that can generate future income — a bond, a property. Some outflows look like consumption but are really investment: a child's education, if it lifts the family's future earning power. The adviser's job is to make these trade-offs explicit and prioritise savings for goals ahead of discretionary spending.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Flip the equation</strong>
+          <p>Change the habit from <strong>Income − Expenses = Savings</strong> (save whatever's left) to <strong>Income − Savings = Expenses</strong> (pay yourself first, then spend). An SIP auto-debited from salary enforces exactly this. Also useful: <em>zero-base budgeting</em> — build each month's budget from scratch, justifying every expense, instead of copying last month's.</p>
+        </div>
+      </div>
+
+      <p>Advisers also look for <strong>holes in the budget</strong> (untracked credit-card spends on eating out, needless gadget upgrades) and handle <strong>windfalls</strong> — an unexpected bonus, inheritance or lottery — by setting a healthy portion aside, often to pre-pay loans, rather than inflating lifestyle. A windfall can be parked in risk-free liquid assets until a deployment decision is reached, and should never be relied on to rescue a chronically bad financial situation.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which reordering of the household equation does the workbook recommend?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Income − Expenses = Savings (spend first, save the rest)</button>
+          <button class="mini-opt" data-correct="true">Income − Savings = Expenses (save first, spend the rest)</button>
+          <button class="mini-opt" data-correct="false">Income = Expenses + Debt (borrow to bridge the gap)</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — 'pay yourself first': Income − Savings = Expenses ensures future needs are funded before discretionary spending." data-wrong-msg="Not quite — the recommended shift is to Income − Savings = Expenses, i.e. save first and spend what remains."></div>
+      </div>
+    </section>
+
+    <!-- 4.3 -->
+    <section class="lesson-section" id="sec-4-3">
+      <span class="section-kicker">4.3</span>
+      <h2>Leverage and debt counselling</h2>
+      <p>When advising on debt, four factors shape the plan. Tap each card.</p>
+      <div class="flip-grid" id="factor-grid"></div>
+
+      <div class="callout callout-example" style="margin-top:22px">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>The true cost of revolving credit</strong>
+          <p>A credit card is interest-free only if you pay the full bill by the due date. Carry a balance over ("revolving credit") and the meter runs. At <strong>3% per month</strong>, the compounded annual cost is (1 + 3%)<sup>12</sup> − 1 = <strong>42.6%</strong> — which is why revolving credit should be avoided. Unorganised lenders (pawnbrokers, moneylenders) can charge 5% a month, i.e. 60–80% a year. Slide the monthly rate to feel the compounding:</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-revolve">
+        <div class="calc-title"><span class="pill">Live</span> Revolving-credit cost</div>
+        <div class="calc-sub">Effective annual cost = (1 + monthly rate)<sup>12</sup> − 1</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Monthly interest rate <span class="val" data-out="rv-m">3%</span></label>
+              <input type="range" id="rv-m-in" min="1" max="6" step="0.25" value="3">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Effective annual cost</div>
+            <div class="out-val" id="rv-out">42.6%</div>
+            <div class="out-note" id="rv-note">A 3%/month card costs 42.6% a year — far above any secured loan.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 id="sec-4-3-4" style="margin-top:30px">4.3.4 Debt re-scheduling</h3>
+      <p>If repayments become unmanageable, act early. Options, roughly in order: <strong>rank debts by cost</strong> and kill the costliest (credit cards, personal loans) first; <strong>sell the funded asset</strong> and pre-pay (mind pre-payment charges); <strong>refinance</strong> a costly loan with a cheaper one (a credit-card balance transfer); <strong>extend the tenor</strong> to cut the monthly outgo (but total interest rises); or, as a last resort, ask the lender for a <strong>revised schedule</strong>. Note: formal re-scheduling <em>hurts the credit score</em>, affecting future loan access and pricing.</p>
+    </section>
+
+    <!-- 4.4 -->
+    <section class="lesson-section" id="sec-4-4">
+      <span class="section-kicker">4.4</span>
+      <h2>Credit bureaus and the credit score</h2>
+      <p>A <strong>credit score</strong> is a number assigned by a credit information bureau from your credit behaviour and repayment history. Bureaus are licensed by the RBI and governed by the <strong>Credit Information Companies (Regulation) Act, 2005</strong>. Lenders (banks, HFCs, NBFCs) report to them monthly, and use the resulting score and report to decide loan eligibility, interest rate and credit limits. The <strong>CIBIL TransUnion Score</strong> is a three-digit number from <strong>300 to 900</strong> — higher is better.</p>
+
+      <div class="diagram-frame">
+        <div class="gauge-wrap">
+          <svg id="score-gauge" viewBox="0 0 300 190" width="100%" style="max-width:360px">
+            <path class="gauge-arc" d="M40,160 A110,110 0 0,1 78,58" stroke="var(--red-500)"/>
+            <path class="gauge-arc" d="M78,58 A110,110 0 0,1 150,40" stroke="var(--gold-500)"/>
+            <path class="gauge-arc" d="M150,40 A110,110 0 0,1 222,58" stroke="var(--teal-500)"/>
+            <path class="gauge-arc" d="M222,58 A110,110 0 0,1 260,160" stroke="var(--green-500)"/>
+            <g class="gauge-needle" id="gauge-needle">
+              <line x1="150" y1="150" x2="150" y2="70" stroke="var(--text-primary)" stroke-width="3.5" stroke-linecap="round"/>
+              <circle cx="150" cy="150" r="7" fill="var(--text-primary)"/>
+            </g>
+            <text class="gauge-val" id="gauge-val" x="150" y="140" text-anchor="middle">750</text>
+            <text class="gauge-tag" x="40" y="178" text-anchor="middle">300</text>
+            <text class="gauge-tag" x="260" y="178" text-anchor="middle">900</text>
+          </svg>
+        </div>
+        <div class="caption">Illustrative CIBIL score (300–900). Build a strong score by paying every due on time, keeping credit utilisation low, holding a healthy mix of secured &amp; unsecured credit, and making credit enquiries only when needed. Joint-holder / guarantor defaults also drag your score down.</div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>RBI rule — one free report a year</strong>
+          <p>Every individual is entitled to <strong>one free full credit report each year</strong> from each bureau — in India, CIBIL, Experian, CRIF Highmark and Equifax. It must match what lenders see, let you rectify errors (wrong info, a closed loan still showing open), and typically shows 2–3 years of repayment history over a Jan–Dec calendar year, accessible electronically after authentication (UID, PAN). Beware fake "check your score" sites phishing for personal data — use only genuine bureau tie-ups.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which of these would most likely <em>lower</em> a credit score?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Paying every EMI and card bill on time</button>
+          <button class="mini-opt" data-correct="true">Very high utilisation of credit-card limits and too much unsecured debt</button>
+          <button class="mini-opt" data-correct="false">Holding a healthy mix of secured and unsecured credit</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — high credit-utilisation and a heavy load of unsecured debt (cards, personal loans) pull the score down." data-wrong-msg="Not quite — the score-killer is high credit utilisation and too much unsecured debt. On-time payments and a healthy credit mix help the score."></div>
+      </div>
+    </section>
+
+    <!-- 4.6 -->
+    <section class="lesson-section" id="sec-4-6">
+      <span class="section-kicker">4.6</span>
+      <h2>Secured vs unsecured loans</h2>
+      <p>Loans differ by whether the lender holds security. That single difference drives the interest rate. Tap to compare.</p>
+      <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))" id="secured-grid"></div>
+      <p style="margin-top:20px">Advice: use <strong>secured loans</strong> (lower cost) to build long-term assets, and keep <strong>unsecured loans</strong> — personal loans, credit-card dues — to a minimum or clear them before the interest cycle bites.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Why do secured loans (like a home loan) carry a lower interest rate than personal loans?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The lender holds an asset as security and can recover dues by selling it, so its risk is lower</button>
+          <button class="mini-opt" data-correct="false">The government subsidises all secured loans</button>
+          <button class="mini-opt" data-correct="false">Secured loans are always for smaller amounts</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — collateral lowers the lender's risk, so it charges less. Unsecured loans rest only on the borrower's promise, so they cost more." data-wrong-msg="Not quite — the security lowers the lender's risk (it can sell the asset on default), which is why secured loans are cheaper."></div>
+      </div>
+    </section>
+
+    <!-- 4.7 -->
+    <section class="lesson-section" id="sec-4-7">
+      <span class="section-kicker">4.7</span>
+      <h2>Terms related to loans</h2>
+      <p>The vocabulary an adviser must be fluent in. Tap any card for the definition — several of these are classic exam traps (pledge vs hypothecation vs mortgage; hire-purchase vs lease; pre-EMI vs moratorium).</p>
+      <div class="flip-grid" id="terms-grid"></div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A car loan where the vehicle stays with you but the lender can repossess it on default is an example of:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Pledge — asset held by the lender</button>
+          <button class="mini-opt" data-correct="true">Hypothecation — charge created, asset stays with the borrower</button>
+          <button class="mini-opt" data-correct="false">Mortgage — always for movable assets</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — hypothecation creates a charge while the (movable) asset stays with the borrower; on default the lender repossesses it. A pledge keeps the asset with the lender; a mortgage is for immovable property." data-wrong-msg="Not quite — that's hypothecation: the asset stays with the borrower with a charge on it. A pledge leaves the asset with the lender; a mortgage covers immovable property."></div>
+      </div>
+    </section>
+
+    <!-- 4.8 -->
+    <section class="lesson-section" id="sec-4-8">
+      <span class="section-kicker">4.8</span>
+      <h2>Types of borrowing</h2>
+      <p>The common borrowing products, each suited to a different need and risk profile.</p>
+      <div class="term-grid" id="types-grid"></div>
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Ranking by cost</strong>
+          <p>Credit-card debt is the <em>most expensive</em> way to borrow (and the easiest — one swipe). Loans against securities, gold or property are cheaper than a personal loan or card outstanding, so are preferred <em>if</em> you have an asset. P2P loans are unsecured, small and short-term with high rates and no recourse on default.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.9 -->
+    <section class="lesson-section" id="sec-4-9">
+      <span class="section-kicker">4.9</span>
+      <h2>Loan &amp; EMI calculations</h2>
+      <p>The EMI is found with the <strong>PMT</strong> function on a <em>reducing-balance</em> basis. For monthly loans, divide the annual rate by 12 and count the tenor in months.</p>
+      <div class="formula">EMI = <span class="var">P</span> × <span class="var">r</span> × (1+<span class="var">r</span>)<sup><span class="var">n</span></sup> ÷ [ (1+<span class="var">r</span>)<sup><span class="var">n</span></sup> − 1 ]</div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — sizing debt against income</strong>
+          <p>A ₹1,00,000 loan at 12% for 5 years gives an EMI of <strong>₹2,224.44</strong>/month. If the borrower earns ₹10,000/month and this is the only debt, DTI = 2,224.44 ÷ 10,000 = <strong>22.24%</strong>. Extend the tenor to 6 years and the EMI falls to <strong>₹1,955.02</strong> → DTI 19.55%. Add another loan with a ₹1,000 EMI and total servicing is ₹2,955.02 → DTI <strong>29.55%</strong>.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-emi">
+        <div class="calc-title"><span class="pill">Live</span> EMI &amp; DTI calculator</div>
+        <div class="calc-sub">Reproduce the ₹1,00,000 / 12% / 5-year case, then vary it. DTI uses this EMI plus any other debt.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Loan amount (P) <span class="val" data-out="emi-p">₹1,00,000</span></label>
+              <input type="range" id="emi-p-in" min="20000" max="5000000" step="10000" value="100000">
+            </div>
+            <div class="ctrl">
+              <label>Interest rate p.a. <span class="val" data-out="emi-r">12%</span></label>
+              <input type="range" id="emi-r-in" min="6" max="24" step="0.5" value="12">
+            </div>
+            <div class="ctrl">
+              <label>Tenor (years) <span class="val" data-out="emi-y">5</span></label>
+              <input type="range" id="emi-y-in" min="1" max="30" step="1" value="5">
+            </div>
+            <div class="ctrl">
+              <label>Monthly income (for DTI) <span class="val" data-out="emi-inc">₹10,000</span></label>
+              <input type="range" id="emi-inc-in" min="5000" max="200000" step="1000" value="10000">
+            </div>
+            <div class="ctrl">
+              <label>Other monthly EMIs <span class="val" data-out="emi-oth">₹0</span></label>
+              <input type="range" id="emi-oth-in" min="0" max="50000" step="500" value="0">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Monthly EMI</div>
+            <div class="out-val" id="emi-out">₹2,224</div>
+            <div class="out-note" id="emi-note">DTI: 22.24% · Total servicing ₹2,224/mo</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.10 -->
+    <section class="lesson-section" id="sec-4-10">
+      <span class="section-kicker">4.10</span>
+      <h2>Loan restructuring — present value of future payments</h2>
+      <p>When a borrower hits financial stress (job loss, pay cut), the lender restructures rather than let the loan turn into a non-performing asset. A restructuring changes the EMI, the tenor, the outstanding, or the rate. Two lenses matter: <strong>affordability</strong> for the client, and the <strong>present value of all future payments</strong> — because the EMI stream is exactly the cash flow whose PV equals the loan.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — a ₹3 lakh loan at 7%</strong>
+          <p>A ₹3,00,000 loan over 3 years (36 months) at 7% has an EMI of <strong>₹9,263</strong> — <code>PMT(0.07/12, 36, −300000)</code>. Restructuring options:</p>
+          <ul>
+            <li><strong>Extend to 5 years</strong> (60 months): EMI drops to <strong>₹5,940</strong> — lower outgo, but more total interest.</li>
+            <li><strong>Lender takes a haircut</strong> to ₹2,00,000 over the same 3 years: EMI falls to <strong>₹6,175</strong> — real relief, lower present value repaid.</li>
+          </ul>
+          <p>Unless the client checks the <em>present value</em> of the new cash flows, they can't tell whether a change is genuine relief or just re-timed pain.</p>
+        </div>
+      </div>
+
+      <div class="calc" id="calc-restr">
+        <div class="calc-title"><span class="pill">Live</span> Restructuring explorer</div>
+        <div class="calc-sub">Start from the ₹3 lakh / 7% / 3-year loan (EMI ₹9,263) and change one lever at a time.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Outstanding principal <span class="val" data-out="rs-p">₹3,00,000</span></label>
+              <input type="range" id="rs-p-in" min="50000" max="500000" step="10000" value="300000">
+            </div>
+            <div class="ctrl">
+              <label>Interest rate p.a. <span class="val" data-out="rs-r">7%</span></label>
+              <input type="range" id="rs-r-in" min="4" max="15" step="0.5" value="7">
+            </div>
+            <div class="ctrl">
+              <label>Remaining tenor (years) <span class="val" data-out="rs-y">3</span></label>
+              <input type="range" id="rs-y-in" min="1" max="10" step="1" value="3">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Restructured EMI</div>
+            <div class="out-val" id="rs-out">₹9,263</div>
+            <div class="out-note" id="rs-note">Total repaid: ₹3,33,468 · vs ₹9,263 baseline</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.11 -->
+    <section class="lesson-section" id="sec-4-11">
+      <span class="section-kicker">4.11</span>
+      <h2>Amortisation &amp; repayment with varying rates</h2>
+      <p>Every EMI is part <strong>interest</strong> and part <strong>principal</strong> — Excel's <code>IPMT</code> and <code>PPMT</code> split them. In the early years the interest slice is large and the principal slice small; the mix flips over the loan's life. The <em>rate</em> decides how lopsided the first EMI is.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Worked example — ₹10 lakh over 10 years, first EMI split</strong>
+          <p>On a ₹10,00,000 loan for 10 years, the first month's EMI splits like this — watch the interest slice (red) swell as the rate rises:</p>
+        </div>
+      </div>
+
+      <div class="diagram-frame">
+        <div class="barset" id="amort-bars">
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">At 5% — EMI ₹10,606</span><span class="amt"><span data-count="6440">₹0</span> principal · <span data-count="4166">₹0</span> interest</span></div>
+            <div class="bar-track"><div class="bar-seg principal" data-w="60.7"></div><div class="bar-seg interest" data-w="39.3"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">At 7% — EMI ₹11,610</span><span class="amt"><span data-count="5777">₹0</span> principal · <span data-count="5833">₹0</span> interest</span></div>
+            <div class="bar-track"><div class="bar-seg principal" data-w="49.8"></div><div class="bar-seg interest" data-w="50.2"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bar-head"><span class="nm">At 9% — EMI ₹12,667</span><span class="amt"><span data-count="5167">₹0</span> principal · <span data-count="7500">₹0</span> interest</span></div>
+            <div class="bar-track"><div class="bar-seg principal" data-w="40.8"></div><div class="bar-seg interest" data-w="59.2"></div></div>
+          </div>
+        </div>
+        <div class="caption"><span style="color:var(--teal-text);font-weight:700">■ Principal</span> &nbsp; <span style="color:var(--red-500);font-weight:700">■ Interest</span> — first month only. Higher rate ⇒ more of the early EMI is interest, so principal falls slower.</div>
+      </div>
+
+      <div class="calc" id="calc-amort">
+        <div class="calc-title"><span class="pill">Live</span> First-EMI breakup (IPMT / PPMT)</div>
+        <div class="calc-sub">Interest₁ = P × (r/12). Principal₁ = EMI − Interest₁.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Loan amount (P) <span class="val" data-out="am-p">₹10,00,000</span></label>
+              <input type="range" id="am-p-in" min="100000" max="5000000" step="50000" value="1000000">
+            </div>
+            <div class="ctrl">
+              <label>Interest rate p.a. <span class="val" data-out="am-r">7%</span></label>
+              <input type="range" id="am-r-in" min="5" max="15" step="0.5" value="7">
+            </div>
+            <div class="ctrl">
+              <label>Tenor (years) <span class="val" data-out="am-y">10</span></label>
+              <input type="range" id="am-y-in" min="1" max="30" step="1" value="10">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">First EMI split</div>
+            <div class="out-val" id="am-out">₹11,610</div>
+            <div class="split-bar"><div class="p" id="am-p-seg">P ₹5,777</div><div class="i" id="am-i-seg">I ₹5,833</div></div>
+            <div class="out-note" id="am-note">Month 1: ₹5,777 principal + ₹5,833 interest.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — On two identical loans, why does the higher-rate loan repay principal more slowly in the early EMIs?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">A bigger share of each early EMI is eaten by interest, leaving less for principal</button>
+          <button class="mini-opt" data-correct="false">The higher-rate loan has a shorter tenor by law</button>
+          <button class="mini-opt" data-correct="false">Higher-rate loans charge no principal until year 5</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — interest is charged on the outstanding, so a higher rate makes the interest slice of each early EMI larger and the principal slice smaller." data-wrong-msg="Not quite — a higher rate simply makes the interest portion of each early EMI larger, so less of it goes to principal."></div>
+      </div>
+    </section>
+
+    <!-- 4.12 -->
+    <section class="lesson-section" id="sec-4-12">
+      <span class="section-kicker">4.12</span>
+      <h2>Criteria to evaluate loans</h2>
+      <p>Two loans with the same headline rate can cost very differently. Weigh all of these:</p>
+      <ul class="crit-list">
+        <li><span class="k">a</span><span><strong>Interest rate &amp; method.</strong> A lower rate is better — but insist on <em>reducing-balance</em> calculation, not flat, so repayments actually cut the interest base.</span></li>
+        <li><span class="k">b</span><span><strong>Reset period.</strong> How often the rate is reset. A long reset (a year) delays the benefit of rate cuts — but also delays rate hikes.</span></li>
+        <li><span class="k">c</span><span><strong>Charges.</strong> Processing fees, legal and other charges (a % of the loan or a fixed sum) add to cost above the interest. Waivers save money.</span></li>
+        <li><span class="k">d</span><span><strong>Tenor offered.</strong> A longer tenor cuts the EMI but raises total interest — crucial for those who need a low EMI.</span></li>
+        <li><span class="k">e</span><span><strong>Benchmark.</strong> External benchmarks (repo rate) are transparent and transmit fast; internal bank benchmarks move slowly. Banks now favour floating-rate loans, since on a fixed-rate loan a rise in market rates squeezes their margin.</span></li>
+      </ul>
+    </section>
+
+    <!-- 4.13 -->
+    <section class="lesson-section" id="sec-4-13">
+      <span class="section-kicker">4.13</span>
+      <h2>Rate change: adjust the EMI or the tenure?</h2>
+      <p>Most long-term loans float, so the linked benchmark's moves change the rate — and the borrower must choose: keep the EMI and change the <strong>tenure</strong>, or keep the tenure and change the <strong>EMI</strong>.</p>
+      <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))" id="emi-tenure-grid"></div>
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Default preference</strong>
+          <p>The EMI was chosen to be affordable given income and savings, so it's usually easier to <em>hold the EMI and flex the tenure</em> — you track one steady amount, and a rate rise won't suddenly strain the budget. But if a high-rate loan has fallen a lot (so tenure has already shrunk), a one-time EMI cut can reset a comfortable monthly outgo; and where EMI pressure is high, a rate fall can be taken as a lower EMI.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.14 -->
+    <section class="lesson-section" id="sec-4-14">
+      <span class="section-kicker">4.14</span>
+      <h2>Invest the money, or pay off the loan?</h2>
+      <p>Given a lump sum or windfall, should the client invest it or repay debt? It depends on the loan burden, the absolute and relative size of the amount, the <strong>loan rate vs the expected investment return</strong>, and the risk of the asset class. A high-cost credit-card or personal loan is almost always worth repaying first. But if a diversified investment can compound at, say, 12% while the loan costs 7%, investing can win over the long run — provided the client accepts the extra risk.</p>
+
+      <div class="calc" id="calc-invest">
+        <div class="calc-title"><span class="pill">Live</span> Invest vs. repay comparator</div>
+        <div class="calc-sub">Compares the loan rate against the expected return. Remember: a higher return carries higher risk.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="ctrl">
+              <label>Loan interest rate <span class="val" data-out="iv-loan">7%</span></label>
+              <input type="range" id="iv-loan-in" min="4" max="42" step="1" value="7">
+            </div>
+            <div class="ctrl">
+              <label>Expected investment return <span class="val" data-out="iv-ret">12%</span></label>
+              <input type="range" id="iv-ret-in" min="2" max="18" step="1" value="12">
+            </div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Leaning towards</div>
+            <div class="out-val" id="iv-out" style="font-size:1.5rem">Invest</div>
+            <div class="out-note" id="iv-note">Return (12%) beats the loan rate (7%) by 5 pts — investing can win over time, if you accept the risk.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.15 -->
+    <section class="lesson-section" id="sec-4-15">
+      <span class="section-kicker">4.15</span>
+      <h2>Strategies to clear debt faster</h2>
+      <p>Three named playbooks for paying down multiple debts. Pick a strategy to see the payoff order for one household's four loans:</p>
+
+      <div class="seg" id="strat-seg" style="margin-bottom:6px">
+        <button data-s="avalanche" class="active">Avalanche</button>
+        <button data-s="snowball">Snowball</button>
+        <button data-s="blizzard">Blizzard</button>
+      </div>
+      <div class="debt-chips" id="strat-chips"></div>
+      <div class="callout callout-insight" id="strat-note-box">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body"><strong id="strat-title">Avalanche</strong><p id="strat-desc"></p></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which strategy pays off the <em>smallest balance first</em>, ignoring interest rates, purely for motivation?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="false">Avalanche</button>
+          <button class="mini-opt" data-correct="true">Snowball</button>
+          <button class="mini-opt" data-correct="false">Blizzard</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the snowball method clears the smallest balance first to build momentum, regardless of rate. Avalanche targets the highest rate; blizzard starts snowball, then switches to avalanche." data-wrong-msg="Not quite — that's the snowball method (smallest balance first, for motivation). Avalanche = highest rate first; blizzard = snowball then avalanche."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The must-know contrasts and numbers from this chapter, one card each — tap to reveal. Ideal for a final revision pass.</p>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xa", CHAPTER_ID = "ch04";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 1", href: "../../index.html" },
+    { label: "Chapter 4", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  // ---------- Helpers ----------
+  function inr(n, dp) {
+    var v = (dp != null ? n.toFixed(dp) : Math.round(n));
+    return "₹" + Number(v).toLocaleString("en-IN", dp != null ? { minimumFractionDigits: dp, maximumFractionDigits: dp } : {});
+  }
+  function pow(b, e) { return Math.pow(b, e); }
+  function setText(id, t) { var el = document.getElementById(id); if (el) el.textContent = t; }
+  function outVal(k, t) { var el = document.querySelector('[data-out="' + k + '"]'); if (el) el.textContent = t; }
+  function emiOf(P, annualPct, years) {
+    var r = (annualPct / 100) / 12, n = years * 12;
+    if (r === 0) return P / n;
+    return P * r * pow(1 + r, n) / (pow(1 + r, n) - 1);
+  }
+  function animateCount(el, target, duration, fmt) {
+    if (window.NismNav && window.NismNav.prefersReducedMotion()) {
+      el.textContent = fmt(target);
+      return;
+    }
+    var start = performance.now();
+    (function tick(now) {
+      var p = Math.min((now - start) / duration, 1), eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    })(performance.now());
+  }
+
+  // =====================================================================
+  // 4.2  DTI meter
+  // =====================================================================
+  (function () {
+    var inc = document.getElementById("dti-inc-in"), debt = document.getElementById("dti-debt-in");
+    function update() {
+      var I = +inc.value, D = +debt.value, ratio = I ? (D / I * 100) : 0;
+      outVal("dti-inc", inr(I)); outVal("dti-debt", inr(D));
+      setText("dti-out", ratio.toFixed(2) + "%");
+      document.getElementById("dti-needle").style.left = Math.min(ratio, 100) + "%";
+      var note = ratio <= 35 ? "Comfortable — room for expenses, emergencies and investing."
+        : ratio <= 50 ? "Stretched — limited room to absorb shocks or borrow more."
+        : "Too high — little left for expenses, emergencies or investing.";
+      setText("dti-note", note);
+    }
+    [inc, debt].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 4.3  Revolving credit cost
+  // =====================================================================
+  (function () {
+    var m = document.getElementById("rv-m-in");
+    function update() {
+      var mr = +m.value, eff = (pow(1 + mr / 100, 12) - 1) * 100;
+      outVal("rv-m", mr + "%"); setText("rv-out", eff.toFixed(1) + "%");
+      setText("rv-note", "A " + mr + "%/month card costs " + eff.toFixed(1) + "% a year — far above any secured loan.");
+    }
+    m.addEventListener("input", update); update();
+  })();
+
+  // =====================================================================
+  // 4.4  Credit-score gauge  (300..900 across a 180° arc)
+  // =====================================================================
+  (function () {
+    var val = 750;
+    var frac = (val - 300) / 600;            // 0..1
+    var angle = -90 + frac * 180;            // -90 (left) .. +90 (right)
+    setTimeout(function () {
+      document.getElementById("gauge-needle").style.transform = "rotate(" + angle + "deg)";
+    }, 300);
+    setText("gauge-val", String(val));
+  })();
+
+  // =====================================================================
+  // 4.9  EMI & DTI calculator
+  // =====================================================================
+  (function () {
+    var p = document.getElementById("emi-p-in"), r = document.getElementById("emi-r-in"),
+        y = document.getElementById("emi-y-in"), inc = document.getElementById("emi-inc-in"),
+        oth = document.getElementById("emi-oth-in");
+    function update() {
+      var P = +p.value, R = +r.value, Y = +y.value, I = +inc.value, O = +oth.value;
+      var emi = emiOf(P, R, Y), total = emi + O, dti = I ? (total / I * 100) : 0;
+      outVal("emi-p", inr(P)); outVal("emi-r", R + "%"); outVal("emi-y", Y);
+      outVal("emi-inc", inr(I)); outVal("emi-oth", inr(O));
+      setText("emi-out", inr(emi));
+      setText("emi-note", "DTI: " + dti.toFixed(2) + "% · Total servicing " + inr(total) + "/mo");
+    }
+    [p, r, y, inc, oth].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 4.10  Restructuring explorer
+  // =====================================================================
+  (function () {
+    var p = document.getElementById("rs-p-in"), r = document.getElementById("rs-r-in"), y = document.getElementById("rs-y-in");
+    var BASE = 9263;
+    function update() {
+      var P = +p.value, R = +r.value, Y = +y.value;
+      var emi = emiOf(P, R, Y), total = emi * Y * 12;
+      outVal("rs-p", inr(P)); outVal("rs-r", R + "%"); outVal("rs-y", Y);
+      setText("rs-out", inr(emi));
+      var diff = emi - BASE;
+      var cmp = Math.abs(diff) < 1 ? "same as the ₹9,263 baseline"
+        : (diff < 0 ? inr(-diff) + "/mo lower than baseline" : inr(diff) + "/mo higher than baseline");
+      setText("rs-note", "Total repaid: " + inr(total) + " · " + cmp);
+    }
+    [p, r, y].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 4.11  First-EMI breakup
+  // =====================================================================
+  (function () {
+    var p = document.getElementById("am-p-in"), r = document.getElementById("am-r-in"), y = document.getElementById("am-y-in");
+    function update() {
+      var P = +p.value, R = +r.value, Y = +y.value;
+      var emi = emiOf(P, R, Y), interest1 = P * (R / 100) / 12, principal1 = emi - interest1;
+      outVal("am-p", inr(P)); outVal("am-r", R + "%"); outVal("am-y", Y);
+      setText("am-out", inr(emi));
+      var pPct = principal1 / emi * 100;
+      var pseg = document.getElementById("am-p-seg"), iseg = document.getElementById("am-i-seg");
+      pseg.style.width = pPct + "%"; iseg.style.width = (100 - pPct) + "%";
+      pseg.textContent = "P " + inr(principal1); iseg.textContent = "I " + inr(interest1);
+      setText("am-note", "Month 1: " + inr(principal1) + " principal + " + inr(interest1) + " interest.");
+    }
+    [p, r, y].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 4.14  Invest vs repay
+  // =====================================================================
+  (function () {
+    var loan = document.getElementById("iv-loan-in"), ret = document.getElementById("iv-ret-in");
+    function update() {
+      var L = +loan.value, Rr = +ret.value, gap = Rr - L;
+      outVal("iv-loan", L + "%"); outVal("iv-ret", Rr + "%");
+      var out = document.getElementById("iv-out");
+      if (gap >= 2) {
+        out.textContent = "Invest"; out.style.color = "var(--teal-text)";
+        setText("iv-note", "Return (" + Rr + "%) beats the loan rate (" + L + "%) by " + gap + " pts — investing can win over time, if you accept the risk.");
+      } else if (gap <= -2) {
+        out.textContent = "Repay the loan"; out.style.color = "var(--red-500)";
+        setText("iv-note", "The loan costs " + L + "% vs an expected " + Rr + "% — repaying is the guaranteed, risk-free 'return'.");
+      } else {
+        out.textContent = "Close call"; out.style.color = "var(--gold-600)";
+        setText("iv-note", "Rates are similar — but the investment carries risk while loan repayment is certain. Leaning to repay for peace of mind.");
+      }
+    }
+    [loan, ret].forEach(function (x) { x.addEventListener("input", update); });
+    update();
+  })();
+
+  // =====================================================================
+  // 4.15  Debt-payoff strategy visualiser
+  // =====================================================================
+  (function () {
+    var debts = [
+      { nm: "Credit card", amt: 30000, rate: 42 },
+      { nm: "Personal loan", amt: 120000, rate: 21 },
+      { nm: "Car loan", amt: 100000, rate: 12 },
+      { nm: "Housing loan", amt: 1500000, rate: 8 }
+    ];
+    var strategies = {
+      avalanche: {
+        title: "Avalanche — highest interest rate first",
+        desc: "Pay the costliest debt first to cut the interest burden fastest. Order: credit card (42%) → personal loan (21%) → car loan (12%) → housing loan (8%). Risk: if the high-rate loans are small, the interest relief is modest.",
+        order: function (d) { return d.slice().sort(function (a, b) { return b.rate - a.rate; }); }
+      },
+      snowball: {
+        title: "Snowball — smallest balance first",
+        desc: "Clear the smallest balance first for a quick win and momentum, ignoring rates. Order: credit card (₹30k) → car loan (₹1L) → personal loan (₹1.2L) → housing loan (₹15L). A motivational strategy — may leave costly debt standing.",
+        order: function (d) { return d.slice().sort(function (a, b) { return a.amt - b.amt; }); }
+      },
+      blizzard: {
+        title: "Blizzard — snowball, then avalanche",
+        desc: "A hybrid: knock out the smallest balance first for motivation (credit card), then switch to highest-rate-first (personal loan → car loan → housing loan). Balances the motivation of snowball with the maths of avalanche.",
+        order: function (d) {
+          var sorted = d.slice().sort(function (a, b) { return a.amt - b.amt; });
+          var smallest = sorted[0];
+          var rest = sorted.slice(1).sort(function (a, b) { return b.rate - a.rate; });
+          return [smallest].concat(rest);
+        }
+      }
+    };
+    var seg = document.getElementById("strat-seg"), chips = document.getElementById("strat-chips");
+    function render(key) {
+      var s = strategies[key], ordered = s.order(debts);
+      chips.innerHTML = ordered.map(function (d, i) {
+        return '<div class="debt-chip' + (i === 0 ? ' lead' : '') + '">' +
+          '<div class="order">' + (i + 1) + '</div>' +
+          '<div><div class="nm">' + d.nm + '</div><div class="meta">' + inr(d.amt) + ' outstanding · ' + d.rate + '% interest</div></div>' +
+          '<div class="spacer"></div>' +
+          (i === 0 ? '<span class="badge badge-gold">Pay first</span>' : '') +
+        '</div>';
+      }).join("");
+      setText("strat-title", s.title.split(" — ")[0]);
+      setText("strat-desc", s.desc);
+    }
+    seg.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      Array.prototype.forEach.call(seg.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      render(b.dataset.s);
+    });
+    render("avalanche");
+  })();
+
+  // =====================================================================
+  // Flip-card decks
+  // =====================================================================
+  function renderFlip(id, items, frontStyle) {
+    document.getElementById(id).innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:22px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+
+  renderFlip("factor-grid", [
+    { icon: "🎯", label: "Purpose of the debt", back: "Ideally for appreciating assets (real estate) or to raise earning power (education). Financing volatile bets on margin is high-risk; never borrow for regular expenses — that signals a debt trap." },
+    { icon: "💸", label: "Cost of debt", back: "Higher rate = higher servicing outgo. Secured loans (mortgages, education) are cheaper; unsecured (personal loans, cards) are very expensive. Revolving card credit at 3%/mo ≈ 42.6% a year." },
+    { icon: "⏳", label: "Maturity of debt", back: "A shorter tenor means larger periodic repayments and more pressure on income; a longer tenor eases the EMI but raises total interest. Set tenor by repayment capacity (use DTI)." },
+    { icon: "🔧", label: "Debt re-scheduling", back: "Rank debts by cost and clear the costliest first; sell the funded asset; refinance cheaper; extend the tenor; or agree a revised schedule — but formal re-scheduling hurts the credit score." }
+  ]);
+
+  renderFlip("secured-grid", [
+    { icon: "🔐", label: "Secured loans", back: "Backed by an asset as security/mortgage (home, vehicle, gold, loan against securities). The asset stays in the borrower's name but can be seized on default. Result: lower interest rates." },
+    { icon: "✍️", label: "Unsecured loans", back: "No security — only the borrower's personal guarantee (personal loans, credit-card dues). Riskier for the lender, so interest rates are steep. Keep these to a minimum." }
+  ]);
+
+  renderFlip("terms-grid", [
+    { icon: "📌", label: "Fixed rate loan", back: "Interest rate fixed for the whole tenure — the borrower knows the exact cost. Useful to lock in low rates." },
+    { icon: "🌊", label: "Floating rate loan", back: "Rate resets with a benchmark (repo rate, MCLR). Preferred for long-term loans when rates are expected to fall." },
+    { icon: "🏠", label: "Home equity loan (LAP)", back: "Loan against property — borrow using your home/real estate as collateral. Amount depends on the property value and the lender's LTV." },
+    { icon: "🚗", label: "Hire purchase", back: "Buy an asset via a down payment + instalments; ownership passes to you on the final instalment. Unlike a lease, you can become the owner." },
+    { icon: "📄", label: "Lease", back: "The lessor (owner) lets the lessee use an asset for periodic rent. The lessee never becomes the owner — the key difference from hire purchase." },
+    { icon: "📉", label: "Amortisation", back: "Repaying the borrowed capital over time via fixed EMIs. Each EMI is part interest, part principal — interest-heavy early, principal-heavy later." },
+    { icon: "🔄", label: "Refinancing", back: "Repay an existing loan by taking a cheaper/longer new one to cut cost or extend duration. Worthwhile for large, long-term loans where the rate gap is significant." },
+    { icon: "⏩", label: "Prepayment", back: "Paying back capital ahead of schedule — cuts the outstanding and the remaining EMI period. Some loans restrict/charge it; RBI bars prepayment charges on bank home loans." },
+    { icon: "🏗️", label: "Pre-EMI interest", back: "Interest-only payments while a loan (e.g. for an under-construction home) is not fully disbursed. Full principal+interest EMIs start later." },
+    { icon: "⏸️", label: "Moratorium", back: "A temporary pause on repayments under force majeure (e.g. Covid). No default is counted and the score is unhurt — but interest keeps accruing (with compounding) and missed EMIs are pushed back." },
+    { icon: "🏦", label: "Mortgage", back: "A debt backed by a specified (immovable) property, repaid over time. A home loan secured by the property is a mortgage; it enables leverage to buy the asset." },
+    { icon: "💍", label: "Pledge", back: "A movable asset held as security by the lender until the loan is repaid. Contrast with a mortgage (immovable) and hypothecation (asset stays with the borrower)." },
+    { icon: "🚙", label: "Hypothecation", back: "A charge on an asset that stays with the borrower (e.g. a car loan). On default the lender must first repossess the asset, then sell it." }
+  ]);
+
+  // ---- Types of borrowing (static info cards) ----
+  var borrowTypes = [
+    { icon: "🏠", label: "Home loan", body: "Long-term (up to 30–35 years) loan to buy property, secured by the property itself. Large amounts and heavy total interest." },
+    { icon: "🎓", label: "Education loan", body: "Funds course fees; repayment usually starts after the course ends or the student starts earning. Interest accrues meanwhile (5–8 year tenor)." },
+    { icon: "🚗", label: "Vehicle loan", body: "For a two- or four-wheeler; the vehicle is hypothecated. 3–7 years — a longer tenor lowers the EMI but raises interest on a depreciating asset." },
+    { icon: "🏢", label: "Business loan", body: "To run a business/profession. The lender assesses working capital, turnover ratios and balance-sheet strength; may take asset or stock (inventory) as security." },
+    { icon: "🧳", label: "Personal loan", body: "Unsecured, usable for any purpose (travel, wedding, emergency). Easy to get but far costlier than an asset-backed loan — use with care." },
+    { icon: "💳", label: "Credit-card debt", body: "Short-term credit up to a limit. Interest-free if paid by the due date; carrying a balance triggers very high interest — the costliest borrowing." },
+    { icon: "🏦", label: "Overdraft", body: "Draw beyond the account balance up to a limit, against security like an FD. Interest only for the overdrawn period. Usually used by businesses." },
+    { icon: "📊", label: "Loan against securities / gold / property", body: "Secured loan against shares, mutual funds, gold or property at an RBI-guided % of value. Cheaper than a personal loan; a price fall may trigger a margin call." },
+    { icon: "🤝", label: "P2P loan", body: "Person-to-person lending via a platform. Unsecured, small, short-term, high rates and no recourse on default — high risk for the lender." }
+  ];
+  document.getElementById("types-grid").innerHTML = borrowTypes.map(function (t) {
+    return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+  }).join("");
+
+  renderFlip("emi-tenure-grid", [
+    { icon: "📆", label: "Change the tenure", back: "Keep the EMI steady and let the loan run longer/shorter. Easier to budget — one fixed amount — and a rate rise won't strain monthly cash flow. The usual default." },
+    { icon: "💳", label: "Change the EMI", back: "Keep the tenure and move the EMI with the rate. Useful to take a one-time EMI cut when rates have fallen a lot, or to relieve high EMI pressure." }
+  ]);
+
+  renderFlip("revision-cards", [
+    { icon: "50%", label: "DTI red flag", back: "₹7,500 servicing on ₹15,000 income = 50% DTI — too high. Lower is always better; there's no single 'optimal' DTI." },
+    { icon: "42.6%", label: "Revolving credit", back: "A card at 3%/month compounds to (1.03)¹² − 1 = 42.6% a year. Avoid carrying a balance." },
+    { icon: "300–900", label: "CIBIL range", back: "The CIBIL TransUnion score runs 300–900; bureaus are RBI-licensed under the CIC (Regulation) Act, 2005. One free full report a year per bureau." },
+    { icon: "₹2,224", label: "EMI example", back: "₹1,00,000 at 12% for 5 years = ₹2,224.44/month; extend to 6 years and it drops to ₹1,955.02." },
+    { icon: "PV", label: "Restructuring test", back: "Any restructuring must be judged by the present value of future payments — the EMI stream's PV equals the loan. Check it before accepting relief." },
+    { icon: "I→P", label: "Amortisation", back: "Early EMIs are interest-heavy; higher rates make the first EMI's interest slice bigger (₹10L/10yr: 5%→₹4,166 int, 9%→₹7,500 int)." },
+    { icon: "❄️", label: "Payoff methods", back: "Avalanche = highest rate first; Snowball = smallest balance first (motivation); Blizzard = snowball then avalanche." }
+  ], "mono");
+
+  // =====================================================================
+  // Scroll-triggered bar animations
+  // =====================================================================
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.35 }).observe(el);
+  }
+  onReveal("#amort-bars", function (c) {
+    c.querySelectorAll(".bar-seg").forEach(function (b) { requestAnimationFrame(function () { b.style.width = b.dataset.w + "%"; }); });
+    c.querySelectorAll(".amt [data-count]").forEach(function (el) {
+      animateCount(el, parseInt(el.dataset.count, 10), 1300, function (v) { return inr(v); });
+    });
+  }, 0.4);
+
+  // =====================================================================
+  // Quiz
+  // =====================================================================
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH04_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

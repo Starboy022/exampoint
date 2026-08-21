@@ -103,6 +103,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to main content</a>
+
 <header class="topbar">
   <div class="topbar-inner">
     <a class="brand" href="../../../../index.html">
@@ -170,7 +172,7 @@
     </ol>
   </aside>
 
-  <main class="lesson-main">
+  <main class="lesson-main" id="main" tabindex="-1">
 
     <!-- 2.1 -->
     <section class="lesson-section" id="sec-2-1">
@@ -761,6 +763,10 @@
 
   // ---------- Count-up animation ----------
   function animateCount(el, target, duration, formatter) {
+    if (window.NismNav && window.NismNav.prefersReducedMotion()) {
+      el.textContent = formatter(target);
+      return;
+    }
     var start = performance.now();
     function tick(now) {
       var p = Math.min((now - start) / duration, 1);

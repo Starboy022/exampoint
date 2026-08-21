@@ -18,6 +18,8 @@
 
   --teal-400: #4fd1c5;
   --teal-500: #2fb6a9;
+  --teal-600: #1f9488;
+  --teal-700: #157f74;
 
   --green-500: #2fae66;
   --red-500: #e5534b;
@@ -62,6 +64,9 @@
   --text-primary: var(--ink-900);
   --text-secondary: var(--ink-500);
   --border-subtle: var(--paper-200);
+  /* Teal used as *text* needs a darker value on light backgrounds to meet
+     WCAG AA contrast; teal-500 stays for fills/borders/strokes. */
+  --teal-text: var(--teal-700);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -76,6 +81,7 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
     --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+    --teal-text: var(--teal-400);
   }
 }
 
@@ -87,6 +93,7 @@
   --text-primary: #eef2f8;
   --text-secondary: #a9b6cc;
   --border-subtle: rgba(255, 255, 255, 0.09);
+  --teal-text: var(--teal-400);
 }
 
 :root[data-theme="light"] {
@@ -97,6 +104,7 @@
   --text-primary: var(--ink-900);
   --text-secondary: var(--ink-500);
   --border-subtle: var(--paper-200);
+  --teal-text: var(--teal-700);
 }
 
 *,
@@ -174,6 +182,32 @@ button {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+/* Skip link — visible only when focused via keyboard */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: top var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus {
+  top: 12px;
+  outline: 2px solid var(--gold-500);
+  outline-offset: 2px;
+}
+
+/* Programmatic focus targets (main landmarks, quiz steps) shouldn't paint an outline */
+[tabindex="-1"]:focus { outline: none; }
 
 /* Scrollbar polish */
 ::-webkit-scrollbar { width: 10px; height: 10px; }

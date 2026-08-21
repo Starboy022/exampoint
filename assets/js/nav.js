@@ -96,6 +96,8 @@
     Array.prototype.slice.call(document.querySelectorAll(".mini-check")).forEach(function (block) {
       var opts = Array.prototype.slice.call(block.querySelectorAll(".mini-opt"));
       var feedback = block.querySelector(".feedback");
+      // Announce the correctness feedback to screen readers when it appears.
+      if (feedback && !feedback.hasAttribute("aria-live")) feedback.setAttribute("aria-live", "polite");
       opts.forEach(function (opt) {
         opt.addEventListener("click", function () {
           if (block.dataset.answered) return;
@@ -117,11 +119,59 @@
     });
   }
 
+  /**
+   * True when the user has asked the OS to minimise animation. Live-checked so
+   * a mid-session change is respected. Used to gate JS-driven (rAF) animations
+   * that the global CSS `prefers-reduced-motion` rule cannot reach.
+   */
+  function prefersReducedMotion() {
+    return typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  /**
+   * Give inline SVGs sensible accessibility semantics:
+   *   • decorative icons  -> aria-hidden + focusable="false"
+   *   • diagrams (inside .diagram-frame) -> role="img", named from the visible
+   *     caption, with any inner interactive nodes removed from the tab order
+   *     (they're redundant with the on-page TOC) to avoid hidden-focusable traps.
+   * Idempotent: elements already carrying role/aria-label/aria-hidden are skipped,
+   * so it's safe to call more than once (e.g. from initAll and on DOMContentLoaded).
+   */
+  function markSvgAccessibility(root) {
+    var scope = root || document;
+    Array.prototype.slice.call(scope.querySelectorAll("svg")).forEach(function (svg) {
+      if (svg.hasAttribute("aria-hidden") || svg.hasAttribute("role") || svg.hasAttribute("aria-label")) return;
+      var frame = svg.closest ? svg.closest(".diagram-frame") : null;
+      if (frame) {
+        svg.setAttribute("role", "img");
+        if (!svg.querySelector("title")) {
+          var cap = frame.querySelector(".caption");
+          var label = cap ? cap.textContent.replace(/\s+/g, " ").trim() : "";
+          if (label) svg.setAttribute("aria-label", label);
+        }
+        // Exposed as a single image: keep inner links out of the keyboard tab order.
+        Array.prototype.slice.call(svg.querySelectorAll('a[href], [tabindex]')).forEach(function (n) {
+          n.setAttribute("tabindex", "-1");
+        });
+        return;
+      }
+      svg.setAttribute("aria-hidden", "true");
+      svg.setAttribute("focusable", "false");
+    });
+  }
+
   function initAll() {
     initStepperReveal();
     initFlipCards();
     initMiniChecks();
+    markSvgAccessibility();
   }
+
+  // Auto-label SVGs once the initial DOM (including synchronously-rendered
+  // template markup) is in place, covering pages that don't call initAll().
+  if (document.readyState !== "loading") markSvgAccessibility();
+  else document.addEventListener("DOMContentLoaded", function () { markSvgAccessibility(); });
 
   window.NismNav = {
     renderBreadcrumb: renderBreadcrumb,
@@ -131,6 +181,8 @@
     initStepperReveal: initStepperReveal,
     initFlipCards: initFlipCards,
     initMiniChecks: initMiniChecks,
+    markSvgAccessibility: markSvgAccessibility,
+    prefersReducedMotion: prefersReducedMotion,
     initAll: initAll
   };
 })();
