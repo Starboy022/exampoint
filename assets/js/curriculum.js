@@ -217,7 +217,7 @@
                 title: "Key Regulations",
                 summary: "SCRA, SEBI Act, PFUTP, Insider Trading, IA Regulations and PMLA.",
                 path: p("books/xa/module-06-operations-regulatory-environment-compliance-and-ethics/chapter-18/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch19",

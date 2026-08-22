@@ -2,7 +2,7 @@
 
 _Living document. Update after every chapter. Lets a fresh session resume exactly where the last left off._
 
-Last updated: 2026-08-21 (Ch.17 complete)
+Last updated: 2026-08-22 (Ch.18 complete)
 
 ---
 
@@ -11,7 +11,7 @@ Last updated: 2026-08-21 (Ch.17 complete)
 1. `git log --oneline -10` and `git status` to see the latest state.
 2. Read `CLAUDE.md` §7 (Progress status) + this file for the current frontier.
 3. Read the **exact chapter source `.md` in full** before building (see CLAUDE.md §1 for paths).
-4. Copy the structure of the most recently built chapter (currently **Ch.17**) — same `<head>` order, script order, `NISM_ROOT`, bootstrap pattern.
+4. Copy the structure of the most recently built chapter (currently **Ch.18**) — same `<head>` order, script order, `NISM_ROOT`, bootstrap pattern.
 5. Build `index.html` + `quiz-data.js`, then flip `status` to `"active"` in `assets/js/curriculum.js`.
 6. Update this file + `todo.md`, then commit.
 
@@ -52,7 +52,17 @@ Last updated: 2026-08-21 (Ch.17 complete)
     - Animated **demat-flow SVG** (Investor → DP → R&T+Depository → credit; draw-on-scroll via IntersectionObserver).
     - Folio-maintenance card grid (address/name/status/lien/transmission/nomination), concept flip deck (10), revision date/threshold deck (12).
   - Key facts wired exactly to source: ASBA mandatory 1 Jan 2016; uniform KYC 1 Jan 2012; CERSAI notified 26 Nov 2015 / RI upload 1 Aug 2016; PwD circular 23 May 2025; compulsory demat >₹10cr; 12-char ISIN; physical transfer ended 1 Apr 2019; Section 6 residence test (182 / 60+365); FEMA Notification 13; NRO cap USD 1 million/FY; PINS 5%/10%/24%; simplified transmission ₹5 lakh physical / ₹15 lakh demat; MF nomination 1 Oct 2022, up to 10 (from 1 Mar 2025); RTGS ≥₹2 lakh / NEFT no min / IFSC 11-char; cash MF ≤₹50,000 (Sept 2012); SEBI (IA) Regs 2013, 5-year records; MITC (no custody, no guaranteed returns, consent per trade, advance fee ≤1 yr, one-quarter breakage, no cash, direct plans, never ask OTP/credentials); BSE StAR MF / NSE NMF II.
-- **Ch.18–20** (Module 6: Key Regulations, Ethical Issues, Grievance Redress) — `coming-soon` stubs. **Next up: Ch.18 (Key Regulations).**
+- **Ch.18 Key Regulations** — ✅ built & active (this session, 2026-08-22).
+  - `index.html` + `quiz-data.js` (97 questions incl. 16 scenario-based; meta-row count set dynamically from `NISM_CH18_QUESTIONS.length`).
+  - Regulation-heavy chapter → "interactive element" requirement met by 2 live calculators + 1 explorer + 3 tap-matchers + animated SVG:
+    - **Regulation 15EB penalty calculator** (days slider → penalty = max ₹1 lakh, ₹1 lakh/day, capped at ₹1 crore; cap bites at 100 days).
+    - **Individual → non-individual transition calculator** (clients slider + fee slider → breach when clients > 300 OR FY fees > ₹3 crore, whichever earlier; in-principle registration valid 3 months).
+    - **"Is IA registration required?" explorer** (segmented: insurance agent / pension advisor / MF distributor / CA-advocate / general commentary / clients-outside-India → exempt; NRI-PIO / personalised paid advice → required).
+    - Tap-matchers: regulator→domain (SEBI/RBI/IRDAI/PFRDA), adviser obligations (fiduciary+15-day / risk profiling / suitability / disclosures / 5-yr records / segregation / implementation / fees), other acts (FEMA/Contract/Guardian&Wards/NI/IBC/FATCA-CRS).
+    - Animated **regulatory-hierarchy SVG** (SCRA+SEBI Act → SEBI → PFUTP/Intermediaries/Insider Trading; draw-on-scroll + pop-in via IntersectionObserver).
+    - Concept flip deck (10), revision date/threshold deck (12), IA-definitions card grid (6), 11 mini-checks.
+  - Key facts wired exactly to source: SCRA 1956 (exchanges/contracts/listing); SEBI Act 1992 functions; PFUTP 2003 (fraud = act/omission to induce dealing, wrongful gain inconsequential; 5 instances); Intermediaries Regs 2008 code of conduct; Insider Trading 2015 (insider = connected person OR access to UPSI); IA Regs 2013 — investment advice incl. financial planning, excl. mass-media & trading calls; registration valid till suspended/cancelled; Reg 7 qualification (PG/NISM PGP-IA/CFA) + NISM certification; exemptions incl. NRI/PIO carve-out; 300-client/₹3-crore transition; part-time 75-client cap; deposit lien for ODR; fiduciary + 15-day own-account rule (24h revised assessment); risk profiling (no double negatives/leading questions); suitability; disclosures; 5-year records + yearly CA/CS/CMA audit; group-level advisory/distribution segregation; implementation only via direct plans (no commission/implementation fee); advance fee ≤1 year (individual & HUF non-accredited only); Third Schedule code of conduct; Investor Charter (SEBI circular 2 Jun 2025, complaint disclosure by 7th of succeeding month, don't give funds/credentials); BSE Administration & Supervision Ltd (parent exchange ≥15 yrs, ≥₹200 cr net-worth, ISCs ≥20 cities); Reg 15EB penalty (₹1 lakh min, ₹1 lakh/day, ₹1 crore cap); SEBI (IFSC) Guidelines 2015 (27 Mar 2015); PMLA 2002 Sec 3/12/12AA (5-yr records, Aadhaar EDD); SEBI AML/CFT (FATF-aligned) + KRA Regs 2011; FEMA 1999 (FPI <10%); Indian Contract Act 1872 (Sec 2(h) 'agreement enforceable by law'); Guardian & Wards Act 1890 (minor <18); NI Act 1881 (note=undertaking, bill=order, cheque=bill on banker); IBC 2016 (five parts); FATCA/CRS (KRA upload 1 Jul 2024, Form 61B); 18.9 case studies (unregistered IA; forged experience certificate → restraint + cancellation).
+- **Ch.19–20** (Module 6: Ethical Issues, Grievance Redress) — `coming-soon` stubs. **Next up: Ch.19 (Ethical Issues).**
 
 ### XB — Investment Adviser Level 2 (20 chapters, modules 7–12)
 - Not started. Book is a `coming-soon` stub with `modules: []`; only `books/xb/index.html` exists.
@@ -66,6 +76,6 @@ Last updated: 2026-08-21 (Ch.17 complete)
 - Verification note: dev server / browser preview cannot be launched in unattended scheduled-task runs. Ch.15 was validated statically (structure copied from Ch.14, question bank counts checked). **When resuming interactively, serve on localhost (README, port 8877) and click through Ch.15 to confirm quiz mount, matchers, calculators and scrollspy before moving on.**
 
 ## Next steps
-1. Build **Ch.18** (Key Regulations) — Module 6, fact-heavy (SCRA, SEBI Act, PFUTP, Insider Trading, IA Regulations, PMLA). Use tap-to-match / animated widgets for the "interactive element" requirement (no core maths).
-2. Then rest of Module 6: Ch.19 (Ethical Issues) → Ch.20 (Grievance Redress).
+1. Build **Ch.19** (Ethical Issues) — Module 6. Read `chapter-19-*.md` in full first; fiduciary duty, ethical dilemmas and global best practices. Fact/principle-heavy → use tap-to-match / animated widgets / decision-tree explorers for the "interactive element".
+2. Then **Ch.20** (Grievance Redress Mechanism) — the last XA chapter (grievance redress across capital markets, banking, insurance, pensions; SCORES, ODR, ombudsman).
 3. Then scaffold and build XB (modules 7–12).

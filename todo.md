@@ -3,10 +3,9 @@
 _Task tracker. Used to resume mid-stream. Keep in sync with `implementation.md`._
 
 ## In progress
-- (none — Ch.17 complete)
+- (none — Ch.18 complete)
 
 ## Up next (in order)
-- [ ] **XA Ch.18** — Key Regulations (Module 6)
 - [ ] **XA Ch.19** — Ethical Issues (Module 6)
 - [ ] **XA Ch.20** — Grievance Redress Mechanism (Module 6)
 - [ ] **XB** — scaffold modules 7–12 (20 chapters), fill curriculum.js `modules` array from XB front-matter, then build chapter-by-chapter.
@@ -16,6 +15,7 @@ _Task tracker. Used to resume mid-stream. Keep in sync with `implementation.md`.
 - [x] **XA Ch.15** — Portfolio Construction Process (built + activated 2026-08-21; 70-question bank incl. 10 scenarios)
 - [x] **XA Ch.16** — Portfolio Performance Measurement and Evaluation (built + activated 2026-08-21; 56-question bank incl. ~20 scenarios; 5 live calculators)
 - [x] **XA Ch.17** — Operational Aspects of Investment Management (built + activated 2026-08-21; 83-question bank incl. 20 scenarios; 3 explorers + 4 tap-matchers + animated demat-flow SVG)
+- [x] **XA Ch.18** — Key Regulations (built + activated 2026-08-22; 97-question bank incl. 16 scenarios; 2 live calculators [15EB penalty, 300/₹3cr transition] + exemption explorer + 3 tap-matchers + animated regulatory-hierarchy SVG)
 - [x] Created `implementation.md` and `todo.md` tracking files
 
 ## Reminders
