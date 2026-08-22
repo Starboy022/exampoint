@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cheat Sheet | NISM Learn</title>
+<meta name="description" content="Exam-day quick reference for NISM Series-X — every key formula, ratio, year, acronym and tax rule, chapter by chapter, with live calculators." />
+<link rel="stylesheet" href="assets/css/design-system.css" />
+<link rel="stylesheet" href="assets/css/components.css" />
+<style>
+  .cs-hero { padding: 30px 0 6px; }
+  .cs-hero h1 { margin-bottom: 6px; }
+  .cs-hero p { color: var(--text-secondary); max-width: 660px; margin-bottom: 0; }
+  .cs-hero .book-tag { margin-bottom: 12px; }
+  .cs-hero .meta-row { display:flex; gap:20px; flex-wrap:wrap; margin-top:14px; font-size:.82rem; color:var(--text-secondary); }
+  .cs-hero .meta-row strong { color: var(--text-primary); font-family: var(--font-display); }
+
+  /* ---- Controls ---- */
+  .cs-controls { position: sticky; top: 0; z-index: 20; padding: 14px 0; background: color-mix(in srgb, var(--bg-app) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-subtle); }
+  .cs-controls-inner { display:flex; flex-direction:column; gap: 12px; }
+  .cs-row1 { display:flex; gap: 12px; align-items:center; flex-wrap: wrap; }
+  .cs-search { flex:1; min-width: 200px; position: relative; }
+  .cs-search input {
+    width:100%; padding: 10px 12px 10px 38px; border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle); background: var(--bg-surface); color: var(--text-primary);
+    font-size: .92rem;
+  }
+  .cs-search svg { position:absolute; left:12px; top:50%; transform: translateY(-50%); width:16px; height:16px; color: var(--text-secondary); }
+  .cs-search .clear-x { position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:none; color:var(--text-secondary); cursor:pointer; font-size:1.1rem; line-height:1; display:none; }
+
+  .view-toggle { display:inline-flex; background: var(--bg-surface-2); border:1px solid var(--border-subtle); border-radius: var(--radius-pill); padding: 3px; }
+  .view-toggle button { border:none; background:none; padding: 7px 14px; border-radius: var(--radius-pill); font-size:.82rem; font-weight:600; color: var(--text-secondary); cursor:pointer; }
+  .view-toggle button.active { background: var(--bg-surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
+
+  .cs-chips { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .cs-chip {
+    display:inline-flex; align-items:center; gap:6px; padding: 6px 12px; border-radius: var(--radius-pill);
+    border:1px solid var(--border-subtle); background: var(--bg-surface); color: var(--text-secondary);
+    font-size:.78rem; font-weight:600; cursor:pointer; user-select:none; transition: all var(--dur-fast) var(--ease-out);
+  }
+  .cs-chip .dot { width:8px; height:8px; border-radius:50%; }
+  .cs-chip.active { color:#fff; border-color: transparent; }
+  .cs-chip .cnt { opacity:.7; font-weight:500; }
+  .cs-chip.reveal-btn { margin-left:auto; }
+
+  /* category accents */
+  .acc-gold  { --acc: var(--gold-500); }
+  .acc-teal  { --acc: var(--teal-500); }
+  .acc-navy  { --acc: var(--navy-600); }
+  .acc-slate { --acc: #6b7a90; }
+  .acc-green { --acc: var(--green-500); }
+  .acc-red   { --acc: var(--red-500); }
+  .cs-chip.active { background: var(--acc); }
+  .cs-chip .dot { background: var(--acc); }
+
+  /* ---- Layout groups ---- */
+  .cs-section { padding: 22px 0 8px; }
+  .cs-group { margin-bottom: 26px; }
+  .cs-group-head { display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .cs-group-head h2 { font-size: 1.05rem; margin:0; }
+  .cs-group-head .mod-tag { font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color: var(--gold-600); font-weight:700; }
+  .cs-group-head .open-ch { font-size:.74rem; color: var(--text-secondary); text-decoration:none; border-bottom:1px dashed var(--border-subtle); }
+  .cs-group-head .open-ch:hover { color: var(--gold-600); }
+  .cs-group-head .grp-count { font-size:.74rem; color:var(--text-secondary); }
+
+  .cs-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 14px; }
+
+  /* ---- Flip cards ---- */
+  .cs-card { perspective: 1200px; min-height: 138px; cursor:pointer; }
+  .cs-card-inner { position:relative; width:100%; height:100%; min-height:138px; transition: transform .5s var(--ease-spring); transform-style: preserve-3d; }
+  .cs-card.flipped .cs-card-inner { transform: rotateY(180deg); }
+  .cs-face {
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    border:1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface);
+    padding: 16px; display:flex; flex-direction:column; gap:8px; overflow:hidden;
+  }
+  .cs-face::before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background: var(--acc); }
+  .cs-front { justify-content:space-between; }
+  .cs-cat-tag { display:inline-flex; align-items:center; gap:6px; font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color: var(--acc); }
+  .cs-cat-tag .dot { width:7px; height:7px; border-radius:50%; background: var(--acc); }
+  .cs-term { font-family: var(--font-display); font-size:1.06rem; font-weight:700; line-height:1.25; }
+  .cs-hint { font-size:.7rem; color: var(--text-secondary); display:inline-flex; align-items:center; gap:5px; }
+  .cs-back { transform: rotateY(180deg); background: var(--bg-surface-2); justify-content:flex-start; }
+  .cs-expr { font-size:.98rem; font-weight:600; line-height:1.4; color: var(--text-primary); }
+  .cs-note { font-size:.78rem; color: var(--text-secondary); line-height:1.4; }
+  .cs-card .try-calc {
+    margin-top:auto; align-self:flex-start; font-size:.72rem; font-weight:700; color: var(--gold-600);
+    background: color-mix(in srgb, var(--gold-500) 14%, transparent); border:none; border-radius: var(--radius-sm);
+    padding: 5px 10px; cursor:pointer;
+  }
+  .cs-back .ch-ref { font-size:.68rem; color: var(--text-secondary); margin-top:auto; padding-top:6px; }
+
+  .cs-empty { padding: 40px; text-align:center; color: var(--text-secondary); border:1px dashed var(--border-subtle); border-radius: var(--radius-md); }
+
+  /* ---- Calculators ---- */
+  .calc-wrap { padding: 8px 0 40px; }
+  .calc-card { padding: 0; overflow:hidden; }
+  .calc-head { padding: 20px 24px 0; }
+  .calc-head h2 { margin-bottom:4px; }
+  .calc-head p { color: var(--text-secondary); font-size:.86rem; margin-bottom: 16px; }
+  .calc-seg { display:flex; gap:6px; flex-wrap:wrap; padding: 0 24px 16px; }
+  .calc-seg button {
+    border:1px solid var(--border-subtle); background: var(--bg-surface); color: var(--text-secondary);
+    padding: 8px 14px; border-radius: var(--radius-pill); font-size:.8rem; font-weight:600; cursor:pointer;
+  }
+  .calc-seg button.active { background: var(--navy-900); color:#fff; border-color: transparent; }
+  .calc-body { padding: 22px 24px 26px; border-top:1px solid var(--border-subtle); background: var(--bg-surface-2); display:grid; grid-template-columns: 1.1fr 1fr; gap: 28px; }
+  @media (max-width: 720px){ .calc-body { grid-template-columns: 1fr; gap: 20px; } }
+  .calc-inputs { display:flex; flex-direction:column; gap: 18px; }
+  .calc-field label { display:flex; justify-content:space-between; align-items:baseline; font-size:.82rem; font-weight:600; margin-bottom:7px; }
+  .calc-field label .val { font-family: var(--font-mono); color: var(--gold-600); font-weight:700; }
+  .calc-field input[type=range] { width:100%; accent-color: var(--gold-500); }
+  .calc-field input[type=number], .calc-field select {
+    width:100%; padding:8px 10px; border-radius: var(--radius-sm); border:1px solid var(--border-subtle);
+    background: var(--bg-surface); color: var(--text-primary); font-size:.9rem;
+  }
+  .calc-seg-in { display:inline-flex; background: var(--bg-surface); border:1px solid var(--border-subtle); border-radius: var(--radius-pill); padding:3px; }
+  .calc-seg-in button { border:none; background:none; padding:6px 12px; border-radius: var(--radius-pill); font-size:.78rem; font-weight:600; color:var(--text-secondary); cursor:pointer; }
+  .calc-seg-in button.active { background: var(--gold-500); color: var(--navy-950); }
+
+  .calc-output { display:flex; flex-direction:column; gap: 14px; }
+  .calc-result { background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); color:#fff; border-radius: var(--radius-md); padding: 20px 22px; }
+  .calc-result .r-label { font-size:.74rem; text-transform:uppercase; letter-spacing:.06em; color: var(--gold-400); font-weight:700; }
+  .calc-result .r-value { font-family: var(--font-display); font-size: 2rem; font-weight:800; line-height:1.05; margin-top:6px; }
+  .calc-result .r-sub { font-size:.8rem; color: rgba(255,255,255,.72); margin-top:6px; }
+  .calc-breakdown { display:flex; flex-direction:column; gap:8px; }
+  .calc-line { display:flex; justify-content:space-between; font-size:.84rem; padding:8px 12px; background: var(--bg-surface); border-radius: var(--radius-sm); }
+  .calc-line span:last-child { font-family: var(--font-mono); font-weight:600; }
+  .calc-formula { font-size:.76rem; color: var(--text-secondary); font-family: var(--font-mono); background: var(--bg-surface); border:1px dashed var(--border-subtle); border-radius: var(--radius-sm); padding: 10px 12px; line-height:1.5; }
+  /* split bar (EMI principal vs interest) */
+  .split-bar { height:14px; border-radius: var(--radius-pill); overflow:hidden; display:flex; background: var(--bg-surface); }
+  .split-bar .p { background: var(--teal-500); }
+  .split-bar .i { background: var(--gold-500); }
+  .split-legend { display:flex; gap:16px; font-size:.74rem; color:var(--text-secondary); }
+  .split-legend .k { display:inline-flex; align-items:center; gap:6px; }
+  .split-legend .sw { width:10px; height:10px; border-radius:2px; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="books/xa/index.html">Course</a>
+      <a class="nav-link" href="dashboard.html">Dashboard</a>
+      <a class="nav-link current" href="cheatsheet.html">Cheat Sheet</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<main id="main" tabindex="-1">
+
+<section class="cs-hero">
+  <div class="container">
+    <span class="badge badge-navy book-tag" id="book-tag">Exam-day quick reference</span>
+    <h1>Cheat Sheet</h1>
+    <p>Every exam-critical formula, ratio, year, acronym and tax rule from the workbook — organised by chapter and by category, searchable in seconds, with live calculators to test the formulas before you walk in.</p>
+    <div class="meta-row" id="cs-meta"></div>
+  </div>
+</section>
+
+<!-- Calculators first: the interactive centrepiece -->
+<section class="calc-wrap">
+  <div class="container">
+    <div class="card calc-card" id="calc-card">
+      <div class="calc-head">
+        <h2>Live calculators</h2>
+        <p>Drag the sliders to see the workbook formulas come alive. Great for building intuition or double-checking a doubt.</p>
+      </div>
+      <div class="calc-seg" id="calc-seg"></div>
+      <div class="calc-body" id="calc-body"></div>
+    </div>
+  </div>
+</section>
+
+<div class="cs-controls">
+  <div class="container">
+    <div class="cs-controls-inner">
+      <div class="cs-row1">
+        <div class="cs-search">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l-4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <input type="search" id="cs-search-input" placeholder="Search formulas, ratios, acronyms, years…" autocomplete="off" />
+          <button class="clear-x" id="cs-clear" aria-label="Clear search">&times;</button>
+        </div>
+        <div class="view-toggle" role="tablist" aria-label="Cheat sheet view">
+          <button id="view-chapter" class="active">By Chapter</button>
+          <button id="view-category">By Category</button>
+        </div>
+      </div>
+      <div class="cs-chips" id="cs-chips"></div>
+    </div>
+  </div>
+</div>
+
+<section class="cs-section">
+  <div class="container">
+    <div id="cs-content"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "";</script>
+<script src="assets/js/curriculum.js"></script>
+<script src="assets/js/progress.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/cheatsheet-data.js"></script>
+<script>
+(function () {
+  var BOOK_ID = "xa";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+  var csBook = window.NismCheatsheet.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "index.html" },
+    { label: "Cheat Sheet", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+
+  // ---- State ----
+  var state = { view: "chapter", query: "", cats: {} };
+  window.NismCheatsheet.cats.forEach(function (c) { state.cats[c.key] = true; });
+
+  // ---- Meta row ----
+  var counts = window.NismCheatsheet.countByCat();
+  var totalItems = window.NismCheatsheet.allItems().length;
+  document.getElementById("cs-meta").innerHTML =
+    "<span><strong>" + totalItems + "</strong> quick-reference cards</span>" +
+    "<span><strong>" + csBook.modules.length + "</strong> modules covered</span>" +
+    "<span><strong>Tap</strong> any card to flip it</span>";
+
+  // ---- Filter chips ----
+  var chipsEl = document.getElementById("cs-chips");
+  var chipHtml = window.NismCheatsheet.cats.map(function (c) {
+    return '<button class="cs-chip active acc-' + c.accent + '" data-cat="' + c.key + '">' +
+      '<span class="dot"></span>' + c.label + ' <span class="cnt">' + (counts[c.key] || 0) + '</span></button>';
+  }).join("");
+  chipHtml += '<button class="cs-chip reveal-btn" id="reveal-all">Reveal all</button>';
+  chipsEl.innerHTML = chipHtml;
+
+  chipsEl.querySelectorAll(".cs-chip[data-cat]").forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      var k = chip.dataset.cat;
+      state.cats[k] = !state.cats[k];
+      chip.classList.toggle("active", state.cats[k]);
+      render();
+    });
+  });
+
+  var revealed = false;
+  document.getElementById("reveal-all").addEventListener("click", function () {
+    revealed = !revealed;
+    this.textContent = revealed ? "Hide all" : "Reveal all";
+    Array.prototype.forEach.call(document.querySelectorAll(".cs-card"), function (card) {
+      card.classList.toggle("flipped", revealed);
+    });
+  });
+
+  // ---- Search ----
+  var searchInput = document.getElementById("cs-search-input");
+  var clearBtn = document.getElementById("cs-clear");
+  searchInput.addEventListener("input", function () {
+    state.query = this.value.trim().toLowerCase();
+    clearBtn.style.display = this.value ? "block" : "none";
+    render();
+  });
+  clearBtn.addEventListener("click", function () {
+    searchInput.value = ""; state.query = ""; clearBtn.style.display = "none"; render(); searchInput.focus();
+  });
+
+  // ---- View toggle ----
+  var vChap = document.getElementById("view-chapter");
+  var vCat = document.getElementById("view-category");
+  vChap.addEventListener("click", function () { state.view = "chapter"; vChap.classList.add("active"); vCat.classList.remove("active"); render(); });
+  vCat.addEventListener("click", function () { state.view = "category"; vCat.classList.add("active"); vChap.classList.remove("active"); render(); });
+
+  // ---- Item matching ----
+  function itemText(r) {
+    return (r.item.term + " " + r.item.expr + " " + (r.item.note || "") +
+      " " + r.chapter.title + " " + (window.NismCheatsheet.catMeta(r.item.cat) || {}).label).toLowerCase();
+  }
+  function passes(r) {
+    if (!state.cats[r.item.cat]) return false;
+    if (state.query && itemText(r).indexOf(state.query) === -1) return false;
+    return true;
+  }
+
+  // strip HTML tags for the searchable data-text and plain contexts
+  function stripHtml(s) { var d = document.createElement("div"); d.innerHTML = s; return d.textContent || ""; }
+
+  function cardHtml(r) {
+    var meta = window.NismCheatsheet.catMeta(r.item.cat) || { accent: "gold", short: "" };
+    var loc = window.NismCurriculum.findChapter(BOOK_ID, r.chapter.id);
+    var path = loc && loc.chapter.status === "active" ? loc.chapter.path : null;
+    var chRef = "Ch. " + r.chapter.number + " · " + stripHtml(r.chapter.title);
+    var tryBtn = r.item.calc ? '<button class="try-calc" data-calc="' + r.item.calc + '">Try the calculator &rarr;</button>' : "";
+    return (
+      '<div class="cs-card acc-' + meta.accent + '" tabindex="0" role="button" aria-label="' + stripHtml(r.item.term) + ' — tap to reveal">' +
+        '<div class="cs-card-inner">' +
+          '<div class="cs-face cs-front">' +
+            '<span class="cs-cat-tag"><span class="dot"></span>' + meta.short + '</span>' +
+            '<div class="cs-term">' + r.item.term + '</div>' +
+            '<span class="cs-hint">tap to reveal &#8635;</span>' +
+          '</div>' +
+          '<div class="cs-face cs-back">' +
+            '<div class="cs-expr">' + r.item.expr + '</div>' +
+            (r.item.note ? '<div class="cs-note">' + r.item.note + '</div>' : "") +
+            tryBtn +
+            (path ? '<a class="ch-ref" href="' + path + '">' + chRef + ' &nearr;</a>' : '<div class="ch-ref">' + chRef + '</div>') +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function wireCards(container) {
+    Array.prototype.forEach.call(container.querySelectorAll(".cs-card"), function (card) {
+      card.addEventListener("click", function (e) {
+        if (e.target.closest(".try-calc") || e.target.closest(".ch-ref")) return;
+        card.classList.toggle("flipped");
+      });
+      card.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.classList.toggle("flipped"); }
+      });
+    });
+    Array.prototype.forEach.call(container.querySelectorAll(".try-calc"), function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        selectCalc(btn.dataset.calc);
+        document.getElementById("calc-card").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  }
+
+  // ---- Render ----
+  var contentEl = document.getElementById("cs-content");
+
+  function render() {
+    var rows = window.NismCheatsheet.allItems().filter(passes);
+    if (!rows.length) {
+      contentEl.innerHTML = '<div class="cs-empty">No cards match your filters. Try clearing the search or turning categories back on.</div>';
+      return;
+    }
+    revealed = false;
+    document.getElementById("reveal-all").textContent = "Reveal all";
+
+    var html = "";
+    if (state.view === "chapter") {
+      csBook.modules.forEach(function (mod) {
+        mod.chapters.forEach(function (ch) {
+          var chRows = rows.filter(function (r) { return r.chapter.id === ch.id; });
+          if (!chRows.length) return;
+          var loc = window.NismCurriculum.findChapter(BOOK_ID, ch.id);
+          var path = loc && loc.chapter.status === "active" ? loc.chapter.path : null;
+          html += '<div class="cs-group">' +
+            '<div class="cs-group-head">' +
+              '<span class="mod-tag">M' + mod.number + '</span>' +
+              '<h2>Ch. ' + ch.number + ' — ' + ch.title + '</h2>' +
+              '<span class="grp-count">' + chRows.length + ' cards</span>' +
+              (path ? '<a class="open-ch" href="' + path + '">Open chapter &rarr;</a>' : "") +
+            '</div>' +
+            '<div class="cs-grid">' + chRows.map(cardHtml).join("") + '</div>' +
+          '</div>';
+        });
+      });
+    } else {
+      window.NismCheatsheet.cats.forEach(function (c) {
+        var catRows = rows.filter(function (r) { return r.item.cat === c.key; });
+        if (!catRows.length) return;
+        html += '<div class="cs-group">' +
+          '<div class="cs-group-head">' +
+            '<span class="mod-tag acc-' + c.accent + '" style="color:var(--acc)">' + c.label + '</span>' +
+            '<span class="grp-count">' + catRows.length + ' cards</span>' +
+          '</div>' +
+          '<div class="cs-grid">' + catRows.map(cardHtml).join("") + '</div>' +
+        '</div>';
+      });
+    }
+    contentEl.innerHTML = html;
+    wireCards(contentEl);
+  }
+
+  /* =====================================================================
+     FLAGSHIP CALCULATORS
+     Registry pattern: add a new entry to CALCS to surface a new calculator.
+     Each calc: { key, label, render(bodyEl) }.
+     ===================================================================== */
+  var fmtINR = function (n) {
+    if (!isFinite(n)) return "—";
+    return "₹" + Math.round(n).toLocaleString("en-IN");
+  };
+  var fmtPct = function (n, d) { return (isFinite(n) ? n.toFixed(d === undefined ? 2 : d) : "—") + "%"; };
+
+  function field(id, label, valText, min, max, step, val, unit) {
+    return '<div class="calc-field">' +
+      '<label for="' + id + '">' + label + ' <span class="val" id="' + id + '-val">' + valText + '</span></label>' +
+      '<input type="range" id="' + id + '" min="' + min + '" max="' + max + '" step="' + step + '" value="' + val + '" />' +
+      '</div>';
+  }
+
+  var CALCS = {
+    tvm: {
+      key: "tvm", label: "Time Value of Money",
+      render: function (el) {
+        el.innerHTML =
+          '<div class="calc-inputs">' +
+            '<div class="calc-field"><label>Mode</label><div class="calc-seg-in" id="tvm-mode">' +
+              '<button class="active" data-m="fv">Future value</button>' +
+              '<button data-m="pv">Present value</button></div></div>' +
+            field("tvm-amt", '<span id="tvm-amt-lbl">Present amount (₹)</span>', "5,00,000", 1000, 10000000, 1000, 500000) +
+            field("tvm-rate", "Rate p.a.", "8%", 1, 20, 0.25, 8) +
+            field("tvm-years", "Years", "5", 1, 40, 1, 5) +
+            '<div class="calc-field"><label for="tvm-freq">Compounding</label>' +
+              '<select id="tvm-freq"><option value="1">Annually</option><option value="2">Half-yearly</option><option value="4">Quarterly</option><option value="12">Monthly</option></select></div>' +
+          '</div>' +
+          '<div class="calc-output">' +
+            '<div class="calc-result"><div class="r-label" id="tvm-r-label">Future value</div><div class="r-value" id="tvm-out">—</div><div class="r-sub" id="tvm-sub"></div></div>' +
+            '<div class="calc-breakdown">' +
+              '<div class="calc-line"><span id="tvm-l1-k">Interest earned</span><span id="tvm-l1-v">—</span></div>' +
+              '<div class="calc-line"><span>Effective CAGR</span><span id="tvm-l2-v">—</span></div>' +
+            '</div>' +
+            '<div class="calc-formula" id="tvm-formula"></div>' +
+          '</div>';
+        var mode = "fv";
+        function calc() {
+          var amt = +document.getElementById("tvm-amt").value;
+          var rate = +document.getElementById("tvm-rate").value;
+          var years = +document.getElementById("tvm-years").value;
+          var m = +document.getElementById("tvm-freq").value;
+          document.getElementById("tvm-amt-val").textContent = fmtINR(amt).replace("₹", "");
+          document.getElementById("tvm-rate-val").textContent = rate + "%";
+          document.getElementById("tvm-years-val").textContent = years;
+          var i = rate / 100 / m, n = years * m;
+          var out, sub, l1k, l1v, formula, cagr;
+          if (mode === "fv") {
+            out = amt * Math.pow(1 + i, n);
+            cagr = (Math.pow(out / amt, 1 / years) - 1) * 100;
+            l1k = "Interest earned"; l1v = fmtINR(out - amt);
+            sub = "on " + fmtINR(amt) + " over " + years + " yr";
+            formula = "FV = PV × (1 + r/m)^(n·m)\n   = " + fmtINR(amt) + " × (1 + " + (rate) + "%/" + m + ")^" + n;
+          } else {
+            out = amt / Math.pow(1 + i, n);
+            cagr = rate;
+            l1k = "Discount (value lost)"; l1v = fmtINR(amt - out);
+            sub = "today's worth of " + fmtINR(amt) + " in " + years + " yr";
+            formula = "PV = FV ÷ (1 + r/m)^(n·m)\n   = " + fmtINR(amt) + " ÷ (1 + " + (rate) + "%/" + m + ")^" + n;
+          }
+          document.getElementById("tvm-out").textContent = fmtINR(out);
+          document.getElementById("tvm-sub").textContent = sub;
+          document.getElementById("tvm-l1-k").textContent = l1k;
+          document.getElementById("tvm-l1-v").textContent = l1v;
+          document.getElementById("tvm-l2-v").textContent = fmtPct(cagr);
+          document.getElementById("tvm-formula").textContent = formula;
+        }
+        el.querySelectorAll("#tvm-mode button").forEach(function (b) {
+          b.addEventListener("click", function () {
+            mode = b.dataset.m;
+            el.querySelectorAll("#tvm-mode button").forEach(function (x) { x.classList.remove("active"); });
+            b.classList.add("active");
+            document.getElementById("tvm-r-label").textContent = mode === "fv" ? "Future value" : "Present value";
+            document.getElementById("tvm-amt-lbl").textContent = mode === "fv" ? "Present amount (₹)" : "Future amount (₹)";
+            calc();
+          });
+        });
+        ["tvm-amt", "tvm-rate", "tvm-years", "tvm-freq"].forEach(function (id) {
+          document.getElementById(id).addEventListener("input", calc);
+        });
+        calc();
+      }
+    },
+
+    emi: {
+      key: "emi", label: "Loan EMI",
+      render: function (el) {
+        el.innerHTML =
+          '<div class="calc-inputs">' +
+            field("emi-amt", "Loan amount (₹)", "30,00,000", 50000, 20000000, 50000, 3000000) +
+            field("emi-rate", "Interest rate p.a.", "6.5%", 4, 20, 0.05, 6.5) +
+            field("emi-years", "Tenure (years)", "20", 1, 35, 1, 20) +
+          '</div>' +
+          '<div class="calc-output">' +
+            '<div class="calc-result"><div class="r-label">Monthly EMI</div><div class="r-value" id="emi-out">—</div><div class="r-sub" id="emi-sub"></div></div>' +
+            '<div class="calc-breakdown">' +
+              '<div class="calc-line"><span>Total interest</span><span id="emi-int">—</span></div>' +
+              '<div class="calc-line"><span>Total payment</span><span id="emi-tot">—</span></div>' +
+            '</div>' +
+            '<div><div class="split-bar"><div class="p" id="emi-bar-p"></div><div class="i" id="emi-bar-i"></div></div>' +
+            '<div class="split-legend" style="margin-top:8px"><span class="k"><span class="sw" style="background:var(--teal-500)"></span>Principal</span><span class="k"><span class="sw" style="background:var(--gold-500)"></span>Interest</span></div></div>' +
+            '<div class="calc-formula" id="emi-formula"></div>' +
+          '</div>';
+        function calc() {
+          var P = +document.getElementById("emi-amt").value;
+          var rate = +document.getElementById("emi-rate").value;
+          var years = +document.getElementById("emi-years").value;
+          document.getElementById("emi-amt-val").textContent = fmtINR(P).replace("₹", "");
+          document.getElementById("emi-rate-val").textContent = rate + "%";
+          document.getElementById("emi-years-val").textContent = years;
+          var r = rate / 100 / 12, n = years * 12;
+          var emi = r === 0 ? P / n : P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+          var total = emi * n, interest = total - P;
+          document.getElementById("emi-out").textContent = fmtINR(emi);
+          document.getElementById("emi-sub").textContent = "over " + n + " months";
+          document.getElementById("emi-int").textContent = fmtINR(interest);
+          document.getElementById("emi-tot").textContent = fmtINR(total);
+          var pPct = P / total * 100;
+          document.getElementById("emi-bar-p").style.width = pPct + "%";
+          document.getElementById("emi-bar-i").style.width = (100 - pPct) + "%";
+          document.getElementById("emi-formula").textContent =
+            "EMI = P·r·(1+r)^n ÷ [(1+r)^n − 1]\n   r = " + rate + "%/12,  n = " + n + " months";
+        }
+        ["emi-amt", "emi-rate", "emi-years"].forEach(function (id) {
+          document.getElementById(id).addEventListener("input", calc);
+        });
+        calc();
+      }
+    },
+
+    ratios: {
+      key: "ratios", label: "Personal finance ratios",
+      render: function (el) {
+        el.innerHTML =
+          '<div class="calc-inputs">' +
+            field("rt-income", "Annual income (₹)", "12,00,000", 100000, 10000000, 50000, 1200000) +
+            field("rt-exp", "Annual expenses (₹)", "9,00,000", 0, 10000000, 25000, 900000) +
+            field("rt-assets", "Total assets (₹)", "65,00,000", 0, 50000000, 100000, 6500000) +
+            field("rt-liab", "Total liabilities (₹)", "13,00,000", 0, 40000000, 50000, 1300000) +
+            field("rt-liquid", "Liquid assets (₹)", "13,00,000", 0, 20000000, 50000, 1300000) +
+          '</div>' +
+          '<div class="calc-output">' +
+            '<div class="calc-breakdown">' +
+              '<div class="calc-line"><span>Savings ratio</span><span id="rt-sav">—</span></div>' +
+              '<div class="calc-line"><span>Expenses ratio</span><span id="rt-expr">—</span></div>' +
+              '<div class="calc-line"><span>Net worth</span><span id="rt-nw">—</span></div>' +
+              '<div class="calc-line"><span>Leverage ratio</span><span id="rt-lev">—</span></div>' +
+              '<div class="calc-line"><span>Solvency ratio</span><span id="rt-sol">—</span></div>' +
+              '<div class="calc-line"><span>Liquidity ratio (months)</span><span id="rt-liq">—</span></div>' +
+            '</div>' +
+            '<div class="calc-formula">Savings = Income − Expenses · Net worth = Assets − Liabilities\nLeverage = Liab ÷ Assets · Solvency = Net worth ÷ Assets\nLiquidity = Liquid assets ÷ Monthly expenses (aim 4–6)</div>' +
+          '</div>';
+        function calc() {
+          var inc = +document.getElementById("rt-income").value;
+          var exp = +document.getElementById("rt-exp").value;
+          var assets = +document.getElementById("rt-assets").value;
+          var liab = +document.getElementById("rt-liab").value;
+          var liquid = +document.getElementById("rt-liquid").value;
+          document.getElementById("rt-income-val").textContent = fmtINR(inc).replace("₹", "");
+          document.getElementById("rt-exp-val").textContent = fmtINR(exp).replace("₹", "");
+          document.getElementById("rt-assets-val").textContent = fmtINR(assets).replace("₹", "");
+          document.getElementById("rt-liab-val").textContent = fmtINR(liab).replace("₹", "");
+          document.getElementById("rt-liquid-val").textContent = fmtINR(liquid).replace("₹", "");
+          var savings = inc - exp;
+          var nw = assets - liab;
+          document.getElementById("rt-sav").textContent = fmtPct(savings / inc * 100);
+          document.getElementById("rt-expr").textContent = fmtPct(exp / inc * 100);
+          document.getElementById("rt-nw").textContent = fmtINR(nw);
+          document.getElementById("rt-lev").textContent = fmtPct(liab / assets * 100);
+          document.getElementById("rt-sol").textContent = fmtPct(nw / assets * 100);
+          document.getElementById("rt-liq").textContent = (exp > 0 ? (liquid / (exp / 12)).toFixed(1) : "—");
+        }
+        ["rt-income", "rt-exp", "rt-assets", "rt-liab", "rt-liquid"].forEach(function (id) {
+          document.getElementById(id).addEventListener("input", calc);
+        });
+        calc();
+      }
+    },
+
+    bond: {
+      key: "bond", label: "Bond price & yield",
+      render: function (el) {
+        el.innerHTML =
+          '<div class="calc-inputs">' +
+            field("bd-face", "Face value (₹)", "100", 100, 10000, 100, 100) +
+            field("bd-coupon", "Coupon rate p.a.", "10%", 0, 15, 0.25, 10) +
+            field("bd-years", "Years to maturity", "5", 1, 30, 1, 5) +
+            field("bd-yield", "Market yield (YTM)", "8%", 1, 15, 0.25, 8) +
+            '<div class="calc-field"><label for="bd-freq">Coupon frequency</label>' +
+              '<select id="bd-freq"><option value="1">Annual</option><option value="2">Semi-annual</option></select></div>' +
+          '</div>' +
+          '<div class="calc-output">' +
+            '<div class="calc-result"><div class="r-label">Bond price</div><div class="r-value" id="bd-out">—</div><div class="r-sub" id="bd-sub"></div></div>' +
+            '<div class="calc-breakdown">' +
+              '<div class="calc-line"><span>Current yield</span><span id="bd-cy">—</span></div>' +
+              '<div class="calc-line"><span>Macaulay duration</span><span id="bd-mac">—</span></div>' +
+              '<div class="calc-line"><span>Modified duration</span><span id="bd-mod">—</span></div>' +
+            '</div>' +
+            '<div class="calc-formula" id="bd-formula"></div>' +
+          '</div>';
+        function calc() {
+          var FV = +document.getElementById("bd-face").value;
+          var cr = +document.getElementById("bd-coupon").value;
+          var years = +document.getElementById("bd-years").value;
+          var y = +document.getElementById("bd-yield").value;
+          var m = +document.getElementById("bd-freq").value;
+          document.getElementById("bd-face-val").textContent = fmtINR(FV).replace("₹", "");
+          document.getElementById("bd-coupon-val").textContent = cr + "%";
+          document.getElementById("bd-years-val").textContent = years;
+          document.getElementById("bd-yield-val").textContent = y + "%";
+          var n = years * m;                 // number of periods
+          var C = FV * (cr / 100) / m;       // periodic coupon
+          var i = y / 100 / m;               // periodic yield
+          var price = 0, weighted = 0;
+          for (var t = 1; t <= n; t++) {
+            var cf = C + (t === n ? FV : 0);
+            var pv = cf / Math.pow(1 + i, t);
+            price += pv;
+            weighted += t * pv;
+          }
+          var macPeriods = price > 0 ? weighted / price : 0;
+          var macYears = macPeriods / m;
+          var modYears = macYears / (1 + i);
+          var annualCoupon = FV * (cr / 100);
+          var cy = price > 0 ? annualCoupon / price * 100 : 0;
+          var status = Math.abs(price - FV) < 0.005 ? "at par" : (price > FV ? "premium (coupon > yield)" : "discount (coupon < yield)");
+          document.getElementById("bd-out").textContent = "₹" + price.toFixed(2);
+          document.getElementById("bd-sub").textContent = "per ₹" + FV + " face · trading at a " + status;
+          document.getElementById("bd-cy").textContent = fmtPct(cy);
+          document.getElementById("bd-mac").textContent = macYears.toFixed(2) + " yrs";
+          document.getElementById("bd-mod").textContent = modYears.toFixed(2) + " yrs";
+          document.getElementById("bd-formula").textContent =
+            "Price = Σ C/(1+i)^t + FV/(1+i)^n\n   C = " + C.toFixed(2) + " per period,  i = " + (y / m) + "%,  n = " + n +
+            "\nCurrent yield = annual coupon ÷ price";
+        }
+        ["bd-face", "bd-coupon", "bd-years", "bd-yield", "bd-freq"].forEach(function (id) {
+          document.getElementById(id).addEventListener("input", calc);
+        });
+        calc();
+      }
+    },
+
+    riskratio: {
+      key: "riskratio", label: "Risk-adjusted ratios",
+      render: function (el) {
+        el.innerHTML =
+          '<div class="calc-inputs">' +
+            field("rr-rp", "Portfolio return p.a.", "10.5%", 0, 40, 0.1, 10.5) +
+            field("rr-rf", "Risk-free return p.a.", "5.5%", 0, 12, 0.1, 5.5) +
+            field("rr-sd", "Std deviation (total risk)", "6.5%", 0.5, 40, 0.1, 6.5) +
+            field("rr-beta", "Beta (systematic risk)", "1.00", 0.1, 3, 0.01, 1) +
+            field("rr-semi", "Semi-deviation (downside)", "4.5%", 0.5, 40, 0.1, 4.5) +
+          '</div>' +
+          '<div class="calc-output">' +
+            '<div class="calc-result"><div class="r-label">Sharpe ratio</div><div class="r-value" id="rr-sharpe">—</div><div class="r-sub" id="rr-sub"></div></div>' +
+            '<div class="calc-breakdown">' +
+              '<div class="calc-line"><span>Excess return (R<sub>p</sub> − R<sub>f</sub>)</span><span id="rr-excess">—</span></div>' +
+              '<div class="calc-line"><span>Treynor ratio (÷ beta)</span><span id="rr-treynor">—</span></div>' +
+              '<div class="calc-line"><span>Sortino ratio (÷ semi-dev)</span><span id="rr-sortino">—</span></div>' +
+            '</div>' +
+            '<div class="calc-formula" id="rr-formula"></div>' +
+          '</div>';
+        function calc() {
+          var rp = +document.getElementById("rr-rp").value;
+          var rf = +document.getElementById("rr-rf").value;
+          var sd = +document.getElementById("rr-sd").value;
+          var beta = +document.getElementById("rr-beta").value;
+          var semi = +document.getElementById("rr-semi").value;
+          document.getElementById("rr-rp-val").textContent = rp + "%";
+          document.getElementById("rr-rf-val").textContent = rf + "%";
+          document.getElementById("rr-sd-val").textContent = sd + "%";
+          document.getElementById("rr-beta-val").textContent = beta.toFixed(2);
+          document.getElementById("rr-semi-val").textContent = semi + "%";
+          var excess = rp - rf;
+          var sharpe = sd > 0 ? excess / sd : 0;
+          var treynor = beta > 0 ? (excess / 100) / beta : 0;
+          var sortino = semi > 0 ? excess / semi : 0;
+          document.getElementById("rr-sharpe").textContent = sharpe.toFixed(4);
+          document.getElementById("rr-sub").textContent = "return per unit of total risk — higher is better";
+          document.getElementById("rr-excess").textContent = fmtPct(excess);
+          document.getElementById("rr-treynor").textContent = treynor.toFixed(4);
+          document.getElementById("rr-sortino").textContent = sortino.toFixed(4);
+          document.getElementById("rr-formula").textContent =
+            "Sharpe   = (Rp − Rf) ÷ σ        = " + excess.toFixed(2) + "% ÷ " + sd + "%\n" +
+            "Treynor  = (Rp − Rf) ÷ β        = " + (excess / 100).toFixed(4) + " ÷ " + beta.toFixed(2) + " (decimal, systematic risk)\n" +
+            "Sortino  = (Rp − Rf) ÷ semi-dev (downside risk only)";
+        }
+        ["rr-rp", "rr-rf", "rr-sd", "rr-beta", "rr-semi"].forEach(function (id) {
+          document.getElementById(id).addEventListener("input", calc);
+        });
+        calc();
+      }
+    }
+  };
+
+  // Order the calculators appear in the segmented control:
+  var CALC_ORDER = ["tvm", "emi", "ratios", "bond", "riskratio"];
+  var currentCalc = null;
+
+  function renderCalcSeg() {
+    document.getElementById("calc-seg").innerHTML = CALC_ORDER.map(function (k) {
+      return '<button data-calc="' + k + '"' + (k === currentCalc ? ' class="active"' : "") + '>' + CALCS[k].label + '</button>';
+    }).join("");
+    document.querySelectorAll("#calc-seg button").forEach(function (b) {
+      b.addEventListener("click", function () { selectCalc(b.dataset.calc); });
+    });
+  }
+  function selectCalc(key) {
+    if (!CALCS[key]) return;
+    currentCalc = key;
+    renderCalcSeg();
+    CALCS[key].render(document.getElementById("calc-body"));
+  }
+
+  // ---- Init ----
+  selectCalc("tvm");
+  render();
+
+  // expose for later modules / debugging
+  window.NismCheatsheetPage = { selectCalc: selectCalc, CALCS: CALCS, CALC_ORDER: CALC_ORDER };
+})();
+</script>
+</body>
+</html>

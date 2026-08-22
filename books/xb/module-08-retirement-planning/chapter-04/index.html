@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 4 — Retirement Planning Basics | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Retirement Planning Basics — why rising life expectancy makes retirement the goal with the longest accumulation and distribution periods and the largest corpus; the three phases (preparation, pre-retirement, final retirement); how the retirement goal differs from every other financial goal (no loans, no deferral); the four-step planning process (expenses → income requirement → time horizon of years-to and years-in retirement with longevity risk → corpus); the two-fold impact of inflation with a live erosion visualiser reproducing the ₹100 → ₹179/₹321/₹574 workbook figures; the two income-estimation methods with a live two-method calculator reproducing the Rajeev (Replacement Ratio) and Ashish (Expense Protection) worked examples; and superannuation benefits — payment by employer vs funding through an irrevocable trust, approved superannuation funds and the Sec 10(13), 10(25)(iii), 36(iv) and 80C tax treatment, plus trustees' responsibilities. NISM Series-X-B, Module 8, Chapter 4." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive calculator / widget shell ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; flex-wrap:wrap; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1fr 1fr; align-items:start; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .calc-field label { display:flex; justify-content:space-between; font-size:0.82rem; font-weight:700; margin-bottom:6px; }
+  .calc-field label .v { color: var(--gold-600); font-family:var(--font-mono); }
+  .calc-field input[type=range] { width:100%; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.55rem; color:var(--gold-600); margin: 4px 0 10px; line-height:1.2; }
+  .calc-line { display:flex; justify-content:space-between; font-size:0.83rem; padding:6px 0; border-top:1px dashed var(--border-subtle); color:var(--text-secondary); }
+  .calc-line span:last-child { font-family:var(--font-mono); color:var(--text-primary); font-weight:600; }
+  .calc-note { font-size:0.74rem; color:var(--text-secondary); margin-top:12px; line-height:1.5; }
+
+  /* ---- Segmented control ---- */
+  .seg-field { margin-bottom:6px; }
+  .seg-field .sl { display:block; font-size:0.82rem; font-weight:700; margin-bottom:7px; }
+  .seg { display:inline-flex; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden; width:100%; }
+  .seg button { flex:1; border:none; border-right:1px solid var(--border-subtle); background:var(--bg-app); font-size:0.8rem; font-weight:600; padding:10px 13px; cursor:pointer; color:var(--text-secondary); transition:all var(--dur-fast); }
+  .seg button:last-child { border-right:none; }
+  .seg button.on { background:var(--navy-800); color:#fff; font-weight:700; }
+
+  /* ---- Inflation bar chart ---- */
+  .infl-bars { display:flex; align-items:flex-end; gap:14px; height:190px; margin-top:6px; }
+  .infl-bar-wrap { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+  .infl-bar { width:100%; max-width:64px; border-radius:8px 8px 0 0; background:linear-gradient(180deg,var(--gold-500),var(--gold-600)); transition:height .7s var(--ease-spring); position:relative; }
+  .infl-bar.base { background:linear-gradient(180deg,var(--navy-700,var(--navy-800)),var(--navy-800)); }
+  .infl-bar .cap { position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-family:var(--font-mono); font-size:0.78rem; font-weight:700; color:var(--text-primary); white-space:nowrap; }
+  .infl-bar-lbl { font-size:0.72rem; color:var(--text-secondary); margin-top:8px; text-align:center; font-weight:600; }
+
+  /* ---- Sorter (fact-check) ---- */
+  .sorter { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:22px; margin:22px 0; }
+  .sorter h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .sorter .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .sorter-statement { background:var(--bg-surface-2); border-radius:var(--radius-md); padding:18px; font-size:0.95rem; font-weight:600; min-height:60px; display:flex; align-items:center; }
+  .sorter-btns { display:flex; gap:10px; margin:14px 0 8px; }
+  .sorter-btns button { flex:1; padding:12px; border-radius:var(--radius-md); border:1.5px solid var(--border-subtle); font-weight:800; font-size:0.86rem; cursor:pointer; transition:all var(--dur-fast); background:var(--bg-app); }
+  .sorter-btns .do-btn { color:var(--green-500); }
+  .sorter-btns .do-btn:hover { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 10%,var(--bg-app)); }
+  .sorter-btns .dont-btn { color:var(--gold-600); }
+  .sorter-btns .dont-btn:hover { border-color:var(--gold-500); background:color-mix(in srgb,var(--gold-500) 12%,var(--bg-app)); }
+  .sorter-feedback { font-size:0.85rem; font-weight:600; min-height:2.4em; line-height:1.4; }
+  .sorter-feedback.ok { color:var(--green-500); }
+  .sorter-feedback.no { color:var(--danger-500,#d64545); }
+  .sorter-meta { display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-secondary); margin-top:10px; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+
+  /* ---- Matcher ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.9rem; }
+  .reg-card .rd { font-size:0.76rem; color:var(--text-secondary); margin-top:4px; line-height:1.45; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Process step chips ---- */
+  .proc-list { counter-reset: proc; display:grid; gap:10px; margin:18px 0; }
+  .proc-item { display:flex; gap:12px; align-items:flex-start; padding:13px 15px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); }
+  .proc-item::before { counter-increment: proc; content: counter(proc); flex:0 0 26px; width:26px; height:26px; border-radius:50%; background:var(--navy-800); color:#fff; font-family:var(--font-display); font-weight:800; font-size:0.82rem; display:flex; align-items:center; justify-content:center; }
+  .proc-item .pt { font-size:0.85rem; color:var(--text-secondary); }
+  .proc-item .pt strong { color:var(--text-primary); }
+
+  /* ---- Phase pills ---- */
+  .phase-row { display:grid; grid-template-columns:1fr; gap:12px; margin:18px 0; }
+  @media(min-width:720px){ .phase-row { grid-template-columns:repeat(3,1fr); } }
+  .phase-card { border:1px solid var(--border-subtle); border-left:4px solid var(--gold-500); border-radius:var(--radius-md); background:var(--bg-surface); padding:14px 16px; }
+  .phase-card .pn { font-size:0.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--gold-600); font-weight:800; }
+  .phase-card h4 { font-family:var(--font-display); font-size:0.95rem; margin:4px 0 6px; }
+  .phase-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; line-height:1.5; }
+
+  /* ---- SVG animation helpers ---- */
+  .draw-line { fill:none; stroke-dasharray:1000; stroke-dashoffset:1000; }
+  .draw-line.go { animation: draw 1.8s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+  .grow-bar { transform:scaleY(0); transform-origin:bottom; transition:transform 1.1s var(--ease-spring); }
+  .grow-bar.go { transform:scaleY(1); }
+  .rise-el { opacity:0; transform:translateY(16px); transition:opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring); }
+  .rise-el.go { opacity:1; transform:translateY(0); }
+  .area-fill { opacity:0; transition:opacity 1.4s var(--ease-out); }
+  .area-fill.go { opacity:0.14; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+      <a class="nav-link" href="../../../../cheatsheet.html">Cheat Sheet</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 8 · Retirement Planning</span>
+      <span class="badge badge-gold">Chapter 4</span>
+    </div>
+    <h1>Retirement Planning Basics</h1>
+    <p class="lede">Retirement is unlike every other financial goal: it has the <strong>longest accumulation and distribution periods</strong>, needs the <strong>largest corpus</strong>, and <strong>no bank will lend you money for it</strong>. As life expectancy rises, the retired stretch — 20+ years with no salary — has to be funded entirely from savings built during working years. This chapter builds the whole framework: why planning must start early and its <strong>three phases</strong>; how retirement differs from goals like a house or children's education; the <strong>four-step process</strong> (expenses → income → time horizon → corpus); the two-fold bite of <strong>inflation</strong> (with a live erosion visualiser of the ₹100&nbsp;→&nbsp;₹574 workbook figures); the two ways to <strong>estimate retirement income</strong> — the <strong>Replacement Ratio</strong> (Rajeev) and <strong>Expense Protection</strong> (Ashish) methods, both reproduced as a live calculator; and <strong>superannuation benefits</strong> — employer payment vs an irrevocable trust, approved funds and their Section 10(13)/10(25)(iii)/36(iv)/80C tax treatment.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~32 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> <span id="meta-qcount">50</span> assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 2 live calculators + matcher + sorter</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 6 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:760px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The need for retirement planning</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The difference between retirement and other financial goals</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The retirement planning process</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The impact of inflation on the retirement corpus</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Estimating retirement corpus — Replacement Ratio &amp; Expense Protection methods</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Employee benefits &amp; superannuation benefits</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-need">4.1 Need for retirement planning</a></li>
+      <li><a href="#sec-goals">4.2 Retirement vs other goals</a></li>
+      <li><a href="#sec-process">4.3 The planning process</a></li>
+      <li><a href="#sec-inflation">4.3.1 Impact of inflation</a></li>
+      <li><a href="#sec-income">4.4 Estimating retirement income</a></li>
+      <li><a href="#sec-super">4.5 Superannuation benefits</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 4.1 -->
+    <section class="lesson-section" id="sec-need">
+      <span class="section-kicker">4.1</span>
+      <h2>The need for retirement planning</h2>
+      <p><strong>Life expectancy</strong> — the number of years a person is expected to live — keeps rising with better healthcare and living conditions. Longer life, coupled with the difficulty of estimating exactly how long, is precisely what creates the need to plan: the money to fund the retired years must be built during the working years.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H5.2L4 17.5V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>The workbook's illustration — 40 years to fund 20</strong>
+          <p>Take <strong>X, in his 20s</strong>. Assuming a retirement age of 60, he has a <strong>total working life of 40 years</strong>. If life expectancy is <strong>80</strong>, then X must fund <strong>20 years of post-retirement life</strong> with <em>no commitment to work</em>. Those 40 earning years must pay for both his current life <em>and</em> those 20 retired years.</p>
+        </div>
+      </div>
+
+      <p>Retirement planning is <strong>not just about accumulating money</strong> — it is about living a life of one's choice after work stops, which is only possible when planning <strong>starts early</strong>. The common mistake is waiting too long and falling short of time for adequate fund accumulation. In earlier times retirement meant a period when a worker could no longer do anything (through job loss or a layoff); today the definition has changed to a period with <strong>no work involved</strong> — for travel, leisure, hobbies, family or even a financially remunerative change of employment.</p>
+
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:20px 0 6px">The three phases of retirement planning</h3>
+      <div class="phase-row">
+        <div class="phase-card"><div class="pn">Phase A</div><h4>Preparation stage</h4><p>Provide for child education, buy a house to live in, arrange adequate life &amp; health insurance, and recognise the impact of ageing.</p></div>
+        <div class="phase-card"><div class="pn">Phase B</div><h4>Initial / Pre-retirement stage</h4><p>Physical and psychological changes set in; one gets familiar with the retirement regulations and procedures.</p></div>
+        <div class="phase-card"><div class="pn">Phase C</div><h4>Final retirement</h4><p>All necessary arrangements are complete and one is in a good position to decide freely about life ahead.</p></div>
+      </div>
+
+      <p>Society is getting more complex — <strong>longer life expectancy, decreasing retirement benefits, multiple job changes, rising healthcare costs</strong> — all of which make retirement one of the most important and critical elements of financial planning. Whatever the stage of life, careful planning is demanded; the earlier it starts, the more one can shape the retirement income one actually wants.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — In the workbook illustration, X (in his 20s) has a 40-year working life and a life expectancy of 80. How many years of post-retirement life must he fund?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">20 years (age 60 to 80)</button>
+          <button class="mini-opt" data-correct="false">40 years</button>
+          <button class="mini-opt" data-correct="false">10 years</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — retiring at 60 with a life expectancy of 80 leaves 20 years of retired life to fund, entirely from the 40 working years." data-wrong-msg="Not quite — retiring at 60 with a life expectancy of 80 leaves 80 − 60 = 20 years of post-retirement life to fund."></div>
+      </div>
+    </section>
+
+    <!-- 4.2 -->
+    <section class="lesson-section" id="sec-goals">
+      <span class="section-kicker">4.2</span>
+      <h2>How retirement differs from other financial goals</h2>
+      <p>People usually plan retirement <strong>alongside</strong> other goals — children's education, buying a house or car. All are important, but retirement is <strong>fundamentally different</strong> in two ways:</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🏦 No loan is available</h4>
+          <ul>
+            <li>Most goals can be met with a <strong>loan</strong> if assets aren't yet accumulated — banks compete to offer finance based on earnings and work profile.</li>
+            <li><strong>No company gives a loan to meet retirement needs.</strong> The corpus must be self-funded.</li>
+            <li>Yet most people still avoid talking about it.</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>⏳ It gets deferred — dangerously</h4>
+          <ul>
+            <li>Goals like children's education have a <strong>defined, hard time horizon</strong> (e.g. college ~14–15 years from starting school) that <strong>can't be delayed</strong> by 4–5 years.</li>
+            <li>Retirement, by contrast, is often <strong>postponed</strong> to adjust for other goals — a loan is taken, or the retirement kitty is withdrawn.</li>
+            <li>This delay can be <strong>catastrophic</strong>: requirements multiply and the early-start benefits are lost.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Why raiding the retirement kitty backfires</strong>
+          <p>If college funds fall short, families often either take a loan <em>or</em> dip into the retirement corpus — pushing the retirement goal back a few years. But retirement has the <strong>longest accumulation period</strong>, so a few years lost early costs disproportionately: the financial requirement increases manifold and can become very hard to achieve once the early compounding is missed.</p>
+        </div>
+      </div>
+
+      <div class="sorter" id="fact-sorter">
+        <h4>Fact check — true or false?</h4>
+        <div class="hint">Decide whether each statement about the retirement goal is true.</div>
+        <div class="sorter-statement" id="fact-statement">Loading…</div>
+        <div class="sorter-btns">
+          <button class="do-btn" data-answer="true">✓ True</button>
+          <button class="dont-btn" data-answer="false">✕ False</button>
+        </div>
+        <div class="sorter-feedback" id="fact-feedback"></div>
+        <div class="sorter-meta"><span id="fact-progress">Statement 1</span><span id="fact-score">Score: 0</span></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which single feature most sharply separates the retirement goal from goals like a house or a car?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">No lender provides a loan to fund retirement — it must be self-accumulated</button>
+          <button class="mini-opt" data-correct="false">Retirement needs a much smaller corpus than other goals</button>
+          <button class="mini-opt" data-correct="false">Retirement has the shortest time horizon of all goals</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — many goals can be met with a loan, but no company lends money for retirement, so the entire corpus must be built from one's own savings." data-wrong-msg="Not quite — retirement actually needs the largest corpus and the longest horizon. The key difference is that no lender finances retirement, so it must be self-funded."></div>
+      </div>
+    </section>
+
+    <!-- 4.3 -->
+    <section class="lesson-section" id="sec-process">
+      <span class="section-kicker">4.3</span>
+      <h2>The retirement planning process</h2>
+      <p>The retirement goal has the <strong>longest accumulation and distribution periods</strong> and requires the <strong>largest corpus</strong>. The income needed can only be pinned down with certainty close to retirement, yet the corpus must be built from the very start of working life — with many variables that will change repeatedly over the long horizon. That demands rigour in setting the variables and <strong>periodic monitoring</strong>. The process runs in four steps:</p>
+
+      <div class="proc-list">
+        <div class="proc-item"><div class="pt"><strong>Determine expenses in retirement.</strong> Retirement expenses differ from pre-retirement ones. Heads include housing (utilities, maintenance, taxes), living expenses (food &amp; personal upkeep), medical care, transportation, recreation, insurance (life/health/disability) and taxes.</div></div>
+        <div class="proc-item"><div class="pt"><strong>Determine the income requirement in retirement.</strong> Consider maintaining the standard of living, the expenses to be met, and the inflation rate.</div></div>
+        <div class="proc-item"><div class="pt"><strong>Set the time horizon.</strong> Two periods are central — <strong>years to retirement</strong> and <strong>years in retirement</strong> (below).</div></div>
+        <div class="proc-item"><div class="pt"><strong>Determine the retirement corpus.</strong> The corpus that will generate the required income depends on the periodic income required, the expected inflation rate, the rate of return the corpus earns, and the period of retirement.</div></div>
+      </div>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>📆 Years to retirement</h4>
+          <ul>
+            <li>The period from <strong>now to the year of retirement</strong> (retirement age − current age); it shrinks each year the retirement age is unchanged.</li>
+            <li>Determines the <strong>inflation-adjusted cost</strong> of retirement expenses — the <strong>lower</strong> the number, the <strong>smaller</strong> the inflation effect.</li>
+            <li>Also drives the periodic saving needed: a <strong>longer</strong> period means <strong>greater compounding</strong> and a <strong>lower</strong> allocation from savings.</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🎯 Years in / during retirement</h4>
+          <ul>
+            <li>From the <strong>start of retirement to the end of life</strong> for which income must be secured — it cannot be defined precisely.</li>
+            <li>Estimated from average life expectancy for the gender, health, genetics and lifestyle.</li>
+            <li><strong>Underestimating it is longevity risk</strong> — the money may run out before life does.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="corpus-svg" viewBox="0 0 640 320" width="100%" style="max-width:640px">
+            <text x="320" y="22" text-anchor="middle" style="font-size:12px;font-weight:800;fill:var(--text-primary)">The corpus: built up, then drawn down</text>
+            <!-- axes -->
+            <line x1="60" y1="255" x2="600" y2="255" stroke="var(--border-strong,var(--border-subtle))" stroke-width="1.5"/>
+            <!-- retirement divider -->
+            <line class="fade-el" id="corpus-div" x1="340" y1="60" x2="340" y2="255" stroke="var(--gold-600)" stroke-width="1.5" stroke-dasharray="5 5"/>
+            <text class="fade-el" id="corpus-div-t" x="340" y="52" text-anchor="middle" style="font-size:10px;font-weight:800;fill:var(--gold-600)">Retirement (age 60)</text>
+            <!-- area under curve -->
+            <path class="area-fill" id="corpus-area" d="M60,255 C 180,250 260,150 340,80 C 420,120 520,248 590,252 L 590,255 L 60,255 Z" fill="var(--navy-800)"/>
+            <!-- corpus curve -->
+            <path class="draw-line" id="corpus-curve" d="M60,255 C 180,250 260,150 340,80 C 420,120 520,248 590,252" stroke="var(--navy-800)" stroke-width="2.6"/>
+            <!-- peak marker -->
+            <circle class="rise-el" id="corpus-peak" cx="340" cy="80" r="5" fill="var(--gold-500)" stroke="#fff" stroke-width="1.5"/>
+            <text class="fade-el" id="corpus-peak-t" x="340" y="72" text-anchor="middle" style="font-size:9px;font-weight:700;fill:var(--gold-600)">Peak corpus</text>
+            <!-- stage labels -->
+            <text class="fade-el" id="corpus-acc" x="195" y="235" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--navy-800)">Accumulation stage</text>
+            <text class="fade-el" id="corpus-acc2" x="195" y="249" text-anchor="middle" style="font-size:8.5px;fill:var(--text-secondary)">save &amp; invest</text>
+            <text class="fade-el" id="corpus-dist" x="470" y="200" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--gold-600)">Distribution stage</text>
+            <text class="fade-el" id="corpus-dist2" x="470" y="214" text-anchor="middle" style="font-size:8.5px;fill:var(--text-secondary)">corpus pays income</text>
+            <!-- age markers -->
+            <text class="fade-el" id="corpus-a1" x="60" y="272" text-anchor="middle" style="font-size:9px;fill:var(--text-secondary)">age 25</text>
+            <text class="fade-el" id="corpus-a2" x="340" y="272" text-anchor="middle" style="font-size:9px;fill:var(--text-secondary)">60</text>
+            <text class="fade-el" id="corpus-a3" x="590" y="272" text-anchor="middle" style="font-size:9px;fill:var(--text-secondary)">85</text>
+          </svg>
+        </div>
+        <div class="caption">The <strong>accumulation stage</strong> is where saving and investing build the corpus; the <strong>distribution stage</strong> is where that corpus is drawn down to generate retirement income. The retirement goal spans <em>both</em> — which is why it has the longest combined horizon of any goal.</div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which variable is <strong>not</strong> used directly in determining the size of the retirement corpus?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The interest rate on a personal loan the individual can obtain</button>
+          <button class="mini-opt" data-correct="false">The periodic income required in retirement</button>
+          <button class="mini-opt" data-correct="false">The expected rate of inflation</button>
+          <button class="mini-opt" data-correct="false">The rate of return expected to be generated by the corpus</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the corpus depends on the periodic income required, expected inflation, the return the corpus earns, and the period of retirement. No loan is available for retirement, so a loan rate is irrelevant." data-wrong-msg="Not quite — the periodic income, inflation, corpus return and retirement period all feed the corpus calculation. A loan rate does not — no lender finances retirement."></div>
+      </div>
+    </section>
+
+    <!-- 4.3.1 -->
+    <section class="lesson-section" id="sec-inflation">
+      <span class="section-kicker">4.3.1</span>
+      <h2>The impact of inflation</h2>
+      <p><strong>Inflation</strong> is a general rise in the price of goods and services over time. As prices rise, one unit of money buys less — inflation <strong>eats away the purchasing power</strong> of money. It hits retirement planning <strong>in two ways</strong>:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>① Inflating the target</h4>
+          <ul><li>Today's expenses must be <strong>grown to their value at retirement</strong> to find the income required at the <em>start</em> of retirement.</li></ul>
+        </div>
+        <div class="col-card">
+          <h4>② Eroding through retirement</h4>
+          <ul><li>Prices keep rising <em>during</em> the (20+ year) retirement period too, so the income needed must keep growing every year to hold purchasing power steady.</li></ul>
+        </div>
+      </div>
+
+      <p>The workbook's illustration: at <strong>6% inflation</strong>, an item costing <strong>₹100 today</strong> would cost about <strong>₹179 in 10 years, ₹321 in 20 years and ₹574 in 30 years</strong>. Vary the cost and rate below to watch the erosion.</p>
+
+      <div class="calc" id="calc-infl">
+        <div class="calc-title"><span class="pill">Interactive</span> Inflation erosion visualiser</div>
+        <div class="calc-sub">Future cost = Present cost &times; (1 + inflation)<sup>years</sup>. Defaults reproduce the workbook: ₹100 at 6% &rarr; ₹179 / ₹321 / ₹574.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="calc-field"><label>Cost today <span class="v" id="if-cost-v">₹100</span></label><input type="range" id="if-cost" min="100" max="5000" step="100" value="100"></div>
+            <div class="calc-field"><label>Inflation rate <span class="v" id="if-rate-v">6%</span></label><input type="range" id="if-rate" min="1" max="12" step="0.5" value="6"></div>
+            <div class="calc-note">The same ₹100 basket losing value is why a corpus sized only for <em>today's</em> expenses will fall short by retirement — and why the retirement income must rise every year.</div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Cost after 30 years</div>
+            <div class="out-val" id="if-30">₹574</div>
+            <div class="infl-bars" id="if-bars">
+              <div class="infl-bar-wrap"><div class="infl-bar base" id="if-b0" style="height:20%"><span class="cap" id="if-c0">₹100</span></div><div class="infl-bar-lbl">Today</div></div>
+              <div class="infl-bar-wrap"><div class="infl-bar" id="if-b10" style="height:31%"><span class="cap" id="if-c10">₹179</span></div><div class="infl-bar-lbl">10 yrs</div></div>
+              <div class="infl-bar-wrap"><div class="infl-bar" id="if-b20" style="height:56%"><span class="cap" id="if-c20">₹321</span></div><div class="infl-bar-lbl">20 yrs</div></div>
+              <div class="infl-bar-wrap"><div class="infl-bar" id="if-b30" style="height:100%"><span class="cap" id="if-c30">₹574</span></div><div class="infl-bar-lbl">30 yrs</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Inflation-adjusted (real) return</strong>
+          <p>When a corpus earns a return but inflation is eroding purchasing power, what matters is the <strong>real return</strong>:</p>
+          <p style="font-family:var(--font-mono);font-size:0.9rem;background:var(--bg-surface-2);padding:10px 12px;border-radius:8px;margin-top:8px">Real return = <sup>(1 + nominal return)</sup>&frasl;<sub>(1 + inflation)</sub> &minus; 1</p>
+          <p>A corpus growing at 8% while inflation runs 6% grows in <em>real</em> terms at only ≈1.89% — this real rate is what should be used to discount future retirement income to today.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — At 6% inflation, roughly what would an item costing ₹100 today cost in 30 years (per the workbook)?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">About ₹574</button>
+          <button class="mini-opt" data-correct="false">About ₹179</button>
+          <button class="mini-opt" data-correct="false">About ₹300</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — ₹100 × (1.06)³⁰ ≈ ₹574. The same basket costs ₹179 in 10 years and ₹321 in 20 years." data-wrong-msg="Not quite — ₹179 is the 10-year figure. Over 30 years at 6%, ₹100 grows to about ₹574 (₹321 at 20 years)."></div>
+      </div>
+    </section>
+
+    <!-- 4.4 -->
+    <section class="lesson-section" id="sec-income">
+      <span class="section-kicker">4.4</span>
+      <h2>Estimating retirement income — two methods</h2>
+      <p>There are two standard ways to estimate the income a person will need in retirement. Pick a method in the calculator to reproduce the workbook's worked example, then vary the inputs.</p>
+
+      <div class="matcher" id="method-matcher">
+        <h4>The two methods — tap to compare</h4>
+        <div class="hint">Both estimate retirement income; they start from different anchors.</div>
+        <div class="match-markets" id="method-markets">
+          <button class="match-mkt" data-reg="RR">Replacement Ratio</button>
+          <button class="match-mkt" data-reg="EP">Expense Protection</button>
+        </div>
+        <div class="match-regs" id="method-cards">
+          <div class="reg-card" data-reg="RR"><div class="rn">Replacement Ratio Method</div><div class="rd">Assumes the <strong>standard of living just before retirement</strong> continues. Retirement income = a <strong>ratio (e.g. 80%)</strong> of pre-retirement income, then <strong>grown by inflation every year</strong> to hold purchasing power. Easier and more accurate when defining the target from income.</div></div>
+          <div class="reg-card" data-reg="EP"><div class="rn">Expense Protection Method</div><div class="rd">Defines retirement income <strong>from the expenses in retirement</strong>. Requires keeping a <strong>detailed monthly budget</strong>; tracking expenses gives a realistic view of retirement cost. Easier for those <strong>nearing retirement</strong>.</div></div>
+        </div>
+        <div class="match-feedback" id="method-feedback"></div>
+      </div>
+
+      <div class="calc" id="calc-income">
+        <div class="calc-title"><span class="pill">Interactive</span> Retirement income estimator</div>
+        <div class="calc-sub">Switch methods to reproduce each workbook case, then move the sliders.</div>
+        <div class="seg-field">
+          <span class="sl">Method</span>
+          <div class="seg" id="inc-method">
+            <button data-m="RR" class="on">Replacement Ratio (Rajeev)</button>
+            <button data-m="EP">Expense Protection (Ashish)</button>
+          </div>
+        </div>
+
+        <!-- Replacement Ratio controls -->
+        <div class="calc-grid" id="inc-rr">
+          <div class="calc-controls">
+            <div class="calc-field"><label>Current monthly income <span class="v" id="rr-inc-v">₹1,00,000</span></label><input type="range" id="rr-inc" min="20000" max="300000" step="5000" value="100000"></div>
+            <div class="calc-field"><label>Income growth rate p.a. <span class="v" id="rr-g-v">10%</span></label><input type="range" id="rr-g" min="0" max="15" step="0.5" value="10"></div>
+            <div class="calc-field"><label>Years to retirement <span class="v" id="rr-yrs-v">10</span></label><input type="range" id="rr-yrs" min="1" max="35" step="1" value="10"></div>
+            <div class="calc-field"><label>Replacement ratio <span class="v" id="rr-ratio-v">50%</span></label><input type="range" id="rr-ratio" min="40" max="100" step="5" value="50"></div>
+            <div class="calc-field"><label>Post-retirement inflation <span class="v" id="rr-infl-v">7%</span></label><input type="range" id="rr-infl" min="1" max="12" step="0.5" value="7"></div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Replacement income — year 1 of retirement</div>
+            <div class="out-val" id="rr-out">₹1,29,687</div>
+            <div class="calc-line"><span>Income at retirement (grown)</span><span id="rr-atret">₹2,59,374</span></div>
+            <div class="calc-line"><span>&times; Replacement ratio</span><span id="rr-ratio-l">50%</span></div>
+            <div class="calc-line"><span>Year-1 replacement income</span><span id="rr-y1">₹1,29,687</span></div>
+            <div class="calc-line"><span>Year-2 (grown by inflation)</span><span id="rr-y2">₹1,38,765</span></div>
+            <div class="calc-note">Workbook: Rajeev (50), ₹1,00,000/mo, retires at 60. Income grows 10% p.a. &rarr; ₹1,00,000&times;1.1<sup>10</sup> = ₹2,59,374; &times;0.50 = ₹1,29,687; grown 7% &rarr; year 2 ₹1,38,765.</div>
+          </div>
+        </div>
+
+        <!-- Expense Protection controls -->
+        <div class="calc-grid" id="inc-ep" style="display:none">
+          <div class="calc-controls">
+            <div class="calc-field"><label>Current monthly income <span class="v" id="ep-inc-v">₹60,000</span></label><input type="range" id="ep-inc" min="20000" max="300000" step="5000" value="60000"></div>
+            <div class="calc-field"><label>Household expense (% of income) <span class="v" id="ep-pct-v">50%</span></label><input type="range" id="ep-pct" min="20" max="90" step="5" value="50"></div>
+            <div class="calc-field"><label>Additional expense at retirement <span class="v" id="ep-add-v">₹15,000</span></label><input type="range" id="ep-add" min="0" max="60000" step="1000" value="15000"></div>
+            <div class="calc-field"><label>Years to retirement <span class="v" id="ep-yrs-v">20</span></label><input type="range" id="ep-yrs" min="1" max="35" step="1" value="20"></div>
+            <div class="calc-field"><label>Inflation rate <span class="v" id="ep-infl-v">6%</span></label><input type="range" id="ep-infl" min="1" max="12" step="0.5" value="6"></div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Monthly expense at time of retirement</div>
+            <div class="out-val" id="ep-out">₹1,44,321</div>
+            <div class="calc-line"><span>Current household expense</span><span id="ep-hh">₹30,000</span></div>
+            <div class="calc-line"><span>+ Additional retirement expense</span><span id="ep-addl">₹15,000</span></div>
+            <div class="calc-line"><span>Total current retirement expense</span><span id="ep-tot">₹45,000</span></div>
+            <div class="calc-line"><span>Inflated over the years</span><span id="ep-infl-l">&times;(1.06)²⁰</span></div>
+            <div class="calc-note">Workbook: Ashish (40), ₹60,000/mo income, 50% household = ₹30,000; +₹15,000 additional = ₹45,000; retires at 60 (20 yrs); 6% inflation &rarr; ₹45,000&times;1.06<sup>20</sup> = ₹1,44,321.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Reductions in living expense and taxes</strong>
+          <p>Some expenses <strong>fall</strong> at retirement — a housing loan ends, children's education is over, work-related costs disappear, and some long-term savings stop. Others <strong>rise</strong> — medical care, travel. And because income often <strong>drops</strong> just after retirement, one may fall into a <strong>lower tax bracket</strong>, eliminating a good chunk of tax liability. Together these <em>reduce</em> the retirement income actually required.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Both methods share one limitation — the further off, the fuzzier</strong>
+          <p>The <strong>more years to retirement, the less accurate</strong> either estimate is. For the <em>replacement ratio</em>, a distant retirement makes the income estimate imprecise (though starting early lets you hit the wage-replacement goal with a lower required return). For the <em>expense protection</em> method, forecasting future expenses far ahead relies on speculation. Either way, the estimate must be <strong>reviewed periodically</strong>.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Rajeev (50) earns ₹1,00,000/mo and retires at 60; income grows 10% p.a. and he wants a 50% replacement. What is his year-1 replacement income (per the workbook)?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">₹1,29,687 (₹1,00,000×1.1¹⁰ = ₹2,59,374, then ×0.50)</button>
+          <button class="mini-opt" data-correct="false">₹50,000 (50% of ₹1,00,000)</button>
+          <button class="mini-opt" data-correct="false">₹2,59,374 (the grown income itself)</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — income first grows to ₹1,00,000×1.1¹⁰ = ₹2,59,374 at retirement, then the 50% replacement ratio gives ₹1,29,687 for year 1 (rising 7% each following year)." data-wrong-msg="Not quite — the replacement ratio is applied to the income at retirement, not today's. ₹1,00,000×1.1¹⁰ = ₹2,59,374; ×0.50 = ₹1,29,687."></div>
+      </div>
+    </section>
+
+    <!-- 4.5 -->
+    <section class="lesson-section" id="sec-super">
+      <span class="section-kicker">4.5</span>
+      <h2>Superannuation benefits to employees</h2>
+      <p><strong>Superannuation</strong> is an organisational pension programme created by a company for its employees — also called a <strong>company pension plan</strong>. Funds in a superannuation account typically <strong>grow without tax implications</strong> until retirement or withdrawal. Once an employer puts a superannuation benefit in place, it becomes a <strong>liability</strong> to meet.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>No statutory pension in India — except the EPS, 1995</strong>
+          <p>India has <strong>no legislation providing statutory superannuation (pension)</strong> except for employees covered under the <strong>Employees' Pension Scheme, 1995</strong>. Government bodies, nationalised banks and a few others may choose to pay pension; all other establishments (public or private) must arrange <strong>annuities through LIC or another IRDAI-approved life insurer</strong>.</p>
+        </div>
+      </div>
+
+      <p>An employer can meet the liability through one of two arrangements:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>① Payment by the employer</h4>
+          <ul>
+            <li>Pay a <strong>lump-sum contribution from current revenue to buy an immediate annuity</strong> from a life insurer — sometimes as a reward for a few dedicated employees.</li>
+            <li>Paying pensions <strong>directly out of current revenue</strong> (pay-as-you-go) is <strong>not allowed</strong>: payments would depend on the employer's profits each year and collapse if the employer goes bankrupt.</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>② Funding through a Superannuation Trust</h4>
+          <ul>
+            <li>Create an <strong>irrevocable Trust</strong>, distinct from the employer, and appoint Trustees.</li>
+            <li>Transfer the contributions (employer's, and employees' if contributory) to the <strong>Trust Fund</strong>, setting aside the accruing liability every year.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Why pay-as-you-go is barred</strong>
+          <p><strong>Accounting Standard 15 (ICAI)</strong> does not allow companies to provide for retirement benefits only when they fall due — all benefits must be provided for <strong>in the year of accrual</strong>. And <strong>Section 2(11) of the Insurance Act</strong> defines life-insurance business to include superannuation allowances and annuities, making it obligatory to arrange these <strong>through an IRDAI-registered life insurer</strong>. So the employer must create a fund and set aside the liability on an accrual basis each year.</p>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:22px 0 6px">Approved superannuation funds — the tax treatment</h3>
+      <p>To claim tax deduction on contributions, the employer must get the fund <strong>approved by the Commissioner of Income Tax</strong> under the rules in <strong>Part B of the Fourth Schedule</strong> of the Income Tax Act. Once approved, contributions (within prescribed limits) are a deductible business expense. Conditions for approval, and the tax sections that follow, are below — tap each section:</p>
+
+      <div class="callout callout-insight" style="margin-top:0">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Conditions for approval (Part B, Fourth Schedule)</strong>
+          <p>Established under an <strong>irrevocable trust</strong> connected with a trade/undertaking in India, with <strong>≥ 90% of employees employed in India</strong>; its <strong>sole purpose</strong> is providing annuities on retirement (at/after a specified age or on incapacitation) or to widows/children/dependents on death; the <strong>employer must be a contributor</strong>; and all annuities, pensions and benefits are <strong>payable only in India</strong>.</p>
+        </div>
+      </div>
+
+      <div class="matcher" id="tax-matcher">
+        <h4>Superannuation tax sections — tap a section</h4>
+        <div class="hint">Four Income Tax provisions govern an approved superannuation fund.</div>
+        <div class="match-markets" id="tax-markets">
+          <button class="match-mkt" data-reg="S1013">Sec 10(13)</button>
+          <button class="match-mkt" data-reg="S1025">Sec 10(25)(iii)</button>
+          <button class="match-mkt" data-reg="S36">Sec 36(iv)</button>
+          <button class="match-mkt" data-reg="S80C">Sec 80C</button>
+        </div>
+        <div class="match-regs" id="tax-cards">
+          <div class="reg-card" data-reg="S1013"><div class="rn">Section 10(13) — payments exempt</div><div class="rd">Any payment from an approved superannuation fund — on the <strong>death</strong> of a beneficiary, in lieu of / commutation of an <strong>annuity on retirement</strong> at/after a specified age or on <strong>incapacitation</strong>, refund of contributions on death, or transfer to an <strong>NPS pension scheme under 80CCD</strong> — is <strong>not included in total income</strong>.</div></div>
+          <div class="reg-card" data-reg="S1025"><div class="rn">Section 10(25)(iii) — fund income exempt</div><div class="rd">Any income <strong>received by the trustees</strong> on behalf of an approved superannuation fund is <strong>not included</strong> in computing the trust's total income — so the fund <strong>accumulates in a tax-free environment</strong>.</div></div>
+          <div class="reg-card" data-reg="S36"><div class="rn">Section 36(iv) — employer's deduction</div><div class="rd">Any sum paid by the <strong>employer as a contribution</strong> to an approved superannuation fund (subject to prescribed limits and CBDT conditions) is <strong>allowed as a deduction</strong> in computing the employer's business income.</div></div>
+          <div class="reg-card" data-reg="S80C"><div class="rn">Section 80C — employee's deduction</div><div class="rd">Any contribution made by an <strong>employee</strong> to an approved superannuation fund is <strong>eligible for deduction</strong> in computing taxable income, subject to the ceiling prescribed by the Income Tax Act.</div></div>
+        </div>
+        <div class="match-feedback" id="tax-feedback"></div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H5.2L4 17.5V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Trustees' responsibilities (in brief)</strong>
+          <p>The Trustees of an approved Superannuation Trust must: hold <strong>periodic meetings</strong> and keep minutes; keep the company informed of decisions; <strong>collect contributions</strong> (calculated by an Actuary for a defined-benefit scheme); <strong>invest</strong> the money per the IT Rules pattern and re-invest the interest earned; arrange the <strong>pension benefits</strong> per the options chosen; <strong>deduct tax at source</strong> on annuity payments (or advise the insurer to); and prepare, <strong>audit and submit annual accounts</strong> to the IT authorities.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Under which section is the <strong>income earned by the trustees</strong> of an approved superannuation fund exempt, letting the fund accumulate tax-free?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Section 10(25)(iii)</button>
+          <button class="mini-opt" data-correct="false">Section 10(13)</button>
+          <button class="mini-opt" data-correct="false">Section 36(iv)</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — Section 10(25)(iii) exempts income received by the trustees on behalf of an approved superannuation fund, so the fund accumulates tax-free. Section 10(13) exempts payments to beneficiaries; 36(iv) is the employer's deduction." data-wrong-msg="Not quite — Section 10(13) exempts payments made to beneficiaries. It is Section 10(25)(iii) that exempts the fund's own income received by the trustees."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The concepts, methods and rules most likely to be tested — tap to reveal.</p>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:14px 0 6px">Concepts &amp; methods</h3>
+      <div class="flip-grid" id="concept-cards"></div>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:22px 0 6px">Numbers, formulas &amp; tax sections</h3>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xb", CHAPTER_ID = "ch04";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 8", href: "../../index.html" },
+    { label: "Chapter 4", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  if (window.NISM_CH04_QUESTIONS) {
+    var mc = document.getElementById("meta-qcount");
+    if (mc) mc.textContent = window.NISM_CH04_QUESTIONS.length;
+  }
+
+  // ---------- Formatting ----------
+  function fmtR(n) {
+    // Indian grouping, rounded to integer rupees
+    var v = Math.round(n);
+    var s = String(Math.abs(v));
+    var last3 = s.slice(-3), rest = s.slice(0, -3);
+    if (rest) last3 = "," + last3;
+    rest = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+    return "₹" + (v < 0 ? "-" : "") + rest + last3;
+  }
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:15px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+
+  renderFlip("concept-cards", [
+    { icon: "⏳", label: "Why plan for retirement", back: "Rising life expectancy means a long, work-free retired stretch (e.g. 20 years) must be funded from working years. Planning is about living a life of choice, not just money — and must start early." },
+    { icon: "🧩", label: "3 phases", back: "(a) Preparation — child education, home, insurance, ageing; (b) Pre-retirement — physical/psychological changes, learn the rules; (c) Final retirement — arrangements complete." },
+    { icon: "🏦", label: "Retirement vs other goals", back: "No lender finances retirement — it must be self-funded. Other goals (house, education) have hard time horizons and loan options; retirement is often deferred, which is catastrophic." },
+    { icon: "🪜", label: "4-step process", back: "1) Determine retirement expenses; 2) Determine income requirement; 3) Set time horizon (years to & years in retirement); 4) Determine the corpus." },
+    { icon: "📆", label: "Years to retirement", back: "Retirement age − current age. Lower ⇒ smaller inflation effect on cost. Longer ⇒ greater compounding, lower saving allocation needed." },
+    { icon: "🎯", label: "Years in retirement", back: "Start of retirement to end of life; can't be defined precisely — estimated from life expectancy. Underestimating it = longevity risk (money runs out)." },
+    { icon: "📉", label: "Inflation — two hits", back: "① inflates today's expenses up to the value at retirement; ② keeps eroding purchasing power through the 20+ retired years, so income must rise yearly." },
+    { icon: "📊", label: "Replacement Ratio method", back: "Assumes pre-retirement standard of living continues. Income = ratio (e.g. 80%) of pre-retirement income, grown by inflation yearly. Anchored on income." },
+    { icon: "🧾", label: "Expense Protection method", back: "Defines income from retirement expenses; needs a detailed monthly budget. Easier for those near retirement; hard to forecast expenses far ahead." },
+    { icon: "🏢", label: "Superannuation", back: "A company pension plan; funds grow tax-free until retirement/withdrawal. No statutory pension in India except EPS 1995; others arrange annuities via LIC/IRDAI insurers." },
+    { icon: "🤝", label: "Two employer arrangements", back: "① Payment by employer (lump sum → immediate annuity; pay-as-you-go barred). ② Funding through an irrevocable Trust distinct from the employer." },
+    { icon: "✅", label: "Approved superannuation fund", back: "Approved by the Commissioner of Income Tax (Part B, Fourth Schedule). Irrevocable trust, ≥90% employees in India, sole purpose annuities, employer contributes, benefits payable only in India." }
+  ]);
+
+  renderFlip("revision-cards", [
+    { icon: "40 → 20", label: "Working vs retired years", back: "Workbook: X retires at 60 with 40 working years; life expectancy 80 ⇒ 20 years of retired life to fund." },
+    { icon: "₹100→₹574", label: "Inflation @ 6% / 30 yrs", back: "At 6%, ₹100 today ≈ ₹179 in 10 yrs, ₹321 in 20 yrs, ₹574 in 30 yrs. Future cost = Present × (1+inflation)^years." },
+    { icon: "(1+r)/(1+i)−1", label: "Real return", back: "Inflation-adjusted return = ((1+nominal)/(1+inflation)) − 1. 8% return & 6% inflation ⇒ ≈1.89% real." },
+    { icon: "₹1,29,687", label: "Rajeev — replacement income", back: "₹1,00,000×1.1¹⁰ = ₹2,59,374 at retirement; ×0.50 = ₹1,29,687 year 1; ×1.07 = ₹1,38,765 year 2." },
+    { icon: "₹1,44,321", label: "Ashish — expense at retirement", back: "₹30,000 household + ₹15,000 additional = ₹45,000; ×1.06²⁰ = ₹1,44,321 monthly expense at retirement (20 yrs to go)." },
+    { icon: "EPS 1995", label: "Only statutory pension", back: "India has no statutory superannuation except the Employees' Pension Scheme, 1995. Others arrange annuities via LIC / IRDAI-approved insurers." },
+    { icon: "AS 15", label: "Provide on accrual", back: "Accounting Standard 15 (ICAI) requires retirement benefits to be provided for in the year of accrual — pay-as-you-go is not allowed. Insurance Act Sec 2(11) mandates an IRDAI insurer." },
+    { icon: "10(13)", label: "Payments exempt", back: "Payments from an approved superannuation fund (death, commutation of annuity on retirement/incapacitation, refund, transfer to NPS 80CCD) are excluded from total income." },
+    { icon: "10(25)(iii)", label: "Fund income exempt", back: "Income received by the trustees on behalf of the fund is exempt — the fund accumulates tax-free." },
+    { icon: "36(iv) / 80C", label: "Contribution deductions", back: "36(iv): employer's contribution is a deductible business expense (within limits). 80C: employee's contribution is deductible up to the prescribed ceiling." }
+  ], "mono");
+
+  // ---------- Matcher wiring ----------
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("method-markets", "method-cards", "method-feedback", {
+    RR: "Replacement Ratio — assumes the pre-retirement standard of living continues; income = a ratio of pre-retirement income, grown by inflation each year.",
+    EP: "Expense Protection — defines income from actual retirement expenses; needs a detailed budget; easier for those near retirement."
+  });
+  wireMatcher("tax-markets", "tax-cards", "tax-feedback", {
+    S1013: "Section 10(13) — payments from an approved superannuation fund (death/commutation/incapacitation/refund/transfer to NPS) are exempt from total income.",
+    S1025: "Section 10(25)(iii) — income received by the trustees on behalf of the fund is exempt; the fund accumulates tax-free.",
+    S36: "Section 36(iv) — the employer's contribution is allowed as a deduction from business income (within prescribed limits).",
+    S80C: "Section 80C — the employee's contribution to an approved superannuation fund is deductible up to the prescribed ceiling."
+  });
+
+  // ---------- Fact-check sorter ----------
+  (function () {
+    var statements = [
+      { text: "A bank will readily give you a loan to build your retirement corpus.", val: false, why: "No company gives a loan to meet retirement needs — the corpus must be self-accumulated." },
+      { text: "Retirement is the goal with the longest accumulation and distribution periods and the largest corpus.", val: true, why: "That is exactly what makes retirement unique among financial goals." },
+      { text: "Children's college education has a hard time horizon that generally cannot be delayed by 4–5 years.", val: true, why: "Education goals have a defined timeframe; retirement, by contrast, is often deferred." },
+      { text: "Underestimating the number of years in retirement is called longevity risk.", val: true, why: "It means the corpus may run out before the end of life." },
+      { text: "The longer the years to retirement, the greater the compounding and the lower the saving allocation required.", val: true, why: "A longer horizon lets compounding do more of the work." },
+      { text: "Inflation reduces the size of retirement corpus you need to accumulate.", val: false, why: "Inflation increases the corpus required — it raises future expenses and erodes purchasing power through retirement." },
+      { text: "India provides a statutory pension to all employees regardless of scheme.", val: false, why: "There is no statutory superannuation in India except for employees covered under the EPS, 1995." },
+      { text: "An employer may simply pay pensions out of current revenue as and when they fall due.", val: false, why: "Pay-as-you-go is not allowed — AS 15 requires provisioning on accrual, and benefits must be arranged via an IRDAI insurer or a funded trust." }
+    ];
+    var i = 0, score = 0, answered = false;
+    var stEl = document.getElementById("fact-statement"),
+        fbEl = document.getElementById("fact-feedback"),
+        progEl = document.getElementById("fact-progress"),
+        scoreEl = document.getElementById("fact-score"),
+        btns = document.querySelectorAll("#fact-sorter .sorter-btns button");
+    function show() {
+      answered = false;
+      stEl.textContent = statements[i].text;
+      fbEl.textContent = ""; fbEl.className = "sorter-feedback";
+      progEl.textContent = "Statement " + (i + 1) + " of " + statements.length;
+    }
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (answered) return;
+        answered = true;
+        var pick = b.dataset.answer === "true";
+        var correct = pick === statements[i].val;
+        if (correct) { score++; fbEl.className = "sorter-feedback ok"; fbEl.textContent = "✓ " + statements[i].why; }
+        else { fbEl.className = "sorter-feedback no"; fbEl.textContent = "✕ " + statements[i].why; }
+        scoreEl.textContent = "Score: " + score;
+        setTimeout(function () { i = (i + 1) % statements.length; show(); }, 1800);
+      });
+    });
+    show();
+  })();
+
+  // ---------- Inflation visualiser ----------
+  (function () {
+    var cost = document.getElementById("if-cost"), rate = document.getElementById("if-rate");
+    if (!cost) return;
+    function calc() {
+      var C = +cost.value, r = +rate.value / 100;
+      document.getElementById("if-cost-v").textContent = fmtR(C);
+      document.getElementById("if-rate-v").textContent = (+rate.value) + "%";
+      var v10 = C * Math.pow(1 + r, 10), v20 = C * Math.pow(1 + r, 20), v30 = C * Math.pow(1 + r, 30);
+      var max = v30 || 1;
+      document.getElementById("if-30").textContent = fmtR(v30);
+      document.getElementById("if-c0").textContent = fmtR(C);
+      document.getElementById("if-c10").textContent = fmtR(v10);
+      document.getElementById("if-c20").textContent = fmtR(v20);
+      document.getElementById("if-c30").textContent = fmtR(v30);
+      document.getElementById("if-b0").style.height = Math.max(6, (C / max) * 100) + "%";
+      document.getElementById("if-b10").style.height = Math.max(6, (v10 / max) * 100) + "%";
+      document.getElementById("if-b20").style.height = Math.max(6, (v20 / max) * 100) + "%";
+      document.getElementById("if-b30").style.height = "100%";
+    }
+    [cost, rate].forEach(function (x) { x.addEventListener("input", calc); });
+    calc();
+  })();
+
+  // ---------- Retirement income estimator ----------
+  (function () {
+    var seg = document.getElementById("inc-method"),
+        rrBox = document.getElementById("inc-rr"),
+        epBox = document.getElementById("inc-ep");
+    if (!seg) return;
+    // segmented toggle
+    seg.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      Array.prototype.forEach.call(seg.children, function (x) { x.classList.remove("on"); });
+      b.classList.add("on");
+      var m = b.dataset.m;
+      rrBox.style.display = (m === "RR") ? "" : "none";
+      epBox.style.display = (m === "EP") ? "" : "none";
+    });
+
+    // Replacement Ratio
+    var rr = {
+      inc: document.getElementById("rr-inc"), g: document.getElementById("rr-g"),
+      yrs: document.getElementById("rr-yrs"), ratio: document.getElementById("rr-ratio"),
+      infl: document.getElementById("rr-infl")
+    };
+    function calcRR() {
+      var inc = +rr.inc.value, g = +rr.g.value / 100, yrs = +rr.yrs.value,
+          ratio = +rr.ratio.value / 100, infl = +rr.infl.value / 100;
+      document.getElementById("rr-inc-v").textContent = fmtR(inc);
+      document.getElementById("rr-g-v").textContent = (+rr.g.value) + "%";
+      document.getElementById("rr-yrs-v").textContent = yrs;
+      document.getElementById("rr-ratio-v").textContent = (+rr.ratio.value) + "%";
+      document.getElementById("rr-infl-v").textContent = (+rr.infl.value) + "%";
+      var atRet = inc * Math.pow(1 + g, yrs);
+      var y1 = atRet * ratio;
+      var y2 = y1 * (1 + infl);
+      document.getElementById("rr-out").textContent = fmtR(y1);
+      document.getElementById("rr-atret").textContent = fmtR(atRet);
+      document.getElementById("rr-ratio-l").textContent = (+rr.ratio.value) + "%";
+      document.getElementById("rr-y1").textContent = fmtR(y1);
+      document.getElementById("rr-y2").textContent = fmtR(y2);
+    }
+    Object.keys(rr).forEach(function (k) { rr[k].addEventListener("input", calcRR); });
+    calcRR();
+
+    // Expense Protection
+    var ep = {
+      inc: document.getElementById("ep-inc"), pct: document.getElementById("ep-pct"),
+      add: document.getElementById("ep-add"), yrs: document.getElementById("ep-yrs"),
+      infl: document.getElementById("ep-infl")
+    };
+    function calcEP() {
+      var inc = +ep.inc.value, pct = +ep.pct.value / 100, add = +ep.add.value,
+          yrs = +ep.yrs.value, infl = +ep.infl.value / 100;
+      document.getElementById("ep-inc-v").textContent = fmtR(inc);
+      document.getElementById("ep-pct-v").textContent = (+ep.pct.value) + "%";
+      document.getElementById("ep-add-v").textContent = fmtR(add);
+      document.getElementById("ep-yrs-v").textContent = yrs;
+      document.getElementById("ep-infl-v").textContent = (+ep.infl.value) + "%";
+      var hh = inc * pct;
+      var tot = hh + add;
+      var atRet = tot * Math.pow(1 + infl, yrs);
+      document.getElementById("ep-hh").textContent = fmtR(hh);
+      document.getElementById("ep-addl").textContent = fmtR(add);
+      document.getElementById("ep-tot").textContent = fmtR(tot);
+      document.getElementById("ep-infl-l").textContent = "×(" + (1 + infl).toFixed(2) + ")^" + yrs;
+      document.getElementById("ep-out").textContent = fmtR(atRet);
+    }
+    Object.keys(ep).forEach(function (k) { ep[k].addEventListener("input", calcEP); });
+    calcEP();
+  })();
+
+  // ---------- Scroll reveal for corpus SVG ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.3 }).observe(el);
+  }
+  onReveal("#corpus-svg", function (root) {
+    setTimeout(function () { root.querySelector("#corpus-curve").classList.add("go"); }, 100);
+    setTimeout(function () { root.querySelector("#corpus-area").classList.add("go"); }, 300);
+    ["corpus-div", "corpus-div-t", "corpus-peak", "corpus-peak-t"].forEach(function (id, i) {
+      setTimeout(function () { root.querySelector("#" + id).classList.add("go"); }, 900 + i * 150);
+    });
+    ["corpus-acc", "corpus-acc2", "corpus-dist", "corpus-dist2", "corpus-a1", "corpus-a2", "corpus-a3"].forEach(function (id, i) {
+      setTimeout(function () { root.querySelector("#" + id).classList.add("go"); }, 1400 + i * 110);
+    });
+  }, 0.25);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH04_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

@@ -243,12 +243,221 @@
         id: "xb",
         code: "NISM-Series-X-B",
         title: "Investment Adviser (Level 2)",
-        tagline: "Advanced advisory practice — building on Level 1 for full IA certification.",
-        status: "coming-soon",
+        tagline: "Advanced advisory practice — insurance, retirement, taxation, estate planning, behavioural finance and comprehensive advice.",
+        status: "active",
         path: p("books/xb/index.html"),
-        totalMarks: null,
-        passPercent: null,
-        modules: []
+        totalMarks: 150,
+        passPercent: 60,
+        modules: [
+          {
+            id: "module-07",
+            number: 7,
+            title: "Risk Management and Insurance Planning",
+            marks: 25,
+            chapters: [
+              {
+                id: "ch01",
+                number: 1,
+                title: "Basics of Insurance",
+                summary: "Why insurance exists, insurable risk, the two fundamental principles, and core insurance concepts.",
+                path: p("books/xb/module-07-risk-management-and-insurance-planning/chapter-01/index.html"),
+                status: "active"
+              },
+              {
+                id: "ch02",
+                number: 2,
+                title: "Life Insurance Products",
+                summary: "Types of life insurance, needs analysis and product evaluation.",
+                path: p("books/xb/module-07-risk-management-and-insurance-planning/chapter-02/index.html"),
+                status: "active"
+              },
+              {
+                id: "ch03",
+                number: 3,
+                title: "Non-Life Insurance Products",
+                summary: "General insurance products, multiple policies and comparison.",
+                path: p("books/xb/module-07-risk-management-and-insurance-planning/chapter-03/index.html"),
+                status: "active"
+              }
+            ]
+          },
+          {
+            id: "module-08",
+            number: 8,
+            title: "Retirement Planning",
+            marks: 30,
+            chapters: [
+              {
+                id: "ch04",
+                number: 4,
+                title: "Retirement Planning Basics",
+                summary: "The need for retirement planning, goals and estimating the retirement corpus.",
+                path: p("books/xb/module-08-retirement-planning/chapter-04/index.html"),
+                status: "active"
+              },
+              {
+                id: "ch05",
+                number: 5,
+                title: "Retirement Products",
+                summary: "Accumulation and distribution products for retirement.",
+                path: p("books/xb/module-08-retirement-planning/chapter-05/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch06",
+                number: 6,
+                title: "Miscellaneous Aspects of Retirement Planning",
+                summary: "Adviser's role, retirement calculations and philanthropy.",
+                path: p("books/xb/module-08-retirement-planning/chapter-06/index.html"),
+                status: "coming-soon"
+              }
+            ]
+          },
+          {
+            id: "module-09",
+            number: 9,
+            title: "Taxation",
+            marks: 20,
+            chapters: [
+              {
+                id: "ch07",
+                number: 7,
+                title: "Concepts in Taxation",
+                summary: "Tax framework, residential status, heads of income and computation of tax.",
+                path: p("books/xb/module-09-taxation/chapter-07/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch08",
+                number: 8,
+                title: "Capital Gains",
+                summary: "Capital assets, transfer and computation of capital gains.",
+                path: p("books/xb/module-09-taxation/chapter-08/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch09",
+                number: 9,
+                title: "Income from Other Sources",
+                summary: "Dividends, interest on securities and gift of securities.",
+                path: p("books/xb/module-09-taxation/chapter-09/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch10",
+                number: 10,
+                title: "Taxation of Debt Products",
+                summary: "Taxation of debt instruments, MFs, non-residents and market-linked debentures.",
+                path: p("books/xb/module-09-taxation/chapter-10/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch11",
+                number: 11,
+                title: "Taxation of Equity Products",
+                summary: "Listed/unlisted shares, mutual funds, derivatives and bonus stripping.",
+                path: p("books/xb/module-09-taxation/chapter-11/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch12",
+                number: 12,
+                title: "Taxation of Other Products",
+                summary: "ESOPs, SGBs, NPS, REITs, InvITs, AIFs, ETFs and insurance.",
+                path: p("books/xb/module-09-taxation/chapter-12/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch13",
+                number: 13,
+                title: "Tax Provisions for Special Cases",
+                summary: "Bonus shares, buyback, rights, M&A, SLB and mutual-fund special cases.",
+                path: p("books/xb/module-09-taxation/chapter-13/index.html"),
+                status: "coming-soon"
+              }
+            ]
+          },
+          {
+            id: "module-10",
+            number: 10,
+            title: "Estate Planning",
+            marks: 20,
+            chapters: [
+              {
+                id: "ch14",
+                number: 14,
+                title: "Basics of Estate Planning",
+                summary: "Estate constituents, elements, applicable laws and mutation.",
+                path: p("books/xb/module-10-estate-planning/chapter-14/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch15",
+                number: 15,
+                title: "Tools for Estate Planning",
+                summary: "Wills, probate, gifts, nominations, family settlement, trusts and PoA.",
+                path: p("books/xb/module-10-estate-planning/chapter-15/index.html"),
+                status: "coming-soon"
+              }
+            ]
+          },
+          {
+            id: "module-11",
+            number: 11,
+            title: "Behavioural Finance",
+            marks: 10,
+            chapters: [
+              {
+                id: "ch16",
+                number: 16,
+                title: "Basics of Behavioural Finance",
+                summary: "Behavioural vs standard finance, biases, fusion investing and anomalies.",
+                path: p("books/xb/module-11-behavioural-finance/chapter-16/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch17",
+                number: 17,
+                title: "Behavioural Finance in Practice",
+                summary: "Emotions in goal setting, nudging and managing client emotions.",
+                path: p("books/xb/module-11-behavioural-finance/chapter-17/index.html"),
+                status: "coming-soon"
+              }
+            ]
+          },
+          {
+            id: "module-12",
+            number: 12,
+            title: "Comprehensive Investment Advice",
+            marks: 45,
+            chapters: [
+              {
+                id: "ch18",
+                number: 18,
+                title: "Risk Profiling for Investors",
+                summary: "Risk-profiling approach, parameters and role in asset allocation.",
+                path: p("books/xb/module-12-comprehensive-investment-advice/chapter-18/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch19",
+                number: 19,
+                title: "Comparison of Products across Categories",
+                summary: "Performance data, attribution and evaluation of investment alternatives.",
+                path: p("books/xb/module-12-comprehensive-investment-advice/chapter-19/index.html"),
+                status: "coming-soon"
+              },
+              {
+                id: "ch20",
+                number: 20,
+                title: "Case Studies",
+                summary: "Comprehensive case studies applying the full Level 2 syllabus.",
+                path: p("books/xb/module-12-comprehensive-investment-advice/chapter-20/index.html"),
+                status: "coming-soon"
+              }
+            ]
+          }
+        ]
       }
     ]
   };

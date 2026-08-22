@@ -2,7 +2,7 @@
 
 _Living document. Update after every chapter. Lets a fresh session resume exactly where the last left off._
 
-Last updated: 2026-08-22 (Ch.20 complete → **XA fully built: all 20 chapters active**)
+Last updated: 2026-08-22 (**XB Ch.2 Life Insurance Products built & active**; XB Ch.1 done; XA fully built; master Cheat Sheet covers XA + XB Ch.1–2)
 
 ---
 
@@ -11,7 +11,7 @@ Last updated: 2026-08-22 (Ch.20 complete → **XA fully built: all 20 chapters a
 1. `git log --oneline -10` and `git status` to see the latest state.
 2. Read `CLAUDE.md` §7 (Progress status) + this file for the current frontier.
 3. Read the **exact chapter source `.md` in full** before building (see CLAUDE.md §1 for paths).
-4. Copy the structure of the most recently built chapter (currently **Ch.20** for XA; XA is complete, so the next frontier is **XB Ch.1**) — same `<head>` order, script order, `NISM_ROOT`, bootstrap pattern.
+4. Copy the structure of the most recently built chapter (currently **XB Ch.2** at `books/xb/module-07-.../chapter-02/`; the next frontier is **XB Ch.3**) — same `<head>` order, script order, `NISM_ROOT`, bootstrap pattern.
 5. Build `index.html` + `quiz-data.js`, then flip `status` to `"active"` in `assets/js/curriculum.js`.
 6. Update this file + `todo.md`, then commit.
 
@@ -28,6 +28,7 @@ Last updated: 2026-08-22 (Ch.20 complete → **XA fully built: all 20 chapters a
 - [ ] `onComplete` forwards all three args to `recordQuizResult`
 - [ ] Footer prev/next nav
 - [ ] Flip `status` to `"active"` in curriculum.js
+- [ ] **Append/refresh the chapter's block in `assets/js/cheatsheet-data.js`** (formulas/ratios/years/acronyms/tax sections+rules, chapter-exact; add a flagship calculator only for high-value math)
 
 ---
 
@@ -82,8 +83,29 @@ Last updated: 2026-08-22 (Ch.20 complete → **XA fully built: all 20 chapters a
   - Key facts wired exactly to source: Consumer Protection Act 1986 (consumer = buys goods/avails services for consideration, excl. resale/commercial purpose); first approach provider → then regulator; robust-system 7 features (source under SEBI Act/SCRA/Depositories Act/Companies Act 2013; date/time; nature/frivolous; internal-vs-escalate; status/ATR; ageing report; escalation); IA system SEBI-mandated (display Compliance Officer + CEO/Partner/Proprietor name/address/email/phone; escalate to SEBI via SCORES); capital market — participant → SCORES → ODR portal (within law of limitation from issue/last/disputed transaction, whichever later); SCORES = SEBI online redressal for all its products/entities; SCORES exclusions (incomplete/non-specific, no docs, guidance-seeking, non-trading/illiquidity, trading-price dissatisfaction, non-listing of private offer, private-agreement disputes); SEBI won't deal with unlisted/delisted/wound-up/liquidated/sick, sub-judice, other-regulator purview; ATR within stipulated time; banking — RBI set up BCSBI ("Code of Banks' Commitments to Customers"), three-tier Branch→Zonal→GM-Customer Service, Integrated Ombudsman (RBI-appointed, credit cards of banks & NBFCs, approach after 1 month, award if no settlement in 1 month), CPGRAMS www.pgportal.gov.in; insurance — Insurance Ombudsman appointed by Govt of India under Redressal of Public Grievance Rules 1998, grounds (repudiation/premium/legal construction/delay/non-issue of document), recommendation within 1 month (mutual mediation), speaking Award within 3 months, acceptance within 1 month, IRDAI via IGMS, then courts/CPA 1986; pension — MF→SEBI/SCORES, insurance→IRDAI, NPS CRA = NSDL e-Governance Infrastructure Ltd (appointed by PFRDA), GRO at Mumbai HO, escalate to NPS Trust after 30 days (PFRDA Redressal of Subscriber Grievance Regulations 2015, responds in 30 days), then Ombudsman; SAT — Section 15U (not bound by CPC, natural justice, civil-court powers, judicial proceeding under IPC), Section 15T (appeal vs SEBI Board/adjudicating officer/IRDAI/PFRDA within 45 days), Supreme Court within 60 days; other fora — NBFC deposit non-repayment → NCLT or Consumer forum, company deposits/unlisted-company bonds & debentures → Ministry of Company Affairs website.
 
 ### XB — Investment Adviser Level 2 (20 chapters, modules 7–12)
-- Not started. Book is a `coming-soon` stub with `modules: []`; only `books/xb/index.html` exists.
-- When starting XB: scaffold module folders `module-07-...`…`module-12-...`, chapter folders `chapter-01`…`chapter-20`, and fill the XB `modules` array in curriculum.js with marks from XB `00-front-matter.md`. See CLAUDE.md §1 for the module/chapter map.
+- **Launched (2026-08-22).** XB book flipped to `status:"active"` in curriculum.js with the full 6-module / 20-chapter `modules` array; `totalMarks:150`, `passPercent:60`; module marks **M7=25, M8=30, M9=20, M10=20, M11=10, M12=45** (from XB `00-front-matter.md`). XB chapters restart numbering at 1 (modules continue 7–12). `books/xb/index.html` rewritten from the stub into a data-driven landing page (mirrors `books/xa/index.html`, `getBook("xb")`, MODULE_COLORS bar/legend/accordion). Only `ch01` is `"active"`; the other 19 are `"coming-soon"`.
+- **Ch.1 Basics of Insurance (Module 7)** — ✅ built & active (2026-08-22). **First XB chapter.**
+  - `index.html` + `quiz-data.js` (72 questions incl. ~15 scenario-based; meta-row count set dynamically from `NISM_CH01_QUESTIONS.length`). `BOOK_ID="xb"`, `CHAPTER_ID="ch01"`, `NISM_ROOT="../../../../"`, quiz global `window.NISM_CH01_QUESTIONS`.
+  - Interactive: **3 live calculators** reproducing workbook defaults — deductible+co-pay (₹40k claim, ₹1,000 ded + 10% co-pay → **₹35,100**; Policy 2 ₹5,000 ded → ₹35,000), contribution (two ₹5-lakh policies, ₹30k loss → **₹15,000 each**), risk-pool premium (100 merchants, ₹10,00,000/ship, 2 lost → **₹20,000**; drop to 40 payers → ₹50,000). Plus **3 tap-matchers** (insurable-risk 7 tests, claim-side concepts, broker/agent/corporate-agent), an **indemnity vs defined-benefit sorter**, an **animated risk-pooling SVG** (IntersectionObserver draw-on-reveal), and concept + revision (dates/sections) flip decks.
+  - Content is chapter-exact: merchant-ships & King's-employees examples, 7 insurable-risk tests, utmost good faith + insurable interest, indemnity/benefit, subrogation, contribution, co-pay/deductible, cashless, nominee vs beneficial nominee **Sec 39(7)** (Feb 2015), **Sec 45** 3-year rule, **5-year** health moratorium, insurance-before-investment, investing-through-insurance (₹20,20,000 "premium back"), 5 planning steps, and regulations (health standardisation + **GST exemption 22 Sep 2025**, ULIP 4%/8% + 5-yr lock-in, broker/agent/corporate-agent 3+3+3, bancassurance, SEBI (IA) 2013 carve-out).
+  - Cheat sheet: appended `xb` book → Module 7 → `ch01` block to `cheatsheet-data.js` (26 items across formula/ratio/year/acronym/taxrule). No new flagship calculator added (insurance math is chapter-specific and covered inline).
+  - Verified on localhost:8877 (0 console errors; calculators show ₹35,100 / ₹15,000×2 / ₹20,000; 72 quiz Qs; footer next = disabled coming-soon Ch.2; XB landing & home card active; cheat sheet shows Basics of Insurance items). Screenshot capture unavailable in this environment.
+- **Ch.2 Life Insurance Products (Module 7)** — ✅ built & active (2026-08-22).
+  - `index.html` + `quiz-data.js` (**62 questions incl. 14 scenario-based**). `BOOK_ID="xb"`, `CHAPTER_ID="ch02"`, `NISM_ROOT="../../../../"`, quiz global `window.NISM_CH02_QUESTIONS`.
+  - Interactive: **4 live calculators** reproducing workbook defaults — **paid-up SA** (Surinder ₹10L SA, 10/50 premiums → **₹2,00,000**), **HLV** (₹10L income, age 33→60, 8%/6% → **₹2,10,04,210**, ordinary-annuity PV at 1.89% adjusted rate), **need-based** (Anil ₹9,96,000/31yr annuity-due + ₹40L loan − ₹1.5cr cover/investments → **₹1,26,43,984**; rate rounded to 1.89% to match the workbook's `PV(1.89%,…)`), **inherent return** (Excel RATE via bisection: ROP extra ₹8,057→₹5,24,190 = **4.61%**; endowment extra ₹3,06,916→₹2,14,00,000 = **5%**). Plus **2 tap-matchers** (product types term/ROP/endowment/whole-life/ULIP/mortgage; riders), an **animated premium-comparison SVG** (term ₹9,416 / ROP ₹17,473 / endowment ₹3,16,332, grow-bar on reveal), 24 flip cards (concept + revision), 8 mini-checks.
+  - Content is chapter-exact: elements (death cover/survival benefit, min SA 10×/7×/5×, bonus types, surrender 30%→90%, paid-up, ULIP discontinuance ₹6,000/5-yr lock-in), HLV & need-based analysis (HLV ≥ need-based), product types + Mr Jeevan term+MF vs ULIP case, riders, mortgage insurance, loan/assignment facilities, **MWPA 1874** (spouse/children only, unchangeable post-divorce, creditor shield), telescopic premiums (₹8cr → 4×₹2cr), tax rules (**ULIP >₹2.5L premium on/after 01.02.2021 → capital gains**; **traditional >₹5L on/after 1 Apr 2023 → income from other sources**), LRS USD 2,50,000 for foreign policies, **GST exemption 22 Sep 2025**.
+  - Cheat sheet: appended Module 7 → `ch02` block to `cheatsheet-data.js` (26 items across formula/ratio/year/acronym/taxrule); HLV item linked to the `tvm` flagship calc.
+  - Fixed two slider-default snapping bugs found in verification: rate FV slider `step` 10000→10 (so ₹5,24,190 default is reachable → 4.61%, not ₹5,20,000 → 4.57%), and need-based deduction slider `max` 1cr→3cr (so the ₹1.5cr default isn't clamped → additional cover ₹1,26,43,984, not ₹1,76,43,984).
+  - Verified on localhost:8877 (0 console errors; all 4 calculators show workbook defaults ₹2,00,000 / ₹2,10,04,210 / ₹1,26,43,984 / 4.61%; 62 quiz Qs; footer prev = Ch.1, next = disabled coming-soon Ch.3; XB landing shows Ch.2 clickable; cheat sheet shows Life Insurance Products items). Screenshot capture unavailable in this environment.
+- **Remaining:** Ch.3–20 (build one per session; scaffold each `chapter-NN/` folder as you go). **Next up: XB Ch.3 (Non-Life Insurance Products, Module 7).**
+
+### Master Cheat Sheet — ✅ built (2026-08-22, covers all of XA)
+- **Files:** `cheatsheet.html` (root-level standalone page, peer to Home/Dashboard) + `assets/js/cheatsheet-data.js` (single source of truth, mirrors curriculum.js chapter order).
+- **Coverage:** every high-value formula, ratio, year, acronym/abbreviation, tax section, and tax rule across XA Ch.1–20 (all 6 modules). Item shape `{ cat, term, expr, note, calc? }`, `cat` ∈ formula|ratio|year|acronym|taxsection|taxrule; term/expr/note render as HTML.
+- **Two views (toggle):** By-Chapter and By-Category, with search + category chips (sticky controls).
+- **5 flagship live calculators** (slider-driven, workbook-example defaults): `tvm` (time value of money), `emi` (loan EMI), `ratios` (personal-finance ratios), `bond` (bond yield/duration), `riskratio` (Sharpe/Treynor/Sortino — defaults Rp 10.5% / Rf 5.5% / σ 6.5% / β 1.00 / semi 4.5% → Sharpe 0.7692, Treynor 0.05, matching Ch.16). CALCS registry + `CALC_ORDER = ["tvm","emi","ratios","bond","riskratio"]`; `window.NismCheatsheetPage = { selectCalc, CALCS, CALC_ORDER }`. Non-math items are flip-to-reveal + shuffle revision cards.
+- **Nav:** "Cheat Sheet" topbar link (`.nav-link`) wired on all 24 pages (index, dashboard, both book indexes, all 20 XA chapters) with per-file relative prefix.
+- **Maintenance rule (user-requested, standing):** every future chapter build/update must append/refresh its block in `cheatsheet-data.js` — now part of the per-chapter checklist above. Recorded in memory (`cheatsheet-maintenance`), todo.md, and CLAUDE.md §4.
 
 ---
 
@@ -93,5 +115,6 @@ Last updated: 2026-08-22 (Ch.20 complete → **XA fully built: all 20 chapters a
 - Verification note: dev server / browser preview cannot be launched in unattended scheduled-task runs. Ch.15 was validated statically (structure copied from Ch.14, question bank counts checked). **When resuming interactively, serve on localhost (README, port 8877) and click through Ch.15 to confirm quiz mount, matchers, calculators and scrollspy before moving on.**
 
 ## Next steps
-1. **XA is complete — all 20 chapters built & active.** (CLAUDE.md §7 progress status updated to reflect this.)
-2. Scaffold and build **XB** (modules 7–12): create module folders `module-07-...`…`module-12-...`, chapter folders `chapter-01`…`chapter-20`, flip the XB book from `coming-soon` and fill the XB `modules` array in curriculum.js from XB `00-front-matter.md` (marks per module), then build chapter-by-chapter to the same standard. See CLAUDE.md §1 for the XB module/chapter map. **Next up: XB Ch.1 (Basics of Insurance, Module 7).**
+1. **XA complete; XB Ch.1 & Ch.2 built & active.** (CLAUDE.md §7 progress status updated.)
+2. Build **XB Ch.3 (Non-Life Insurance Products, Module 7)**: read `.../module-07-.../chapter-03-non-life-insurance-products.md` in full, scaffold `books/xb/module-07-.../chapter-03/`, build `index.html` + `quiz-data.js` (global `NISM_CH03_QUESTIONS`) to the §4/§5 standard copying the XB Ch.2 structure, flip `ch03` to `"active"` in curriculum.js, append its block to `cheatsheet-data.js`, verify on localhost, then commit.
+3. Continue XB Ch.4–20 one per session, scaffolding each chapter folder as you go.

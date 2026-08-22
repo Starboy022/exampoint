@@ -1,0 +1,1010 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 1 — Basics of Insurance | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Basics of Insurance — why insurance exists (risk transfer vs risk retention through the merchant-ships and King's-employees examples), the seven requirements of an insurable risk (large exposure units, insurable interest, accidental & unintentional, determinable & measurable, no prospect of gain, calculable chance of loss, economically feasible premium), the two fundamental principles (utmost good faith / uberrimae fidei and insurable interest), core concepts in insurance (indemnity vs defined-benefit policies, subrogation, contribution, co-pay, deductible, cashless claims, nominee vs legal heirs and the beneficial nominee under Section 39(7), the Section 45 three-year rule and the five-year health moratorium), the role of insurance in personal finance (insurance before investments), investing through insurance, the five steps of insurance planning, and the regulations for health insurance, ULIPs and insurance intermediaries. NISM Series-X-B, Module 7, Chapter 1." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive calculator / widget shell ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1fr 1fr; align-items:start; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .calc-field label { display:flex; justify-content:space-between; font-size:0.82rem; font-weight:700; margin-bottom:6px; }
+  .calc-field label .v { color: var(--gold-600); font-family:var(--font-mono); }
+  .calc-field input[type=range] { width:100%; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.35rem; color:var(--gold-600); margin: 4px 0 10px; line-height:1.2; }
+  .calc-line { display:flex; justify-content:space-between; font-size:0.83rem; padding:5px 0; border-top:1px dashed var(--border-subtle); color:var(--text-secondary); }
+  .calc-line span:last-child { font-family:var(--font-mono); color:var(--text-primary); }
+  .verdict { display:inline-block; margin-bottom:8px; font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:4px 11px; border-radius:var(--radius-pill); }
+  .verdict.good { background:color-mix(in srgb,var(--green-500) 18%,var(--bg-app)); color:var(--green-500); }
+  .verdict.warn { background:color-mix(in srgb,var(--gold-500) 20%,var(--bg-app)); color:var(--gold-600); }
+
+  /* ---- Segmented control (stacked) ---- */
+  .seg-field .sl { display:block; font-size:0.82rem; font-weight:700; margin-bottom:7px; }
+  .seg { display:inline-flex; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden; flex-direction:column; align-items:stretch; width:100%; }
+  .seg button { border:none; border-bottom:1px solid var(--border-subtle); background:var(--bg-app); font-size:0.8rem; font-weight:600; padding:10px 13px; cursor:pointer; color:var(--text-secondary); transition:all var(--dur-fast); text-align:left; }
+  .seg button:last-child { border-bottom:none; }
+  .seg button.on { background:var(--navy-800); color:#fff; font-weight:700; }
+
+  /* ---- In/Out sorter ---- */
+  .sorter { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:22px; margin:22px 0; }
+  .sorter h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .sorter .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .sorter-statement { background:var(--bg-surface-2); border-radius:var(--radius-md); padding:18px; font-size:0.95rem; font-weight:600; min-height:60px; display:flex; align-items:center; }
+  .sorter-btns { display:flex; gap:10px; margin:14px 0 8px; }
+  .sorter-btns button { flex:1; padding:12px; border-radius:var(--radius-md); border:1.5px solid var(--border-subtle); font-weight:800; font-size:0.86rem; cursor:pointer; transition:all var(--dur-fast); }
+  .sorter-btns .do-btn { color:var(--green-500); background:var(--bg-app); }
+  .sorter-btns .do-btn:hover { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 10%,var(--bg-app)); }
+  .sorter-btns .dont-btn { color:var(--danger-500,#d64545); background:var(--bg-app); }
+  .sorter-btns .dont-btn:hover { border-color:var(--danger-500,#d64545); background:color-mix(in srgb,var(--danger-500,#d64545) 10%,var(--bg-app)); }
+  .sorter-feedback { font-size:0.85rem; font-weight:600; min-height:2.4em; line-height:1.4; }
+  .sorter-feedback.ok { color:var(--green-500); }
+  .sorter-feedback.no { color:var(--danger-500,#d64545); }
+  .sorter-meta { display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-secondary); margin-top:10px; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+
+  /* ---- Matcher (shared) ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); text-align:left; }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); text-align:left; background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.9rem; }
+  .reg-card .rd { font-size:0.76rem; color:var(--text-secondary); margin-top:4px; line-height:1.45; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Process step chips ---- */
+  .proc-list { counter-reset: proc; display:grid; gap:10px; margin:18px 0; }
+  .proc-item { display:flex; gap:12px; align-items:flex-start; padding:13px 15px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); }
+  .proc-item::before { counter-increment: proc; content: counter(proc); flex:0 0 26px; width:26px; height:26px; border-radius:50%; background:var(--navy-800); color:#fff; font-family:var(--font-display); font-weight:800; font-size:0.82rem; display:flex; align-items:center; justify-content:center; }
+  .proc-item .pt { font-size:0.85rem; color:var(--text-secondary); }
+  .proc-item .pt strong { color:var(--text-primary); }
+
+  /* ---- SVG animation helpers ---- */
+  .draw-line { fill:none; stroke-dasharray:600; stroke-dashoffset:600; }
+  .draw-line.go { animation: draw 1.4s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+  .pop-el { opacity:0; transform:scale(0.4); transform-origin:center; transition:opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring); }
+  .pop-el.go { opacity:1; transform:scale(1); }
+  .rise-el { opacity:0; transform:translateY(16px); transition:opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring); }
+  .rise-el.go { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+      <a class="nav-link" href="../../../../cheatsheet.html">Cheat Sheet</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 7 · Risk Management &amp; Insurance Planning</span>
+      <span class="badge badge-gold">Chapter 1 · First XB chapter</span>
+    </div>
+    <h1>Basics of Insurance</h1>
+    <p class="lede">Insurance is the oldest and simplest form of risk management: many people who face the same risk each pay a small, certain premium into a common pool, and the few who actually suffer the loss are made whole from it. This chapter builds that idea from two vivid examples — <strong>merchant ships</strong> lost at sea and a <strong>King's employees</strong> — into the machinery every adviser must know: what makes a risk <strong>insurable</strong>, the two fundamental principles (<strong>utmost good faith</strong> and <strong>insurable interest</strong>), the working concepts (<strong>indemnity vs benefit, subrogation, contribution, co-pay, deductible, cashless claims, nominees</strong>), why <strong>insurance comes before investment</strong>, the five steps of insurance planning, and the regulations that govern health cover, ULIPs and intermediaries.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~32 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> <span id="meta-qcount">60</span> assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 3 calculators, 2 matchers &amp; a sorter</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 7 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:760px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The need for insurance and the requirements of an insurable risk</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The fundamental principles of insurance</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Concepts in insurance — indemnity, benefit, subrogation, contribution, co-pay, deductible</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The role of insurance in personal finance</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Investing through insurance</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The role of the insurance adviser and the steps in insurance planning</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Regulations pertaining to insurance</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-need">1.1–1.2 The need for insurance</a></li>
+      <li><a href="#sec-insurable">1.2.1 Insurable risk — 7 tests</a></li>
+      <li><a href="#sec-principles">1.3 Fundamental principles</a></li>
+      <li><a href="#sec-concepts">1.4 Concepts in insurance</a></li>
+      <li><a href="#sec-nominee">1.4 Nominee, Sec 45 &amp; moratorium</a></li>
+      <li><a href="#sec-personal">1.5 Insurance in personal finance</a></li>
+      <li><a href="#sec-investing">1.6 Investing through insurance</a></li>
+      <li><a href="#sec-adviser">1.7 Role of the insurance adviser</a></li>
+      <li><a href="#sec-regulations">1.8 Regulations</a></li>
+      <li><a href="#sec-calc">Calculators</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 1.1–1.2 -->
+    <section class="lesson-section" id="sec-need">
+      <span class="section-kicker">1.1–1.2</span>
+      <h2>Why insurance exists — risk transfer through a common pool</h2>
+      <p>Insurance is a basic form of <strong>risk management</strong> that protects against the loss of the economic benefits an asset can generate. Those assets may be <strong>physical</strong> (ships, buildings, machinery) or <strong>human</strong> (an earning individual). An unforeseen event can reduce or destroy that benefit — and there is a <strong>financial consequence</strong> to it. The consequence can either be <strong>retained</strong> (borne by the person who would have enjoyed the benefit — <em>risk retention</em>) or <strong>transferred</strong> to another party (<em>risk transfer</em>). Insurance is risk transfer: the <strong>insured</strong> pays a periodic <strong>premium</strong> to the <strong>insurer</strong>, which undertakes to <strong>indemnify</strong> the financial loss.</p>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H5.2L4 17.5V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Example 1 — the merchant ships (19th-century London)</strong>
+          <p>Every month <strong>100 merchants</strong> each send one ship to India. A lost ship costs a merchant <strong>₹10,00,000</strong>. On average <strong>2 ships</strong> are lost each month, so the total monthly loss is <strong>₹20,00,000</strong>. If all 100 merchants pay <strong>₹20,000</strong> each into an insurance fund, it collects exactly ₹20,00,000 — enough to fully compensate the 2 who lost their ships. So each merchant converts an uncertain ₹10,00,000 loss into a certain ₹20,000 cost. Here: <strong>risk covered</strong> = ship lost at sea; <strong>sum assured</strong> = ₹10,00,000; <strong>premium</strong> = ₹20,000.</p>
+        </div>
+      </div>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="pool-svg" viewBox="0 0 640 300" width="100%" style="max-width:640px">
+            <!-- premiums in -->
+            <g class="fade-el" id="p-payers">
+              <text x="90" y="30" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--text-primary)">100 merchants</text>
+              <text x="90" y="46" text-anchor="middle" style="font-size:8.5px;fill:var(--text-secondary)">each pays ₹20,000 premium</text>
+            </g>
+            <g id="p-arrows-in">
+              <path class="draw-line" id="pi-1" d="M150 60 L280 120" stroke="var(--teal-500,#4fd1c5)" stroke-width="2.2" marker-end="url(#pih)"/>
+              <path class="draw-line" id="pi-2" d="M150 90 L280 130" stroke="var(--teal-500,#4fd1c5)" stroke-width="2.2" marker-end="url(#pih)"/>
+              <path class="draw-line" id="pi-3" d="M150 120 L280 140" stroke="var(--teal-500,#4fd1c5)" stroke-width="2.2" marker-end="url(#pih)"/>
+            </g>
+            <!-- the pool -->
+            <g class="pop-el" id="p-pool">
+              <circle cx="360" cy="150" r="72" fill="var(--navy-800)"/>
+              <text x="360" y="140" text-anchor="middle" style="font-size:11px;font-weight:800;fill:#fff">INSURANCE</text>
+              <text x="360" y="155" text-anchor="middle" style="font-size:11px;font-weight:800;fill:#fff">POOL</text>
+              <text x="360" y="176" text-anchor="middle" style="font-size:12px;font-weight:800;fill:var(--gold-500)">₹20,00,000</text>
+            </g>
+            <!-- payout out -->
+            <path class="draw-line" id="po-1" d="M432 150 L520 150" stroke="var(--gold-500)" stroke-width="2.6" marker-end="url(#poh)"/>
+            <g class="pop-el" id="p-claim">
+              <rect x="522" y="118" width="108" height="64" rx="9" fill="var(--bg-surface-2)" stroke="var(--gold-500)"/>
+              <text x="576" y="140" text-anchor="middle" style="font-size:9px;font-weight:800;fill:var(--text-primary)">2 lost ships</text>
+              <text x="576" y="156" text-anchor="middle" style="font-size:8px;fill:var(--text-secondary)">paid in full</text>
+              <text x="576" y="172" text-anchor="middle" style="font-size:10px;font-weight:800;fill:var(--gold-600)">₹10,00,000 ea.</text>
+            </g>
+            <defs>
+              <marker id="pih" markerWidth="8" markerHeight="8" refX="5" refY="4" orient="auto"><path d="M1 1 L7 4 L1 7" fill="none" stroke="var(--teal-500,#4fd1c5)" stroke-width="1.6"/></marker>
+              <marker id="poh" markerWidth="9" markerHeight="9" refX="5" refY="4" orient="auto"><path d="M1 1 L7 4 L1 7" fill="none" stroke="var(--gold-500)" stroke-width="1.6"/></marker>
+            </defs>
+          </svg>
+        </div>
+        <div class="caption">The <strong>many</strong> pay a small certain premium; the <strong>few</strong> who suffer the loss are paid from the pool. This only works when a <strong>large number</strong> of similar units share the same peril — the merchant ship calculator below shows what happens when they don't.</div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H5.2L4 17.5V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Example 2 — the King's employees</strong>
+          <p>A king has <strong>500 employees</strong>, each earning ₹2 lakh/year for 10 years (gross earnings ₹20,00,000 each), and each the sole earner for his family. If <strong>2 are expected to die</strong> in the year, the income loss is ₹40,00,000. By contributing an extra <strong>₹8,000 per employee</strong> (just 4% of the ₹2,00,000 salary) into a fund totalling ₹40,00,000, the king assures every family of financial support on death. <strong>Risk covered</strong> = loss of income due to death; <strong>sum assured</strong> = ₹20,00,000; <strong>premium</strong> = ₹8,000. This is the seed of <strong>life insurance</strong>.</p>
+        </div>
+      </div>
+
+      <p>To be insurable, the event (death, accident, fire) must cause a <strong>financial loss that can be quantified</strong>. The premium depends on the <strong>expected loss</strong> and the <strong>probability</strong> of the event during the contract. That is why a person whose parents have a genetic history of heart disease, cancer or diabetes may pay a much higher health premium — the probability of a claim is higher.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Bearing the financial consequence of a risk yourself, rather than paying a premium to pass it to an insurer, is called:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Risk retention</button>
+          <button class="mini-opt" data-correct="false">Risk transfer</button>
+          <button class="mini-opt" data-correct="false">Subrogation</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — retaining the consequence yourself is risk retention; transferring it to an insurer for a premium is risk transfer." data-wrong-msg="Not quite — bearing the loss yourself is risk retention. Insurance is the opposite: risk transfer to the insurer."></div>
+      </div>
+    </section>
+
+    <!-- 1.2.1 -->
+    <section class="lesson-section" id="sec-insurable">
+      <span class="section-kicker">1.2.1</span>
+      <h2>The seven requirements of an insurable risk</h2>
+      <p>Not every risk can be insured. A risk must satisfy <strong>seven</strong> requirements. Tap each to see what it means:</p>
+
+      <div class="matcher" id="insurable-matcher">
+        <h4>The seven tests of an insurable risk — tap one</h4>
+        <div class="hint">If a risk fails these, insurers either cannot price it or should not cover it.</div>
+        <div class="match-markets" id="insurable-markets">
+          <button class="match-mkt" data-reg="LARGE">a · Large number of exposure units</button>
+          <button class="match-mkt" data-reg="INTEREST">b · Insurable interest</button>
+          <button class="match-mkt" data-reg="ACCIDENT">c · Accidental &amp; unintentional</button>
+          <button class="match-mkt" data-reg="MEASURE">d · Determinable &amp; measurable</button>
+          <button class="match-mkt" data-reg="NOGAIN">e · No prospect of gain</button>
+          <button class="match-mkt" data-reg="CALC">f · Chance of loss calculable</button>
+          <button class="match-mkt" data-reg="FEASIBLE">g · Premium economically feasible</button>
+        </div>
+        <div class="match-regs" id="insurable-cards">
+          <div class="reg-card" data-reg="LARGE"><div class="rn">Large number of exposure units</div><div class="rd">Many similar (not identical) units face the same peril, so the insurer runs a <strong>common pool</strong> where only a few claim each year. With few participants the premium becomes unviable — if only 40 of the 100 merchants join, each pays <strong>₹50,000</strong> instead of ₹20,000.</div></div>
+          <div class="reg-card" data-reg="INTEREST"><div class="rn">Insurable interest</div><div class="rd">The insured must face a <strong>monetary</strong> loss (not merely emotional) if the subject matter is lost or destroyed, and the interest must be <strong>lawful</strong>. Merchants have insurable interest in their own ship.</div></div>
+          <div class="reg-card" data-reg="ACCIDENT"><div class="rn">Accidental &amp; unintentional</div><div class="rd">Loss must be accidental, unintentional, uncertain and outside the insured's control. The <strong>only exception is life insurance</strong> — death is certain, but its <strong>timing</strong> is uncertain, which makes it insurable.</div></div>
+          <div class="reg-card" data-reg="MEASURE"><div class="rn">Determinable &amp; measurable</div><div class="rd">Loss must be definite as to <strong>cause and amount</strong> and calculable from definite evidence — death for life insurance, fire for property, medical bills for health.</div></div>
+          <div class="reg-card" data-reg="NOGAIN"><div class="rn">No prospect of gain or profit</div><div class="rd">It must be <strong>pure risk</strong> (only loss possible), not <strong>speculative risk</strong>. Investing in the stock market can gain or lose, so it is speculative and <strong>not insurable</strong>. This links to the <strong>Principle of Indemnity</strong> — restore, don't enrich.</div></div>
+          <div class="reg-card" data-reg="CALC"><div class="rn">Chance of loss must be calculable</div><div class="rd">The insurer must estimate, with reasonable accuracy, the <strong>average frequency</strong> and <strong>average severity</strong> of future losses.</div></div>
+          <div class="reg-card" data-reg="FEASIBLE"><div class="rn">Premium economically feasible</div><div class="rd">Premiums must be affordable and <strong>far less than the value of the risk covered</strong> — otherwise retaining the risk is more sensible than transferring it.</div></div>
+        </div>
+        <div class="match-feedback" id="insurable-feedback"></div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Pure risk vs speculative risk</strong>
+          <p>Insurance covers only <strong>pure risk</strong> — situations with the possibility of loss or no loss, never gain. <strong>Speculative risk</strong> (a chance of profit as well as loss, like stock investing) is uninsurable. The <strong>Principle of Indemnity</strong> flows from this: insurance restores the insured's financial position to where it was <em>before</em> the loss — it must never be a source of profit.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Death is a <em>certain</em> event, yet life insurance exists. Why is it still insurable?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Because the timing of death is uncertain, even though death itself is certain</button>
+          <button class="mini-opt" data-correct="false">Because death is a speculative risk with a chance of gain</button>
+          <button class="mini-opt" data-correct="false">Because the insured can choose when a claim arises</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — life insurance is the exception to 'loss must be accidental': death is certain but its timing is uncertain, which makes it insurable." data-wrong-msg="Not quite — death is certain, but its timing is uncertain, and that uncertainty is what makes life insurance possible."></div>
+      </div>
+    </section>
+
+    <!-- 1.3 -->
+    <section class="lesson-section" id="sec-principles">
+      <span class="section-kicker">1.3</span>
+      <h2>The two fundamental principles</h2>
+      <p>Insurance is a unique contract that transfers risk from the insured to the insurer. Two principles underpin it.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🤝 Utmost good faith (<em>Uberrimae Fidei</em>)</h4>
+          <ul>
+            <li>The insured knows more about themselves than the insurer — an <strong>information asymmetry</strong></li>
+            <li>Screening (e.g. a <strong>medical test</strong>) is imperfect — it can't reveal all ailments or family history</li>
+            <li>So the insurer relies on the insured to <strong>disclose all material information truthfully</strong> — family history, medical history, smoking/drinking habits, nature of profession</li>
+            <li>Anything that could influence the insurer's risk perception is <strong>material</strong>; when in doubt, <strong>disclose</strong></li>
+            <li>Non-disclosure discovered at claim time lets the insurer <strong>reject the claim entirely</strong> — the low premium paid is wasted and the loss is not reimbursed</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🎯 Insurable interest</h4>
+          <ul>
+            <li>The insured must be <strong>better off if the risk does not materialise</strong>, and worse off if it does</li>
+            <li>A business owner has insurable interest in <strong>his own</strong> inventory — but not a competitor's</li>
+            <li><strong>Direct dependents</strong> and relationships of <strong>blood and marriage</strong> have insurable interest in each other</li>
+            <li>Distant relatives (aunts, uncles, cousins, nieces, nephews) — only with <strong>proof of financial dependence</strong></li>
+            <li>A <strong>lender</strong> has interest in the borrower up to the amount outstanding; an <strong>employer</strong> in key employees</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Disclose, even if it raises the premium</strong>
+          <p>An insurance policy is a <em>promise to pay on the happening of a covered risk</em>. It is far better to fully disclose and pay a higher premium for the extra risk than to suppress facts, pay less, and have the claim rejected when the loss actually occurs. A rejected claim wastes every rupee of premium paid.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Rajan is a smoker but ticks 'non-smoker' on the proposal form to lower his premium. Three years later a claim reveals this. What can the insurer do?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Reject the claim — he breached utmost good faith by suppressing material information</button>
+          <button class="mini-opt" data-correct="false">Nothing — the insurer should have detected it in the medical test</button>
+          <button class="mini-opt" data-correct="false">Pay the claim in full but cancel future cover</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — smoking is material to risk perception. Suppressing it breaches utmost good faith (uberrimae fidei), giving the insurer the right to reject the claim." data-wrong-msg="Not quite — smoking habits are material information. Concealing them breaches utmost good faith, and the insurer can reject the claim."></div>
+      </div>
+    </section>
+
+    <!-- 1.4 -->
+    <section class="lesson-section" id="sec-concepts">
+      <span class="section-kicker">1.4</span>
+      <h2>Concepts in insurance</h2>
+      <p>These working concepts recur throughout every insurance product. Start with the most fundamental distinction — <strong>indemnity</strong> vs <strong>defined-benefit</strong> policies.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>💊 Indemnity insurance</h4>
+          <ul>
+            <li>A duty to <strong>make good the actual loss</strong> incurred</li>
+            <li>Requires <strong>determination of actual loss</strong> before pay-out (bills)</li>
+            <li>Examples: <strong>Mediclaim</strong> (hospitalisation reimbursement), <strong>property</strong> insurance, <strong>car</strong> insurance</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>💰 Defined-benefit insurance</h4>
+          <ul>
+            <li>Pays a <strong>fixed, pre-estimated sum</strong> on the covered event — no need to prove exact loss</li>
+            <li>Used when actual loss is <strong>hard to ascertain</strong> (life, critical illness) or <strong>too small</strong> to bother measuring (daily hospital cash)</li>
+            <li>Examples: <strong>Life insurance</strong>, <strong>critical illness</strong>, <strong>daily hospital cash allowance</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <p>Sort each policy into <strong>indemnity</strong> or <strong>defined benefit</strong> — the difference is whether the actual loss can be (and needs to be) ascertained:</p>
+
+      <div class="sorter" id="indem-sorter">
+        <h4>Indemnity or Defined Benefit? — sort the policy</h4>
+        <div class="hint">Indemnity = reimburses ascertained actual loss (bills). Defined benefit = pays a fixed pre-set sum.</div>
+        <div class="sorter-statement" id="indem-statement">Loading…</div>
+        <div class="sorter-btns">
+          <button class="do-btn" id="indem-in">💊 Indemnity</button>
+          <button class="dont-btn" id="indem-out" style="color:var(--gold-600)">💰 Defined benefit</button>
+        </div>
+        <div class="sorter-feedback" id="indem-feedback">&nbsp;</div>
+        <div class="sorter-meta">
+          <span id="indem-progress">Statement 1</span>
+          <span id="indem-score">Score: 0</span>
+        </div>
+      </div>
+
+      <p>Beyond that split, five more concepts govern how claims are shared, reduced and recovered. Tap each:</p>
+
+      <div class="matcher" id="concept-matcher">
+        <h4>Claim-side concepts — tap one</h4>
+        <div class="hint">Who recovers, who shares, who bears part of the loss, and how it's paid.</div>
+        <div class="match-markets" id="concept-markets">
+          <button class="match-mkt" data-reg="SUB">Subrogation</button>
+          <button class="match-mkt" data-reg="CONTRI">Contribution</button>
+          <button class="match-mkt" data-reg="COPAY">Co-Pay</button>
+          <button class="match-mkt" data-reg="DEDUCT">Deductible</button>
+          <button class="match-mkt" data-reg="CASHLESS">Cashless claim</button>
+        </div>
+        <div class="match-regs" id="concept-cards2">
+          <div class="reg-card" data-reg="SUB"><div class="rn">Subrogation</div><div class="rd">After paying the claim, the insurer <strong>steps into the shoes</strong> of the insured to recover the loss from the at-fault third party. It speeds the insured's payout and lets the insurer recover — a policy <strong>without</strong> subrogation rights would be <strong>more expensive</strong>.</div></div>
+          <div class="reg-card" data-reg="CONTRI"><div class="rn">Contribution</div><div class="rd">When the same risk is covered by <strong>more than one policy</strong>, one insurer can claim a <strong>proportionate share</strong> from the other. Applies only to <strong>indemnity</strong> policies. Two ₹5-lakh flood policies, loss ₹30,000 → each insurer pays <strong>₹15,000</strong>.</div></div>
+          <div class="reg-card" data-reg="COPAY"><div class="rn">Co-Pay</div><div class="rd">A <strong>percentage of the claim</strong> the insured agrees to bear. Claim ₹2,00,000 with 15% co-pay → insured pays ₹30,000, insurer ₹1,70,000. Higher co-pay → lower premium; it makes the insured cost-sensitive.</div></div>
+          <div class="reg-card" data-reg="DEDUCT"><div class="rn">Deductible</div><div class="rd">A <strong>fixed amount</strong> the insured pays first, after which the claim becomes admissible. Car insurance ≤1600 CC has a <strong>compulsory ₹1,000</strong> deductible. Types: <strong>compulsory</strong> and <strong>voluntary</strong> — higher deductible → lower premium.</div></div>
+          <div class="reg-card" data-reg="CASHLESS"><div class="rn">Cashless claim payment</div><div class="rd">The insurer pays the <strong>hospital/garage directly</strong> instead of reimbursing the insured, avoiding a cash-flow block. Relevant to indemnity (health/car). The approved network <strong>keeps changing</strong>, so it shouldn't be the main reason to pick an insurer.</div></div>
+        </div>
+        <div class="match-feedback" id="concept-feedback"></div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H5.2L4 17.5V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Deductible vs Co-Pay — the same claim, two policies</strong>
+          <p>Claim = ₹40,000. <strong>Policy 1</strong> (deductible ₹1,000 + co-pay 10%): ₹40,000 − ₹1,000 = ₹39,000, less 10% co-pay (₹3,900) = <strong>₹35,100</strong> paid. <strong>Policy 2</strong> (deductible ₹5,000, no co-pay): ₹40,000 − ₹5,000 = <strong>₹35,000</strong> paid. A deductible is a fixed first slice; a co-pay is a percentage of what remains. Try both in the calculator below.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which concept applies <em>only</em> to indemnity policies, because the loss amount must be ascertainable and the total claim cannot exceed it?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Contribution</button>
+          <button class="mini-opt" data-correct="false">A defined-benefit payout</button>
+          <button class="mini-opt" data-correct="false">Insurable interest</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — contribution applies only to indemnity policies, since the ascertained loss caps the total claim across insurers." data-wrong-msg="Not quite — contribution is the indemnity-only concept: the ascertained loss caps the combined claim, so insurers share it proportionately."></div>
+      </div>
+    </section>
+
+    <!-- 1.4 nominee etc -->
+    <section class="lesson-section" id="sec-nominee">
+      <span class="section-kicker">1.4</span>
+      <h2>Nominees, the 3-year rule and the health moratorium</h2>
+      <p>Three provisions from the <strong>Insurance Act, 1938</strong> (and IRDAI regulations) are frequently tested.</p>
+
+      <div class="term-grid" id="nominee-grid"></div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Nominee vs beneficial nominee</strong>
+          <p>Ordinarily a nominee is only a <strong>trustee</strong> for the legal heirs — they receive the money but must account for it to the heirs. But the <strong>Insurance Act, 1938 was amended in February 2015</strong> to add the <strong>"beneficial nominee"</strong> (<strong>Section 39(7)</strong>): if the nominee of a <em>life</em> policy is the <strong>parent, spouse, children</strong> (or spouse and children, or any of them), that nominee is <strong>beneficially entitled</strong> to the claim — not accountable to other legal heirs.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A life policy's death claim is filed 4 years after the policy was issued. On what ground can the insurer deny it?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">On no ground whatsoever — after 3 years (Section 45) the policy cannot be called into question</button>
+          <button class="mini-opt" data-correct="false">On the ground of any minor non-disclosure</button>
+          <button class="mini-opt" data-correct="false">Only if the premium was paid annually</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — Section 45 of the Insurance Act, 1938: after 3 years from issue / risk commencement / revival (whichever is later), a death claim cannot be denied on any ground. (Within 3 years it can still be repudiated for fraud.)" data-wrong-msg="Not quite — under Section 45, after 3 years the policy cannot be called into question on any ground. Denial for fraud is only possible within the first 3 years."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — After how many continuous years of premium payment does a health insurance policy become non-contestable (except for proven fraud or specified permanent exclusions)?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">5 continuous years — the moratorium period</button>
+          <button class="mini-opt" data-correct="false">3 continuous years</button>
+          <button class="mini-opt" data-correct="false">10 continuous years</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the health-insurance moratorium is 5 continuous years; after it, no claim is contestable except for proven fraud and specified permanent exclusions (a fresh 5 years applies to any enhanced sum insured)." data-wrong-msg="Not quite — the moratorium period for health insurance is 5 continuous years of uninterrupted premium payment."></div>
+      </div>
+    </section>
+
+    <!-- 1.5 -->
+    <section class="lesson-section" id="sec-personal">
+      <span class="section-kicker">1.5</span>
+      <h2>The role of insurance in personal finance</h2>
+      <p><strong>Income is at the base of every financial plan.</strong> Any event that reduces income, stops it, or imposes a large unplanned charge on it puts the plan's goals at risk. Insurance protects the income so that goals stay on track — a life policy for an early death, a critical-illness or personal-accident-disability policy for lost earning ability, a health or motor policy for large unplanned expenses, household insurance against theft.</p>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Insurance comes before investments — the cricket analogy</strong>
+          <p>A batsman's pads and abdomen guard slow him down, yet even the greatest batsman never plays without them, because <strong>one hit could end his career</strong>. Likewise, paying a premium to protect the plan from being derailed comes <strong>before</strong> any investment is made to reach the goals. Protect first, then grow.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — In personal finance, why does insurance take priority over investment?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Because income underlies every goal, and one uninsured event can derail the entire plan</button>
+          <button class="mini-opt" data-correct="false">Because insurance always earns a higher return than investments</button>
+          <button class="mini-opt" data-correct="false">Because SEBI requires insurance before any investment</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — income is the base of the plan; protecting it (like a batsman's protective gear) comes before investing to reach goals." data-wrong-msg="Not quite — insurance comes first because it protects the income that every goal depends on, not because it out-returns investments."></div>
+      </div>
+    </section>
+
+    <!-- 1.6 -->
+    <section class="lesson-section" id="sec-investing">
+      <span class="section-kicker">1.6</span>
+      <h2>Investing through insurance</h2>
+      <p>Some policies bundle a <strong>savings/investment component</strong> with risk protection, so the premium is higher — one part buys cover, the other is invested. That can be convenient, but it must be examined carefully.</p>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>"Give me my premium back" costs a fortune</strong>
+          <p>If the merchant wants his ₹20,000 premium returned when the ship comes home safely, and investments earn 12% p.a. (1% per month), he must pay a premium of <strong>₹20,20,000</strong> — more than the ship itself. The insurer keeps ₹20,000 for the pool and invests ₹20,00,000, which grows to ₹20,20,000 in a month and is returned. Chasing "premium back" pushes premiums up so steeply that people compromise by cutting cover — defeating the whole purpose of insurance.</p>
+        </div>
+      </div>
+
+      <p>The right approach: <strong>decouple</strong> the insurance and investment elements. First test whether the <strong>risk cover is adequate</strong> — if not, reject it, because the primary goal isn't met. Only then evaluate the investment return separately, and compare it with pure investment products of a similar profile. An insurer's primary job is <strong>risk coverage</strong>; investment products are best bought from entities that specialise in them.</p>
+
+      <div class="mini-check">
+        <div class="q">Quick check — When evaluating an investment-cum-insurance product, what should be checked first?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Whether the risk coverage is adequate — if not, eliminate the product</button>
+          <button class="mini-opt" data-correct="false">Whether the investment return beats the stock market</button>
+          <button class="mini-opt" data-correct="false">Whether the premium is the lowest available</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — decouple the two elements and check risk-cover adequacy first; if the cover is inadequate the product fails its primary purpose. Only then assess the investment return." data-wrong-msg="Not quite — first decouple and check whether the risk coverage is adequate; the investment return is considered only after that primary test is passed."></div>
+      </div>
+    </section>
+
+    <!-- 1.7 -->
+    <section class="lesson-section" id="sec-adviser">
+      <span class="section-kicker">1.7</span>
+      <h2>The role of the insurance adviser — five steps</h2>
+      <p>Insurance planning is an essential part of financial planning and is specific to each individual. It follows five steps:</p>
+
+      <div class="proc-list">
+        <div class="proc-item"><div class="pt"><strong>Identify the insurance need.</strong> Spot every situation that could cause loss of income or an unexpected charge. Needs fall into <strong>income replacement</strong> (life, critical illness, accidental disability, annuities), <strong>income protection</strong> (health, motor) and <strong>asset protection</strong> (household). A young person with no dependents may need <strong>personal-accident/critical-illness</strong> cover more than life cover.</div></div>
+        <div class="proc-item"><div class="pt"><strong>Estimate the coverage.</strong> Size the cover to the <strong>future value</strong> of what's being replaced, the <strong>period</strong> of protection and affordability. <strong>Under-insurance</strong> means retaining part of the risk; <strong>over-insurance</strong> wastes premium. Income-replacement cover is needed during the <strong>earning phase</strong>, not after retirement.</div></div>
+        <div class="proc-item"><div class="pt"><strong>Identify the most suitable product.</strong> Match the chosen coverage to the right type of insurance product.</div></div>
+        <div class="proc-item"><div class="pt"><strong>Optimise the premium.</strong> Share non-mandatory information (motor), choose a higher <strong>deductible</strong>, use the <strong>no-claim bonus</strong>, and take <strong>E-Insurance</strong> (electronic policies, often discounted) to lower the premium for the same cover.</div></div>
+        <div class="proc-item"><div class="pt"><strong>Monitor the coverage.</strong> Insurance is not one-time. Review whenever life changes the demands on income — <strong>marriage, children, buying a house, a big raise</strong>. Cover may even be <strong>reduced</strong> over time as goals are met.</div></div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H5.2L4 17.5V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>The cheap option to extend the term</strong>
+          <p>A 30-year-old can buy a <strong>30-year</strong> term policy (to age 60) for ₹13,800/year, or a <strong>40-year</strong> policy (to age 70) for ₹16,200/year. The extra <strong>₹2,400/year</strong> buys the option to keep the policy running beyond the earning years — often worth it for the flexibility.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which insurance need does a personal-accident disability policy primarily address?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Income replacement — it replaces earnings lost if the person is incapacitated</button>
+          <button class="mini-opt" data-correct="false">Asset protection — it protects household goods from theft</button>
+          <button class="mini-opt" data-correct="false">It has no place in insurance planning</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — personal-accident/disability and critical-illness cover replace income lost when earning ability is impaired; that's an income-replacement need." data-wrong-msg="Not quite — a personal-accident disability policy is an income-replacement product: it replaces the income lost if the insured is incapacitated."></div>
+      </div>
+    </section>
+
+    <!-- 1.8 -->
+    <section class="lesson-section" id="sec-regulations">
+      <span class="section-kicker">1.8</span>
+      <h2>Regulations pertaining to insurance</h2>
+
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:14px 0 6px">1.8.1 Health insurance</h3>
+      <ul class="lesson-list">
+        <li><strong>Standard terminology</strong> across all health policies (pre-existing disease, portability, co-payment, deductible are standardised).</li>
+        <li><strong>Exclusions are standardised</strong> — an insurer may have <em>fewer</em> exclusions but never more than prescribed. Mental illness, genetic disorders and congenital disease have been <strong>removed</strong> from the exclusion list.</li>
+        <li>Any health policy (except group / top-up / super-top-up) can be <strong>ported</strong>. Group policies can port to individual — within the same company in the first year of leaving, and to any company from the second year.</li>
+        <li>Rejection of cover needs a <strong>fair, justifiable, written reason</strong>; a claim <strong>cannot be rejected</strong> if the policy runs <strong>5 years</strong> without a break; <strong>telemedicine</strong> is covered; delayed settlement attracts <strong>interest</strong>.</li>
+        <li>Every general/health insurer must offer a <strong>standard individual health product</strong> mandated by IRDAI (common wordings, seamless portability, <strong>no add-ons</strong>).</li>
+        <li>All individual health insurance/reinsurance policies are <strong>exempt from GST w.e.f. 22 September 2025</strong>.</li>
+      </ul>
+
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:20px 0 6px">1.8.2 Unit Linked Insurance Products (ULIP)</h3>
+      <ul class="lesson-list">
+        <li>Full disclosure of <strong>charges</strong> for each policy year, and <strong>benefit illustrations at 4% and 8%</strong> — the prospect signs the illustration with the proposal form.</li>
+        <li><strong>Lock-in period 5 years</strong>; <strong>no surrender charges after 5 policy years</strong>; partial withdrawals allowed after the 5-year lock-in.</li>
+        <li>Limited/regular-premium ULIPs must have <strong>level premiums</strong> and a premium-paying term of <strong>at least 5 years</strong>; all except pension/annuity must carry a <strong>mortality or health cover</strong>.</li>
+        <li>Charges <strong>capped from the 5th year</strong>; discontinuance charges capped; a lapsed ULIP can be <strong>revived within 3 years</strong> of lapsation.</li>
+      </ul>
+
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:20px 0 6px">1.8.3 Intermediaries — agent vs broker vs corporate agent</h3>
+      <p>An "insurance intermediary" includes brokers, reinsurance brokers, consultants, surveyors and loss assessors. The key distinction is <strong>whom they represent</strong>. Tap a parameter:</p>
+
+      <div class="matcher" id="interm-matcher">
+        <h4>Direct Broker vs Agent vs Corporate Agent — tap a row</h4>
+        <div class="hint">The broker works for the client; the agent(s) work for the insurer(s).</div>
+        <div class="match-markets" id="interm-markets">
+          <button class="match-mkt" data-reg="REP">Who they represent</button>
+          <button class="match-mkt" data-reg="WORK">Can work with…</button>
+          <button class="match-mkt" data-reg="CHARGE">How they're paid</button>
+          <button class="match-mkt" data-reg="CATEGORY">Broker categories</button>
+          <button class="match-mkt" data-reg="BANCA">Bancassurance</button>
+        </div>
+        <div class="match-regs" id="interm-cards">
+          <div class="reg-card" data-reg="REP"><div class="rn">Who they represent</div><div class="rd"><strong>Direct broker</strong> → the <strong>client</strong>. <strong>Insurance agent</strong> → the <strong>insurance company</strong>. <strong>Corporate agent</strong> → the insurance company(ies).</div></div>
+          <div class="reg-card" data-reg="WORK"><div class="rn">Can work with…</div><div class="rd"><strong>Broker</strong>: multiple insurers. <strong>Agent</strong>: more than one insurer per line (life/general/health) but must dispassionately advise. <strong>Corporate agent (composite)</strong>: max <strong>3 life + 3 general + 3 health</strong> insurers.</div></div>
+          <div class="reg-card" data-reg="CHARGE"><div class="rn">How they're paid</div><div class="rd"><strong>Direct broker</strong>: can charge a <strong>fee to the client</strong> <em>and</em> earn commission from the insurer. <strong>Agent / corporate agent</strong>: <strong>commission from the insurer</strong> only.</div></div>
+          <div class="reg-card" data-reg="CATEGORY"><div class="rn">Broker categories</div><div class="rd"><strong>Direct</strong> (arranges cover for clients), <strong>Reinsurance</strong> (arranges reinsurance so insurers spread risk), and <strong>Composite</strong> (both direct and reinsurance).</div></div>
+          <div class="reg-card" data-reg="BANCA"><div class="rn">Bancassurance</div><div class="rd">When a <strong>bank</strong> becomes the corporate agent of an insurer, the arrangement is called <strong>bancassurance</strong>. A <strong>composite insurance agent</strong> can't act for more than one life, one general and one health (and one each mono-line) insurer.</div></div>
+        </div>
+        <div class="match-feedback" id="interm-feedback"></div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Suitability, benefit illustration &amp; the SEBI (IA) carve-out</strong>
+          <p>To curb mis-selling, IRDAI requires agents to <strong>justify product suitability</strong> (age, income, family status, goals, existing cover) before selling; a client may skip it only with <strong>written consent</strong>. Agents must give <strong>4%/8% benefit illustrations</strong> and <strong>sign</strong> them alongside the policyholder, stating guaranteed vs non-guaranteed benefits. Under <strong>SEBI (Investment Advisers) Regulations, 2013</strong>, an IRDAI-registered agent/broker advising <em>solely</em> on insurance products is <strong>exempt</strong> from IA regulations — but the moment they advise on <strong>non-insurance securities/investment products</strong>, IA regulations apply and they must observe <strong>risk profiling, suitability and fiduciary responsibility</strong>.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which intermediary can charge a fee to the client <em>and</em> earn a commission from the insurer, while representing the client?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">A Direct Insurance Broker</button>
+          <button class="mini-opt" data-correct="false">An Insurance Agent</button>
+          <button class="mini-opt" data-correct="false">A Corporate Agent</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a direct broker represents the client and may charge the client a fee as well as earn commission from the insurer. Agents (and corporate agents) represent the insurer and earn only commission." data-wrong-msg="Not quite — it's the direct broker: it represents the client and can both charge a client fee and earn insurer commission. Agents represent the insurer and get commission only."></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An IRDAI-registered insurance agent starts advising clients on mutual funds and stocks too. What follows?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">SEBI (IA) Regulations, 2013 now apply — they must follow risk profiling, suitability and fiduciary duty</button>
+          <button class="mini-opt" data-correct="false">Nothing changes — insurance agents are always exempt from SEBI rules</button>
+          <button class="mini-opt" data-correct="false">They must immediately stop selling insurance</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the SEBI (IA) exemption covers advice solely on insurance products. Advising on non-insurance securities brings IA regulations into play, with their risk-profiling, suitability and fiduciary obligations." data-wrong-msg="Not quite — the exemption is only for advice solely on insurance products. Advising on non-insurance securities triggers the SEBI (IA) Regulations, 2013."></div>
+      </div>
+    </section>
+
+    <!-- Calculators -->
+    <section class="lesson-section" id="sec-calc">
+      <span class="section-kicker">★</span>
+      <h2>Insurance calculators</h2>
+      <p>Reproduce the workbook's worked examples, then vary the inputs to see how each concept behaves.</p>
+
+      <!-- Deductible + Co-Pay -->
+      <div class="calc" id="calc-copay">
+        <div class="calc-title"><span class="pill">Interactive</span> Deductible &amp; Co-Pay — what the insurer pays</div>
+        <div class="calc-sub">A deductible is a fixed first slice; the co-pay is a percentage of what remains. Defaults = workbook Policy 1 (₹40,000 claim, ₹1,000 deductible, 10% co-pay → ₹35,100).</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="calc-field"><label>Ascertained claim <span class="v" id="cp-claim-v">₹40,000</span></label><input type="range" id="cp-claim" min="5000" max="200000" step="1000" value="40000"></div>
+            <div class="calc-field"><label>Deductible <span class="v" id="cp-ded-v">₹1,000</span></label><input type="range" id="cp-ded" min="0" max="50000" step="500" value="1000"></div>
+            <div class="calc-field"><label>Co-Pay <span class="v" id="cp-copay-v">10%</span></label><input type="range" id="cp-copay" min="0" max="50" step="1" value="10"></div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Insurer pays</div>
+            <div class="out-val" id="cp-pay">₹35,100</div>
+            <div class="calc-line"><span>Claim</span><span id="cp-o-claim">₹40,000</span></div>
+            <div class="calc-line"><span>Less deductible</span><span id="cp-o-ded">− ₹1,000</span></div>
+            <div class="calc-line"><span>Balance</span><span id="cp-o-bal">₹39,000</span></div>
+            <div class="calc-line"><span>Less co-pay (on balance)</span><span id="cp-o-copay">− ₹3,900</span></div>
+            <div class="calc-line"><span>Insured bears in total</span><span id="cp-o-insured">₹4,900</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contribution -->
+      <div class="calc" id="calc-contri">
+        <div class="calc-title"><span class="pill">Interactive</span> Contribution — proportionate share across two insurers</div>
+        <div class="calc-sub">When two indemnity policies cover the same risk, each insurer pays in the ratio of its sum assured. Defaults = workbook example (two ₹5-lakh policies, ₹30,000 loss → ₹15,000 each).</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="calc-field"><label>Sum assured — Insurer A <span class="v" id="co-a-v">₹5,00,000</span></label><input type="range" id="co-a" min="100000" max="2000000" step="50000" value="500000"></div>
+            <div class="calc-field"><label>Sum assured — Insurer B <span class="v" id="co-b-v">₹5,00,000</span></label><input type="range" id="co-b" min="100000" max="2000000" step="50000" value="500000"></div>
+            <div class="calc-field"><label>Ascertained loss <span class="v" id="co-loss-v">₹30,000</span></label><input type="range" id="co-loss" min="5000" max="500000" step="5000" value="30000"></div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Each insurer contributes</div>
+            <div class="out-val" id="co-out">₹15,000&nbsp;+&nbsp;₹15,000</div>
+            <div class="calc-line"><span>Insurer A share</span><span id="co-a-share">₹15,000</span></div>
+            <div class="calc-line"><span>Insurer B share</span><span id="co-b-share">₹15,000</span></div>
+            <div class="calc-line"><span>Total paid = loss</span><span id="co-total">₹30,000</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Risk pool premium -->
+      <div class="calc" id="calc-pool">
+        <div class="calc-title"><span class="pill">Interactive</span> The merchant-ship pool — premium per participant</div>
+        <div class="calc-sub">Premium per participant = (loss per ship × ships lost) ÷ number who pay. Defaults = 100 merchants, ₹10,00,000 per ship, 2 lost → ₹20,000. Drop the participants to 40 and watch it jump to ₹50,000.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="calc-field"><label>Participants who pay <span class="v" id="pl-n-v">100</span></label><input type="range" id="pl-n" min="10" max="200" step="5" value="100"></div>
+            <div class="calc-field"><label>Loss per ship <span class="v" id="pl-loss-v">₹10,00,000</span></label><input type="range" id="pl-loss" min="100000" max="2000000" step="100000" value="1000000"></div>
+            <div class="calc-field"><label>Ships lost per month <span class="v" id="pl-lost-v">2</span></label><input type="range" id="pl-lost" min="1" max="10" step="1" value="2"></div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Premium per participant</div>
+            <div class="out-val" id="pl-prem">₹20,000</div>
+            <div class="calc-line"><span>Total pool needed</span><span id="pl-pool">₹20,00,000</span></div>
+            <div class="calc-line"><span>Shared among</span><span id="pl-share">100 payers</span></div>
+            <div class="calc-line"><span>As % of sum assured</span><span id="pl-pct">2.0%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The concepts, dates and thresholds most likely to be tested — tap to reveal.</p>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:14px 0 6px">Core concepts</h3>
+      <div class="flip-grid" id="concept-cards"></div>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:22px 0 6px">Dates, sections &amp; key facts</h3>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xb", CHAPTER_ID = "ch01";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 7", href: "../../index.html" },
+    { label: "Chapter 1", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  if (window.NISM_CH01_QUESTIONS) {
+    var mc = document.getElementById("meta-qcount");
+    if (mc) mc.textContent = window.NISM_CH01_QUESTIONS.length;
+  }
+
+  // ---------- Formatting ----------
+  function fmtINR(n) {
+    n = Math.round(n);
+    var s = String(Math.abs(n));
+    var last3 = s.length > 3 ? s.slice(-3) : s;
+    var rest = s.length > 3 ? s.slice(0, -3) : "";
+    if (rest) last3 = "," + last3;
+    rest = rest.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+    return (n < 0 ? "−₹" : "₹") + rest + last3;
+  }
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:15px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // Nominee / Sec 45 / moratorium cards
+  renderCards("nominee-grid", [
+    { icon: "👪", label: "Nominee vs legal heirs", body: "Ordinarily a nominee holds the money in trust for the legal heirs. Exception: the 'beneficial nominee' under Section 39(7) (Feb 2015 amendment) — a parent/spouse/children nominee of a life policy is beneficially entitled." },
+    { icon: "📅", label: "Section 45 — 3-year rule", body: "No life policy can be called into question 3 years from issue / risk commencement / revival (whichever is later). Within 3 years a claim can be repudiated only for fraud." },
+    { icon: "🩺", label: "Health moratorium — 5 years", body: "After 5 continuous years of premium payment without breaks, no health claim is contestable except for proven fraud and specified permanent exclusions (fresh 5 years for any enhanced sum insured)." }
+  ]);
+
+  // Concept flip deck
+  renderFlip("concept-cards", [
+    { icon: "🔁", label: "Risk transfer vs retention", back: "Retention = bear the loss yourself. Transfer = pay a premium so the insurer indemnifies you. Insurance is risk transfer via a common pool." },
+    { icon: "⚓", label: "Insurable risk — 7 tests", back: "Large number of exposure units · insurable interest · accidental & unintentional · determinable & measurable · no prospect of gain (pure not speculative) · chance of loss calculable · premium economically feasible." },
+    { icon: "🤝", label: "Utmost good faith", back: "Uberrimae fidei — the insured must disclose all material info truthfully (family/medical history, habits, profession). Non-disclosure lets the insurer reject the claim entirely." },
+    { icon: "🎯", label: "Insurable interest", back: "Better off if the risk doesn't occur, worse off if it does. Blood/marriage relations qualify; distant relatives only with proof of dependence; lender up to amount outstanding; employer in key employees." },
+    { icon: "💊", label: "Indemnity vs benefit", back: "Indemnity reimburses ascertained actual loss (Mediclaim, property, car). Defined benefit pays a fixed pre-set sum (life, critical illness, daily hospital cash)." },
+    { icon: "👞", label: "Subrogation", back: "After paying, the insurer steps into the insured's shoes to recover from the at-fault third party. A policy without subrogation would be more expensive." },
+    { icon: "➗", label: "Contribution", back: "Same risk under 2+ policies → insurers share proportionately by sum assured. Indemnity-only. Two ₹5-lakh policies, ₹30,000 loss → ₹15,000 each." },
+    { icon: "％", label: "Co-Pay vs deductible", back: "Co-pay = a % of the claim the insured bears; deductible = a fixed first amount. Both lower the premium; higher co-pay/deductible → lower premium." },
+    { icon: "💳", label: "Cashless claim", back: "Insurer pays the hospital/garage directly (indemnity, health/car). Network keeps changing, so not the main reason to choose an insurer; regulator now pushing cashless." },
+    { icon: "🏏", label: "Insurance before investment", back: "Income underlies every goal. Like a batsman's protective gear, protect the plan first, then invest for goals." },
+    { icon: "🧩", label: "Investing via insurance", back: "Decouple the two elements; test risk-cover adequacy first, then the investment return separately. 'Premium back' pushes premiums up astronomically (₹20,20,000 vs ₹20,000)." },
+    { icon: "🧭", label: "5 steps of insurance planning", back: "Identify need → estimate coverage → identify suitable product → optimise premium → monitor coverage." }
+  ]);
+
+  // Revision deck (dates / facts — mono fronts)
+  renderFlip("revision-cards", [
+    { icon: "Feb 2015", label: "Beneficial nominee", back: "The Insurance Act, 1938 was amended in February 2015 to introduce the 'beneficial nominee' under Section 39(7) for life policies." },
+    { icon: "Section 45", label: "3-year rule", back: "A life policy cannot be called into question 3 years from issue / risk commencement / revival (whichever is later)." },
+    { icon: "5 years", label: "Health moratorium", back: "5 continuous years of premium → health claim non-contestable except for proven fraud & specified permanent exclusions." },
+    { icon: "₹1,000", label: "Car compulsory deductible", back: "Car insurance in India has a compulsory deductible of ₹1,000 for cars with engine capacity up to 1600 CC." },
+    { icon: "₹35,100", label: "Deductible + co-pay worked answer", back: "Claim ₹40,000, ₹1,000 deductible + 10% co-pay → ₹40,000 − ₹1,000 = ₹39,000, less ₹3,900 = ₹35,100 (vs Policy 2: ₹5,000 deductible only → ₹35,000)." },
+    { icon: "4% & 8%", label: "ULIP benefit illustration", back: "ULIP illustrations use two scenarios — 4% and 8% returns; the prospect signs the illustration with the proposal form." },
+    { icon: "5 years", label: "ULIP lock-in", back: "ULIP lock-in is 5 years; no surrender charges after 5 policy years; charges capped from the 5th year; lapsed ULIP revivable within 3 years." },
+    { icon: "22 Sep 2025", label: "Health GST exemption", back: "All individual health insurance/reinsurance policies are exempt from GST with effect from 22 September 2025." },
+    { icon: "3 + 3 + 3", label: "Corporate agent (composite)", back: "A composite corporate agent can work with a maximum of 3 life, 3 general and 3 health insurance companies." },
+    { icon: "Client vs Insurer", label: "Broker vs agent", back: "Direct broker represents the client (can charge client fee + insurer commission); agent/corporate agent represent the insurer (commission only)." },
+    { icon: "Bancassurance", label: "Bank as corporate agent", back: "When a bank becomes the corporate agent of an insurer, the arrangement is called bancassurance." },
+    { icon: "IA Regs 2013", label: "SEBI (IA) carve-out", back: "Agents/brokers advising solely on insurance are exempt from SEBI (IA) Regulations, 2013; advising on non-insurance securities brings them in (risk profiling, suitability, fiduciary duty)." }
+  ], "mono");
+
+  // ---------- Matchers ----------
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("insurable-markets", "insurable-cards", "insurable-feedback", {
+    LARGE: "Large number of exposure units — a common pool where only a few claim; too few participants makes the premium unviable (₹20,000 → ₹50,000 if only 40 of 100 join).",
+    INTEREST: "Insurable interest — the insured faces a lawful, monetary loss if the subject matter is lost or destroyed.",
+    ACCIDENT: "Accidental & unintentional — loss must be uncertain and outside the insured's control; life insurance is the exception (certain death, uncertain timing).",
+    MEASURE: "Determinable & measurable — loss definite as to cause and amount, calculable from definite evidence.",
+    NOGAIN: "No prospect of gain — pure risk only, not speculative; links to the Principle of Indemnity (restore, don't enrich).",
+    CALC: "Chance of loss calculable — insurer estimates average frequency and severity of future losses.",
+    FEASIBLE: "Premium economically feasible — affordable and far less than the value of the risk covered, else retain the risk."
+  });
+  wireMatcher("concept-markets", "concept-cards2", "concept-feedback", {
+    SUB: "Subrogation — insurer steps into the insured's shoes to recover from the at-fault third party; without it the policy would cost more.",
+    CONTRI: "Contribution — proportionate sharing between insurers when the same risk is covered twice; indemnity-only.",
+    COPAY: "Co-Pay — a percentage of the claim the insured bears; higher co-pay lowers the premium.",
+    DEDUCT: "Deductible — a fixed first amount the insured pays; compulsory ₹1,000 on cars ≤1600 CC; higher deductible lowers premium.",
+    CASHLESS: "Cashless — insurer pays the hospital/garage directly; network changes, so not a decisive reason to pick an insurer."
+  });
+  wireMatcher("interm-markets", "interm-cards", "interm-feedback", {
+    REP: "Who they represent — broker → client; agent → insurer; corporate agent → insurer(s).",
+    WORK: "Can work with — broker: multiple insurers; agent: >1 per line but must advise dispassionately; corporate agent (composite): max 3 life + 3 general + 3 health.",
+    CHARGE: "How they're paid — broker can charge the client a fee AND earn insurer commission; agents earn insurer commission only.",
+    CATEGORY: "Broker categories — Direct, Reinsurance and Composite (both).",
+    BANCA: "Bancassurance — a bank acting as an insurer's corporate agent; a composite agent can't act for more than one life, one general and one health insurer."
+  });
+
+  // ---------- Indemnity / Benefit sorter ----------
+  (function () {
+    var items = [
+      { t: "A life insurance policy paying a pre-fixed sum on death.", indem: false, why: "Defined benefit — the exact loss of future income is difficult to ascertain, so a pre-fixed sum is paid." },
+      { t: "A Mediclaim policy reimbursing hospitalisation expenses against bills.", indem: true, why: "Indemnity — bills ascertain the actual loss, which is then reimbursed." },
+      { t: "A daily hospital cash allowance of a fixed sum per day of hospitalisation.", indem: false, why: "Defined benefit — the small incidental losses aren't easily ascertained, so a fixed daily sum is paid." },
+      { t: "A critical-illness policy paying a lump sum on a specified illness.", indem: false, why: "Defined benefit — the loss of future income from a critical illness is difficult to ascertain." },
+      { t: "Property insurance paying for fire/earthquake/flood damage.", indem: true, why: "Indemnity — the loss is ascertainable, so the actual loss is reimbursed." },
+      { t: "Car (motor) insurance for accident repairs.", indem: true, why: "Indemnity — repair costs make the loss ascertainable." }
+    ];
+    var i = 0, score = 0, answered = false;
+    var stmt = document.getElementById("indem-statement"),
+        inBtn = document.getElementById("indem-in"),
+        outBtn = document.getElementById("indem-out"),
+        fb = document.getElementById("indem-feedback"),
+        prog = document.getElementById("indem-progress"),
+        sc = document.getElementById("indem-score");
+    if (!stmt) return;
+    function show() {
+      answered = false;
+      stmt.textContent = items[i].t;
+      fb.textContent = " "; fb.className = "sorter-feedback";
+      prog.textContent = "Statement " + (i + 1) + " of " + items.length;
+      sc.textContent = "Score: " + score;
+    }
+    function answer(guessIndem) {
+      if (answered) { i = (i + 1) % items.length; show(); return; }
+      answered = true;
+      var correct = (guessIndem === items[i].indem);
+      if (correct) score++;
+      fb.className = "sorter-feedback " + (correct ? "ok" : "no");
+      fb.textContent = (correct ? "✓ Correct. " : "✕ Not quite. ") + items[i].why + "  (Tap either button for the next one.)";
+      sc.textContent = "Score: " + score;
+    }
+    inBtn.addEventListener("click", function () { answer(true); });
+    outBtn.addEventListener("click", function () { answer(false); });
+    show();
+  })();
+
+  // ---------- Calculator: Deductible + Co-Pay ----------
+  (function () {
+    var claim = document.getElementById("cp-claim"),
+        ded = document.getElementById("cp-ded"),
+        copay = document.getElementById("cp-copay");
+    if (!claim) return;
+    function calc() {
+      var c = +claim.value, d = Math.min(+ded.value, c), cp = +copay.value;
+      var bal = c - d;
+      var cpAmt = bal * cp / 100;
+      var pay = bal - cpAmt;
+      var insured = c - pay;
+      document.getElementById("cp-claim-v").textContent = fmtINR(c);
+      document.getElementById("cp-ded-v").textContent = fmtINR(d);
+      document.getElementById("cp-copay-v").textContent = cp + "%";
+      document.getElementById("cp-pay").textContent = fmtINR(pay);
+      document.getElementById("cp-o-claim").textContent = fmtINR(c);
+      document.getElementById("cp-o-ded").textContent = "− " + fmtINR(d);
+      document.getElementById("cp-o-bal").textContent = fmtINR(bal);
+      document.getElementById("cp-o-copay").textContent = "− " + fmtINR(cpAmt);
+      document.getElementById("cp-o-insured").textContent = fmtINR(insured);
+    }
+    [claim, ded, copay].forEach(function (x) { x.addEventListener("input", calc); });
+    calc();
+  })();
+
+  // ---------- Calculator: Contribution ----------
+  (function () {
+    var a = document.getElementById("co-a"),
+        b = document.getElementById("co-b"),
+        loss = document.getElementById("co-loss");
+    if (!a) return;
+    function calc() {
+      var sa = +a.value, sb = +b.value, l = +loss.value;
+      var total = sa + sb;
+      var aShare = total > 0 ? l * sa / total : 0;
+      var bShare = l - aShare;
+      document.getElementById("co-a-v").textContent = fmtINR(sa);
+      document.getElementById("co-b-v").textContent = fmtINR(sb);
+      document.getElementById("co-loss-v").textContent = fmtINR(l);
+      document.getElementById("co-out").textContent = fmtINR(aShare) + " + " + fmtINR(bShare);
+      document.getElementById("co-a-share").textContent = fmtINR(aShare);
+      document.getElementById("co-b-share").textContent = fmtINR(bShare);
+      document.getElementById("co-total").textContent = fmtINR(l);
+    }
+    [a, b, loss].forEach(function (x) { x.addEventListener("input", calc); });
+    calc();
+  })();
+
+  // ---------- Calculator: Risk pool premium ----------
+  (function () {
+    var n = document.getElementById("pl-n"),
+        loss = document.getElementById("pl-loss"),
+        lost = document.getElementById("pl-lost");
+    if (!n) return;
+    function calc() {
+      var nn = +n.value, l = +loss.value, k = +lost.value;
+      var pool = l * k;
+      var prem = nn > 0 ? pool / nn : 0;
+      var pct = l > 0 ? (prem / l * 100) : 0;
+      document.getElementById("pl-n-v").textContent = nn;
+      document.getElementById("pl-loss-v").textContent = fmtINR(l);
+      document.getElementById("pl-lost-v").textContent = k;
+      document.getElementById("pl-prem").textContent = fmtINR(prem);
+      document.getElementById("pl-pool").textContent = fmtINR(pool);
+      document.getElementById("pl-share").textContent = nn + " payers";
+      document.getElementById("pl-pct").textContent = pct.toFixed(1) + "%";
+    }
+    [n, loss, lost].forEach(function (x) { x.addEventListener("input", calc); });
+    calc();
+  })();
+
+  // ---------- Scroll reveal for risk-pool SVG ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.3 }).observe(el);
+  }
+  onReveal("#pool-svg", function (root) {
+    root.querySelector("#p-payers").classList.add("go");
+    setTimeout(function () { root.querySelector("#pi-1").classList.add("go"); }, 250);
+    setTimeout(function () { root.querySelector("#pi-2").classList.add("go"); }, 450);
+    setTimeout(function () { root.querySelector("#pi-3").classList.add("go"); }, 650);
+    setTimeout(function () { root.querySelector("#p-pool").classList.add("go"); }, 900);
+    setTimeout(function () { root.querySelector("#po-1").classList.add("go"); }, 1400);
+    setTimeout(function () { root.querySelector("#p-claim").classList.add("go"); }, 1700);
+  }, 0.25);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH01_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>

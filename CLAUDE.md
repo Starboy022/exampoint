@@ -126,6 +126,7 @@ Match Ch.1/Ch.2 depth. Each chapter must include:
 6. **Interactive elements where the topic allows** — live calculators with range sliders / segmented toggles that recompute on `input`. Reproduce the workbook's worked examples exactly as the **default state**, then let the user vary inputs.
 7. **Callouts** — `.callout-example` for worked examples / DYK boxes, `.callout-insight` for regulatory/key notes, `.callout-caution` for pitfalls.
 8. **End-of-chapter assessment** — `NismQuiz.mount` reading `window.NISM_CH0N_QUESTIONS`, standard `onComplete`, and footer prev/next nav.
+9. **Update the master Cheat Sheet** — append/refresh this chapter's block in `assets/js/cheatsheet-data.js` (see §8). This is a required build step, same status as flipping `curriculum.js` to `"active"`.
 
 **Fact-heavy chapters with no maths** (e.g. Ch.5): the "live calculator" requirement is satisfied by other interactivity — tap-to-match widgets, animated regulator/structure SVGs, staggered-reveal flow diagrams. Keep the meta-row honest (e.g. "N learning objectives" instead of "N calculators").
 
@@ -159,4 +160,19 @@ Question shapes in `quiz-data.js`:
 ## 7. Progress status (keep current when chapters are activated)
 
 - **XA — COMPLETE (`status:"active"`):** Ch.1–20 (all 6 modules). Every chapter built to the standard above with `index.html` + `quiz-data.js` and activated in `curriculum.js`.
-- **XB — not started:** book is a `"coming-soon"` stub with `modules: []`; only `books/xb/index.html` exists. See §1 for the module/chapter map to scaffold. **Next up: XB Ch.1 (Basics of Insurance, Module 7).**
+- **Master Cheat Sheet — COMPLETE for XA:** `cheatsheet.html` + `assets/js/cheatsheet-data.js` cover Ch.1–20. See §8.
+- **XB — launched, in progress:** book is `status:"active"` in `curriculum.js` with the full 6-module / 20-chapter `modules` array (marks M7=25, M8=30, M9=20, M10=20, M11=10, M12=45); `books/xb/index.html` is a data-driven landing page. **Ch.1–3 (Module 7: Basics of Insurance, Life Insurance Products, Non-Life Insurance Products) and Ch.4 (Module 8: Retirement Planning Basics) are built + activated** (`index.html` + `quiz-data.js`, cheatsheet blocks appended). All other 16 chapters are `"coming-soon"`. **Next up: XB Ch.5 (Retirement Products, Module 8)** — scaffold `chapter-05/`, build to standard, flip to `"active"`, append cheatsheet-data.js.
+
+---
+
+## 8. Master Cheat Sheet (`cheatsheet.html` + `assets/js/cheatsheet-data.js`)
+
+A root-level standalone page (peer to Home/Dashboard, linked in every topbar) aggregating the exam-critical distillate of **every chapter**: high-value formulas, ratios, years/dates, acronyms & abbreviations, tax sections, and important tax rules/implications — a fast pre-exam reference and doubt-lookup.
+
+- **`assets/js/cheatsheet-data.js` is the single source of truth**, mirroring `curriculum.js` chapter order. Each chapter is one appended data block of items shaped `{ cat, term, expr, note, calc? }`:
+  - `cat` ∈ `formula` | `ratio` | `year` | `acronym` | `taxsection` | `taxrule`.
+  - `term`, `expr`, `note` render as **HTML** — use entities (`&minus;` `&times;` `&divide;` `<sup>`/`<sub>` `&rarr;` `&Sigma;` `&radic;` `&sigma;` `&beta;` `&rho;`, ₹).
+  - `calc` (optional) links the item to a flagship calculator key.
+- **Two views (toggle):** By-Chapter and By-Category, plus search + category chips.
+- **Flagship live calculators only for high-value math** — registry `CALCS` with `CALC_ORDER = ["tvm","emi","ratios","bond","riskratio"]`; everything else is flip-to-reveal + shuffle revision cards. Reproduce workbook worked-example defaults. Page API: `window.NismCheatsheetPage = { selectCalc, CALCS, CALC_ORDER }`.
+- **Maintenance rule (must-follow):** whenever you build or update a chapter, append/refresh that chapter's block in `cheatsheet-data.js` (chapter-exact). This is step 9 of the §4 per-chapter checklist. Add a new flagship calculator only when a chapter introduces high-value math not already covered.

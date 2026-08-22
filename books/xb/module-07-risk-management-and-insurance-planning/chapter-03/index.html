@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch. 3 — Non-Life Insurance Products | NISM Learn</title>
+<meta name="description" content="Interactive lesson: Non-Life (General) Insurance Products — the elements of a non-life policy (sum insured, one-year term, premium & risk factors, deductible, restore vs recharge, no-claim bonus); the ten product types (property, health with cashless/family-floater/portability, motor & compulsory third-party cover, personal accident, critical illness with the 30-day survival period, overseas travel, liability, fidelity, directors & officers, keyman); the benefits and limits of holding multiple policies (the contribution clause, defined-benefit policies all pay, base + super top-up strategy); a full Top-up vs Super Top-up claim simulator reproducing the workbook's ₹15-lakh multi-claim example; Health vs Critical Illness and online vs offline comparisons; and global coverage — why indemnity policies pay only in India while defined-benefit policies pay anywhere, plus the LRS USD 2,50,000 route and advice for students going overseas. NISM Series-X-B, Module 7, Chapter 3." />
+<link rel="stylesheet" href="../../../../assets/css/design-system.css" />
+<link rel="stylesheet" href="../../../../assets/css/components.css" />
+<link rel="stylesheet" href="../../../../assets/css/chapter.css" />
+<style>
+  /* ---- Objectives checklist ---- */
+  .obj-checklist { list-style:none; padding:0; margin: 18px 0 0; display:grid; gap:8px; }
+  .obj-checklist li { display:flex; align-items:center; gap:10px; font-size:0.92rem; }
+  .obj-checklist svg { width:18px; height:18px; color: var(--green-500); flex-shrink:0; }
+
+  /* ---- Interactive calculator / widget shell ---- */
+  .calc { border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm); padding: 22px 22px 20px; margin: 22px 0; }
+  .calc-title { font-family: var(--font-display); font-weight: 800; font-size: 0.94rem; display:flex; align-items:center; gap:8px; margin-bottom: 4px; flex-wrap:wrap; }
+  .calc-title .pill { font-size:0.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--gold-500); color:var(--navy-950); padding:3px 8px; border-radius:var(--radius-pill); font-weight:800; }
+  .calc-sub { font-size:0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .calc-grid { display:grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 640px){ .calc-grid { grid-template-columns: 1fr 1fr; align-items:start; } }
+  .calc-controls { display:flex; flex-direction:column; gap: 15px; }
+  .calc-field label { display:flex; justify-content:space-between; font-size:0.82rem; font-weight:700; margin-bottom:6px; }
+  .calc-field label .v { color: var(--gold-600); font-family:var(--font-mono); }
+  .calc-field input[type=range] { width:100%; }
+  .calc-output { background: var(--bg-surface-2); border-radius: var(--radius-md); padding: 18px; }
+  .calc-output .out-lbl { font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--text-secondary); }
+  .calc-output .out-val { font-family: var(--font-display); font-weight:800; font-size:1.35rem; color:var(--gold-600); margin: 4px 0 10px; line-height:1.2; }
+  .calc-line { display:flex; justify-content:space-between; font-size:0.83rem; padding:5px 0; border-top:1px dashed var(--border-subtle); color:var(--text-secondary); }
+  .calc-line span:last-child { font-family:var(--font-mono); color:var(--text-primary); }
+
+  /* ---- Claim simulator table ---- */
+  .sim-table { width:100%; border-collapse:collapse; margin-top:6px; font-size:0.82rem; }
+  .sim-table th, .sim-table td { padding:8px 10px; text-align:right; border-bottom:1px solid var(--border-subtle); }
+  .sim-table th:first-child, .sim-table td:first-child { text-align:left; }
+  .sim-table thead th { font-size:0.72rem; text-transform:uppercase; letter-spacing:.04em; color:var(--text-secondary); font-weight:800; }
+  .sim-table td { font-family:var(--font-mono); }
+  .sim-table td:first-child { font-family:var(--font-sans,inherit); }
+  .sim-table tfoot td { font-weight:800; border-top:2px solid var(--border-strong,var(--border-subtle)); border-bottom:none; color:var(--text-primary); }
+  .sim-col-top { background:color-mix(in srgb,var(--navy-800) 8%,transparent); }
+  .sim-col-super { background:color-mix(in srgb,var(--green-500) 10%,transparent); }
+  .sim-verdict { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+  .sim-badge { flex:1; min-width:150px; border-radius:var(--radius-md); padding:12px 14px; }
+  .sim-badge.top { background:color-mix(in srgb,var(--navy-800) 10%,var(--bg-app)); border:1px solid var(--border-subtle); }
+  .sim-badge.super { background:color-mix(in srgb,var(--green-500) 14%,var(--bg-app)); border:1px solid color-mix(in srgb,var(--green-500) 40%,var(--border-subtle)); }
+  .sim-badge .bl { font-size:0.68rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-secondary); font-weight:800; }
+  .sim-badge .bv { font-family:var(--font-display); font-weight:800; font-size:1.15rem; margin-top:3px; }
+
+  /* ---- Segmented control ---- */
+  .seg-field .sl { display:block; font-size:0.82rem; font-weight:700; margin-bottom:7px; }
+  .seg { display:inline-flex; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden; width:100%; }
+  .seg button { flex:1; border:none; border-right:1px solid var(--border-subtle); background:var(--bg-app); font-size:0.8rem; font-weight:600; padding:10px 13px; cursor:pointer; color:var(--text-secondary); transition:all var(--dur-fast); }
+  .seg button:last-child { border-right:none; }
+  .seg button.on { background:var(--navy-800); color:#fff; font-weight:700; }
+
+  /* ---- In/Out sorter ---- */
+  .sorter { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:22px; margin:22px 0; }
+  .sorter h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .sorter .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .sorter-statement { background:var(--bg-surface-2); border-radius:var(--radius-md); padding:18px; font-size:0.95rem; font-weight:600; min-height:60px; display:flex; align-items:center; }
+  .sorter-btns { display:flex; gap:10px; margin:14px 0 8px; }
+  .sorter-btns button { flex:1; padding:12px; border-radius:var(--radius-md); border:1.5px solid var(--border-subtle); font-weight:800; font-size:0.86rem; cursor:pointer; transition:all var(--dur-fast); background:var(--bg-app); }
+  .sorter-btns .do-btn { color:var(--green-500); }
+  .sorter-btns .do-btn:hover { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 10%,var(--bg-app)); }
+  .sorter-btns .dont-btn { color:var(--gold-600); }
+  .sorter-btns .dont-btn:hover { border-color:var(--gold-500); background:color-mix(in srgb,var(--gold-500) 12%,var(--bg-app)); }
+  .sorter-feedback { font-size:0.85rem; font-weight:600; min-height:2.4em; line-height:1.4; }
+  .sorter-feedback.ok { color:var(--green-500); }
+  .sorter-feedback.no { color:var(--danger-500,#d64545); }
+  .sorter-meta { display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-secondary); margin-top:10px; }
+
+  /* ---- Term / card grids ---- */
+  .term-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin:20px 0; }
+  .term-card { padding:16px; }
+  .term-card .ic { font-size:20px; }
+  .term-card h4 { margin:6px 0 6px; font-size:0.92rem; }
+  .term-card p { font-size:0.8rem; color:var(--text-secondary); margin:0; }
+
+  /* ---- Compare two-col ---- */
+  .two-col { display:grid; grid-template-columns:1fr; gap:14px; margin:18px 0; }
+  @media(min-width:640px){ .two-col { grid-template-columns:1fr 1fr; } }
+  .col-card { border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); padding:16px; }
+  .col-card h4 { font-family:var(--font-display); font-size:0.92rem; margin:0 0 8px; display:flex; align-items:center; gap:8px; }
+  .col-card ul { margin:0; padding-left:18px; display:grid; gap:6px; }
+  .col-card li { font-size:0.82rem; color:var(--text-secondary); }
+
+  /* ---- Matcher ---- */
+  .matcher { border:1px solid var(--border-subtle); border-radius:var(--radius-lg); background:var(--bg-surface); box-shadow:var(--shadow-sm); padding:20px; margin:22px 0; }
+  .matcher h4 { font-family:var(--font-display); font-size:0.95rem; margin:0 0 4px; }
+  .matcher .hint { font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px; }
+  .match-markets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .match-mkt { padding:9px 14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-pill); background:var(--bg-app); font-size:0.85rem; font-weight:700; cursor:pointer; transition:all var(--dur-fast); }
+  .match-mkt:hover { border-color:var(--gold-500); }
+  .match-mkt.active { background:var(--navy-800); color:#fff; border-color:var(--navy-800); }
+  .match-regs { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; }
+  .reg-card { padding:14px; border:1.5px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-app); transition:all var(--dur-med) var(--ease-spring); }
+  .reg-card .rn { font-family:var(--font-display); font-weight:800; font-size:0.9rem; }
+  .reg-card .rd { font-size:0.76rem; color:var(--text-secondary); margin-top:4px; line-height:1.45; }
+  .reg-card.correct { border-color:var(--green-500); background:color-mix(in srgb,var(--green-500) 12%,var(--bg-app)); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .match-feedback { margin-top:14px; font-size:0.85rem; font-weight:600; color:var(--green-500); min-height:1.2em; }
+
+  /* ---- Process step chips ---- */
+  .proc-list { counter-reset: proc; display:grid; gap:10px; margin:18px 0; }
+  .proc-item { display:flex; gap:12px; align-items:flex-start; padding:13px 15px; border:1px solid var(--border-subtle); border-radius:var(--radius-md); background:var(--bg-surface); }
+  .proc-item::before { counter-increment: proc; content: counter(proc); flex:0 0 26px; width:26px; height:26px; border-radius:50%; background:var(--navy-800); color:#fff; font-family:var(--font-display); font-weight:800; font-size:0.82rem; display:flex; align-items:center; justify-content:center; }
+  .proc-item .pt { font-size:0.85rem; color:var(--text-secondary); }
+  .proc-item .pt strong { color:var(--text-primary); }
+
+  /* ---- SVG animation helpers ---- */
+  .draw-line { fill:none; stroke-dasharray:600; stroke-dashoffset:600; }
+  .draw-line.go { animation: draw 1.4s var(--ease-out) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  .fade-el { opacity:0; transition:opacity var(--dur-slow) var(--ease-out); }
+  .fade-el.go { opacity:1; }
+  .grow-bar { transform:scaleY(0); transform-origin:bottom; transition:transform 1.1s var(--ease-spring); }
+  .grow-bar.go { transform:scaleY(1); }
+  .rise-el { opacity:0; transform:translateY(16px); transition:opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring); }
+  .rise-el.go { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../../../../index.html">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="10" fill="#0f2043"/>
+        <path d="M9 27L16 17L22 22L31 10" stroke="#d4af37" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="31" cy="10" r="2.6" fill="#d4af37"/>
+      </svg>
+      <span>NISM Learn<small>Investment Adviser Prep</small></span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link" href="../../../../index.html">Home</a>
+      <a class="nav-link" href="../../index.html">Course</a>
+      <a class="nav-link" href="../../../../dashboard.html">Dashboard</a>
+      <a class="nav-link" href="../../../../cheatsheet.html">Cheat Sheet</a>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-progress" id="book-progress-badge"></div>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb" style="margin-top:20px" id="breadcrumb"></nav>
+</div>
+
+<section class="chapter-hero">
+  <div class="container">
+    <div class="eyebrow">
+      <span class="badge badge-navy">Module 7 · Risk Management &amp; Insurance Planning</span>
+      <span class="badge badge-gold">Chapter 3</span>
+    </div>
+    <h1>Non-Life Insurance Products</h1>
+    <p class="lede">Where life insurance protects an <em>income</em>, <strong>non-life (general) insurance</strong> protects your <strong>assets and against unexpected large expenses</strong> — a house fire, a hospital bill, a car crash, a lawsuit. This chapter takes apart the elements of a general policy (<strong>sum insured</strong>, the one-year <strong>term</strong>, <strong>deductible</strong>, <strong>restore vs recharge</strong>, <strong>no-claim bonus</strong>), walks the whole product shelf — <strong>property, health, motor, personal accident, critical illness, travel, liability, fidelity, D&amp;O and keyman</strong> — then works through the two ideas the exam loves: the <strong>contribution clause</strong> when you hold multiple policies, and the <strong>Top-up vs Super Top-up</strong> threshold logic (with a live simulator of the workbook's ₹15-lakh claim run). It closes on <strong>global coverage</strong>: why an <em>indemnity</em> health policy pays only in India but a <em>defined-benefit</em> life or critical-illness policy pays anywhere.</p>
+
+    <div class="chapter-meta-row">
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> ~34 min read</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> <span id="meta-qcount">60</span> assessment questions</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> Top-up simulator + 2 matchers</span>
+      <span class="item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg> 4 learning objectives</span>
+    </div>
+
+    <div class="card" style="padding:20px 24px;margin-top:26px;max-width:760px">
+      <strong style="font-family:var(--font-display)">Learning objectives</strong>
+      <ul class="obj-checklist">
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> The elements of non-life insurance products</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Benefits, limitations &amp; provisions when insurance is taken from multiple companies</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Criteria to compare various insurance products</li>
+        <li><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="currentColor" opacity="0.15"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Global coverage for different general insurance products</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="chapter-shell">
+  <aside class="toc-rail">
+    <h4>On this page</h4>
+    <ol id="toc-list">
+      <li><a href="#sec-elements">3.1 Elements of a non-life policy</a></li>
+      <li><a href="#sec-types">3.2 Types of non-life products</a></li>
+      <li><a href="#sec-multiple">3.3 Multiple insurance policies</a></li>
+      <li><a href="#sec-topup">3.4 Top-up vs Super Top-up</a></li>
+      <li><a href="#sec-compare">3.5 Comparing policies</a></li>
+      <li><a href="#sec-global">3.6 Global coverage</a></li>
+      <li><a href="#sec-cards">Flashcards</a></li>
+      <li><a href="#sec-quiz">Assessment</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main" id="main" tabindex="-1">
+
+    <!-- 3.1 -->
+    <section class="lesson-section" id="sec-elements">
+      <span class="section-kicker">3.1</span>
+      <h2>The elements of a non-life insurance product</h2>
+      <p><strong>Non-life insurance</strong> provides risk cover from the <strong>loss or destruction of assets</strong>, and cover against <strong>unexpected large expenses</strong> that would otherwise drain the individual's income. Every general policy is built from a handful of standard elements — tap each to explore:</p>
+      <div class="term-grid" id="elements-grid"></div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H5.2L4 17.5V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Restore vs Recharge — two health-policy benefits that refill your sum insured</strong>
+          <p><strong>Restore</strong> restores the sum insured to <strong>100%</strong> in case of <em>either partial or full</em> exhaustion of the sum insured. <strong>Recharge</strong> restores the sum insured to 100% <em>only when it gets reduced due to a claim</em>. Both give you a "second" sum insured within the same policy year — handy when a family floater is used up by one member early in the year.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Deductible &amp; No-Claim Bonus</strong>
+          <p>A <strong>deductible</strong> is the portion of the claim met by the <em>insured</em> before the insurer pays. A <strong>No-Claim Bonus (NCB)</strong> is the benefit of <strong>lower premiums</strong> in later years for each claim-free year — it can also be given as an <strong>additional bonus cover</strong>. In car insurance the NCB on the own-damage premium can rise to <strong>50%</strong> after 5 claim-free years, and it belongs to the <em>person, not the car</em> (see 3.2c).</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Under a health policy's <strong>recharge</strong> benefit, the sum insured is restored to 100%:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Only when it gets reduced due to a claim</button>
+          <button class="mini-opt" data-correct="false">On either partial or full exhaustion, even without a claim</button>
+          <button class="mini-opt" data-correct="false">Automatically every calendar month</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — recharge refills the sum insured to 100% only when it has been reduced by a claim. Restore, by contrast, restores it on either partial or full exhaustion." data-wrong-msg="Not quite — that describes 'restore'. 'Recharge' restores the sum insured to 100% only when it gets reduced due to a claim."></div>
+      </div>
+    </section>
+
+    <!-- 3.2 -->
+    <section class="lesson-section" id="sec-types">
+      <span class="section-kicker">3.2</span>
+      <h2>Types of non-life insurance products</h2>
+      <p>General insurance spans everything from your house to your reputation. Tap each product to see what it covers and its key rules:</p>
+
+      <div class="matcher" id="type-matcher">
+        <h4>The general-insurance shelf — tap a product</h4>
+        <div class="hint">Ten product families, from property to keyman cover.</div>
+        <div class="match-markets" id="type-markets">
+          <button class="match-mkt" data-reg="PROP">Property</button>
+          <button class="match-mkt" data-reg="HEALTH">Health</button>
+          <button class="match-mkt" data-reg="MOTOR">Motor</button>
+          <button class="match-mkt" data-reg="PA">Personal accident</button>
+          <button class="match-mkt" data-reg="CI">Critical illness</button>
+          <button class="match-mkt" data-reg="TRAVEL">Overseas travel</button>
+          <button class="match-mkt" data-reg="LIAB">Liability</button>
+          <button class="match-mkt" data-reg="FID">Fidelity</button>
+          <button class="match-mkt" data-reg="DO">Directors &amp; Officers</button>
+          <button class="match-mkt" data-reg="KEY">Keyman</button>
+        </div>
+        <div class="match-regs" id="type-cards">
+          <div class="reg-card" data-reg="PROP"><div class="rn">Property insurance</div><div class="rd">Protects the <strong>structure and contents</strong> of a building against natural &amp; man-made disasters (fire, theft, etc.). <strong>Wilful destruction and normal wear &amp; tear are not covered</strong>. Valuables like jewellery, art &amp; antiques need an <strong>add-on or separate policy</strong>. Usually taken with a <strong>home loan</strong>, as the lender insists on it.</div></div>
+          <div class="reg-card" data-reg="HEALTH"><div class="rn">Health insurance</div><div class="rd"><strong>Reimburses medical expenses</strong> for the policyholder &amp; covered family. Claims allowed for <strong>in-patient</strong> (24-hr+ stay), <strong>domiciliary</strong> and now many <strong>day-care</strong> treatments; sub-limits per head. <strong>Cashless</strong> settles directly with the hospital; <strong>family floater</strong> covers many members under one sum insured. <strong>Pre-existing illnesses</strong> excluded for a fixed period. <strong>Portability</strong> carries over no-claim &amp; waiting-period benefits if you switch insurer (previous policy must be unbroken).</div></div>
+          <div class="reg-card" data-reg="MOTOR"><div class="rn">Motor insurance</div><div class="rd">Indemnifies the insured for accidents involving the vehicle anywhere in India — (i) death/bodily injury to any person, (ii) damage to third-party property. Own-damage/theft cover is <strong>optional</strong>, but <strong>third-party liability cover is compulsory</strong> — no vehicle may be used in a public place without it. <strong>NCB</strong> up to <strong>50%</strong> after 5 claim-free years, belongs to the <em>person not the car</em>; own-damage premium varies by insurer, so compare online.</div></div>
+          <div class="reg-card" data-reg="PA"><div class="rn">Personal accident insurance</div><div class="rd">Pays a defined sum if the insured sustains bodily injury <strong>solely and directly from an accident by external, violent &amp; visible means</strong>. Covers <strong>permanent total, permanent partial and temporary total disablement</strong>. The need for permanent-total-disability cover is often over-looked, so cover is frequently inadequate — size it like a life-insurance need.</div></div>
+          <div class="reg-card" data-reg="CI"><div class="rn">Critical illness insurance</div><div class="rd">Pays a <strong>lump sum</strong> on diagnosis of a specified disease (cancer, heart attack, stroke, kidney failure, multiple sclerosis…), usually subject to a <strong>minimum 30-day survival</strong> after diagnosis. <strong>No payment on death</strong> (unlike life). The lump sum can be used for anything — income replacement, repaying a mortgage. Available as a <strong>standalone policy</strong> or an <strong>accelerated rider</strong> on a life policy; size it like a life-insurance need.</div></div>
+          <div class="reg-card" data-reg="TRAVEL"><div class="rn">Overseas travel insurance</div><div class="rd">Provides <strong>medical, financial &amp; other assistance</strong> during international travel — medical help, baggage-clearance delay, accident and add-on covers. Paid as <strong>reimbursement</strong> up to the policy maximum. May be <strong>mandatory</strong> for travel to some countries. Unusually, it is an <em>indemnity</em> policy designed to pay <strong>abroad</strong> (see 3.6).</div></div>
+          <div class="reg-card" data-reg="LIAB"><div class="rn">Liability insurance</div><div class="rd">Indemnifies <strong>damages payable under law</strong> for personal injury to third parties or damage to their property — arising under common law (negligence) or statutory law (no-fault). Common example: <strong>professional indemnity</strong> for doctors, lawyers, investment advisers. Covers legal defence &amp; damages, but <strong>not intentional damage or criminal acts</strong>.</div></div>
+          <div class="reg-card" data-reg="FID"><div class="rn">Fidelity insurance</div><div class="rd">Covers losses the <strong>employer</strong> suffers from an employee's <strong>forgery, fraud or dishonesty</strong> (money or goods) during the policy period. Usually taken where employees handle <strong>large sums of cash or valuables</strong>.</div></div>
+          <div class="reg-card" data-reg="DO"><div class="rn">Directors &amp; Officers (D&amp;O) liability</div><div class="rd">Insures <strong>board members, management &amp; supervisory employees</strong> against personal liability and defence costs from claims alleging a <strong>wrongful act</strong> in their duties. Driven by exposure to shareholder claims, discrimination allegations, regulatory investigations and corporate-governance / compliance failures.</div></div>
+          <div class="reg-card" data-reg="KEY"><div class="rn">Keyman insurance</div><div class="rd">A <strong>life insurance policy a company buys on a key executive</strong>, to protect itself against the loss of that person's life. The <strong>company is the beneficiary</strong> and pays the premiums. (Listed among general covers here as a business-protection product.)</div></div>
+        </div>
+        <div class="match-feedback" id="type-feedback"></div>
+      </div>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>The No-Claim Bonus follows the person, not the car</strong>
+          <p>When you <strong>sell your car</strong>, the buyer does <strong>not</strong> inherit your NCB — you can transfer your accumulated NCB to the <strong>new car you buy</strong>. And a fresh insurer will honour your NCB when you <strong>shift at renewal</strong>. Because the own-damage premium varies by insurer, an online comparison via a broker or web aggregator can save a substantial amount.</p>
+        </div>
+      </div>
+
+      <div class="sorter" id="cover-sorter" data-quiz="cover">
+        <h4>Covered or not covered?</h4>
+        <div class="hint">Decide whether each situation is covered under the relevant general-insurance policy.</div>
+        <div class="sorter-statement" id="cover-statement">Loading…</div>
+        <div class="sorter-btns">
+          <button class="do-btn" data-answer="covered">✓ Covered</button>
+          <button class="dont-btn" data-answer="not">✕ Not covered</button>
+        </div>
+        <div class="sorter-feedback" id="cover-feedback"></div>
+        <div class="sorter-meta"><span id="cover-progress">Statement 1</span><span id="cover-score">Score: 0</span></div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Which motor-insurance cover is <strong>compulsory</strong> for using a vehicle in a public place?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Third-party liability cover</button>
+          <button class="mini-opt" data-correct="false">Own-damage / theft cover</button>
+          <button class="mini-opt" data-correct="false">Zero-depreciation add-on cover</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — third-party liability cover is compulsory; no motor vehicle can be used in a public place without it. Own-damage/theft cover is optional." data-wrong-msg="Not quite — only third-party liability cover is compulsory. Own-damage and theft cover are optional."></div>
+      </div>
+    </section>
+
+    <!-- 3.3 -->
+    <section class="lesson-section" id="sec-multiple">
+      <span class="section-kicker">3.3</span>
+      <h2>Benefits &amp; limitations of multiple insurance policies</h2>
+      <p>Does holding several policies help? It depends on whether they are <strong>indemnity</strong> or <strong>defined-benefit</strong> policies.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🧾 Indemnity policies (e.g. health)</h4>
+          <ul>
+            <li>Multiple indemnity policies make <strong>little sense</strong> — the total claim can never exceed the <strong>actual expense</strong>, and cannot exceed the sum insured across all policies combined.</li>
+            <li>Means dealing with <strong>multiple insurers</strong> at claim time — added complications.</li>
+            <li>Health premium <strong>per additional lakh drops sharply</strong> as cover rises — a ₹100-lakh policy may cost only a few thousand rupees more than a ₹50-lakh one, so <strong>one large policy</strong> is usually better.</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🎯 Defined-benefit policies</h4>
+          <ul>
+            <li>Life insurance, <strong>critical illness</strong>, accidental death / disability policies are defined-benefit.</li>
+            <li><strong>All of them pay in full</strong>, irrespective of how many such policies the insured holds.</li>
+            <li>So multiple defined-benefit policies genuinely multiply the payout.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>The contribution clause — and when it does NOT apply</strong>
+          <p>Sometimes multiple health policies are unavoidable — an <strong>employer policy</strong> plus the employee's own cover. The insured chooses which policy to claim from (normally the <strong>employer policy first</strong>). If the <strong>claim is less than</strong> the sum insured of the chosen policy, the chosen insurer <strong>cannot apply the contribution clause</strong> — it pays the whole claim. Only if the <strong>claim exceeds</strong> the sum insured of the chosen policy does the insured claim the balance from another policy, and then the insurers settle by <strong>applying the contribution provisions</strong>.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H5.2L4 17.5V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>The base + super top-up strategy — ₹15 lakh cover, cheaply</strong>
+          <p>A common play: buy a <strong>base policy (say ₹5 lakh)</strong> plus a <strong>super top-up (say ₹10 lakh) with a ₹5-lakh deductible</strong> → total cover of <strong>₹15 lakh</strong> at an economical premium (the super top-up premium is quite low). A single ₹15-lakh policy is only <em>slightly</em> more expensive — the small difference reflects the administrative simplicity of one policy. Super top-ups are <strong>ideal for employees</strong> topping up an employer cover: set the deductible equal to the employer's sum insured, and the super top-up pays only above that.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — An employee's chosen health policy has a ₹5-lakh sum insured. She makes a ₹3-lakh claim. Can the insurer apply the contribution clause?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">No — the claim (₹3 lakh) is less than the sum insured (₹5 lakh), so the chosen insurer must pay it in full</button>
+          <button class="mini-opt" data-correct="false">Yes — it always splits the claim proportionately with other insurers</button>
+          <button class="mini-opt" data-correct="false">Only if she has no employer policy</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the contribution clause does not apply where the claim is within the sum insured of the chosen policy; the chosen insurer pays the full amount. It applies only when the claim exceeds that sum insured." data-wrong-msg="Not quite — because the claim (₹3 lakh) is below the chosen policy's sum insured (₹5 lakh), the contribution clause cannot be applied; the chosen insurer pays in full."></div>
+      </div>
+    </section>
+
+    <!-- 3.4 -->
+    <section class="lesson-section" id="sec-topup">
+      <span class="section-kicker">3.4</span>
+      <h2>Top-up vs Super Top-up — how the threshold is applied</h2>
+      <p>"Top-up" and "Super Top-up" are not legal terms. Both are health policies that pay for hospitalisation <strong>above a pre-agreed threshold</strong> (often called the <strong>deductible</strong>). The one crucial difference:</p>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>🔹 Top-up plan</h4>
+          <ul><li>The threshold is applied <strong>to every single claim</strong>.</li><li>Only a claim that <em>on its own</em> exceeds the threshold triggers a payout.</li><li>Several smaller claims can each fall below the threshold and pay <strong>nothing</strong>.</li></ul>
+        </div>
+        <div class="col-card">
+          <h4>🔸 Super Top-up plan</h4>
+          <ul><li>The threshold is applied <strong>once, on the aggregate</strong> of all claims in the year.</li><li>Once total claims cross the threshold, <strong>everything above it</strong> is paid (up to the limit).</li><li>Far better protection against a run of smaller claims.</li></ul>
+        </div>
+      </div>
+
+      <p>Reproduce the workbook example below, then vary the claims to see how differently the two plans behave. <strong>Defaults</strong> = Base ₹5L, plan limit ₹10L, threshold ₹5L, and four claims of ₹3L, ₹6L, ₹2L, ₹4L (total ₹15L).</p>
+
+      <div class="calc" id="calc-topup">
+        <div class="calc-title"><span class="pill">Interactive</span> Top-up vs Super Top-up claim simulator</div>
+        <div class="calc-sub">The base plan pays each claim from its own limit. The <strong>Top-up</strong> applies the threshold per claim; the <strong>Super Top-up</strong> applies it once on the running total. Watch the payout gap open up on the four workbook claims.</div>
+        <div class="calc-grid">
+          <div class="calc-controls">
+            <div class="calc-field"><label>Base plan limit <span class="v" id="tu-base-v">₹5 L</span></label><input type="range" id="tu-base" min="0" max="15" step="0.5" value="5"></div>
+            <div class="calc-field"><label>Top-up / Super top-up limit <span class="v" id="tu-limit-v">₹10 L</span></label><input type="range" id="tu-limit" min="1" max="25" step="0.5" value="10"></div>
+            <div class="calc-field"><label>Threshold (deductible) <span class="v" id="tu-thr-v">₹5 L</span></label><input type="range" id="tu-thr" min="0" max="15" step="0.5" value="5"></div>
+            <div class="calc-field"><label>Claim 1 <span class="v" id="tu-c1-v">₹3 L</span></label><input type="range" id="tu-c1" min="0" max="15" step="0.5" value="3"></div>
+            <div class="calc-field"><label>Claim 2 <span class="v" id="tu-c2-v">₹6 L</span></label><input type="range" id="tu-c2" min="0" max="15" step="0.5" value="6"></div>
+            <div class="calc-field"><label>Claim 3 <span class="v" id="tu-c3-v">₹2 L</span></label><input type="range" id="tu-c3" min="0" max="15" step="0.5" value="2"></div>
+            <div class="calc-field"><label>Claim 4 <span class="v" id="tu-c4-v">₹4 L</span></label><input type="range" id="tu-c4" min="0" max="15" step="0.5" value="4"></div>
+          </div>
+          <div class="calc-output">
+            <div class="out-lbl">Total paid to the insured</div>
+            <div style="overflow-x:auto">
+            <table class="sim-table">
+              <thead><tr><th>Claim</th><th>Base</th><th class="sim-col-top">Top-up</th><th class="sim-col-super">Super</th></tr></thead>
+              <tbody id="tu-rows"></tbody>
+              <tfoot><tr><td>Total paid</td><td id="tu-base-tot">—</td><td class="sim-col-top" id="tu-top-tot">—</td><td class="sim-col-super" id="tu-super-tot">—</td></tr></tfoot>
+            </table>
+            </div>
+            <div class="sim-verdict">
+              <div class="sim-badge top"><div class="bl">Top-up total payout</div><div class="bv" id="tu-top-grand">₹6 L</div></div>
+              <div class="sim-badge super"><div class="bl">Super top-up total payout</div><div class="bv" id="tu-super-grand">₹15 L</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-caution">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3l9-16z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="body">
+          <strong>Two administrative catches</strong>
+          <p>Keep the base plan and the top-up plan with the <strong>same insurer</strong> where possible — otherwise you must deal with both companies whenever a claim crosses the threshold. And with a <strong>super top-up</strong>, you must <strong>inform the super-top-up insurer of every claim</strong> (even one it does not pay) so it can mark the aggregate threshold used so far.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — On the four workbook claims (₹3L, ₹6L, ₹2L, ₹4L; base ₹5L, threshold ₹5L, limit ₹10L), why does the Top-up plan pay only ₹6 lakh while the Super Top-up pays the full ₹15 lakh?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">The Top-up applies the ₹5L threshold to each claim, so the ₹3L, ₹2L and ₹4L claims individually fall below it and pay nothing; the Super Top-up applies the threshold once on the running total</button>
+          <button class="mini-opt" data-correct="false">The Super Top-up has a higher limit than the Top-up</button>
+          <button class="mini-opt" data-correct="false">The Top-up does not cover multiple claims at all</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — the per-claim threshold in the Top-up plan knocks out every claim below ₹5L, so only ₹1L of the ₹6L claim gets paid beyond base. The Super Top-up applies the threshold once on the aggregate, so everything above ₹5L total is covered." data-wrong-msg="Not quite — both plans have the same ₹10L limit. The difference is that the Top-up applies the threshold to each claim (so small claims pay nothing), while the Super Top-up applies it once on the aggregate."></div>
+      </div>
+    </section>
+
+    <!-- 3.5 -->
+    <section class="lesson-section" id="sec-compare">
+      <span class="section-kicker">3.5</span>
+      <h2>Comparing insurance policies</h2>
+
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:14px 0 6px">Health Insurance vs Critical Illness</h3>
+      <table class="compare-table">
+        <thead><tr><th>Parameter</th><th>Health Insurance Policy</th><th>Critical Illness Policy</th></tr></thead>
+        <tbody>
+          <tr><td>Type of policy</td><td><strong>Indemnity</strong> policy</td><td><strong>Defined benefit</strong> policy</td></tr>
+          <tr><td>Primarily designed to cover</td><td>Reimburses <strong>actual hospitalisation expenditure</strong> incurred</td><td>Provides a <strong>lump sum</strong> — usable to replace lost income or meet any purpose, including hospitalisation</td></tr>
+          <tr><td>Claim paid</td><td>On incurring <strong>covered hospitalisation expenditure</strong></td><td>On <strong>contracting a pre-specified disease</strong> and surviving 15–30 days</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:20px 0 6px">Offline vs Online policies</h3>
+      <div class="two-col">
+        <div class="col-card">
+          <h4>💻 Online</h4>
+          <ul>
+            <li>All insurers offer online policies on their websites; many charge <strong>lower premiums</strong> for policies bought online directly.</li>
+            <li>Some offer <strong>'web only'</strong> policies not sold offline at all.</li>
+            <li><strong>Web aggregators &amp; online brokers</strong> let you compare policies and have become major distribution channels.</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>🏢 Offline</h4>
+          <ul>
+            <li>Bought through an agent/branch; useful where guidance is needed.</li>
+            <li>Typically <strong>no online discount</strong>.</li>
+            <li>Comparison across insurers is harder without an aggregator.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — A critical illness policy differs from a health insurance policy chiefly because it:</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Is a defined-benefit policy that pays a lump sum on contracting a specified disease (and surviving), not a reimbursement of actual expenses</button>
+          <button class="mini-opt" data-correct="false">Reimburses actual hospital bills like any indemnity policy</button>
+          <button class="mini-opt" data-correct="false">Pays only on the death of the insured</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — a critical illness policy is a defined-benefit policy: it pays a fixed lump sum on diagnosis of a specified disease and survival, regardless of actual expenses. Health insurance is an indemnity policy that reimburses actual costs." data-wrong-msg="Not quite — a critical illness policy is defined-benefit (fixed lump sum on diagnosis + survival), whereas health insurance is indemnity (reimburses actual expenses). Neither pays purely on death."></div>
+      </div>
+    </section>
+
+    <!-- 3.6 -->
+    <section class="lesson-section" id="sec-global">
+      <span class="section-kicker">3.6</span>
+      <h2>Global coverage for different general insurance products</h2>
+      <p>Will a policy pay if the loss happens <strong>outside India</strong>? The answer hinges on whether the policy is <strong>defined-benefit</strong> or <strong>indemnity</strong>.</p>
+
+      <div class="diagram-frame">
+        <div style="display:flex;justify-content:center">
+          <svg id="glob-svg" viewBox="0 0 640 300" width="100%" style="max-width:640px">
+            <text x="320" y="24" text-anchor="middle" style="font-size:12px;font-weight:800;fill:var(--text-primary)">Where does the policy pay?</text>
+            <!-- India box -->
+            <rect class="rise-el" id="glob-india" x="70" y="70" width="220" height="150" rx="12" fill="none" stroke="var(--navy-800)" stroke-width="2"/>
+            <text class="fade-el" id="glob-india-t" x="180" y="60" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--navy-800)">In India</text>
+            <!-- World box -->
+            <rect class="rise-el" id="glob-world" x="350" y="70" width="220" height="150" rx="12" fill="none" stroke="var(--gold-600)" stroke-width="2" stroke-dasharray="6 5"/>
+            <text class="fade-el" id="glob-world-t" x="460" y="60" text-anchor="middle" style="font-size:11px;font-weight:800;fill:var(--gold-600)">Anywhere in the world</text>
+            <!-- Defined benefit row -->
+            <text class="fade-el" id="glob-r1" x="180" y="110" text-anchor="middle" style="font-size:11px;font-weight:700;fill:var(--green-500)">✓ Life / CI / accident</text>
+            <line class="draw-line" id="glob-l1" x1="290" y1="106" x2="350" y2="106" stroke="var(--green-500)" stroke-width="2.4" marker-end="url(#arrH)"/>
+            <text class="fade-el" id="glob-r1b" x="460" y="110" text-anchor="middle" style="font-size:11px;font-weight:700;fill:var(--green-500)">✓ Pays (defined benefit)</text>
+            <!-- Indemnity row -->
+            <text class="fade-el" id="glob-r2" x="180" y="160" text-anchor="middle" style="font-size:11px;font-weight:700;fill:var(--navy-800)">🧾 Health (indemnity)</text>
+            <line class="draw-line" id="glob-l2" x1="290" y1="156" x2="350" y2="156" stroke="var(--danger-500,#d64545)" stroke-width="2.4" stroke-dasharray="4 4"/>
+            <text class="fade-el" id="glob-r2b" x="460" y="160" text-anchor="middle" style="font-size:11px;font-weight:700;fill:var(--danger-500,#d64545)">✕ Usually India only</text>
+            <!-- Travel exception -->
+            <text class="fade-el" id="glob-r3" x="180" y="205" text-anchor="middle" style="font-size:11px;font-weight:700;fill:var(--gold-600)">✈ Overseas travel</text>
+            <line class="draw-line" id="glob-l3" x1="290" y1="201" x2="350" y2="201" stroke="var(--gold-600)" stroke-width="2.4" marker-end="url(#arrH)"/>
+            <text class="fade-el" id="glob-r3b" x="460" y="205" text-anchor="middle" style="font-size:11px;font-weight:700;fill:var(--gold-600)">✓ Country-specific design</text>
+            <defs>
+              <marker id="arrH" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+            </defs>
+          </svg>
+        </div>
+        <div class="caption"><strong>Defined-benefit</strong> policies (life, critical illness, accidental death) pay <strong>wherever the covered risk occurs</strong> — it is easy to verify a death, illness or accident anywhere. <strong>Indemnity</strong> policies like health insurance must <em>ascertain the actual expense</em>, which is hard abroad, so they normally cover <strong>India only</strong>. The exception is <strong>overseas travel insurance</strong> — an indemnity policy designed country-by-country with arrangements to verify foreign expenses.</div>
+      </div>
+
+      <div class="callout callout-insight">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Buying a foreign insurer's policy — the LRS route</strong>
+          <p>Resident Indians can use their <strong>Liberalised Remittance Scheme (LRS)</strong> entitlement of up to <strong>USD 2,50,000 per annum</strong> to buy general-insurance policies of <strong>foreign companies</strong> — common when a student goes overseas and buys the insurer the university recommends. But such policies, and the <strong>grievance-redressal mechanism</strong> if a claim is refused, are governed by the <strong>regulations of the issuing country</strong> — so exercise caution.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-example">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H5.2L4 17.5V5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div class="body">
+          <strong>Students going overseas — Indian insurer or foreign insurer?</strong>
+          <p>It depends on the country and university. Some universities (US, UK, Europe, Australia/NZ) <strong>bundle a compulsory insurance</strong> into their fees or require a <strong>designated insurer</strong>; some only lay down <strong>conditions</strong> the policy must satisfy; a few have <strong>no requirement</strong> at all — but as overseas treatment is very expensive, cover is still advisable. Most Indian insurers know the major countries'/universities' requirements and offer suitable policies with add-ons. Other things being equal, <strong>Indian policies tend to be cheaper</strong> than similar foreign ones.</p>
+        </div>
+      </div>
+
+      <div class="mini-check">
+        <div class="q">Quick check — Why does a typical Indian health insurance (indemnity) policy pay only for hospitalisation incurred in India, while a life or critical-illness policy pays anywhere?</div>
+        <div class="opts">
+          <button class="mini-opt" data-correct="true">Indemnity policies must ascertain the actual expense (hard to do abroad); defined-benefit policies only need to verify the event occurred, which is easy anywhere</button>
+          <button class="mini-opt" data-correct="false">Foreign hospitals are banned from the Indian insurance system</button>
+          <button class="mini-opt" data-correct="false">Life policies are cheaper, so insurers can afford global cover</button>
+        </div>
+        <div class="feedback" data-correct-msg="Correct — an indemnity policy reimburses ascertained expenses, and verifying costs in an unfamiliar country is difficult, so cover is India-only. A defined-benefit policy just needs proof the event (death/illness/accident) happened, which is verifiable worldwide." data-wrong-msg="Not quite — the reason is that indemnity policies must ascertain the actual loss (hard abroad), whereas defined-benefit policies only verify that the covered event occurred, which is easy anywhere. Overseas travel policies are the designed exception."></div>
+      </div>
+    </section>
+
+    <!-- Flashcards -->
+    <section class="lesson-section" id="sec-cards">
+      <span class="section-kicker">★</span>
+      <h2>Revision flashcards</h2>
+      <p>The elements, products and rules most likely to be tested — tap to reveal.</p>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:14px 0 6px">Concepts &amp; products</h3>
+      <div class="flip-grid" id="concept-cards"></div>
+      <h3 style="font-family:var(--font-display);font-size:1rem;margin:22px 0 6px">Numbers, rules &amp; thresholds</h3>
+      <div class="flip-grid" id="revision-cards"></div>
+    </section>
+
+    <div class="section-divider">End of chapter</div>
+
+    <!-- Assessment -->
+    <section class="lesson-section" id="sec-quiz">
+      <div class="quiz-shell" id="quiz-container"></div>
+    </section>
+
+    <nav class="chapter-footer-nav" id="chapter-footer-nav"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  Built for personal exam preparation. Content adapted from NISM Series-X workbooks — not affiliated with or endorsed by NISM or SEBI.
+</footer>
+
+<script>window.NISM_ROOT = "../../../../";</script>
+<script src="../../../../assets/js/curriculum.js"></script>
+<script src="../../../../assets/js/progress.js"></script>
+<script src="../../../../assets/js/nav.js"></script>
+<script src="../../../../assets/js/quiz-engine.js"></script>
+<script src="quiz-data.js"></script>
+<script>
+  var BOOK_ID = "xb", CHAPTER_ID = "ch03";
+  var book = window.NismCurriculum.getBook(BOOK_ID);
+
+  window.NismNav.renderBreadcrumb(document.getElementById("breadcrumb"), [
+    { label: "Home", href: "../../../../index.html" },
+    { label: book.code, href: "../../index.html" },
+    { label: "Module 7", href: "../../index.html" },
+    { label: "Chapter 3", href: "" }
+  ]);
+  window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+  window.NismNav.renderChapterFooterNav(document.getElementById("chapter-footer-nav"), BOOK_ID, CHAPTER_ID);
+
+  if (window.NISM_CH03_QUESTIONS) {
+    var mc = document.getElementById("meta-qcount");
+    if (mc) mc.textContent = window.NISM_CH03_QUESTIONS.length;
+  }
+
+  // ---------- Lakh formatting ----------
+  function fmtL(n) {
+    // n is in lakhs; show ₹X L with up to 1 decimal
+    var v = Math.round(n * 10) / 10;
+    var s = (v % 1 === 0) ? String(v) : v.toFixed(1);
+    return "₹" + s + " L";
+  }
+
+  // ---------- Card renderers ----------
+  function renderFlip(id, items, frontStyle) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (it) {
+      var front = frontStyle === "mono"
+        ? '<div style="font-size:15px;font-family:var(--font-display);font-weight:800;color:var(--gold-600)">' + it.icon + '</div>'
+        : '<div style="font-size:24px">' + it.icon + '</div>';
+      return '<div class="flip-card"><div class="flip-card-inner">' +
+        '<div class="flip-face flip-front">' + front + '<div class="label">' + it.label + '</div><div class="hint">Tap to reveal</div></div>' +
+        '<div class="flip-face flip-back"><strong>' + it.label + '</strong>' + it.back + '</div>' +
+      '</div></div>';
+    }).join("");
+  }
+  function renderCards(id, items) {
+    var el = document.getElementById(id); if (!el) return;
+    el.innerHTML = items.map(function (t) {
+      return '<div class="card term-card"><div class="ic">' + t.icon + '</div><h4>' + t.label + '</h4><p>' + t.body + '</p></div>';
+    }).join("");
+  }
+
+  // Elements grid (3.1)
+  renderCards("elements-grid", [
+    { icon: "💰", label: "Sum insured", body: "The insurer's maximum liability for claims in the policy period. The insurer may set a minimum and maximum sum insured." },
+    { icon: "📅", label: "Term", body: "Typically 1 year. For some covers — health / two-wheeler — the term may be two or three years." },
+    { icon: "🧾", label: "Premium", body: "A function of the sum insured and the assessed risk (age/gender/health for medical; vehicle CC, place of registration & age for motor). Usually paid at inception." },
+    { icon: "➖", label: "Deductible", body: "The portion of a claim met by the insured before the insurer pays." },
+    { icon: "🔁", label: "Restore & Recharge", body: "Health benefits that refill the sum insured to 100%. Restore = on partial OR full exhaustion; Recharge = only when reduced by a claim." },
+    { icon: "🎁", label: "No-Claim Bonus", body: "Lower premiums in later years for each claim-free year; may instead be given as additional bonus cover. Car NCB up to 50% after 5 claim-free years." }
+  ]);
+
+  // Concept flip deck
+  renderFlip("concept-cards", [
+    { icon: "🏠", label: "Property insurance", back: "Structure + contents vs natural & man-made disasters. Wilful destruction and normal wear & tear NOT covered. Valuables need an add-on/separate policy. Often taken with a home loan." },
+    { icon: "🏥", label: "Health insurance", back: "Indemnity — reimburses medical expenses. In-patient (24hr+), domiciliary & day-care; cashless; family floater; pre-existing exclusion period; portability carries over no-claim & waiting benefits." },
+    { icon: "🚗", label: "Motor insurance", back: "Third-party liability cover is COMPULSORY; own-damage/theft is optional. NCB up to 50% after 5 claim-free years, follows the person not the car." },
+    { icon: "🩹", label: "Personal accident", back: "Pays on bodily injury from an accident by external, violent & visible means. Covers permanent total, permanent partial and temporary total disablement." },
+    { icon: "❤️‍🩹", label: "Critical illness", back: "Defined-benefit lump sum on a specified disease + 30-day survival. No payment on death. Standalone or accelerated rider; size like a life-insurance need." },
+    { icon: "✈️", label: "Overseas travel", back: "Indemnity cover for medical/baggage/accident abroad; reimbursement up to the maximum. May be mandatory for some countries. Designed to pay outside India." },
+    { icon: "⚖️", label: "Liability insurance", back: "Indemnity for legally-payable damages to third parties (negligence or no-fault). Professional indemnity for doctors/lawyers/advisers. Excludes intentional damage & criminal acts." },
+    { icon: "🔐", label: "Fidelity insurance", back: "Covers the employer's loss from an employee's forgery, fraud or dishonesty. Taken where staff handle large cash/valuables." },
+    { icon: "👔", label: "D&O liability", back: "Covers directors/officers against personal liability & defence costs for a wrongful act in duty — shareholder claims, discrimination, regulatory investigations." },
+    { icon: "🗝️", label: "Keyman insurance", back: "A life policy the company buys on a key executive; the company is the beneficiary and pays the premiums." },
+    { icon: "🧾", label: "Contribution clause", back: "For indemnity policies. NOT applied if the claim is within the chosen policy's sum insured. Applied (split across insurers) only when the claim exceeds it." },
+    { icon: "🌍", label: "Global coverage rule", back: "Defined-benefit (life/CI/accident) pays anywhere. Indemnity (health) pays India-only — hard to ascertain foreign expenses. Overseas travel is the designed exception." }
+  ]);
+
+  // Revision deck (numbers/rules — mono fronts)
+  renderFlip("revision-cards", [
+    { icon: "1 year", label: "Non-life term", back: "Non-life policies typically run for 1 year; health and two-wheeler covers may be for 2 or 3 years." },
+    { icon: "24 hours", label: "In-patient", back: "A claim is typically allowed for in-patient treatment requiring at least overnight / 24 hours of hospital stay (plus domiciliary and many day-care procedures)." },
+    { icon: "30 days", label: "CI survival period", back: "Critical illness reimbursement is usually subject to a minimum survival of 30 days after diagnosis (comparison table: 15–30 days)." },
+    { icon: "50%", label: "Car NCB ceiling", back: "No-claim bonus on the own-damage premium rises up to 50% after 5 claim-free years; it belongs to the person, transferable to the new car, not to the sold car's buyer." },
+    { icon: "₹5L + ₹10L", label: "Base + super top-up", back: "Base ₹5L + super top-up ₹10L with ₹5L deductible = ₹15L cover cheaply. A single ₹15L policy costs only slightly more." },
+    { icon: "Top-up ₹6L", label: "Top-up payout (example)", back: "Per-claim threshold: on claims 3+6+2+4 L, base pays ₹5L and top-up only ₹1L → total ₹6L (small claims each below the ₹5L threshold pay nothing)." },
+    { icon: "Super ₹15L", label: "Super top-up payout (example)", back: "Aggregate threshold: everything above ₹5L total is paid — base ₹5L + super ₹10L = ₹15L on the same claims." },
+    { icon: "USD 2,50,000", label: "LRS limit", back: "Residents may buy foreign insurers' general policies up to USD 2,50,000 per annum under LRS; governed by the issuing country's rules & grievance mechanism." },
+    { icon: "Indemnity", label: "= actual expense", back: "Reimburses ascertained actual loss (health, property, motor own-damage). Multiple indemnity policies can't exceed the actual expense." },
+    { icon: "Defined benefit", label: "= fixed sum", back: "Pays a pre-set sum on the event (life, critical illness, accidental death/disability). All such policies pay in full regardless of how many are held." }
+  ], "mono");
+
+  // ---------- Matcher wiring ----------
+  function wireMatcher(marketsId, cardsId, feedbackId, notes) {
+    var markets = document.getElementById(marketsId),
+        cards = document.getElementById(cardsId),
+        fb = document.getElementById(feedbackId);
+    if (!markets) return;
+    markets.addEventListener("click", function (e) {
+      var b = e.target.closest(".match-mkt"); if (!b) return;
+      var reg = b.dataset.reg;
+      Array.prototype.forEach.call(markets.children, function (x) { x.classList.remove("active"); });
+      b.classList.add("active");
+      Array.prototype.forEach.call(cards.children, function (c) {
+        c.classList.toggle("correct", c.dataset.reg === reg);
+      });
+      fb.textContent = "✓ " + notes[reg];
+    });
+  }
+  wireMatcher("type-markets", "type-cards", "type-feedback", {
+    PROP: "Property — structure & contents vs disasters; wilful damage and wear & tear excluded; valuables need an add-on; usually taken with a home loan.",
+    HEALTH: "Health — indemnity reimbursement; in-patient/domiciliary/day-care; cashless, family floater, portability; pre-existing exclusion period.",
+    MOTOR: "Motor — third-party liability compulsory, own-damage optional; NCB up to 50% follows the person, not the car.",
+    PA: "Personal accident — pays on injury by external, violent & visible means; permanent total/partial and temporary total disablement.",
+    CI: "Critical illness — defined-benefit lump sum on a specified disease + 30-day survival; no payment on death.",
+    TRAVEL: "Overseas travel — indemnity cover abroad for medical/baggage/accident; may be mandatory; designed country-by-country.",
+    LIAB: "Liability — indemnity for legally-payable third-party damages; professional indemnity; excludes intentional/criminal acts.",
+    FID: "Fidelity — covers the employer's loss from employee forgery, fraud or dishonesty.",
+    DO: "D&O — covers directors/officers against personal liability & defence costs for a wrongful act in duty.",
+    KEY: "Keyman — a life policy the company buys on a key executive; company is beneficiary and pays premiums."
+  });
+
+  // ---------- Cover-or-not sorter ----------
+  (function () {
+    var statements = [
+      { text: "Fire destroys the structure and contents of an insured home.", covered: true, why: "Property insurance covers the structure and contents against natural & man-made disasters like fire." },
+      { text: "An owner deliberately sets fire to his own insured property.", covered: false, why: "Wilful destruction of property is not covered by property insurance." },
+      { text: "Gradual damage to a building from normal wear and tear.", covered: false, why: "Loss/damage due to normal wear and tear is generally not covered." },
+      { text: "Third-party bodily injury caused by an insured car in a public place.", covered: true, why: "Third-party liability is compulsorily covered under motor insurance." },
+      { text: "A professional adviser is sued for negligence and faces damages.", covered: true, why: "Liability (professional indemnity) insurance covers legal defence & damages for negligence." },
+      { text: "An investment adviser deliberately commits a criminal act causing damage.", covered: false, why: "Liability insurance does not cover intentional damage or damages from criminal activities." },
+      { text: "An employee handling cash commits fraud, causing the employer a loss.", covered: true, why: "Fidelity insurance covers the employer's loss from an employee's forgery, fraud or dishonesty." },
+      { text: "Jewellery and antiques are lost, under a standard home property policy with no add-on.", covered: false, why: "Valuables such as jewellery, art and antiques typically need an add-on or separate policy." }
+    ];
+    var i = 0, score = 0, answered = false;
+    var stEl = document.getElementById("cover-statement"),
+        fbEl = document.getElementById("cover-feedback"),
+        progEl = document.getElementById("cover-progress"),
+        scoreEl = document.getElementById("cover-score"),
+        btns = document.querySelectorAll("#cover-sorter .sorter-btns button");
+    function show() {
+      answered = false;
+      stEl.textContent = statements[i].text;
+      fbEl.textContent = ""; fbEl.className = "sorter-feedback";
+      progEl.textContent = "Statement " + (i + 1) + " of " + statements.length;
+    }
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (answered) return;
+        answered = true;
+        var pickCovered = b.dataset.answer === "covered";
+        var correct = pickCovered === statements[i].covered;
+        if (correct) { score++; fbEl.className = "sorter-feedback ok"; fbEl.textContent = "✓ " + statements[i].why; }
+        else { fbEl.className = "sorter-feedback no"; fbEl.textContent = "✕ " + statements[i].why; }
+        scoreEl.textContent = "Score: " + score;
+        setTimeout(function () {
+          i = (i + 1) % statements.length;
+          show();
+        }, 1700);
+      });
+    });
+    show();
+  })();
+
+  // ---------- Top-up vs Super Top-up simulator ----------
+  (function () {
+    var base = document.getElementById("tu-base"), limit = document.getElementById("tu-limit"), thr = document.getElementById("tu-thr");
+    var cEls = [document.getElementById("tu-c1"), document.getElementById("tu-c2"), document.getElementById("tu-c3"), document.getElementById("tu-c4")];
+    if (!base) return;
+    function calc() {
+      var B = +base.value, LIM = +limit.value, T = +thr.value;
+      var claims = cEls.map(function (x) { return +x.value; });
+      document.getElementById("tu-base-v").textContent = fmtL(B);
+      document.getElementById("tu-limit-v").textContent = fmtL(LIM);
+      document.getElementById("tu-thr-v").textContent = fmtL(T);
+      claims.forEach(function (c, k) { document.getElementById("tu-c" + (k + 1) + "-v").textContent = fmtL(c); });
+
+      // running state
+      var cum = 0, basePaid = 0, superPaid = 0;        // super/base tracked cumulatively
+      var topBaseRem = B, topRem = LIM;                 // top-up plan uses per-claim base remaining
+      var rows = "", baseTot = 0, topTot = 0, superTot = 0;
+      claims.forEach(function (c, k) {
+        // ----- Top-up plan (threshold per claim) -----
+        var basePayTop = Math.min(topBaseRem, c); topBaseRem -= basePayTop;
+        var topPay = Math.min(topRem, Math.max(0, c - T)); topRem -= topPay;
+        // ----- Super top-up plan (aggregate threshold) -----
+        cum += c;
+        var newBase = Math.min(B, cum);
+        var basePaySuper = newBase - basePaid; basePaid = newBase;
+        var newSuper = Math.min(LIM, Math.max(0, cum - T));
+        var superPay = newSuper - superPaid; superPaid = newSuper;
+
+        baseTot += basePaySuper; topTot += topPay; superTot += superPay;
+        rows += "<tr><td>#" + (k + 1) + " · " + fmtL(c) + "</td>"
+             + "<td>" + fmtL(basePaySuper) + "</td>"
+             + "<td class='sim-col-top'>" + fmtL(topPay) + "</td>"
+             + "<td class='sim-col-super'>" + fmtL(superPay) + "</td></tr>";
+      });
+      document.getElementById("tu-rows").innerHTML = rows;
+      document.getElementById("tu-base-tot").textContent = fmtL(baseTot);
+      document.getElementById("tu-top-tot").textContent = fmtL(topTot);
+      document.getElementById("tu-super-tot").textContent = fmtL(superTot);
+      document.getElementById("tu-top-grand").textContent = fmtL(baseTot + topTot);
+      document.getElementById("tu-super-grand").textContent = fmtL(baseTot + superTot);
+    }
+    [base, limit, thr].concat(cEls).forEach(function (x) { x.addEventListener("input", calc); });
+    calc();
+  })();
+
+  // ---------- Scroll reveal for global-coverage SVG ----------
+  function onReveal(sel, cb, th) {
+    var el = document.querySelector(sel); if (!el) return;
+    new IntersectionObserver(function (ents, o) {
+      ents.forEach(function (en) { if (en.isIntersecting) { cb(el); o.disconnect(); } });
+    }, { threshold: th || 0.3 }).observe(el);
+  }
+  onReveal("#glob-svg", function (root) {
+    ["glob-india", "glob-world"].forEach(function (id, i) {
+      setTimeout(function () { root.querySelector("#" + id).classList.add("go"); }, 100 + i * 180);
+    });
+    ["glob-india-t", "glob-world-t"].forEach(function (id, i) {
+      setTimeout(function () { root.querySelector("#" + id).classList.add("go"); }, 300 + i * 120);
+    });
+    [["glob-r1", "glob-l1", "glob-r1b"], ["glob-r2", "glob-l2", "glob-r2b"], ["glob-r3", "glob-l3", "glob-r3b"]].forEach(function (grp, i) {
+      setTimeout(function () {
+        grp.forEach(function (id) {
+          var e = root.querySelector("#" + id);
+          e.classList.add("go");
+        });
+      }, 650 + i * 400);
+    });
+  }, 0.25);
+
+  // ---------- Quiz ----------
+  window.NismQuiz.mount(document.getElementById("quiz-container"), {
+    questions: window.NISM_CH03_QUESTIONS,
+    onComplete: function (score, total, timeMs) {
+      window.NismProgress.recordQuizResult(BOOK_ID, CHAPTER_ID, score, total, timeMs);
+      window.NismNav.renderTopbarProgress(document.getElementById("book-progress-badge"), BOOK_ID);
+    }
+  });
+
+  window.NismNav.initAll();
+  window.NismNav.initTocScrollSpy(document.getElementById("toc-list"), ".lesson-section");
+</script>
+</body>
+</html>
