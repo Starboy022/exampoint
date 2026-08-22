@@ -158,6 +158,5 @@ Question shapes in `quiz-data.js`:
 
 ## 7. Progress status (keep current when chapters are activated)
 
-- **XA — active (`status:"active"`):** Ch.1–14 (all of Modules 1–4, plus M5 Ch.14). All built to the standard above with `index.html` + `quiz-data.js`.
-- **XA — remaining (`"coming-soon"` stubs):** Ch.15, Ch.16 (rest of M5) and Ch.17–20 (all of M6). Titles/paths already correct in `curriculum.js`; build to this standard, then flip status. **Next up: Ch.15 (Portfolio Construction Process).**
-- **XB — not started:** book is a `"coming-soon"` stub with `modules: []`; only `books/xb/index.html` exists. See §1 for the module/chapter map to scaffold.
+- **XA — COMPLETE (`status:"active"`):** Ch.1–20 (all 6 modules). Every chapter built to the standard above with `index.html` + `quiz-data.js` and activated in `curriculum.js`.
+- **XB — not started:** book is a `"coming-soon"` stub with `modules: []`; only `books/xb/index.html` exists. See §1 for the module/chapter map to scaffold. **Next up: XB Ch.1 (Basics of Insurance, Module 7).**

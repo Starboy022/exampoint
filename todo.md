@@ -3,10 +3,9 @@
 _Task tracker. Used to resume mid-stream. Keep in sync with `implementation.md`._
 
 ## In progress
-- (none — Ch.19 complete)
+- (none — Ch.20 complete → **XA is fully built: all 20 chapters active**)
 
 ## Up next (in order)
-- [ ] **XA Ch.20** — Grievance Redress Mechanism (Module 6) — last XA chapter
 - [ ] **XB** — scaffold modules 7–12 (20 chapters), fill curriculum.js `modules` array from XB front-matter, then build chapter-by-chapter.
 
 ## Done
@@ -16,6 +15,7 @@ _Task tracker. Used to resume mid-stream. Keep in sync with `implementation.md`.
 - [x] **XA Ch.17** — Operational Aspects of Investment Management (built + activated 2026-08-21; 83-question bank incl. 20 scenarios; 3 explorers + 4 tap-matchers + animated demat-flow SVG)
 - [x] **XA Ch.18** — Key Regulations (built + activated 2026-08-22; 97-question bank incl. 16 scenarios; 2 live calculators [15EB penalty, 300/₹3cr transition] + exemption explorer + 3 tap-matchers + animated regulatory-hierarchy SVG)
 - [x] **XA Ch.19** — Ethical Issues (built + activated 2026-08-22; 68-question bank incl. 18 scenarios; dilemma-resolution explorer + Do/Don't sorter + 2 tap-matchers [grievance areas, SEC Code of Ethics] + animated law→ethics→trust SVG)
+- [x] **XA Ch.20** — Grievance Redress Mechanism (built + activated 2026-08-22; 56-question bank incl. 12 scenarios; route-my-grievance explorer + "In SCORES?" sorter + 2 tap-matchers [robust-system features, forum→authority] + animated escalation-ladder SVG). **Completes XA — all 20 chapters active.**
 - [x] Created `implementation.md` and `todo.md` tracking files
 
 ## Reminders

@@ -233,7 +233,7 @@
                 title: "Grievance Redress Mechanism",
                 summary: "Grievance redress across capital markets, banking, insurance and pensions.",
                 path: p("books/xa/module-06-operations-regulatory-environment-compliance-and-ethics/chapter-20/index.html"),
-                status: "coming-soon"
+                status: "active"
               }
             ]
           }
