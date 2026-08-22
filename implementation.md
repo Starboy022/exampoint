@@ -2,7 +2,7 @@
 
 _Living document. Update after every chapter. Lets a fresh session resume exactly where the last left off._
 
-Last updated: 2026-08-22 (Ch.18 complete)
+Last updated: 2026-08-22 (Ch.19 complete)
 
 ---
 
@@ -11,7 +11,7 @@ Last updated: 2026-08-22 (Ch.18 complete)
 1. `git log --oneline -10` and `git status` to see the latest state.
 2. Read `CLAUDE.md` §7 (Progress status) + this file for the current frontier.
 3. Read the **exact chapter source `.md` in full** before building (see CLAUDE.md §1 for paths).
-4. Copy the structure of the most recently built chapter (currently **Ch.18**) — same `<head>` order, script order, `NISM_ROOT`, bootstrap pattern.
+4. Copy the structure of the most recently built chapter (currently **Ch.19**) — same `<head>` order, script order, `NISM_ROOT`, bootstrap pattern.
 5. Build `index.html` + `quiz-data.js`, then flip `status` to `"active"` in `assets/js/curriculum.js`.
 6. Update this file + `todo.md`, then commit.
 
@@ -62,7 +62,16 @@ Last updated: 2026-08-22 (Ch.18 complete)
     - Animated **regulatory-hierarchy SVG** (SCRA+SEBI Act → SEBI → PFUTP/Intermediaries/Insider Trading; draw-on-scroll + pop-in via IntersectionObserver).
     - Concept flip deck (10), revision date/threshold deck (12), IA-definitions card grid (6), 11 mini-checks.
   - Key facts wired exactly to source: SCRA 1956 (exchanges/contracts/listing); SEBI Act 1992 functions; PFUTP 2003 (fraud = act/omission to induce dealing, wrongful gain inconsequential; 5 instances); Intermediaries Regs 2008 code of conduct; Insider Trading 2015 (insider = connected person OR access to UPSI); IA Regs 2013 — investment advice incl. financial planning, excl. mass-media & trading calls; registration valid till suspended/cancelled; Reg 7 qualification (PG/NISM PGP-IA/CFA) + NISM certification; exemptions incl. NRI/PIO carve-out; 300-client/₹3-crore transition; part-time 75-client cap; deposit lien for ODR; fiduciary + 15-day own-account rule (24h revised assessment); risk profiling (no double negatives/leading questions); suitability; disclosures; 5-year records + yearly CA/CS/CMA audit; group-level advisory/distribution segregation; implementation only via direct plans (no commission/implementation fee); advance fee ≤1 year (individual & HUF non-accredited only); Third Schedule code of conduct; Investor Charter (SEBI circular 2 Jun 2025, complaint disclosure by 7th of succeeding month, don't give funds/credentials); BSE Administration & Supervision Ltd (parent exchange ≥15 yrs, ≥₹200 cr net-worth, ISCs ≥20 cities); Reg 15EB penalty (₹1 lakh min, ₹1 lakh/day, ₹1 crore cap); SEBI (IFSC) Guidelines 2015 (27 Mar 2015); PMLA 2002 Sec 3/12/12AA (5-yr records, Aadhaar EDD); SEBI AML/CFT (FATF-aligned) + KRA Regs 2011; FEMA 1999 (FPI <10%); Indian Contract Act 1872 (Sec 2(h) 'agreement enforceable by law'); Guardian & Wards Act 1890 (minor <18); NI Act 1881 (note=undertaking, bill=order, cheque=bill on banker); IBC 2016 (five parts); FATCA/CRS (KRA upload 1 Jul 2024, Form 61B); 18.9 case studies (unregistered IA; forged experience certificate → restraint + cancellation).
-- **Ch.19–20** (Module 6: Ethical Issues, Grievance Redress) — `coming-soon` stubs. **Next up: Ch.19 (Ethical Issues).**
+- **Ch.19 Ethical Issues** — ✅ built & active (this session, 2026-08-22).
+  - `index.html` + `quiz-data.js` (68 questions incl. 18 scenario-based; meta-row count set dynamically from `NISM_CH19_QUESTIONS.length`).
+  - Principles/ethics chapter (no maths) → "interactive element" requirement met by a dilemma explorer + Do/Don't sorter + 2 tap-matchers + animated SVG:
+    - **Ethical-dilemma resolution explorer** (segmented: unneeded-service / sign-up-many / personal-vs-professional-values [term vs ULIP] / underperformer-push / aggressive-to-elderly → shows the dilemma type + ethically correct resolution).
+    - **SEBI "Do or Don't?" sorter** (12 statements, self-checking with running score; advance on any button).
+    - Tap-matchers: the 6 grievance areas → workbook examples (small-cap for seniors / arbitrage-as-liquid / small-cap rally / churning / distress-debt AIF / poor aftersales); the SEC Code of Ethics 7 elements (a–g).
+    - Animated **law→ethics→trust SVG** (legal floor → ethics above → trust crown, "years to build, moments to lose"; rise/draw/pop via IntersectionObserver).
+    - Fiduciary-obligation card grid (6), concept flip deck (9), key-terms revision deck (12), 8 mini-checks.
+  - Key facts wired exactly to source: ethics = moral principles guiding behaviour affecting others, from Greek 'ethos' (custom/habit/character); fundamental principles honesty/fairness/diligence/care/respect; law is only the floor, ethics goes a step beyond; Client First = no conflict of interest; trust "years to build, moments to lose"; Zig Ziglar quote; 6 grievance areas with examples; ethical dilemma = two alternatives neither superior; pure dilemma = both violate a principle; personal-vs-professional values (term vs ULIP/whole-life); resolution via deeper analysis / most-good-or-least-damage / reframing; finfluencers & justification imperative; fiduciary = act in best interest, uberrimae fidei (utmost good faith), no profit at client's cost, full disclosure (incl. perceived conflicts), suitable advice, reasonable/objective basis, proper execution; SEBI Do's (10) & Don'ts (9) — pay only advisory fees via banking channels, risk profiling, written signed/stamped T&C, don't give money to IA, don't fall for assured returns/gifts/follower counts; yearly compliance audit by a Practising CA, disclose material observations; SEC (US) — disclose financial condition + disciplinary events within 10 years, written code of ethics (7 elements a–g incl. IPO/limited-offering pre-approval, quarterly personal-trade reports to CCO); Australia — competence/honesty/integrity/fairness, bans/disqualification, Section 961B Corporations Act 2001 'best interests' standard.
+- **Ch.20** (Module 6: Grievance Redress Mechanism) — `coming-soon` stub. **Next up: Ch.20 (Grievance Redress Mechanism) — the final XA chapter.**
 
 ### XB — Investment Adviser Level 2 (20 chapters, modules 7–12)
 - Not started. Book is a `coming-soon` stub with `modules: []`; only `books/xb/index.html` exists.
@@ -76,6 +85,6 @@ Last updated: 2026-08-22 (Ch.18 complete)
 - Verification note: dev server / browser preview cannot be launched in unattended scheduled-task runs. Ch.15 was validated statically (structure copied from Ch.14, question bank counts checked). **When resuming interactively, serve on localhost (README, port 8877) and click through Ch.15 to confirm quiz mount, matchers, calculators and scrollspy before moving on.**
 
 ## Next steps
-1. Build **Ch.19** (Ethical Issues) — Module 6. Read `chapter-19-*.md` in full first; fiduciary duty, ethical dilemmas and global best practices. Fact/principle-heavy → use tap-to-match / animated widgets / decision-tree explorers for the "interactive element".
-2. Then **Ch.20** (Grievance Redress Mechanism) — the last XA chapter (grievance redress across capital markets, banking, insurance, pensions; SCORES, ODR, ombudsman).
-3. Then scaffold and build XB (modules 7–12).
+1. Build **Ch.20** (Grievance Redress Mechanism) — the **last XA chapter**. Read `chapter-20-*.md` in full first; grievance redress across capital markets, banking, insurance and pensions (likely SCORES, Online Dispute Resolution/ODR, ombudsman schemes, SEBI/RBI/IRDAI/PFRDA channels). Process-heavy → use decision-tree/route explorers, animated escalation-flow SVG, tap-matchers for the "interactive element".
+2. After Ch.20, XA (all 20 chapters) is complete — update CLAUDE.md §7 progress status.
+3. Then scaffold and build XB (modules 7–12): create module folders `module-07-...`…`module-12-...`, chapter folders `chapter-01`…`chapter-20`, fill the XB `modules` array in curriculum.js from XB `00-front-matter.md`, and build chapter-by-chapter.

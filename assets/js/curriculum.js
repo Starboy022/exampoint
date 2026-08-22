@@ -225,7 +225,7 @@
                 title: "Ethical Issues",
                 summary: "Fiduciary duty, ethical dilemmas and global best practices.",
                 path: p("books/xa/module-06-operations-regulatory-environment-compliance-and-ethics/chapter-19/index.html"),
-                status: "coming-soon"
+                status: "active"
               },
               {
                 id: "ch20",
